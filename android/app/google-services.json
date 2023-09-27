@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605235329516",
+    "project_id": "timeslot-6b4dc",
+    "storage_bucket": "timeslot-6b4dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605235329516:android:2c8e0a05ab2a55935468c9",
+        "android_client_info": {
+          "package_name": "com.uzmobdev.time_slot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKJP0QOYtTWaNrNaqTzrrljMmMF7D8FDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
