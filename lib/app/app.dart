@@ -1,3 +1,4 @@
+import 'package:time_slot/ui/user/main/bloc/page_controller_bloc/page_controller_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -5,7 +6,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MyApp();
+    return MultiBlocProvider(
+        providers: [BlocProvider(create: (context) => PageControllerBloc())],
+        child: MyApp());
   }
 }
 
