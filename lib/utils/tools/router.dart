@@ -2,6 +2,7 @@ import 'file_importers.dart';
 
 abstract class RouteName {
   static const splash = 'splash';
+  static const userMain = '/userMain';
 }
 
 class AppRoutes {

@@ -42,6 +42,11 @@ dependencies:
   adaptive_theme: ^3.4.0
   get: ^4.6.6
   get_it: ^7.6.4
+  email_validator: ^2.1.17
+  equatable: ^2.0.5
+  zoom_tap_animation: ^1.1.0
+  firebase_auth: ^4.10.0
+  cloud_firestore: ^4.9.2
 
 dev_dependencies:
   flutter_test:
