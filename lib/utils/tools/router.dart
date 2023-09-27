@@ -1,4 +1,4 @@
-import 'package:time_slot/ui/authorization/presentation/authorization_page.dart';
+import 'package:time_slot/ui/authorization/ui/authorization_page.dart';
 
 import 'file_importers.dart';
 

@@ -7,8 +7,7 @@ class AppTranslations extends Translations {
           "password_invalid":
               "Parolning uzunligi eng kamida \n8 ta belgidan iborat bo'lishi shart!",
           "email_not_valid": "Elektron pochta xato kiritildi!",
-          "surname_not_valid":
-              "Familiyada eng kamida 4 ta \nbelgi bo'lishi lozim",
+          "referall_not_valid": "Referallni kiritish lozim!",
           "name_not_valid": "Ismda eng kamida 4 ta \nbelgi bo'lishi lozim",
           "sign_up": "Ro'yxatdan o'tish",
           "login": "Kirish",
@@ -19,13 +18,15 @@ class AppTranslations extends Translations {
           "create_account": "Shaxsiy hisob oching, bu tekin ;) ",
           "login_to_your_account": "Shaxsiy hisobga kirish",
           "name": "Ism",
-          "surname": "Familiya"
+          "surname": "Familiya",
+          "Already have an account?": "Allaqachon shaxsiy hisobingiz bormi? ",
+          "Login": "Kirish"
         },
         "en_En": {
           "password_invalid":
               "The password must contain at least \n8 characters!",
           "email_not_valid": "E-mail entered incorrectly!",
-          "surname_not_valid": "Last name must contain \nat least 4 characters",
+          "referall_not_valid": "You need to enter your referall!",
           "name_not_valid": "Name must contain at \nleast 4 characters",
           "sign_up": "Sign Up",
           "login": "Login",

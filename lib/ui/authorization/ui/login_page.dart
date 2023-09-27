@@ -44,7 +44,9 @@ class LoginPage extends StatelessWidget {
                           Text(
                             "login".tr,
                             style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepPurple),
                           ),
                           const SizedBox(
                             height: 20,
@@ -89,7 +91,7 @@ class LoginPage extends StatelessWidget {
                                       email: email.text.trim(),
                                       password: password.text.trim())));
                             },
-                            color: const Color(0xff0095FF),
+                            color: Colors.deepPurple,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
@@ -118,9 +120,9 @@ class LoginPage extends StatelessWidget {
                             child: Text(
                               "sign_up".tr,
                               style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                              ),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  color: Colors.deepPurple),
                             ),
                           )
                         ],
@@ -163,12 +165,13 @@ Widget inputFile({label, controller, obscureText = false}) {
         obscureText: obscureText,
         controller: controller,
         decoration: InputDecoration(
+            focusColor: Colors.deepPurple,
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.h),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.deepPurple),
             ),
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400))),
+            border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepPurple))),
       ),
       const SizedBox(
         height: 10,

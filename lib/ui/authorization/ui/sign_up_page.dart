@@ -5,8 +5,7 @@ class SignupPage extends StatelessWidget {
 
   SignupPage({super.key, required this.onTap});
 
-  TextEditingController name = TextEditingController();
-  TextEditingController surname = TextEditingController();
+  TextEditingController referellId = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
@@ -46,6 +45,7 @@ class SignupPage extends StatelessWidget {
                           "sign_up".tr,
                           style: const TextStyle(
                             fontSize: 30,
+                            color: Colors.deepPurple,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -61,13 +61,12 @@ class SignupPage extends StatelessWidget {
                     ),
                     Column(
                       children: <Widget>[
-                        inputFile(label: "name".tr, controller: name),
-                        inputFile(label: "surname".tr, controller: surname),
                         inputFile(label: "email".tr, controller: email),
                         inputFile(
                             label: "password".tr,
                             obscureText: true,
                             controller: password),
+                        inputFile(label: "Referall".tr, controller: referellId),
                       ],
                     ),
                     Container(
@@ -89,11 +88,10 @@ class SignupPage extends StatelessWidget {
                               .add(CreateAccountEvent(UserModel(
                                 password: password.text.trim(),
                                 email: email.text.trim(),
-                                name: name.text.trim(),
-                                surname: surname.text.trim(),
+                                referallId: referellId.text.trim(),
                               )));
                         },
-                        color: const Color(0xff0095FF),
+                        color: Colors.deepPurple,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
@@ -114,13 +112,15 @@ class SignupPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text("Already have an account?"),
+                        Text("Already have an account?".tr),
                         OnTap(
                           onTap: onTap,
-                          child: const Text(
-                            " Login",
+                          child: Text(
+                            "Login".tr,
                             style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 18),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.deepPurple),
                           ),
                         )
                       ],
@@ -155,8 +155,8 @@ Widget inputFile({label, obscureText = false, controller}) {
         decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.deepPurple),
             ),
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade400))),

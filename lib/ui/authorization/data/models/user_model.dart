@@ -1,25 +1,19 @@
 class UserModel {
   final String email;
   final String password;
-  String name;
-  String surname;
+  final String referallId;
   String fcmToken;
-  List interviews;
 
   UserModel(
       {required this.email,
       required this.password,
       this.fcmToken = '',
-      this.surname = '',
-      this.name = '',
-      this.interviews = const []});
+      this.referallId = ''});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       fcmToken: json["fcmToken"] ?? '',
-      interviews: json['interviews'] ?? [],
-      name: json["name"] ?? '',
-      surname: json["surname"] ?? '',
+      referallId: json["referallId"] ?? '',
       email: json["email"] ?? '',
       password: json["password"] ?? '',
     );
@@ -29,8 +23,6 @@ class UserModel {
         "email": email,
         "password": password,
         "fcmToken": fcmToken,
-        "interviews": interviews,
-        "name": name,
-        "surname": surname,
+        "referallId": referallId,
       };
 }

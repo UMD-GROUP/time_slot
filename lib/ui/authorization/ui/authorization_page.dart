@@ -1,5 +1,5 @@
-import 'package:time_slot/ui/authorization/presentation/login_page.dart';
-import 'package:time_slot/ui/authorization/presentation/sign_up_page.dart';
+import 'package:time_slot/ui/authorization/ui/login_page.dart';
+import 'package:time_slot/ui/authorization/ui/sign_up_page.dart';
 
 import '../../../utils/tools/file_importers.dart';
 
