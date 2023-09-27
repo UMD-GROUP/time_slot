@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         return AdaptiveTheme(
           builder: (light, dark) => GetMaterialApp(
             translations: AppTranslations(),
-            // locale: const Locale("uz", "UZ"),
+            locale: const Locale("uz", "UZ"),
 
             // locale: Locale(
             //     getIt<SettingsRepository>().getLanguage() == "ru" ? "ru" : "uz",
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: AppRoutes.generateRoute,
             debugShowCheckedModeBanner: false,
             // home: Material(child: EnterInfoPage()),
-            title: "Favvora",
+            title: "TimeSlot",
           ),
           light: AppTheme.light,
           initial: AdaptiveThemeMode.light,

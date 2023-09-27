@@ -1,8 +1,11 @@
+import 'package:time_slot/ui/authorization/presentation/authorization_page.dart';
+
 import 'file_importers.dart';
 
 abstract class RouteName {
   static const splash = 'splash';
   static const userMain = '/userMain';
+  static const authorization = '/authorization';
 }
 
 class AppRoutes {
@@ -11,6 +14,8 @@ class AppRoutes {
     switch (settings.name) {
       case RouteName.splash:
         return MaterialPageRoute(builder: (_) => const SplashPage());
+      case RouteName.authorization:
+        return MaterialPageRoute(builder: (_) => const AuthorizationPage());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }
