@@ -7,7 +7,7 @@ class OrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Orders Page"),
+        title: const Text("Orders Page"),
       ),
     );
   }
