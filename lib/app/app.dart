@@ -7,7 +7,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [BlocProvider(create: (context) => PageControllerBloc())],
+        providers: [
+          BlocProvider(create: (context) => PageControllerBloc()),
+          BlocProvider(create: (context) => AdvertisementBloc()),
+        ],
         child: MyApp());
   }
 }

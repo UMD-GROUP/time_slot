@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrdersPage extends StatelessWidget {
   const OrdersPage({super.key});
@@ -6,9 +6,15 @@ class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Orders Page"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("Orders Page"),
+      // ),
+      body: Column(
+        children: [
+          SizedBox(height: height(context)*0.07,),
+          BannerCard(),
+        ],
+      )
     );
   }
 }
