@@ -13,11 +13,16 @@ class _SplashPageState extends State<SplashPage> {
     FirebaseAuth auth = FirebaseAuth.instance;
     dynamic user = auth.currentUser;
     print(user);
-    Future.delayed(const Duration(seconds: 3)).then((value) =>
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      if (user != null) {
+        context.read<UserBloc>().add(GetUserDataEvent(auth.currentUser!.uid));
         Navigator.pushNamedAndRemoveUntil(
-            context,
-            user == null ? RouteName.authorization : RouteName.userMain,
-            (route) => false));
+            context, RouteName.userMain, (route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouteName.authorization, (route) => false);
+      }
+    });
 
     super.initState();
   }

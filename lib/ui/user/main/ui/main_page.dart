@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_slot/ui/user/account/ui/account_page.dart';
 import 'package:time_slot/ui/user/main/bloc/page_controller_bloc/page_controller_bloc.dart';
 import 'package:time_slot/ui/user/membership/ui/membership_page.dart';
-import 'package:time_slot/ui/user/orders/ui/ordersPage.dart';
+import 'package:time_slot/ui/user/orders/ui/orders_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
