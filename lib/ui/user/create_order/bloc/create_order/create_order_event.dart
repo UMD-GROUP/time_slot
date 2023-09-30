@@ -7,3 +7,8 @@ class UpdateFieldsOrderEvent extends CreateOrderEvent {
   UpdateFieldsOrderEvent(this.order);
   OrderModel order;
 }
+
+class AddOrderEvent extends CreateOrderEvent {
+  AddOrderEvent(this.order);
+  OrderModel order;
+}

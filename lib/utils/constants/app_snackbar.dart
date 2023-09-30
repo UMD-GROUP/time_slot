@@ -20,7 +20,7 @@ class AppSnackBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(icon, width: width(context) * 0.2),
+              Icon(Icons.add_chart_sharp, color: color),
               // Icon(Icons.error, color: Colors.red),
               Container(
                 height: height(context) * 0.05,
