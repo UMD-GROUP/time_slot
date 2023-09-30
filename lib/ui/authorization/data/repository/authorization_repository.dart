@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_catches_without_on_clauses
+
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AuthorizationRepository {
@@ -6,17 +8,18 @@ class AuthorizationRepository {
   FirebaseAuth getAuthInstance() => auth ?? FirebaseAuth.instance;
 
   Future<MyResponse> signIn(UserModel user) async {
-    MyResponse myResponse = MyResponse();
-    FirebaseAuth authInstance = getAuthInstance();
+    final MyResponse myResponse = MyResponse();
+    final FirebaseAuth authInstance = getAuthInstance();
     try {
-      UserCredential result = await authInstance.signInWithEmailAndPassword(
-          email: user.email, password: user.password);
+      final UserCredential result =
+          await authInstance.signInWithEmailAndPassword(
+              email: user.email, password: user.password);
     } catch (e) {
       if (e is FirebaseAuthException) {
-        if (e.code == "user-not-found") {
-          myResponse.message = "Kiritilgan hisob mavjud emas!";
-        } else if (e.code == "wrong-password") {
-          myResponse.message = "Parol xato kiritildi!";
+        if (e.code == 'user-not-found') {
+          myResponse.message = 'Kiritilgan hisob mavjud emas!';
+        } else if (e.code == 'wrong-password') {
+          myResponse.message = 'Parol xato kiritildi!';
         } else {
           myResponse.message =
               "Server bilan muammo mavjud.\nIltimos keyinroq urinib ko'ring!";
@@ -30,34 +33,35 @@ class AuthorizationRepository {
   }
 
   Future<MyResponse> createAnAccount(UserModel user) async {
-    MyResponse myResponse = MyResponse();
-    FirebaseAuth authInstance = getAuthInstance();
+    final MyResponse myResponse = MyResponse();
+    final FirebaseAuth authInstance = getAuthInstance();
     try {
-      FirebaseFirestore instance = FirebaseFirestore.instance;
-      QuerySnapshot<Map<String, dynamic>> tokens =
-          await instance.collection("referalls").get();
-      List referalls = tokens.docs.first.data()["referalls"] ?? [];
+      final FirebaseFirestore instance = FirebaseFirestore.instance;
+      final QuerySnapshot<Map<String, dynamic>> tokens =
+          await instance.collection('referalls').get();
+      final List referalls = tokens.docs.first.data()['referalls'] ?? [];
       if (referalls.contains(user.referallId)) {
-        UserCredential result =
+        final UserCredential result =
             await authInstance.createUserWithEmailAndPassword(
                 email: user.email, password: user.password);
         user.uid = result.user!.uid;
 
         await instance
-            .collection("users")
+            .collection('users')
             .doc(result.user!.uid)
             .set(user.toJson());
 
         referalls.add(user.token);
         await instance
             .collection('referalls')
-            .doc("data")
-            .update({"referalls": referalls});
+            .doc('data')
+            .update({'referalls': referalls});
       } else {
-        myResponse.message = "Siz kiritgan referall\nmavjud emas!";
+        myResponse.message = 'Siz kiritgan referall\nmavjud emas!';
       }
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      print("MAnA error $e");
+      print('MAnA error $e');
       myResponse.message =
           "Server bilan muammo mavjud.\nIltimos keyinroq urinib ko'ring!";
     }

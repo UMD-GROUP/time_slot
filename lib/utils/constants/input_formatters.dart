@@ -7,10 +7,10 @@ class MyTextInputFormatter extends FilteringTextInputFormatter {
 class NoNumberInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
-    final filteredValue = newValue.text.replaceAll(RegExp(r'[0-9]'), '');
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final filteredValue = newValue.text.replaceAll(RegExp('[0-9]'), '');
 
     return newValue.copyWith(
       text: filteredValue,

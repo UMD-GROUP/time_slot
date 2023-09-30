@@ -1,31 +1,30 @@
+// ignore_for_file: type_annotate_public_apis
+
 import '../../../utils/tools/file_importers.dart';
 
 class LoginPage extends StatelessWidget {
+  LoginPage({super.key, required this.onTap, required this.controllers});
   VoidCallback onTap;
   List controllers;
 
-  LoginPage({super.key, required this.onTap, required this.controllers});
-
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthorizationBloc(),
-      child: BlocConsumer<AuthorizationBloc, AuthorizationState>(
-        listener: (context, state) {
-          if (state.status == ResponseStatus.inFail) {
-            AnimatedSnackBar(
-                duration: const Duration(seconds: 4),
-                snackBarStrategy: RemoveSnackBarStrategy(),
-                builder: (context) =>
-                    AppErrorSnackBar(text: state.message.tr)).show(context);
-          }
-          if (state.status == ResponseStatus.inSuccess) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, RouteName.userMain, (route) => false);
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => AuthorizationBloc(),
+        child: BlocConsumer<AuthorizationBloc, AuthorizationState>(
+          listener: (context, state) {
+            if (state.status == ResponseStatus.inFail) {
+              AnimatedSnackBar(
+                  duration: const Duration(seconds: 4),
+                  snackBarStrategy: RemoveSnackBarStrategy(),
+                  builder: (context) =>
+                      AppErrorSnackBar(text: state.message.tr)).show(context);
+            }
+            if (state.status == ResponseStatus.inSuccess) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, RouteName.userMain, (route) => false);
+            }
+          },
+          builder: (context, state) => Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.white,
             body: SizedBox(
@@ -41,7 +40,7 @@ class LoginPage extends StatelessWidget {
                       Column(
                         children: <Widget>[
                           Text(
-                            "login".tr,
+                            'login'.tr,
                             style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -51,7 +50,7 @@ class LoginPage extends StatelessWidget {
                             height: 20,
                           ),
                           Text(
-                            "login_to_your_account".tr,
+                            'login_to_your_account'.tr,
                             style: TextStyle(
                                 fontSize: 15, color: Colors.grey[700]),
                           )
@@ -62,9 +61,9 @@ class LoginPage extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             inputFile(
-                                label: "email".tr, controller: controllers[0]),
+                                label: 'email'.tr, controller: controllers[0]),
                             inputFile(
-                                label: "password".tr,
+                                label: 'password'.tr,
                                 obscureText: true,
                                 controller: controllers[1])
                           ],
@@ -77,10 +76,10 @@ class LoginPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               border: const Border(
-                                bottom: BorderSide(color: Colors.black),
-                                top: BorderSide(color: Colors.black),
-                                left: BorderSide(color: Colors.black),
-                                right: BorderSide(color: Colors.black),
+                                bottom: BorderSide(),
+                                top: BorderSide(),
+                                left: BorderSide(),
+                                right: BorderSide(),
                               )),
                           child: MaterialButton(
                             minWidth: double.infinity,
@@ -101,7 +100,7 @@ class LoginPage extends StatelessWidget {
                                     color: Colors.white,
                                   )
                                 : Text(
-                                    "login".tr,
+                                    'login'.tr,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18,
@@ -114,11 +113,11 @@ class LoginPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("do_not_have_an_account".tr),
+                          Text('do_not_have_an_account'.tr),
                           OnTap(
                             onTap: onTap,
                             child: Text(
-                              "sign_up".tr,
+                              'sign_up'.tr,
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
@@ -141,41 +140,37 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        },
-      ),
-    );
-  }
+          ),
+        ),
+      );
 }
 
 // we will be creating a widget for text field
-Widget inputFile({label, controller, obscureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: const TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-      ),
-      const SizedBox(
-        height: 5,
-      ),
-      TextField(
-        obscureText: obscureText,
-        controller: controller,
-        decoration: InputDecoration(
-            focusColor: Colors.deepPurple,
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.h),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.deepPurple),
-            ),
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.deepPurple))),
-      ),
-      const SizedBox(
-        height: 10,
-      )
-    ],
-  );
-}
+Widget inputFile({label, controller, obscureText = false}) => Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          label,
+          style: const TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        TextField(
+          obscureText: obscureText,
+          controller: controller,
+          decoration: InputDecoration(
+              focusColor: Colors.deepPurple,
+              contentPadding: EdgeInsets.symmetric(horizontal: 10.h),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepPurple),
+              ),
+              border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepPurple))),
+        ),
+        const SizedBox(
+          height: 10,
+        )
+      ],
+    );

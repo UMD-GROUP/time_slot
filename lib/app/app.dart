@@ -1,15 +1,15 @@
+// ignore_for_file: prefer_expression_function_bodies
+
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (context) => PageControllerBloc()),
-      BlocProvider(create: (context) => UserBloc()),
-    ], child: MyApp());
-  }
+  Widget build(BuildContext context) => MultiBlocProvider(providers: [
+        BlocProvider(create: (context) => PageControllerBloc()),
+        BlocProvider(create: (context) => UserBloc()),
+      ], child: const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,28 +22,26 @@ class MyApp extends StatelessWidget {
       designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (BuildContext context, Widget? child) {
-        return AdaptiveTheme(
-          builder: (light, dark) => GetMaterialApp(
-            translations: AppTranslations(),
-            locale: const Locale("uz", "UZ"),
+      builder: (BuildContext context, Widget? child) => AdaptiveTheme(
+        builder: (light, dark) => GetMaterialApp(
+          translations: AppTranslations(),
+          locale: const Locale('uz', 'UZ'),
 
-            // locale: Locale(
-            //     getIt<SettingsRepository>().getLanguage() == "ru" ? "ru" : "uz",
-            //     getIt<SettingsRepository>().getLanguage() == "ru"
-            //         ? "RU"
-            //         : "UZ"),
-            initialRoute: RouteName.splash,
-            onGenerateRoute: AppRoutes.generateRoute,
-            debugShowCheckedModeBanner: false,
-            // home: Material(child: EnterInfoPage()),
-            title: "TimeSlot",
-          ),
-          light: AppTheme.light,
-          initial: AdaptiveThemeMode.light,
-          dark: AppTheme.dark,
-        );
-      },
+          // locale: Locale(
+          //     getIt<SettingsRepository>().getLanguage() == "ru" ? "ru" : "uz",
+          //     getIt<SettingsRepository>().getLanguage() == "ru"
+          //         ? "RU"
+          //         : "UZ"),
+          initialRoute: RouteName.authorization,
+          onGenerateRoute: AppRoutes.generateRoute,
+          debugShowCheckedModeBanner: false,
+          // home: Material(child: EnterInfoPage()),
+          title: 'TimeSlot',
+        ),
+        light: AppTheme.light,
+        initial: AdaptiveThemeMode.light,
+        dark: AppTheme.dark,
+      ),
     );
   }
 }

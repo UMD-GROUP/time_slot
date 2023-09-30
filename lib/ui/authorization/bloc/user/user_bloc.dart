@@ -8,9 +8,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<GetUserDataEvent>(getUserData);
   }
 
-  getUserData(GetUserDataEvent event, emit) async {
+  Future<void> getUserData(GetUserDataEvent event, Emitter emit) async {
     emit(state.copyWith(responseStatus: ResponseStatus.inProgress));
-    MyResponse myResponse =
+    final MyResponse myResponse =
         await getIt<UserRepository>().getUserData(event.uid);
     if (myResponse.message.isNull) {
       emit(state.copyWith(

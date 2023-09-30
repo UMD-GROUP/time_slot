@@ -10,29 +10,31 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List pages = [OrdersPage(), MembershipPage(), AccountPage()];
+    final List pages = [
+      const OrdersPage(),
+      const MembershipPage(),
+      const AccountPage()
+    ];
 
     return BlocBuilder<PageControllerBloc, PageControllerState>(
-      builder: (context, state) {
-        return Scaffold(
-          body: pages[state.currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (value) {
-              context
-                  .read<PageControllerBloc>()
-                  .add(ChangeCurrentPageEvent(value));
-            },
-            currentIndex: state.currentIndex,
-            selectedItemColor: Colors.deepPurple,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.monetization_on), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-            ],
-          ),
-        );
-      },
+      builder: (context, state) => Scaffold(
+        body: pages[state.currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (value) {
+            context
+                .read<PageControllerBloc>()
+                .add(ChangeCurrentPageEvent(value));
+          },
+          currentIndex: state.currentIndex,
+          selectedItemColor: Colors.deepPurple,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.monetization_on), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 part 'authorization_event.dart';
@@ -10,7 +12,7 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
     on<CreateAccountEvent>(createAccount);
   }
 
-  signIn(SignInEvent event, emit) async {
+  Future<void> signIn(SignInEvent event, Emitter emit) async {
     if (EmailValidator.validate(event.user.email) &&
         event.user.password.length > 7) {
       MyResponse myResponse = MyResponse();
@@ -26,19 +28,19 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
       emit(state.copyWith(
           status: ResponseStatus.inFail,
           message: !EmailValidator.validate(event.user.email)
-              ? "email_not_valid".tr
-              : "password_invalid".tr));
+              ? 'email_not_valid'.tr
+              : 'password_invalid'.tr));
     }
     emit(state.copyWith(status: ResponseStatus.pure));
   }
 
-  createAccount(CreateAccountEvent event, emit) async {
+  Future<void> createAccount(CreateAccountEvent event, Emitter emit) async {
     if (EmailValidator.validate(event.user.email) &&
         event.user.password.length > 7 &&
         event.user.referallId.isNotEmpty) {
       MyResponse myResponse = MyResponse();
       emit(state.copyWith(status: ResponseStatus.inProgress));
-      UserModel user = event.user;
+      final UserModel user = event.user;
       user.token = generateToken();
       myResponse = await getIt<AuthorizationRepository>().createAnAccount(user);
       if (myResponse.message.isNull) {
@@ -52,10 +54,10 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
       emit(state.copyWith(
           status: ResponseStatus.inFail,
           message: event.user.referallId.isEmpty
-              ? "referall_not_valid"
+              ? 'referall_not_valid'
               : !EmailValidator.validate(event.user.email)
-                  ? "email_not_valid".tr
-                  : "password_invalid".tr));
+                  ? 'email_not_valid'.tr
+                  : 'password_invalid'.tr));
     }
     emit(state.copyWith(status: ResponseStatus.pure));
   }

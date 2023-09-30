@@ -4,8 +4,7 @@ part of 'validator_bloc.dart';
 abstract class ValidatorEvent {}
 
 class ValidateEvent extends ValidatorEvent {
+  ValidateEvent({this.email, this.password});
   String? email;
   String? password;
-
-  ValidateEvent({this.email, this.password});
 }
