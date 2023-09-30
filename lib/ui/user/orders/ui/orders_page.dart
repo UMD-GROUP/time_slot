@@ -18,6 +18,10 @@ class OrdersPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            if (context.read<UserBloc>().state.user == null) {
+              context.read<UserBloc>().add(
+                  GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
+            }
             if (canNavigate(context, context.read<UserBloc>().state.user)) {
               Navigator.pushNamed(context, RouteName.createOrder);
             }
