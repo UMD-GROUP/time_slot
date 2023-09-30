@@ -5,16 +5,11 @@ class OrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Orders Page"),
-      // ),
-      body: Column(
+    return Column(
         children: [
           SizedBox(height: height(context)*0.07,),
           BannerCard(),
         ],
-      )
     );
   }
 }
