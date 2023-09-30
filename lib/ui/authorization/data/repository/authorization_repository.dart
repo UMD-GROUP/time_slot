@@ -41,10 +41,12 @@ class AuthorizationRepository {
         UserCredential result =
             await authInstance.createUserWithEmailAndPassword(
                 email: user.email, password: user.password);
+        user.uid = result.user!.uid;
 
-        DocumentReference doc =
-            await instance.collection("users").add(user.toJson());
-        doc.update({"docId": doc.id});
+        await instance
+            .collection("users")
+            .doc(result.user!.uid)
+            .set(user.toJson());
 
         referalls.add(user.token);
         await instance
