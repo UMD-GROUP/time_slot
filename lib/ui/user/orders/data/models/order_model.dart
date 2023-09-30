@@ -2,16 +2,16 @@ import 'package:time_slot/utils/constants/form_status.dart';
 
 class OrderModel {
   OrderModel({
-    required this.referallId,
-    required this.ownerId,
+    this.referallId = '',
+    this.ownerId = '',
     this.adminPhoto = '',
-    required this.orderId,
-    required this.productCount,
-    required this.sum,
-    required this.marketName,
+    this.orderId = 0,
+    this.productCount = 0,
+    this.sum = 0,
+    this.marketName = '',
     required this.dates,
-    required this.userPhoto,
-    required this.status,
+    this.userPhoto = '',
+    this.status = OrderStatus.created,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
@@ -26,10 +26,10 @@ class OrderModel {
         userPhoto: json['userPhoto'] ?? '',
         status: OrderStatus.values[json['status'] as int],
       );
-  final String ownerId;
-  final String referallId;
-  final int orderId;
-  final int productCount;
+  String ownerId;
+  String referallId;
+  int orderId;
+  int productCount;
   num sum;
   String marketName;
   List<dynamic> dates;
@@ -49,4 +49,29 @@ class OrderModel {
         'userPhoto': userPhoto,
         'status': status.index, // Store the enum as its index
       };
+
+  OrderModel copyWith({
+    String? newReferallId,
+    String? newOwnerId,
+    String? newAdminPhoto,
+    int? newOrderId,
+    int? newProductCount,
+    num? newSum,
+    String? newMarketName,
+    List<dynamic>? newDates,
+    String? newUserPhoto,
+    OrderStatus? newStatus,
+  }) =>
+      OrderModel(
+        referallId: newReferallId ?? referallId,
+        ownerId: newOwnerId ?? ownerId,
+        adminPhoto: newAdminPhoto ?? adminPhoto,
+        orderId: newOrderId ?? orderId,
+        productCount: newProductCount ?? productCount,
+        sum: newSum ?? sum,
+        marketName: newMarketName ?? marketName,
+        dates: newDates ?? dates,
+        userPhoto: newUserPhoto ?? userPhoto,
+        status: newStatus ?? status,
+      );
 }

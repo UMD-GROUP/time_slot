@@ -18,3 +18,47 @@ class NoNumberInputFormatter extends TextInputFormatter {
     );
   }
 }
+
+class ThreeDigitInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    // Remove any characters that are not digits (0-9)
+    final newText = newValue.text.replaceAll(RegExp('[^0-9]'), '');
+
+    // Limit the input to a maximum of 4 digits
+    if (newText.length > 3) {
+      return oldValue;
+    }
+
+    // Return the formatted input
+    return TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}
+
+class SevenDigitInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    // Remove any characters that are not digits (0-9)
+    final newText = newValue.text.replaceAll(RegExp('[^0-9]'), '');
+
+    // Limit the input to a maximum of 4 digits
+    if (newText.length > 7) {
+      return oldValue;
+    }
+
+    // Return the formatted input
+    return TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}

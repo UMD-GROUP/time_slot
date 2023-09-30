@@ -47,6 +47,11 @@ dependencies:
   zoom_tap_animation: ^1.1.0
   firebase_auth: ^4.10.0
   cloud_firestore: ^4.9.2
+  calendar_date_picker2: ^0.5.3
+  image_picker: ^1.0.4
+  carousel_slider: ^4.2.1
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:
