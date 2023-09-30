@@ -4,6 +4,6 @@ part of 'page_controller_bloc.dart';
 abstract class PageControllerEvent {}
 
 class ChangeCurrentPageEvent extends PageControllerEvent {
-  int index;
   ChangeCurrentPageEvent(this.index);
+  int index;
 }

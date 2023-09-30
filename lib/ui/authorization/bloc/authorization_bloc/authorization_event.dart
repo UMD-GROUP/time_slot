@@ -4,11 +4,11 @@ part of 'authorization_bloc.dart';
 abstract class AuthorizationEvent {}
 
 class SignInEvent extends AuthorizationEvent {
-  UserModel user;
   SignInEvent(this.user);
+  UserModel user;
 }
 
 class CreateAccountEvent extends AuthorizationEvent {
-  UserModel user;
   CreateAccountEvent(this.user);
+  UserModel user;
 }

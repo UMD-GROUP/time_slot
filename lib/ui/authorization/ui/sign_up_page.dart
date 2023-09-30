@@ -1,31 +1,30 @@
+// ignore_for_file: type_annotate_public_apis
+
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class SignupPage extends StatelessWidget {
+  SignupPage({required this.controllers, super.key, required this.onTap});
   VoidCallback onTap;
   List controllers;
 
-  SignupPage({required this.controllers, super.key, required this.onTap});
-
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthorizationBloc(),
-      child: BlocConsumer<AuthorizationBloc, AuthorizationState>(
-        listener: (context, state) {
-          if (state.status == ResponseStatus.inFail) {
-            AnimatedSnackBar(
-                duration: const Duration(seconds: 4),
-                snackBarStrategy: RemoveSnackBarStrategy(),
-                builder: (context) =>
-                    AppErrorSnackBar(text: state.message.tr)).show(context);
-          }
-          if (state.status == ResponseStatus.inSuccess) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, RouteName.userMain, (route) => false);
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => AuthorizationBloc(),
+        child: BlocConsumer<AuthorizationBloc, AuthorizationState>(
+          listener: (context, state) {
+            if (state.status == ResponseStatus.inFail) {
+              AnimatedSnackBar(
+                  duration: const Duration(seconds: 4),
+                  snackBarStrategy: RemoveSnackBarStrategy(),
+                  builder: (context) =>
+                      AppErrorSnackBar(text: state.message.tr)).show(context);
+            }
+            if (state.status == ResponseStatus.inSuccess) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, RouteName.userMain, (route) => false);
+            }
+          },
+          builder: (context, state) => Scaffold(
             resizeToAvoidBottomInset: true,
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
@@ -39,7 +38,7 @@ class SignupPage extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          "sign_up".tr,
+                          'sign_up'.tr,
                           style: const TextStyle(
                             fontSize: 30,
                             color: Colors.deepPurple,
@@ -50,7 +49,7 @@ class SignupPage extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          "create_account".tr,
+                          'create_account'.tr,
                           style:
                               TextStyle(fontSize: 15, color: Colors.grey[700]),
                         )
@@ -59,13 +58,13 @@ class SignupPage extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         inputFile(
-                            label: "email".tr, controller: controllers[0]),
+                            label: 'email'.tr, controller: controllers[0]),
                         inputFile(
-                            label: "password".tr,
+                            label: 'password'.tr,
                             obscureText: true,
                             controller: controllers[1]),
                         inputFile(
-                            label: "Referall".tr, controller: controllers[2]),
+                            label: 'Referall'.tr, controller: controllers[2]),
                       ],
                     ),
                     Container(
@@ -73,10 +72,10 @@ class SignupPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           border: const Border(
-                            bottom: BorderSide(color: Colors.black),
-                            top: BorderSide(color: Colors.black),
-                            left: BorderSide(color: Colors.black),
-                            right: BorderSide(color: Colors.black),
+                            bottom: BorderSide(),
+                            top: BorderSide(),
+                            left: BorderSide(),
+                            right: BorderSide(),
                           )),
                       child: MaterialButton(
                         minWidth: double.infinity,
@@ -99,7 +98,7 @@ class SignupPage extends StatelessWidget {
                             ? const CircularProgressIndicator(
                                 color: Colors.white)
                             : Text(
-                                "sign_up".tr,
+                                'sign_up'.tr,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
@@ -111,12 +110,12 @@ class SignupPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Already have an account?".tr),
+                        Text('Already have an account?'.tr),
                         OnTap(
                           onTap: onTap,
                           child: Text(
-                            "Login".tr,
-                            style: TextStyle(
+                            'Login'.tr,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
                                 color: Colors.deepPurple),
@@ -128,41 +127,36 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
             ),
-          );
-        },
-      ),
-    );
-  }
+          ),
+        ),
+      );
 }
 
 // we will be creating a widget for text field
-Widget inputFile({label, obscureText = false, controller}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: const TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-      ),
-      const SizedBox(
-        height: 5,
-      ),
-      TextField(
-        controller: controller,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.deepPurple),
-            ),
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400))),
-      ),
-      const SizedBox(
-        height: 10,
-      )
-    ],
-  );
-}
+Widget inputFile({label, obscureText = false, controller}) => Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          label,
+          style: const TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        TextField(
+          controller: controller,
+          obscureText: obscureText,
+          decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepPurple),
+              ),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey.shade400))),
+        ),
+        const SizedBox(
+          height: 10,
+        )
+      ],
+    );

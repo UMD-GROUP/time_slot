@@ -9,7 +9,7 @@ class PageControllerBloc
     on<ChangeCurrentPageEvent>(changeIndex);
   }
 
-  changeIndex(ChangeCurrentPageEvent event, emit) {
+  void changeIndex(ChangeCurrentPageEvent event, Emitter emit) {
     emit(state.copyWith(event.index));
   }
 }

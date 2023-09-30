@@ -4,11 +4,9 @@ class MembershipPage extends StatelessWidget {
   const MembershipPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Membership Page"),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Membership Page'),
+        ),
+      );
 }

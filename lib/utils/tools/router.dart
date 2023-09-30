@@ -11,9 +11,10 @@ abstract class RouteName {
   static const createOrder = '/createOrder';
 }
 
+// ignore: avoid_classes_with_only_static_members
 class AppRoutes {
   static Route generateRoute(RouteSettings settings) {
-    var args = settings.arguments;
+    final args = settings.arguments;
     switch (settings.name) {
       case RouteName.splash:
         return MaterialPageRoute(builder: (_) => const SplashPage());

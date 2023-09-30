@@ -5,10 +5,10 @@ part 'validator_state.dart';
 
 class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
   ValidatorBloc() : super(ValidatorState()) {
-    on<ValidateEvent>((validate));
+    on<ValidateEvent>(validate);
   }
 
-  validate(ValidateEvent event, emit) {
+  void validate(ValidateEvent event, Emitter emit) {
     emit(state.copyWith(
       email: event.email,
       password: event.password,

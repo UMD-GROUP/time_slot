@@ -1,37 +1,40 @@
 import 'package:time_slot/utils/tools/file_importers.dart';
 
+// ignore: type_annotate_public_apis
 double height(context) => MediaQuery.of(context).size.height;
+// ignore: type_annotate_public_apis
 double width(context) => MediaQuery.of(context).size.width;
 
 String generateToken() {
   // Generate 5 random letters
-  String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  Random random = Random();
-  String randomLetters = "";
+  const String letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  final Random random = Random();
+  String randomLetters = '';
   for (int i = 0; i < 5; i++) {
+    // ignore: use_string_buffers
     randomLetters += letters[random.nextInt(letters.length)];
   }
 
   // Generate 3 random numbers
-  String numbers = "0123456789";
-  String randomNumbers = "";
+  const String numbers = '0123456789';
+  String randomNumbers = '';
   for (int i = 0; i < 3; i++) {
+    // ignore: use_string_buffers
     randomNumbers += numbers[random.nextInt(numbers.length)];
   }
 
-  // Combine the letters and numbers into a random string
-  String randomString = "$randomLetters$randomNumbers";
+  // ignore: prefer_single_quotes
+  final String randomString = "$randomLetters$randomNumbers";
 
   return randomString.toUpperCase();
 }
 
-postOrders({String? uid, String? referallId}) async {
-  // Generate random JSON objects for OrderModel
-  List<Map<String, dynamic>> randomOrderJsonList = [];
+Future<void> postOrders({String? uid, String? referallId}) async {
+  final List<Map<String, dynamic>> randomOrderJsonList = [];
 
-  Random random = Random();
+  final Random random = Random();
   for (int i = 1; i <= 5; i++) {
-    OrderModel randomOrder = OrderModel(
+    final OrderModel randomOrder = OrderModel(
       referallId: 'XOGOO712',
       ownerId: uid ?? 'DhuNGAJq6ZcZwOUEDm66XQFDFa03',
       orderId: random.nextInt(1000),
@@ -39,17 +42,17 @@ postOrders({String? uid, String? referallId}) async {
       sum: double.parse((random.nextDouble() * 100).toStringAsFixed(2)),
       marketName: 'Market ${random.nextInt(5)}',
       dates: ['2023-09-30', '2023-10-01'],
-      userPhoto: "https://picsum.photos/200/300",
+      userPhoto: 'https://picsum.photos/200/300',
       status: OrderStatus.values[random.nextInt(OrderStatus.values.length)],
     );
 
     randomOrderJsonList.add(randomOrder.toJson());
   }
 
-  FirebaseFirestore instance = FirebaseFirestore.instance;
+  final FirebaseFirestore instance = FirebaseFirestore.instance;
 
-  for (var json in randomOrderJsonList) {
+  for (final json in randomOrderJsonList) {
     await instance.collection('orders').add(json);
-    print("Done");
+    print('Done');
   }
 }
