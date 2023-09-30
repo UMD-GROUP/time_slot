@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
             }
           },
           builder: (context, state) => Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             backgroundColor: Colors.white,
             body: SizedBox(
               height: MediaQuery.of(context).size.height,

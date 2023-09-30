@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_expression_function_bodies
 
+import 'package:time_slot/ui/user/create_order/bloc/create_order/create_order_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -9,6 +10,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) => MultiBlocProvider(providers: [
         BlocProvider(create: (context) => PageControllerBloc()),
         BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => CreateOrderBloc()),
+        BlocProvider(create: (context) => AdvertisementBloc()),
       ], child: const MyApp());
 }
 
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
           //     getIt<SettingsRepository>().getLanguage() == "ru"
           //         ? "RU"
           //         : "UZ"),
-          initialRoute: RouteName.authorization,
+          initialRoute: RouteName.splash,
           onGenerateRoute: AppRoutes.generateRoute,
           debugShowCheckedModeBanner: false,
           // home: Material(child: EnterInfoPage()),

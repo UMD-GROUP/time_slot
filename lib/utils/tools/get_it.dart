@@ -5,5 +5,7 @@ final getIt = GetIt.instance;
 void setup() {
   getIt
     ..registerLazySingleton(AuthorizationRepository.new)
-    ..registerLazySingleton(UserRepository.new);
+    ..registerLazySingleton(UserRepository.new)
+    ..registerLazySingleton(
+        () => AdvertisementRepository(FirebaseFirestore.instance));
 }
