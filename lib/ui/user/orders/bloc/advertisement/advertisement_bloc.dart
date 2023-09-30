@@ -11,11 +11,9 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
 
   getBanners(event, emit) async {
     emit(state.copyWith(status: ResponseStatus.inProgress));
-
    MyResponse myResponse = await getIt<AdvertisementRepository>().getBanners();
     if (myResponse.statusCode! == 200) {
-      emit(state.copyWith(
-          banners: myResponse.data, status: ResponseStatus.inSuccess));
+      emit(state.copyWith(banners: myResponse.data, status: ResponseStatus.inSuccess));
     } else {
       emit(state.copyWith(status: ResponseStatus.inFail, message: myResponse.message));
     }
