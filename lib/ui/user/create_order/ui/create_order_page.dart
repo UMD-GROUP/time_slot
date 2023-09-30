@@ -17,7 +17,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
-          title: Text(context.read<UserBloc>().state.user!.email),
+          title: Text('create_order'.tr),
         ),
         body: SafeArea(
             child: Container(

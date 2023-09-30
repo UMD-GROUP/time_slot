@@ -12,13 +12,15 @@ class OrdersPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            SizedBox(height: height(context)*0.03),
+            SizedBox(height: height(context) * 0.03),
             BannerCard(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, RouteName.createOrder);
+            if (canNavigate(context, context.read<UserBloc>().state.user)) {
+              Navigator.pushNamed(context, RouteName.createOrder);
+            }
             // postOrders(
             //   uid: context.read<UserBloc>().state.user!.uid,
             //   referallId: context.read<UserBloc>().state.user!.referallId,

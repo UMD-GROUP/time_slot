@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses
+// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison
 
 import 'dart:io';
 
@@ -93,4 +93,27 @@ String orderValidator(OrderModel order) {
     return 'you_must_select_photo'.tr;
   }
   return '';
+}
+
+bool canNavigate(context, UserModel? user) {
+  if (user == null) {
+    context
+        .read<UserBloc>()
+        .add(GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
+    AnimatedSnackBar(
+            builder: (context) => AppErrorSnackBar(text: 'try_again'.tr),
+            snackBarStrategy: RemoveSnackBarStrategy())
+        .show(context);
+    return false;
+  } else {
+    if (user.markets.isEmpty) {
+      AnimatedSnackBar(
+              builder: (context) =>
+                  AppErrorSnackBar(text: 'you_need_to_create_market'.tr),
+              snackBarStrategy: RemoveSnackBarStrategy())
+          .show(context);
+      return false;
+    }
+    return true;
+  }
 }

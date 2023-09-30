@@ -35,7 +35,11 @@ class AppTranslations extends Translations {
           'you_must_select_photo': 'Rasm yuklanishi shart!',
           'products': 'Mahsulotlar:',
           'order': 'Rasmiylashtirish',
-          'ordered_successfully': 'Buyurtma rasmiylashtirildi!'
+          'ordered_successfully': 'Buyurtma rasmiylashtirildi!',
+          'you_need_to_create_market':
+              "Do'kon qo'shgach buyurtma\nqila olasiz.",
+          'try_again': "Qayta urinib ko'ring",
+          'create_order': 'Buyurtma rasmiylashtirish',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -64,7 +68,11 @@ class AppTranslations extends Translations {
           'you_must_add_product': 'Должен быть хотя бы один товар!',
           'you_must_select_photo': 'Изображение должно\nбыть загружено!',
           'products': 'Продукты:',
-          'ordered_successfully': 'Заказ выполнен!'
+          'ordered_successfully': 'Заказ выполнен!',
+          'you_need_to_create_market':
+              'Оформить заказ можно после\nдобавления магазина.',
+          'try_again': 'Попробуйте еще раз',
+          'create_order': 'Сделать заказ',
         }
       };
 }
