@@ -12,6 +12,15 @@ class AuthorizationPage extends StatefulWidget {
 
 class _AuthorizationPageState extends State<AuthorizationPage> {
   PageController controller = PageController();
+  List signInControllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+  List logInControllers = [
+    TextEditingController(),
+    TextEditingController(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +33,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
           controller: controller,
           children: [
             LoginPage(
+              controllers: logInControllers,
               onTap: () {
                 controller.nextPage(
                     duration: const Duration(seconds: 1),
@@ -32,6 +42,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
               },
             ),
             SignupPage(
+              controllers: signInControllers,
               onTap: () {
                 controller.previousPage(
                     duration: const Duration(seconds: 1),

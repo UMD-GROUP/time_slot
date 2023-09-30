@@ -2,12 +2,9 @@ import 'package:time_slot/utils/tools/file_importers.dart';
 
 class SignupPage extends StatelessWidget {
   VoidCallback onTap;
+  List controllers;
 
-  SignupPage({super.key, required this.onTap});
-
-  TextEditingController referellId = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  SignupPage({required this.controllers, super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +58,14 @@ class SignupPage extends StatelessWidget {
                     ),
                     Column(
                       children: <Widget>[
-                        inputFile(label: "email".tr, controller: email),
+                        inputFile(
+                            label: "email".tr, controller: controllers[0]),
                         inputFile(
                             label: "password".tr,
                             obscureText: true,
-                            controller: password),
-                        inputFile(label: "Referall".tr, controller: referellId),
+                            controller: controllers[1]),
+                        inputFile(
+                            label: "Referall".tr, controller: controllers[2]),
                       ],
                     ),
                     Container(
@@ -86,9 +85,9 @@ class SignupPage extends StatelessWidget {
                           context
                               .read<AuthorizationBloc>()
                               .add(CreateAccountEvent(UserModel(
-                                password: password.text.trim(),
-                                email: email.text.trim(),
-                                referallId: referellId.text.trim(),
+                                password: controllers[1].text.trim(),
+                                email: controllers[0].text.trim(),
+                                referallId: controllers[2].text.trim(),
                               )));
                         },
                         color: Colors.deepPurple,
