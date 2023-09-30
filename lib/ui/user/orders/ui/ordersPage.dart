@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrdersPage extends StatelessWidget {
   const OrdersPage({super.key});
@@ -8,6 +8,11 @@ class OrdersPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Orders Page"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          postOrders();
+        },
       ),
     );
   }

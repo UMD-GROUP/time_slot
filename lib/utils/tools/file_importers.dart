@@ -1,3 +1,5 @@
+export 'dart:math';
+
 export 'package:adaptive_theme/adaptive_theme.dart';
 export 'package:animated_snack_bar/animated_snack_bar.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +21,7 @@ export 'package:time_slot/ui/authorization/bloc/authorization_bloc/authorization
 export 'package:time_slot/ui/authorization/data/models/user_model.dart';
 export 'package:time_slot/ui/authorization/data/repository/authorization_repository.dart';
 export 'package:time_slot/ui/splash/splash_page.dart';
+export 'package:time_slot/ui/user/orders/data/models/order_model.dart';
 export 'package:time_slot/ui/widgets/on_tap.dart';
 export 'package:time_slot/utils/constants/app_colors.dart';
 export 'package:time_slot/utils/constants/app_images.dart';

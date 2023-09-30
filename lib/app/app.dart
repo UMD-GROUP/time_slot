@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             //     getIt<SettingsRepository>().getLanguage() == "ru"
             //         ? "RU"
             //         : "UZ"),
-            initialRoute: RouteName.authorization,
+            initialRoute: RouteName.splash,
             onGenerateRoute: AppRoutes.generateRoute,
             debugShowCheckedModeBanner: false,
             // home: Material(child: EnterInfoPage()),
