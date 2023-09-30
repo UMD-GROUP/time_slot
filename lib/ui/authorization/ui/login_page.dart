@@ -2,11 +2,10 @@ import '../../../utils/tools/file_importers.dart';
 
 class LoginPage extends StatelessWidget {
   VoidCallback onTap;
+  List controllers;
 
-  LoginPage({super.key, required this.onTap});
+  LoginPage({super.key, required this.onTap, required this.controllers});
 
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -62,11 +61,12 @@ class LoginPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 40.h),
                         child: Column(
                           children: <Widget>[
-                            inputFile(label: "email".tr, controller: email),
+                            inputFile(
+                                label: "email".tr, controller: controllers[0]),
                             inputFile(
                                 label: "password".tr,
                                 obscureText: true,
-                                controller: password)
+                                controller: controllers[1])
                           ],
                         ),
                       ),
@@ -88,8 +88,8 @@ class LoginPage extends StatelessWidget {
                             onPressed: () {
                               context.read<AuthorizationBloc>().add(SignInEvent(
                                   UserModel(
-                                      email: email.text.trim(),
-                                      password: password.text.trim())));
+                                      email: controllers[0].text.trim(),
+                                      password: controllers[1].text.trim())));
                             },
                             color: Colors.deepPurple,
                             elevation: 0,
