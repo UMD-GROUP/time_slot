@@ -97,9 +97,6 @@ String orderValidator(OrderModel order) {
 
 bool canNavigate(context, UserModel? user) {
   if (user == null) {
-    context
-        .read<UserBloc>()
-        .add(GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
     AnimatedSnackBar(
             builder: (context) => AppErrorSnackBar(text: 'try_again'.tr),
             snackBarStrategy: RemoveSnackBarStrategy())
