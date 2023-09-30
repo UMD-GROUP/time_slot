@@ -38,8 +38,9 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
         event.user.referallId.isNotEmpty) {
       MyResponse myResponse = MyResponse();
       emit(state.copyWith(status: ResponseStatus.inProgress));
-      myResponse =
-          await getIt<AuthorizationRepository>().createAnAccount(event.user);
+      UserModel user = event.user;
+      user.token = generateToken();
+      myResponse = await getIt<AuthorizationRepository>().createAnAccount(user);
       if (myResponse.message.isNull) {
         emit(state.copyWith(status: ResponseStatus.inSuccess));
       } else {

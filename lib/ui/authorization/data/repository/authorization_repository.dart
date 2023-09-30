@@ -33,12 +33,31 @@ class AuthorizationRepository {
     MyResponse myResponse = MyResponse();
     FirebaseAuth authInstance = getAuthInstance();
     try {
-      UserCredential result = await authInstance.createUserWithEmailAndPassword(
-          email: user.email, password: user.password);
-
       FirebaseFirestore instance = FirebaseFirestore.instance;
-      instance.collection("users").add(user.toJson());
+      QuerySnapshot<Map<String, dynamic>> tokens =
+          await instance.collection("referalls").get();
+      List referalls = tokens.docs.first.data()["referalls"] ?? [];
+      if (referalls.contains(user.referallId)) {
+        UserCredential result =
+            await authInstance.createUserWithEmailAndPassword(
+                email: user.email, password: user.password);
+        user.uid = result.user!.uid;
+
+        await instance
+            .collection("users")
+            .doc(result.user!.uid)
+            .set(user.toJson());
+
+        referalls.add(user.token);
+        await instance
+            .collection('referalls')
+            .doc("data")
+            .update({"referalls": referalls});
+      } else {
+        myResponse.message = "Siz kiritgan referall\nmavjud emas!";
+      }
     } catch (e) {
+      print("MAnA error $e");
       myResponse.message =
           "Server bilan muammo mavjud.\nIltimos keyinroq urinib ko'ring!";
     }
