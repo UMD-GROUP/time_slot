@@ -41,13 +41,12 @@ class _TabBarWidgetState extends State<TabBarWidget> {
         ),
       ),
       BlocConsumer<OrderBloc, OrderState>(
-        listener: (context, state){
+        listener: (context, state){},
+        builder: (context, state) {
           if(state.status == ResponseStatus.pure){
             context.read<OrderBloc>().add(GetOrderEvent());
           }
-        },
-        builder: (context, state) {
-          if(state.status == ResponseStatus.inProgress){
+          else if(state.status == ResponseStatus.inProgress){
             return const OrderShimmerWidget();
               //const Center(child: CircularProgressIndicator(color: Colors.deepPurple,),);
           }
