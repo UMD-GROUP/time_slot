@@ -1,4 +1,3 @@
-import 'package:time_slot/ui/user/orders/ui/widgets/banner_card.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -12,9 +11,11 @@ class OrdersPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            SizedBox(height: height(context)*0.03),
+            SizedBox(height: height(context)*0.02),
             BannerCard(),
-          ],
+            SizedBox(height: height(context)*0.01),
+            const Expanded(child: TabBarWidget())
+          ]
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -27,3 +28,5 @@ class OrdersPage extends StatelessWidget {
         ),
       );
 }
+
+

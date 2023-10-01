@@ -20,7 +20,17 @@ class AppTranslations extends Translations {
           'name': 'Ism',
           'surname': 'Familiya',
           'Already have an account?': 'Allaqachon shaxsiy hisobingiz bormi? ',
-          'Login': 'Kirish'
+          'Login': 'Kirish',
+          'product count:' : 'Tovar soni',
+          'sum':"Xizmat to'lovi:",
+          'all':'Barchasi',
+          'mine':'Mening',
+          'referals': 'Referallar',
+          'done': 'Yakunlangan',
+          'created': 'Yaratilgan',
+          'cancelled':'Rad etilgan',
+          'progress': 'Jarayonda'
+
         },
         'en_En': {
           'password_invalid':
@@ -36,7 +46,16 @@ class AppTranslations extends Translations {
           'create_account': "Create an account, It's free ",
           'login_to_your_account': 'Login to your account',
           'name': 'Name',
-          'surname': 'Surname'
+          'surname': 'Surname',
+          'product count:' : 'Product count:',
+          'sum':'Service price:',
+          'all':'All',
+          'mine':'My',
+          'referals': 'Referrals',
+          'done': 'Done',
+          'created': 'Created',
+          'cancelled':'Cancelled',
+          'progress': 'Progress'
         }
       };
 }
