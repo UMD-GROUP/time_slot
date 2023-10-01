@@ -112,5 +112,11 @@ class MembershipPage extends StatelessWidget {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            postPurchases(context.read<UserBloc>().state.user!.uid,
+                context.read<UserBloc>().state.user!.referallId);
+          },
+        ),
       );
 }
