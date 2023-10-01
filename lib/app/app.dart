@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => UserBloc()),
         BlocProvider(create: (context) => CreateOrderBloc()),
         BlocProvider(create: (context) => AdvertisementBloc()),
-        BlocProvider(create: (context) => OrderBloc()..add(GetOrderEvent())),
+        BlocProvider(create: (context) => OrderBloc()),
       ], child: const MyApp());
 }
 
