@@ -21,16 +21,15 @@ class AppTranslations extends Translations {
           'surname': 'Familiya',
           'Already have an account?': 'Allaqachon shaxsiy hisobingiz bormi? ',
           'Login': 'Kirish',
-          'product count:' : 'Tovar soni',
-          'sum':"Xizmat to'lovi:",
-          'all':'Barchasi',
-          'mine':'Mening',
+          'product count:': 'Tovar soni',
+          'sum': "Xizmat to'lovi:",
+          'all': 'Barchasi',
+          'mine': 'Mening',
           'referals': 'Referallar',
           'done': 'Yakunlangan',
           'created': 'Yaratilgan',
-          'cancelled':'Rad etilgan',
+          'cancelled': 'Rad etilgan',
           'progress': 'Jarayonda'
-
         },
         'en_En': {
           'password_invalid':
@@ -47,14 +46,14 @@ class AppTranslations extends Translations {
           'login_to_your_account': 'Login to your account',
           'name': 'Name',
           'surname': 'Surname',
-          'product count:' : 'Product count:',
-          'sum':'Service price:',
-          'all':'All',
-          'mine':'My',
+          'product count:': 'Product count:',
+          'sum': 'Service price:',
+          'all': 'All',
+          'mine': 'My',
           'referals': 'Referrals',
           'done': 'Done',
           'created': 'Created',
-          'cancelled':'Cancelled',
+          'cancelled': 'Cancelled',
           'progress': 'Progress',
           'choose_market': "Do'konni tanlash",
           'choose_dates': 'Sanalarni tanlash',
@@ -110,24 +109,23 @@ class AppTranslations extends Translations {
           'products': 'Продукты:',
           'ordered_successfully': 'Заказ выполнен!',
           'you_need_to_create_market':
-          'Оформить заказ можно после\nдобавления магазина.',
+              'Оформить заказ можно после\nдобавления магазина.',
           'try_again': 'Попробуйте еще раз',
           'create_order': 'Сделать заказ',
           'balance': 'Balans: ',
           'in_progress': 'Jarayonda: ',
           'referalls': 'Referallar: ',
           'all_purchased': 'Barcha yechilgan: ',
-          'purchase': 'Pul yechish'
-          'product count:' : 'Количество продуктов:',
-          'sum':'Цена услуги:',
-          'all':'Все',
-          'mine':'Мой',
+          'purchase': 'Pul yechish',
+          'product count:': 'Количество продуктов:',
+          'sum': 'Цена услуги:',
+          'all': 'Все',
+          'mine': 'Мой',
           'referals': 'Рефералы',
           'done': 'Сделанный',
           'created': 'Созданный',
-          'cancelled':'Отменено',
+          'cancelled': 'Отменено',
           'progress': 'Прогресс'
-
         }
       };
 }
