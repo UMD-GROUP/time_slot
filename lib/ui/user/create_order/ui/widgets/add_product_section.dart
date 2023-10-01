@@ -43,7 +43,7 @@ class _AddProductSectionState extends State<AddProductSection> {
                         style: AppTextStyles.labelLarge(context,
                             fontWeight: FontWeight.w700, fontSize: 16)),
                     Text(
-                        '${state.order.products.length}  |  ${state.order.products.fold(0, (previousValue, element) => previousValue + element.count)}'
+                        '${state.order.products.length}  |  ${state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count))}'
                             .tr),
                   ],
                 ),

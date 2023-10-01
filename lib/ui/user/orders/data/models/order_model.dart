@@ -19,7 +19,7 @@ class OrderModel {
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         referallId: json['referallId'] ?? '',
         adminPhoto: json['adminPhoto'] ?? '',
-        products: json['products'].map(ProductModel.fromJson).toList(),
+        products: json['products']??[],
         ownerId: json['ownerId'] ?? '',
         orderId: json['orderId'] ?? 0,
         sum: json['sum'] as num,
@@ -37,7 +37,7 @@ class OrderModel {
   String userPhoto;
   OrderStatus status;
   String adminPhoto;
-  List<ProductModel> products;
+  List<dynamic> products;
 
   Map<String, dynamic> toJson() => {
         'referallId': referallId,
