@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:time_slot/ui/user/membership/data/models/purchase_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 // ignore: type_annotate_public_apis
@@ -112,5 +113,36 @@ bool canNavigate(context, UserModel? user) {
       return false;
     }
     return true;
+  }
+}
+
+Future<void> postPurchases(String ownerId, String referralId) async {
+  // Initialize Firebase
+  await Firebase.initializeApp();
+
+  // Create a Firebase Firestore instance
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  // Generate and post 10 different PurchaseModel objects
+  for (int i = 0; i < 10; i++) {
+    final purchase = PurchaseModel(
+      ownerId: ownerId,
+      referralId: referralId,
+      purchaseId: i,
+      amount: 100.0 + i * 10.0,
+      status: PurchaseStatus.values[i % 4], // Cycle through the enum values
+    );
+
+    // Convert the PurchaseModel to JSON
+    final purchaseJson = purchase.toJson();
+
+    try {
+      // Post the PurchaseModel JSON data to Firestore
+      await firestore.collection('purchases').add(purchaseJson);
+
+      print('Purchase data $i posted to Firestore successfully!');
+    } catch (e) {
+      print('Error posting purchase data $i to Firestore: $e');
+    }
   }
 }

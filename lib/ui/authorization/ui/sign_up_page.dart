@@ -1,5 +1,6 @@
 // ignore_for_file: type_annotate_public_apis
 
+import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class SignupPage extends StatelessWidget {
@@ -84,6 +85,7 @@ class SignupPage extends StatelessWidget {
                           context
                               .read<AuthorizationBloc>()
                               .add(CreateAccountEvent(UserModel(
+                                card: BankingCardModel(cardNumber: ''),
                                 password: controllers[1].text.trim(),
                                 email: controllers[0].text.trim(),
                                 referallId: controllers[2].text.trim(),
