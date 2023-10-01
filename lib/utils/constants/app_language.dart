@@ -75,6 +75,11 @@ class AppTranslations extends Translations {
               "Do'kon qo'shgach buyurtma\nqila olasiz.",
           'try_again': "Qayta urinib ko'ring",
           'create_order': 'Buyurtma rasmiylashtirish',
+          'balance': 'Balans: ',
+          'in_progress': 'Jarayonda: ',
+          'referalls': 'Referallar: ',
+          'all_purchased': 'Barcha yechilgan: ',
+          'purchase': 'Pul yechish'
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -108,6 +113,11 @@ class AppTranslations extends Translations {
           'Оформить заказ можно после\nдобавления магазина.',
           'try_again': 'Попробуйте еще раз',
           'create_order': 'Сделать заказ',
+          'balance': 'Balans: ',
+          'in_progress': 'Jarayonda: ',
+          'referalls': 'Referallar: ',
+          'all_purchased': 'Barcha yechilgan: ',
+          'purchase': 'Pul yechish'
           'product count:' : 'Количество продуктов:',
           'sum':'Цена услуги:',
           'all':'Все',
