@@ -55,7 +55,7 @@ class AppTranslations extends Translations {
           'done': 'Done',
           'created': 'Created',
           'cancelled':'Cancelled',
-          'progress': 'Progress'
+          'progress': 'Progress',
           'choose_market': "Do'konni tanlash",
           'choose_dates': 'Sanalarni tanlash',
           'count_of_products': 'Mahsulotlar soni:',
@@ -105,9 +105,18 @@ class AppTranslations extends Translations {
           'products': 'Продукты:',
           'ordered_successfully': 'Заказ выполнен!',
           'you_need_to_create_market':
-              'Оформить заказ можно после\nдобавления магазина.',
+          'Оформить заказ можно после\nдобавления магазина.',
           'try_again': 'Попробуйте еще раз',
           'create_order': 'Сделать заказ',
+          'product count:' : 'Количество продуктов:',
+          'sum':'Цена услуги:',
+          'all':'Все',
+          'mine':'Мой',
+          'referals': 'Рефералы',
+          'done': 'Сделанный',
+          'created': 'Созданный',
+          'cancelled':'Отменено',
+          'progress': 'Прогресс'
 
         }
       };

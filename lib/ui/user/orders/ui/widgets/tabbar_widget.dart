@@ -117,7 +117,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                             children: [
                              SizedBox(height: height(context)*0.01,),
                               OrderTextWidget(context: context, type: 'Order id:',value: curData[index].orderId.toString()),
-                              OrderTextWidget(context: context, type: 'product count:',value: curData[index].productCount.toString()),
+                              OrderTextWidget(context: context, type: 'product count:',value: curData[index].marketName.toString()),
                               OrderTextWidget(context: context, type: 'sum',value: curData[index].sum.toString()),
                               OrderTextWidget(context: context, type: 'Partner id:',value: curData[index].referallId.toString()),
                          //     OrderTextWidget(context: context, type: 'Status:',value: data[index].status.toString()),
