@@ -1,16 +1,10 @@
 // ignore_for_file: cascade_invocations
 
-import 'package:time_slot/ui/user/create_order/bloc/create_order/create_order_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class MarketOption extends StatefulWidget {
+class MarketOption extends StatelessWidget {
   const MarketOption({super.key});
 
-  @override
-  State<MarketOption> createState() => _MarketOptionState();
-}
-
-class _MarketOptionState extends State<MarketOption> {
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<CreateOrderBloc, CreateOrderState>(
@@ -29,7 +23,6 @@ class _MarketOptionState extends State<MarketOption> {
                     context
                         .read<CreateOrderBloc>()
                         .add(UpdateFieldsOrderEvent(order));
-                    setState(() {});
                   },
                 )
             ],

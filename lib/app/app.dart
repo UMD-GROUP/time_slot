@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_expression_function_bodies
-
 import 'package:time_slot/ui/user/create_order/bloc/create_order/create_order_bloc.dart';
 import 'package:time_slot/ui/user/orders/bloc/bloc/order/order_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
@@ -27,26 +26,28 @@ class MyApp extends StatelessWidget {
       designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (BuildContext context, Widget? child) => AdaptiveTheme(
-        builder: (light, dark) => GetMaterialApp(
-          translations: AppTranslations(),
-          locale: const Locale('uz', 'UZ'),
+      builder: (context, child) {
+        return AdaptiveTheme(
+          builder: (light, dark) => GetMaterialApp(
+            translations: AppTranslations(),
+            locale: const Locale('uz', 'UZ'),
 
-          // locale: Locale(
-          //     getIt<SettingsRepository>().getLanguage() == "ru" ? "ru" : "uz",
-          //     getIt<SettingsRepository>().getLanguage() == "ru"
-          //         ? "RU"
-          //         : "UZ"),
-          initialRoute: RouteName.splash,
-          onGenerateRoute: AppRoutes.generateRoute,
-          debugShowCheckedModeBanner: false,
-          // home: Material(child: EnterInfoPage()),
-          title: 'TimeSlot',
-        ),
-        light: AppTheme.light,
-        initial: AdaptiveThemeMode.light,
-        dark: AppTheme.dark,
-      ),
+            // locale: Locale(
+            //     getIt<SettingsRepository>().getLanguage() == "ru" ? "ru" : "uz",
+            //     getIt<SettingsRepository>().getLanguage() == "ru"
+            //         ? "RU"
+            //         : "UZ"),
+            initialRoute: RouteName.splash,
+            onGenerateRoute: AppRoutes.generateRoute,
+            debugShowCheckedModeBanner: false,
+            // home: Material(child: EnterInfoPage()),
+            title: 'TimeSlot',
+          ),
+          light: AppTheme.light,
+          initial: AdaptiveThemeMode.light,
+          dark: AppTheme.dark,
+        );
+      },
     );
   }
 }

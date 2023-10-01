@@ -53,6 +53,8 @@ dependencies:
   shimmer: ^3.0.0
   cached_network_image: ^3.3.0
   lottie: ^2.3.2
+  firebase_storage: ^11.2.7
+  firebase_app_check: ^0.2.0
 
 dev_dependencies:
   flutter_test:
