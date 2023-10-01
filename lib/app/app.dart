@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_expression_function_bodies
+import 'package:time_slot/ui/user/create_order/bloc/create_order/create_order_bloc.dart';
+import 'package:time_slot/ui/user/orders/bloc/bloc/order/order_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -10,6 +12,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => UserBloc()),
         BlocProvider(create: (context) => CreateOrderBloc()),
         BlocProvider(create: (context) => AdvertisementBloc()),
+        BlocProvider(create: (context) => OrderBloc()..add(GetOrderEvent())),
       ], child: const MyApp());
 }
 

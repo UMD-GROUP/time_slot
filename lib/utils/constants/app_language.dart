@@ -21,6 +21,41 @@ class AppTranslations extends Translations {
           'surname': 'Familiya',
           'Already have an account?': 'Allaqachon shaxsiy hisobingiz bormi? ',
           'Login': 'Kirish',
+          'product count:' : 'Tovar soni',
+          'sum':"Xizmat to'lovi:",
+          'all':'Barchasi',
+          'mine':'Mening',
+          'referals': 'Referallar',
+          'done': 'Yakunlangan',
+          'created': 'Yaratilgan',
+          'cancelled':'Rad etilgan',
+          'progress': 'Jarayonda'
+
+        },
+        'en_En': {
+          'password_invalid':
+              'The password must contain at least \n8 characters!',
+          'email_not_valid': 'E-mail entered incorrectly!',
+          'referall_not_valid': 'You need to enter your referall!',
+          'name_not_valid': 'Name must contain at \nleast 4 characters',
+          'sign_up': 'Sign Up',
+          'login': 'Login',
+          'do_not_have_an_account': "Don't have an account?",
+          'email': 'Email',
+          'password': 'Password',
+          'create_account': "Create an account, It's free ",
+          'login_to_your_account': 'Login to your account',
+          'name': 'Name',
+          'surname': 'Surname',
+          'product count:' : 'Product count:',
+          'sum':'Service price:',
+          'all':'All',
+          'mine':'My',
+          'referals': 'Referrals',
+          'done': 'Done',
+          'created': 'Created',
+          'cancelled':'Cancelled',
+          'progress': 'Progress'
           'choose_market': "Do'konni tanlash",
           'choose_dates': 'Sanalarni tanlash',
           'count_of_products': 'Mahsulotlar soni:',
@@ -73,6 +108,7 @@ class AppTranslations extends Translations {
               'Оформить заказ можно после\nдобавления магазина.',
           'try_again': 'Попробуйте еще раз',
           'create_order': 'Сделать заказ',
+
         }
       };
 }
