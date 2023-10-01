@@ -27,6 +27,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
           child: BlocConsumer<CreateOrderBloc, CreateOrderState>(
             listener: (context, state) {
               if (state.addingStatus == ResponseStatus.inSuccess) {
+                context.read<OrderBloc>().add(GetOrderEvent());
                 Navigator.pop(context);
                 AnimatedSnackBar(
                   snackBarStrategy: RemoveSnackBarStrategy(),
