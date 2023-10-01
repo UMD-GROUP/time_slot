@@ -9,7 +9,7 @@ void setup() {
     ..registerLazySingleton(UserRepository.new)
     ..registerLazySingleton(() => AdvertisementRepository(FirebaseFirestore.instance))
     // ignore: avoid_single_cascade_in_expression_statements
-    ..registerLazySingleton(() => OrdersRepository(FirebaseFirestore.instance));
+    ..registerLazySingleton(() => OrdersRepository(FirebaseFirestore.instance))
     ..registerLazySingleton(
         () => AdvertisementRepository(FirebaseFirestore.instance))
     ..registerLazySingleton(CreateOrderRepository.new);
