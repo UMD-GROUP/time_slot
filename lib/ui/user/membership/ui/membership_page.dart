@@ -1,3 +1,4 @@
+import 'package:time_slot/ui/user/membership/ui/widget/purchases_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class MembershipPage extends StatelessWidget {
@@ -61,54 +62,7 @@ class MembershipPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  children: [
-                    ...List.generate(
-                        7,
-                        (index) => Container(
-                              margin: EdgeInsets.symmetric(vertical: 12.h),
-                              height: height(context) * 0.08,
-                              width: width(context),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.h),
-                                border: Border.all(color: Colors.deepPurple),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Icon(Icons.monetization_on),
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Order number 0',
-                                        style: AppTextStyles.labelLarge(context,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      const Text("925.000 so'm"),
-                                      Text(
-                                        'Jarayonda...',
-                                        style: AppTextStyles.labelLarge(context,
-                                            fontSize: 14, color: Colors.green),
-                                      )
-                                    ],
-                                  ),
-                                  const Visibility(
-                                      visible: false, child: Icon(Icons.money)),
-                                ],
-                              ),
-                            ))
-                  ],
-                ),
-              )
+              const PurchasesWidget()
             ],
           ),
         ),
