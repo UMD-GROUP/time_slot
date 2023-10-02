@@ -3,8 +3,9 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:time_slot/ui/user/membership/data/models/purchase_model.dart';
+import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 // ignore: type_annotate_public_apis
@@ -154,5 +155,13 @@ void copyToClipboard(BuildContext context, String text) {
     SnackBar(
       content: Text('Copied to clipboard: $text'),
     ),
+  );
+}
+
+void showMoneyInputDialog(BuildContext context) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) =>
+        AddPurchaseDialog(controller: TextEditingController()),
   );
 }

@@ -68,13 +68,15 @@ class AppTranslations extends Translations {
               "Do'kon nomi eng kamida 3ta\nharfdan iborat bo'lishi kerak!",
           'uz_sum': "so'm",
           'total_amount_withdrawn': 'Jami yechib olingan:',
-          'piece':'ta',
+          'piece': 'ta',
           'added_successfully': "Muvaffaqqiyatli qo'shildi!",
           'uzbek': "O'zbek tili",
           'russian': 'Rus tili',
           'dark_mode': 'Tunggi rejim',
           'light_mode': 'Kunduzgi rejim',
-
+          'you_need_to_enter_more_then_50':
+              "Eng kamida 50 000 so'm\nyechish mumkin.",
+          'you_cant_afford': "Kiritilgan mablag' hisobingizda\nmavjud emas!",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -136,12 +138,16 @@ class AppTranslations extends Translations {
               'Название магазина должно\nсостоять минимум из 3 букв!',
           'uz_sum': 'сум',
           'total_amount_withdrawn': 'Всего снято:',
-          'piece':'штук',
+          'piece': 'штук',
           'added_successfully': 'Добавлено успешно!',
           'uzbek': 'Узбекский язык',
           'russian': 'Pусский язык',
           'dark_mode': 'Ночной режим',
           'light_mode': 'Дневной режим',
+          'light_mode': 'Kunduzgi rejim',
+          'you_need_to_enter_more_then_50':
+              'Вывести можно не менее 50 000 сумов.',
+          'you_cant_afford': 'Внесенные средства недоступны на вашем счету!',
         }
       };
 }
