@@ -28,7 +28,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
             child: Container(
               height: height(context) * 0.06,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AdaptiveTheme.of(context).theme.disabledColor,
                   borderRadius: BorderRadius.circular(15.r),
                   border: Border.all(width: 0.5, color: Colors.grey)),
               child: Row(

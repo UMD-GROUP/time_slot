@@ -7,7 +7,7 @@ class MembershipPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
+    backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: const Text('Membership Page'),
