@@ -12,7 +12,7 @@ class PurchasesWidget extends StatelessWidget {
         if(state.status == ResponseStatus.pure){
           context.read<PurchaseBloc>().add(GetPurchasesEvent());
         }
-        else if(state.status == ResponseStatus.inSuccess){
+        else if(state.status == ResponseStatus.inProgress){
           return const PurchaseShimmerWidget();
         }
         else if (state.status == ResponseStatus.inSuccess){
