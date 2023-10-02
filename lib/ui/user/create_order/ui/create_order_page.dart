@@ -14,6 +14,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.blueGrey,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text('create_order'.tr),
@@ -74,11 +75,13 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                               MaterialStateProperty.all(Colors.deepPurple),
                           steps: [
                             Step(
-                              title: Text('choose_market'.tr),
+                              title: Text('choose_market'.tr,
+                                  style: AppTextStyles.labelLarge(context)),
                               content: const MarketOption(),
                             ),
                             Step(
-                              title: Text('choose_dates'.tr),
+                              title: Text('choose_dates'.tr,
+                                  style: AppTextStyles.labelLarge(context)),
                               content: CalendarDatePicker2(
                                 config: CalendarDatePicker2Config(
                                   calendarType: CalendarDatePicker2Type.multi,

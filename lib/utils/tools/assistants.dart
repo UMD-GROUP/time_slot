@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:time_slot/ui/user/membership/data/models/purchase_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -145,4 +146,13 @@ Future<void> postPurchases(String ownerId, String referralId) async {
       print('Error posting purchase data $i to Firestore: $e');
     }
   }
+}
+
+void copyToClipboard(BuildContext context, String text) {
+  Clipboard.setData(ClipboardData(text: text));
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('Copied to clipboard: $text'),
+    ),
+  );
 }
