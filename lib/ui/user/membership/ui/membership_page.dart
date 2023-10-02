@@ -17,10 +17,7 @@ class MembershipPage extends StatelessWidget {
           height: height(context),
           width: width(context),
           child: const Column(
-            children: [
-              UserCard(),
-              PurchasesWidget()
-            ],
+            children: [UserCard(), PurchasesWidget()],
           ),
         ),
         floatingActionButton: FloatingActionButton(
@@ -31,5 +28,4 @@ class MembershipPage extends StatelessWidget {
           },
         ),
       );
-
 }
