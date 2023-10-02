@@ -55,7 +55,7 @@ class AppTranslations extends Translations {
           'all_purchased': 'Barcha yechilgan: ',
           'purchase': 'Pul yechish',
           'amount': 'Miqdor:',
-          'payment':"To'lov:",
+          'payment': "To'lov:",
           'referral': 'Referal:',
           'store': "Do'kon",
           'no_markets_yet': "Do'konlar mavjud emas.",
@@ -69,6 +69,11 @@ class AppTranslations extends Translations {
           'uz_sum': "so'm",
           'total_amount_withdrawn': 'Jami yechib olingan:',
           'piece':'ta',
+          'added_successfully': "Muvaffaqqiyatli qo'shildi!",
+          'uzbek': "O'zbek tili",
+          'russian': 'Rus tili',
+          'dark_mode': 'Tunggi rejim',
+          'light_mode': 'Kunduzgi rejim',
 
         },
         'ru_Ru': {
@@ -118,7 +123,7 @@ class AppTranslations extends Translations {
           'cancelled': 'Отменено',
           'progress': 'Прогресс',
           'amount': 'Сумма:',
-          'payment':'Оплата:',
+          'payment': 'Оплата:',
           'referral': 'Реферал:',
           'store': 'Магазин',
           'no_markets_yet': 'Магазинов нет.',
@@ -132,6 +137,11 @@ class AppTranslations extends Translations {
           'uz_sum': 'сум',
           'total_amount_withdrawn': 'Всего снято:',
           'piece':'штук',
+          'added_successfully': 'Добавлено успешно!',
+          'uzbek': 'Узбекский язык',
+          'russian': 'Pусский язык',
+          'dark_mode': 'Ночной режим',
+          'light_mode': 'Дневной режим',
         }
       };
 }
