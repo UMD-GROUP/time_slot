@@ -1,6 +1,5 @@
 import 'package:time_slot/ui/user/membership/ui/widget/purchases_widget.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/user_card.dart';
-import 'package:time_slot/ui/user/membership/ui/widget/user_card_item.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class MembershipPage extends StatelessWidget {
@@ -8,6 +7,7 @@ class MembershipPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: const Text('Membership Page'),

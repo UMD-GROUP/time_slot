@@ -12,7 +12,7 @@ class OrderItem extends StatelessWidget {
             height: height(context) * 0.15,
             width: width(context),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: AdaptiveTheme.of(context).theme.disabledColor,
                 border: Border.all(width: 0.3, color: Colors.grey),
                 borderRadius: BorderRadius.circular(10)),
             child: Row(

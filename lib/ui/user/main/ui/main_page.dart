@@ -27,6 +27,7 @@ class MainPage extends StatelessWidget {
                 .add(ChangeCurrentPageEvent(value));
           },
           currentIndex: state.currentIndex,
+
           unselectedItemColor: AdaptiveTheme.of(context).theme.hintColor,
           selectedItemColor: Colors.deepPurple,
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,

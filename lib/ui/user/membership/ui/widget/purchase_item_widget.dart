@@ -10,6 +10,7 @@ class PurchasesItemWidget extends StatelessWidget {
       height: height(context) * 0.11,
       width: width(context),
       decoration: BoxDecoration(
+         color: AdaptiveTheme.of(context).theme.disabledColor,
         borderRadius: BorderRadius.circular(10.h),
         border: Border.all(color: Colors.deepPurple),
       ),
@@ -35,7 +36,7 @@ class PurchasesItemWidget extends StatelessWidget {
               PurchaseTextWidget(icon: AppIcons.dollar, text1: 'amount',text2: purchaseModel.amount.toString(),),
               Row(
                      children: [
-                     SvgPicture.asset( AppIcons.alert),
+                     SvgPicture.asset( AppIcons.alert, color: AdaptiveTheme.of(context).theme.canvasColor, height: height(context)*0.025,),
                      SizedBox(width: 5.w,),
                      Text('Status:'.tr, style: AppTextStyles.bodyMedium(context),),
                      SizedBox(width: 3.w,),

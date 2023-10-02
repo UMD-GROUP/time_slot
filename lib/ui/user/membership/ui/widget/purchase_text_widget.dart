@@ -10,7 +10,7 @@ class PurchaseTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
       children: [
-        SvgPicture.asset(icon),
+        SvgPicture.asset(icon, color: AdaptiveTheme.of(context).theme.canvasColor, height: height(context)*0.025,),
         SizedBox(width: 5.w,),
         Text(text1.tr, style: AppTextStyles.bodyMedium(context),),
         SizedBox(width: 3.w,),
