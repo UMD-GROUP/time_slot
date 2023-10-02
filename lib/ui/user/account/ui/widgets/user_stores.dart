@@ -42,7 +42,7 @@ class _UserStoresState extends State<UserStores> {
             width: width(context),
             padding: EdgeInsets.symmetric(
                 horizontal: 10.h,
-                vertical: state.user!.markets.isEmpty ? 10 : 0),
+                vertical: state.user!.markets.isEmpty ? 10 : 6),
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.deepPurple),
                 borderRadius: BorderRadius.circular(10)),
@@ -54,7 +54,6 @@ class _UserStoresState extends State<UserStores> {
                       style: AppTextStyles.labelLarge(context,
                           fontSize: 18, fontWeight: FontWeight.w600)),
                 ),
-                SizedBox(height: height(context) * 0.02),
                 ...List.generate(
                     state.user!.markets.length,
                     (index) => StoreItem(

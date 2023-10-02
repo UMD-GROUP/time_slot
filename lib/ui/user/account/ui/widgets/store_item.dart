@@ -25,11 +25,11 @@ class StoreItem extends StatelessWidget {
               child: Text(
                 "${index + 1} - ${'store'.tr} : ",
                 style: AppTextStyles.labelLarge(context,
-                    fontSize: 18, fontWeight: FontWeight.w600),
+                    fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
-              width: width(context) * 0.46,
+              width: width(context) * 0.42,
               child: Text(
                 title,
                 style: AppTextStyles.labelLarge(context,
