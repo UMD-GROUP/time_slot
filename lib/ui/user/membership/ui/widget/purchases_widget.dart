@@ -18,7 +18,9 @@ class PurchasesWidget extends StatelessWidget {
         else if (state.status == ResponseStatus.inSuccess){
           final List<PurchaseModel> data = state.orders!.cast();
           final List<PurchaseModel> curData = data.where((element) => element.ownerId == context.read<UserBloc>().state.user!.uid).toList();
-          return Expanded(
+          return curData.isEmpty ?
+              Center(child: SizedBox( height: height(context)*0.34,child: Lottie.asset(AppLotties.empty)),)
+          :  Expanded(
             child: ListView(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,

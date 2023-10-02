@@ -66,11 +66,15 @@ class AppTranslations extends Translations {
           'cancel': 'Bekor qilish',
           'market_name_must_include_more_than_3_letters':
               "Do'kon nomi eng kamida 3ta\nharfdan iborat bo'lishi kerak!",
+          'uz_sum': "so'm",
+          'total_amount_withdrawn': 'Jami yechib olingan:',
+          'piece':'ta',
           'added_successfully': "Muvaffaqqiyatli qo'shildi!",
           'uzbek': "O'zbek tili",
           'russian': 'Rus tili',
           'dark_mode': 'Tunggi rejim',
           'light_mode': 'Kunduzgi rejim',
+
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -130,6 +134,9 @@ class AppTranslations extends Translations {
           'cancel': 'Отмена',
           'market_name_must_include_more_than_3_letters':
               'Название магазина должно\nсостоять минимум из 3 букв!',
+          'uz_sum': 'сум',
+          'total_amount_withdrawn': 'Всего снято:',
+          'piece':'штук',
           'added_successfully': 'Добавлено успешно!',
           'uzbek': 'Узбекский язык',
           'russian': 'Pусский язык',

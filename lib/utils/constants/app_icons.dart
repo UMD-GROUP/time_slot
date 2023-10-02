@@ -6,6 +6,8 @@ class AppIcons {
   static const dollar = '$iconPath/dollar.svg';
   static const refresh = '$iconPath/refresh.svg';
   static const download = '$iconPath/download.svg';
+  static const users = '$iconPath/users.svg';
+  static const balance = '$iconPath/balance.svg';
 
 
   static const call = '$iconPath/call.png';
