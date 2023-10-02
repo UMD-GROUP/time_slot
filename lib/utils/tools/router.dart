@@ -1,5 +1,5 @@
 import 'package:time_slot/ui/admin/admin_home/ui/admin_home_page.dart';
-import 'package:time_slot/ui/authorization/ui/authorization_page.dart';
+import 'package:time_slot/ui/common/authorization/ui/authorization_page.dart';
 import 'package:time_slot/ui/user/create_order/ui/create_order_page.dart';
 import 'package:time_slot/ui/user/main/ui/main_page.dart';
 
