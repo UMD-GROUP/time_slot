@@ -20,6 +20,7 @@ class _OrdersPageState extends State<OrdersPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
           title: const Text('Orders Page'),
           backgroundColor: Colors.deepPurple,

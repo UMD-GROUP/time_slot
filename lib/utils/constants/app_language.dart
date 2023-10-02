@@ -66,6 +66,7 @@ class AppTranslations extends Translations {
           'cancel': 'Bekor qilish',
           'market_name_must_include_more_than_3_letters':
               "Do'kon nomi eng kamida 3ta\nharfdan iborat bo'lishi kerak!",
+          'added_successfully': "Muvaffaqqiyatli qo'shildi!"
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -125,6 +126,7 @@ class AppTranslations extends Translations {
           'cancel': 'Отмена',
           'market_name_must_include_more_than_3_letters':
               'Название магазина должно\nсостоять минимум из 3 букв!',
+          'added_successfully': 'Добавлено успешно!'
         }
       };
 }
