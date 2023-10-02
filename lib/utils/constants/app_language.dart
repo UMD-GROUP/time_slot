@@ -53,7 +53,17 @@ class AppTranslations extends Translations {
           'in_progress': 'Jarayonda: ',
           'referalls': 'Referallar: ',
           'all_purchased': 'Barcha yechilgan: ',
-          'purchase': 'Pul yechish'
+          'purchase': 'Pul yechish',
+          'referral': 'Referal:',
+          'store': "Do'kon",
+          'no_markets_yet': "Do'konlar mavjud emas.",
+          'add_your_store': "Do'koningizni qo'shing.",
+          'enter_your_stores_name_and_add':
+              "Do'kon nomini kiriting va uni saqlang.",
+          'enter_store_name': "Do'kon nomini kiriting...",
+          'cancel': 'Bekor qilish',
+          'market_name_must_include_more_than_3_letters':
+              "Do'kon nomi eng kamida 3ta\nharfdan iborat bo'lishi kerak!",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -100,7 +110,17 @@ class AppTranslations extends Translations {
           'done': 'Сделанный',
           'created': 'Созданный',
           'cancelled': 'Отменено',
-          'progress': 'Прогресс'
+          'progress': 'Прогресс',
+          'referral': 'Реферал:',
+          'store': 'Магазин',
+          'no_markets_yet': 'Магазинов нет.',
+          'add_your_store': 'Добавьте свой магазин.',
+          'enter_your_stores_name_and_add':
+              'Введите название магазина и сохраните его.',
+          'enter_store_name': 'Введите название магазина...',
+          'cancel': 'Отмена',
+          'market_name_must_include_more_than_3_letters':
+              'Название магазина должно\nсостоять минимум из 3 букв!',
         }
       };
 }

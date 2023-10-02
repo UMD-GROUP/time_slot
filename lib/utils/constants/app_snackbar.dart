@@ -1,3 +1,6 @@
+// ignore_for_file: type_annotate_public_apis
+
+import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AppSnackBar extends StatelessWidget {
@@ -75,4 +78,15 @@ class AppErrorSnackBar extends StatelessWidget {
           ),
         ),
       );
+}
+
+void showLoadingDialog(context) {
+  showCupertinoDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => const CupertinoAlertDialog(
+      title: Text('Loading...'),
+      content: CupertinoActivityIndicator(), // Loading indicator
+    ),
+  );
 }
