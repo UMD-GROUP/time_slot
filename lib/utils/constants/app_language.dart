@@ -53,7 +53,9 @@ class AppTranslations extends Translations {
           'in_progress': 'Jarayonda: ',
           'referalls': 'Referallar: ',
           'all_purchased': 'Barcha yechilgan: ',
-          'purchase': 'Pul yechish'
+          'purchase': 'Pul yechish',
+          'amount': 'Miqdor:',
+          'payment':"To'lov:"
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -100,7 +102,9 @@ class AppTranslations extends Translations {
           'done': 'Сделанный',
           'created': 'Созданный',
           'cancelled': 'Отменено',
-          'progress': 'Прогресс'
+          'progress': 'Прогресс',
+          'amount': 'Сумма:',
+          'payment':'Оплата:'
         }
       };
 }

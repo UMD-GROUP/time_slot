@@ -55,6 +55,7 @@ dependencies:
   lottie: ^2.3.2
   firebase_storage: ^11.2.7
   firebase_app_check: ^0.2.0
+  flutter_svg: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/lottie/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
