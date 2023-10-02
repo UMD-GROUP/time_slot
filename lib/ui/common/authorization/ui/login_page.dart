@@ -1,8 +1,7 @@
 // ignore_for_file: type_annotate_public_apis
 
 import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
-
-import '../../../utils/tools/file_importers.dart';
+import 'package:time_slot/utils/tools/file_importers.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key, required this.onTap, required this.controllers});
