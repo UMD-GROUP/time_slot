@@ -55,7 +55,7 @@ class AppTranslations extends Translations {
           'all_purchased': 'Barcha yechilgan: ',
           'purchase': 'Pul yechish',
           'amount': 'Miqdor:',
-          'payment':"To'lov:",
+          'payment': "To'lov:",
           'referral': 'Referal:',
           'store': "Do'kon",
           'no_markets_yet': "Do'konlar mavjud emas.",
@@ -66,7 +66,11 @@ class AppTranslations extends Translations {
           'cancel': 'Bekor qilish',
           'market_name_must_include_more_than_3_letters':
               "Do'kon nomi eng kamida 3ta\nharfdan iborat bo'lishi kerak!",
-          'added_successfully': "Muvaffaqqiyatli qo'shildi!"
+          'added_successfully': "Muvaffaqqiyatli qo'shildi!",
+          'uzbek': "O'zbek tili",
+          'russian': 'Rus tili',
+          'dark_mode': 'Tunggi rejim',
+          'light_mode': 'Kunduzgi rejim',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -115,7 +119,7 @@ class AppTranslations extends Translations {
           'cancelled': 'Отменено',
           'progress': 'Прогресс',
           'amount': 'Сумма:',
-          'payment':'Оплата:',
+          'payment': 'Оплата:',
           'referral': 'Реферал:',
           'store': 'Магазин',
           'no_markets_yet': 'Магазинов нет.',
@@ -126,7 +130,11 @@ class AppTranslations extends Translations {
           'cancel': 'Отмена',
           'market_name_must_include_more_than_3_letters':
               'Название магазина должно\nсостоять минимум из 3 букв!',
-          'added_successfully': 'Добавлено успешно!'
+          'added_successfully': 'Добавлено успешно!',
+          'uzbek': 'Узбекский язык',
+          'russian': 'Pусский язык',
+          'dark_mode': 'Ночной режим',
+          'light_mode': 'Дневной режим',
         }
       };
 }

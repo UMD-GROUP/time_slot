@@ -12,7 +12,7 @@ class AppearanceButton extends StatelessWidget {
         onTap: onTap,
         child: Container(
           height: height(context) * 0.07,
-          width: width(context) * 0.4,
+          width: width(context) * 0.44,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.deepPurple)),
