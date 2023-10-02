@@ -55,7 +55,7 @@ class AppTranslations extends Translations {
           'all_purchased': 'Barcha yechilgan: ',
           'purchase': 'Pul yechish',
           'amount': 'Miqdor:',
-          'payment':"To'lov:"
+          'payment':"To'lov:",
           'referral': 'Referal:',
           'store': "Do'kon",
           'no_markets_yet': "Do'konlar mavjud emas.",
@@ -114,7 +114,7 @@ class AppTranslations extends Translations {
           'cancelled': 'Отменено',
           'progress': 'Прогресс',
           'amount': 'Сумма:',
-          'payment':'Оплата:'
+          'payment':'Оплата:',
           'referral': 'Реферал:',
           'store': 'Магазин',
           'no_markets_yet': 'Магазинов нет.',
