@@ -77,6 +77,8 @@ class AppTranslations extends Translations {
           'you_need_to_enter_more_then_50':
               "Eng kamida 50 000 so'm\nyechish mumkin.",
           'you_cant_afford': "Kiritilgan mablag' hisobingizda\nmavjud emas!",
+          'card_not_found':
+              'Bank kartasi kirtimasdan\nushbu amaliyotni bajara olmaysiz!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -148,6 +150,8 @@ class AppTranslations extends Translations {
           'you_need_to_enter_more_then_50':
               'Вывести можно не менее 50 000 сумов.',
           'you_cant_afford': 'Внесенные средства недоступны на вашем счету!',
+          'card_not_found':
+              'Вы не сможете выполнить эту\nоперацию без ввода банковской карты!'
         }
       };
 }

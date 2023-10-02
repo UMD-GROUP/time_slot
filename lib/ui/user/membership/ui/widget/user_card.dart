@@ -69,7 +69,22 @@ class UserCard extends StatelessWidget {
                     .toString(),
                 text3: 'uz_sum'),
             UserCardButton(onTap: () {
-              showMoneyInputDialog(context);
+              if (context
+                  .read<UserBloc>()
+                  .state
+                  .user!
+                  .card
+                  .cardNumber
+                  .isNotEmpty) {
+                showMoneyInputDialog(context);
+              } else {
+                AnimatedSnackBar(
+                  duration: const Duration(seconds: 4),
+                  snackBarStrategy: RemoveSnackBarStrategy(),
+                  builder: (context) =>
+                      AppErrorSnackBar(text: 'card_not_found'.tr),
+                ).show(context);
+              }
             })
           ],
         ),
