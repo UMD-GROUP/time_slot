@@ -1,6 +1,5 @@
 // ignore_for_file: use_named_constants, cascade_invocations
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class CreateOrderPage extends StatefulWidget {
@@ -44,14 +43,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   builder: (context) => AppErrorSnackBar(text: state.message),
                 ).show(context);
               } else if (state.addingStatus == ResponseStatus.inProgress) {
-                showCupertinoDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) => const CupertinoAlertDialog(
-                    title: Text('Loading...'),
-                    content: CupertinoActivityIndicator(), // Loading indicator
-                  ),
-                );
+                showLoadingDialog(context);
               }
             },
             builder: (context, orderState) => BlocProvider(

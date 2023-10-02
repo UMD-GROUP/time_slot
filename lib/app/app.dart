@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_expression_function_bodies
 import 'package:time_slot/ui/user/membership/bloc/purchase_bloc.dart';
+import 'package:time_slot/ui/user/account/bloc/user_account_bloc/user_account_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -13,6 +14,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => AdvertisementBloc()),
         BlocProvider(create: (context) => OrderBloc()),
         BlocProvider(create: (context) => PurchaseBloc()),
+        BlocProvider(create: (context) => UserAccountBloc()),
       ], child: const MyApp());
 }
 

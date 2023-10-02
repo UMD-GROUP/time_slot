@@ -7,3 +7,8 @@ class GetUserDataEvent extends UserEvent {
   GetUserDataEvent(this.uid);
   String uid;
 }
+
+class AddMarketToUserEvent extends UserEvent {
+  AddMarketToUserEvent(this.market);
+  String market;
+}

@@ -5,4 +5,6 @@ class AppImages {
   static const background = '$IMAGE_PATH/background.png';
   static const umdLogo = '$IMAGE_PATH/logo.png';
   static const welcome = '$IMAGE_PATH/welcome.png';
+  static const uzumLogo = '$IMAGE_PATH/uzum_logo.png';
+  static const market = '$IMAGE_PATH/market.png';
 }
