@@ -37,7 +37,7 @@ class AddPurchaseDialog extends StatelessWidget {
                     status: PurchaseStatus.created,
                     amount: int.parse(controller.text.trim()),
                     ownerId: context.read<UserBloc>().state.user!.uid,
-                    purchaseId: 0,
+                    purchaseId: generateRandomID(false),
                     referralId:
                         context.read<UserBloc>().state.user!.referallId)));
               } else {

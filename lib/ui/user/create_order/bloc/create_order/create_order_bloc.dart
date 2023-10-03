@@ -1,4 +1,3 @@
-import 'package:time_slot/ui/user/create_order/data/repository/create_order_repository.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 part 'create_order_event.dart';
@@ -6,7 +5,8 @@ part 'create_order_state.dart';
 
 class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
   CreateOrderBloc()
-      : super(CreateOrderState(OrderModel(dates: [], products: []))) {
+      : super(CreateOrderState(OrderModel(
+            dates: [], products: [], orderId: generateRandomID(true)))) {
     on<UpdateFieldsOrderEvent>(updateFields);
     on<AddOrderEvent>(addOrder);
   }
