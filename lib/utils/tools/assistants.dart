@@ -1,10 +1,13 @@
 // ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison
 
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:time_slot/data/models/data_from_admin_model.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
@@ -101,24 +104,25 @@ String orderValidator(OrderModel order) {
   return '';
 }
 
-bool canNavigate(context, UserModel? user) {
+bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
+  String error = '';
   if (user == null) {
+    error = 'try_again'.tr;
+  }
+  if (user!.markets.isEmpty) {
+    error = 'you_need_to_create_market'.tr;
+  }
+  if (data.prices.length != 30 && data.deliveryNote.length != 6) {
+    error = 'you_cant_create_order_now'.tr;
+  }
+  if (error.isNotEmpty) {
     AnimatedSnackBar(
             builder: (context) => AppErrorSnackBar(text: 'try_again'.tr),
             snackBarStrategy: RemoveSnackBarStrategy())
         .show(context);
     return false;
-  } else {
-    if (user.markets.isEmpty) {
-      AnimatedSnackBar(
-              builder: (context) =>
-                  AppErrorSnackBar(text: 'you_need_to_create_market'.tr),
-              snackBarStrategy: RemoveSnackBarStrategy())
-          .show(context);
-      return false;
-    }
-    return true;
   }
+  return true;
 }
 
 Future<void> postPurchases(String ownerId, String referralId) async {
@@ -230,4 +234,59 @@ Future<void> postAdminData() async {
 
   final FirebaseFirestore instance = FirebaseFirestore.instance;
   await instance.collection('admin_data').add(data.toJson());
+}
+
+/// Example event class.
+class Event {
+  const Event(this.title);
+  final String title;
+
+  @override
+  String toString() => title;
+}
+
+/// Example events.
+///
+/// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
+final kEvents = LinkedHashMap<DateTime, List<Event>>(
+  equals: isSameDay,
+  hashCode: getHashCode,
+)..addAll(_kEventSource);
+
+final _kEventSource = {
+  for (var item in List.generate(50, (index) => index))
+    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
+        item % 4 + 1, (index) => Event('Event $item | ${index + 1}'))
+}..addAll({
+    kToday: [
+      const Event('Today\'s Event 1'),
+      const Event('Today\'s Event 2'),
+    ],
+  });
+
+int getHashCode(DateTime key) =>
+    key.day * 1000000 + key.month * 10000 + key.year;
+
+/// Returns a list of [DateTime] objects from [first] to [last], inclusive.
+List<DateTime> daysInRange(DateTime first, DateTime last) {
+  final dayCount = last.difference(first).inDays + 1;
+  return List.generate(
+    dayCount,
+    (index) => DateTime.utc(first.year, first.month, first.day + index),
+  );
+}
+
+final kToday = DateTime.now();
+final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
+final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+
+String formatStringToMoney(String inputString) {
+  // Parse the input string as a double
+  final double amount = double.tryParse(inputString) ?? 0.0;
+
+  // Create a NumberFormat instance to format as currency
+  final moneyFormatter = NumberFormat.currency(locale: 'en_US', symbol: '');
+
+  // Format the double as currency and return the result
+  return moneyFormatter.format(amount);
 }

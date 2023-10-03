@@ -1,5 +1,8 @@
 // ignore_for_file: use_named_constants, cascade_invocations
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:time_slot/ui/user/create_order/ui/widgets/order_confirm_bottom_sheet.dart';
+import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class CreateOrderPage extends StatefulWidget {
@@ -85,22 +88,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 'choose_dates'.tr,
                                 // style: AppTextStyles.labelLarge(context),
                               ),
-                              content: CalendarDatePicker2(
-                                config: CalendarDatePicker2Config(
-                                  calendarType: CalendarDatePicker2Type.multi,
-                                ),
-                                value: orderState.order.dates.cast(),
-                                onValueChanged: (dates) {
-                                  final OrderModel order = context
-                                      .read<CreateOrderBloc>()
-                                      .state
-                                      .order;
-                                  order.dates = dates;
-                                  context
-                                      .read<CreateOrderBloc>()
-                                      .add(UpdateFieldsOrderEvent(order));
-                                },
-                              ),
+                              content: const SelectDatesSection(),
                             ),
                             Step(
                                 title: Text('products'.tr),
@@ -116,19 +104,19 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             isLoading: orderState.addingStatus ==
                                 ResponseStatus.inProgress,
                             onTap: () {
-                              final OrderModel order =
-                                  context.read<CreateOrderBloc>().state.order;
-                              order.referallId = context
-                                  .read<UserBloc>()
+                              final OrderModel order = orderState.order;
+                              order.sum = context
+                                  .read<DataFromAdminBloc>()
                                   .state
-                                  .user!
-                                  .referallId;
-                              order.ownerId =
-                                  context.read<UserBloc>().state.user!.uid;
+                                  .data!
+                                  .prices[order.dates.length];
 
-                              context
-                                  .read<CreateOrderBloc>()
-                                  .add(AddOrderEvent(order));
+                              showCupertinoModalPopup(
+                                context: context,
+                                builder: (context) => InfoBottomSheet(
+                                  order: order,
+                                ),
+                              );
                             },
                             color: Colors.deepPurple,
                             title: 'order'.tr,
