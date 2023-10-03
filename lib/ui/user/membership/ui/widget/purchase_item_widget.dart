@@ -41,7 +41,7 @@ class PurchasesItemWidget extends StatelessWidget {
                      Text('Status:'.tr, style: AppTextStyles.bodyMedium(context),),
                      SizedBox(width: 3.w,),
                      Text(purchaseModel.status == PurchaseStatus.finished ? 'done'.tr: purchaseModel.status == PurchaseStatus.inProgress ? 'progress'.tr:   purchaseModel.status == PurchaseStatus.created ? 'created'.tr:  'cancelled'.tr, style: AppTextStyles.bodyMedium(context,
-                       color:purchaseModel.status == PurchaseStatus.finished ? Colors.green: purchaseModel.status == PurchaseStatus.inProgress ? Colors.amber:   purchaseModel.status == PurchaseStatus.created ? Colors.deepPurple : Colors.red
+                       color:purchaseModel.status == PurchaseStatus.finished ? Colors.green: purchaseModel.status == PurchaseStatus.inProgress ? Colors.amber:   purchaseModel.status == PurchaseStatus.created ? Colors.yellow : Colors.red
                      ),),
                    ],
                  ),
