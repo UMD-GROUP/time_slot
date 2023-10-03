@@ -16,13 +16,13 @@ class AddPurchaseDialog extends StatelessWidget {
         ),
         actions: <Widget>[
           CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
             child: Text('cancel'.tr),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           CupertinoDialogAction(
-            textStyle: const TextStyle(color: Colors.red),
             child: Text('ok'.tr),
             onPressed: () {
               String error = '';

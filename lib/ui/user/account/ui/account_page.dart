@@ -1,3 +1,4 @@
+import 'package:time_slot/ui/user/account/ui/widgets/account_action_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AccountPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _AccountPageState extends State<AccountPage> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
-          title: const Text('User Account'),
+          title: Text('account'.tr),
         ),
         body: Center(
           child: Padding(
@@ -71,6 +72,9 @@ class _AccountPageState extends State<AccountPage> {
                 const UserStores(),
                 SizedBox(height: height(context) * 0.02),
                 const Appearance(),
+                AccountActionButton('logging_out'.tr, onTap: () {
+                  showLogOutDialog(context);
+                }, icon: Icons.logout)
               ],
             ),
           ),

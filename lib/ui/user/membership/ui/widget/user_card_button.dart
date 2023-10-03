@@ -29,7 +29,7 @@ class UserCardButton extends StatelessWidget {
             ).show(context);
           }
         },
-        child: GestureDetector(
+        child: OnTap(
           onTap: onTap,
           child: Container(
             height: height(context) * 0.04,

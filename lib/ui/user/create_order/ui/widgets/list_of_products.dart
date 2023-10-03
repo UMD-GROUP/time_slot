@@ -25,9 +25,15 @@ class ListOfProducts extends StatelessWidget {
                   item.deliveryNote,
                   style: AppTextStyles.labelLarge(context, fontSize: 18),
                 ),
-                subtitle: Text(item.count.toString()),
+                subtitle: Text(
+                  item.count.toString(),
+                  style: AppTextStyles.labelLarge(context, fontSize: 14),
+                ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.delete),
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
                   onPressed: () {
                     final OrderModel order = state.order;
                     order.products.removeAt(index);

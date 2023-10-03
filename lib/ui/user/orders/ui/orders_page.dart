@@ -22,7 +22,7 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
-          title: const Text('Orders Page'),
+          title: Text('orders'.tr),
           backgroundColor: Colors.deepPurple,
         ),
         body: Column(children: [
@@ -32,6 +32,8 @@ class _OrdersPageState extends State<OrdersPage> {
           const Expanded(child: TabBarWidget())
         ]),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.deepPurple,
+          child: const Icon(Icons.add),
           onPressed: () {
             if (canNavigate(context, context.read<UserBloc>().state.user)) {
               Navigator.pushNamed(context, RouteName.createOrder);

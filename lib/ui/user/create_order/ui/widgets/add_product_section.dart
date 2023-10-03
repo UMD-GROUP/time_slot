@@ -41,7 +41,9 @@ class _AddProductSectionState extends State<AddProductSection> {
                   children: [
                     Text('count_of_products'.tr,
                         style: AppTextStyles.labelLarge(context,
-                            fontWeight: FontWeight.w700, fontSize: 16)),
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16)),
                     Text(
                         '${state.order.products.length}  |  ${state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))}'
                             .tr),
@@ -81,7 +83,7 @@ class _AddProductSectionState extends State<AddProductSection> {
                           children: [
                             Text('123456 -',
                                 style: AppTextStyles.labelLarge(context,
-                                    fontSize: 16)),
+                                    color: Colors.black, fontSize: 16)),
                             Expanded(
                               child: TextField(
                                 onChanged: (value) {
