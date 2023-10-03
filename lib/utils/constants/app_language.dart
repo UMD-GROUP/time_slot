@@ -104,6 +104,14 @@ class AppTranslations extends Translations {
           'market_name': "Do'kon nomi:  ",
           'confirm': 'Tasdiqlash',
           'you_cant_create_order_now': 'Ayni damda buyurtma\nberish imkonsiz!',
+          'partner_id': 'Hamkor IDsi:',
+          'banners': 'Bannerlar',
+          'prices': 'Narxlar',
+          'other': 'Boshqalar',
+          'users': 'Foydalanuvchilar',
+          'partners': 'Hamkorlar',
+          'pay': "To'lov",
+          'admin_panel': "Admin bo'limi",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -201,6 +209,14 @@ class AppTranslations extends Translations {
           'confirm': 'Подтверждать',
           'you_cant_create_order_now':
               'В данный момент невозможно\nсделать заказ!',
+          'partner_id': 'ID партнера:',
+          'banners': 'Баннеры',
+          'prices': 'Цены',
+          'other': 'Другие',
+          'users': 'Пользователи',
+          'partners': 'Партнеры',
+          'pay': 'Оплата',
+          'admin_panel': 'Панель администратора'
         }
       };
 }

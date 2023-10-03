@@ -54,7 +54,7 @@ class OrderItem extends StatelessWidget {
                     ),
                     OrderTextWidget(
                         context: context,
-                        type: 'Order id:',
+                        type: 'ID:',
                         value: order.orderId.toString()),
                     OrderTextWidget(
                         context: context,
@@ -66,7 +66,7 @@ class OrderItem extends StatelessWidget {
                         value: order.sum.toString()),
                     OrderTextWidget(
                         context: context,
-                        type: 'Partner id:',
+                        type: 'partner_id',
                         value: order.referallId.toString()),
                     //     OrderTextWidget(context: context, type: 'Status:',value: data[index].status.toString()),
                     Row(
