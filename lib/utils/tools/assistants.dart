@@ -182,3 +182,34 @@ void showLogOutDialog(BuildContext context) {
     builder: (context) => const LogoutDialog(),
   );
 }
+
+int generateRandomID(bool isOrder) {
+  // Get the current date and time
+  final DateTime now = DateTime.now();
+  final int middleNumber = generateRandomNumber(isOrder);
+
+  // Get the day and second components
+  final int currentDay = now.day;
+  final int currentSecond = now.second;
+
+  // Generate 5 random numbers
+  final Random random = Random();
+  final List<int> randomDigits = List.generate(
+      7 - (currentSecond.toString().length + currentDay.toString().length),
+      (index) => random.nextInt(10));
+
+  // Combine the components and random digits to create the ID
+  final String id =
+      '$currentDay$currentSecond$middleNumber${randomDigits.join()}';
+
+  return int.parse(id);
+}
+
+int generateRandomNumber(bool isOdd) {
+  final Random random = Random();
+  int number = random.nextInt(9); // You can adjust the range as needed
+  if (number.isOdd && isOdd) {
+    number++; // Make sure it's an odd number
+  }
+  return number;
+}
