@@ -1,3 +1,5 @@
+import 'package:time_slot/ui/admin/admin_home/ui/widget/admin_tabbar.dart';
+
 import '../../../../utils/tools/file_importers.dart';
 
 class AdminHomePage extends StatelessWidget {
@@ -85,6 +87,8 @@ class AdminHomePage extends StatelessWidget {
                 ),
               )),
         ),
+        SizedBox(height: height(context)*0.03,),
+        const Expanded(child: AdminTabBarWidget()),
 
         Container(),
         Container(),
