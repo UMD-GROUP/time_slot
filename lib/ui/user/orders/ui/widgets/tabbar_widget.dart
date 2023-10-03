@@ -59,6 +59,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
               ),
             ),
           ),
+          SizedBox(height: height(context) * 0.008),
           BlocConsumer<OrderBloc, OrderState>(
             listener: (context, state) {},
             builder: (context, state) {
