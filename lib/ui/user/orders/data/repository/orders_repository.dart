@@ -1,5 +1,3 @@
-import 'package:time_slot/ui/user/orders/data/models/banner_model.dart';
-
 import '../../../../../utils/tools/file_importers.dart';
 
 class OrdersRepository {
@@ -7,9 +5,9 @@ class OrdersRepository {
   final FirebaseFirestore firestore;
 
   Future<MyResponse> getOrders() async {
-    final data = await firestore.collection('admin_data').get();
+    final data = await firestore.collection('orders').get();
     final List<OrderModel> result =
-    data.docs.map((e) => OrderModel.fromJson(e.data())).toList();
+        data.docs.map((e) => OrderModel.fromJson(e.data())).toList();
     return MyResponse(data: result, statusCode: 200);
   }
 }
