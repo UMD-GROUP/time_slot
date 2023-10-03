@@ -1,12 +1,11 @@
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_event.dart';
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_state.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
-  AdvertisementBloc()
-      : super(AdvertisementState(
-            message: '',
-            status: ResponseStatus.pure,
-            banners: const [],
-            index: 0)) {
+class DataFromAdminBloc extends Bloc<DataFromAdminEvent, DataFromAdminState> {
+  DataFromAdminBloc()
+      : super(DataFromAdminState(
+            message: '', status: ResponseStatus.pure, index: 0)) {
     on<GetBannersEvent>(getBanners);
     on<ChangeIndexEvent>(changeIndex);
   }
@@ -14,10 +13,10 @@ class AdvertisementBloc extends Bloc<AdvertisementEvent, AdvertisementState> {
   Future<void> getBanners(GetBannersEvent event, Emitter emit) async {
     emit(state.copyWith(status: ResponseStatus.inProgress));
     final MyResponse myResponse =
-        await getIt<AdvertisementRepository>().getBanners();
+        await getIt<DataFromAdminRepository>().getBanners();
     if (myResponse.statusCode! == 200) {
       emit(state.copyWith(
-          banners: myResponse.data, status: ResponseStatus.inSuccess));
+          data: myResponse.data, status: ResponseStatus.inSuccess));
     } else {
       emit(state.copyWith(
           status: ResponseStatus.inFail, message: myResponse.message));

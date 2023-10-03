@@ -1,27 +1,28 @@
+import 'package:time_slot/data/models/data_from_admin_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class AdvertisementState extends Equatable {
-  AdvertisementState(
+class DataFromAdminState extends Equatable {
+  DataFromAdminState(
       {required this.status,
-      this.banners,
+      this.data,
       required this.message,
       required this.index});
   ResponseStatus status;
-  List? banners;
+  DataFromAdminModel? data;
   String message;
   int index;
 
-  AdvertisementState copyWith(
+  DataFromAdminState copyWith(
           {ResponseStatus? status,
-          List? banners,
+          DataFromAdminModel? data,
           String? message,
           int? index}) =>
-      AdvertisementState(
+      DataFromAdminState(
           index: index ?? this.index,
           message: message ?? this.message,
-          banners: banners ?? this.banners,
+          data: data ?? this.data,
           status: status ?? this.status);
 
   @override
-  List<Object?> get props => [status, banners, message, index];
+  List<Object?> get props => [status, data, message, index];
 }

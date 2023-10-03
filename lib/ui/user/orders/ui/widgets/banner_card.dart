@@ -1,3 +1,6 @@
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_bloc.dart';
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_event.dart';
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_state.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class BannerCard extends StatelessWidget {
@@ -6,15 +9,15 @@ class BannerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      BlocBuilder<AdvertisementBloc, AdvertisementState>(
+      BlocBuilder<DataFromAdminBloc, DataFromAdminState>(
         builder: (context, state) {
           if (state.status == ResponseStatus.pure) {
-            context.read<AdvertisementBloc>().add(GetBannersEvent());
+            context.read<DataFromAdminBloc>().add(GetBannersEvent());
           }
-          return BlocBuilder<AdvertisementBloc, AdvertisementState>(
+          return BlocBuilder<DataFromAdminBloc, DataFromAdminState>(
             builder: (context, state) {
               if (state.status == ResponseStatus.inSuccess) {
-                images = state.banners![0].carusels!;
+                images = state.data!.banners;
                 return CarouselSlider(
                   items: images
                       .map((imageUrl) => Builder(
@@ -24,8 +27,7 @@ class BannerCard extends StatelessWidget {
                                 //     arguments: state.banners![state.index]);
                               },
                               child: CachedNetworkImage(
-                                imageUrl:
-                                    state.banners![0].carusels[state.index],
+                                imageUrl: state.data!.banners[state.index],
                                 placeholder: (context, url) => Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 20.h),
@@ -59,7 +61,7 @@ class BannerCard extends StatelessWidget {
                   options: CarouselOptions(
                     onPageChanged: (index, reason) {
                       context
-                          .read<AdvertisementBloc>()
+                          .read<DataFromAdminBloc>()
                           .add(ChangeIndexEvent(index));
                     },
                     height: height(context) * 0.2,
@@ -91,7 +93,7 @@ class BannerCard extends StatelessWidget {
                   options: CarouselOptions(
                     onPageChanged: (index, reason) {
                       context
-                          .read<AdvertisementBloc>()
+                          .read<DataFromAdminBloc>()
                           .add(ChangeIndexEvent(index));
                       // setState(() {
                       //   _currentImageIndex = index;
