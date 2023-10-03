@@ -94,7 +94,16 @@ class AppTranslations extends Translations {
           'yes': 'Ha',
           'orders': 'Buyurtmalar',
           'membership': 'Hamkorlik',
-          'account': 'Shaxsiy hisob'
+          'account': 'Shaxsiy hisob',
+          'date_must_be_after': "O'tgan sanani tanlash mumkin emas!",
+          'date_limit_reached': '30 tadan ortiq sana tanlay olmaysiz!',
+          'order_detail': 'Buyurtma haqida',
+          'service_price': 'Xizmat haqi:  ',
+          'dates_count': 'Sanalar soni:  ',
+          'products_count': 'Tovarlar soni:  ',
+          'market_name': "Do'kon nomi:  ",
+          'confirm': 'Tasdiqlash',
+          'you_cant_create_order_now': 'Ayni damda buyurtma\nberish imkonsiz!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -181,7 +190,17 @@ class AppTranslations extends Translations {
           'yes': 'Да',
           'orders': 'Заказы',
           'membership': 'Сотрудничество',
-          'account': 'Персональный аккаунт'
+          'account': 'Персональный аккаунт',
+          'date_must_be_after': 'Невозможно выбрать прошлую дату!',
+          'date_limit_reached': 'Вы не можете выбрать более 30 дат!',
+          'order_detail': 'О заказе',
+          'service_price': 'Плата за обслуживание:  ',
+          'dates_count': 'Количество дат:  ',
+          'products_count': 'Количество товаров:  ',
+          'market_name': 'Название магазина:  ',
+          'confirm': 'Подтверждать',
+          'you_cant_create_order_now':
+              'В данный момент невозможно\nсделать заказ!',
         }
       };
 }
