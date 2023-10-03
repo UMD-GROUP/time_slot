@@ -17,9 +17,11 @@ GestureDetector AdminTabBarItem(
         child: Center(
           child: Text(
             text.tr,
+            maxLines: 1,
+            textAlign: TextAlign.center,
             style: AppTextStyles.bodyMedium(context,
                 fontWeight: FontWeight.bold,
-                color: isActive ? Colors.white : AdaptiveTheme.of(context).theme.backgroundColor == AppColors.c0F1620 ?  Colors.white : Colors.black, fontSize: 13.sp),
+                color: isActive ? Colors.white : AdaptiveTheme.of(context).theme.backgroundColor == AppColors.c0F1620 ?  Colors.white : Colors.black, fontSize: 12.sp),
           ),
         ),
       ),

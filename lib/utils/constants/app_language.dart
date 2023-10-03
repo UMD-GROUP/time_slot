@@ -94,7 +94,15 @@ class AppTranslations extends Translations {
           'yes': 'Ha',
           'orders': 'Buyurtmalar',
           'membership': 'Hamkorlik',
-          'account': 'Shaxsiy hisob'
+          'account': 'Shaxsiy hisob',
+          'partner_id': 'Hamkor IDsi:',
+          'banners': 'Bannerlar',
+          'prices': 'Narxlar',
+          'other': 'Boshqalar',
+          'users': 'Foydalanuvchilar',
+          'partners': 'Hamkorlar',
+          'pay': "To'lov",
+          'admin_panel': "Admin bo'limi",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -181,7 +189,15 @@ class AppTranslations extends Translations {
           'yes': 'Да',
           'orders': 'Заказы',
           'membership': 'Сотрудничество',
-          'account': 'Персональный аккаунт'
+          'account': 'Персональный аккаунт',
+          'partner_id': 'ID партнера:',
+          'banners': 'Баннеры',
+          'prices': 'Цены',
+          'other': 'Другие',
+          'users': 'Пользователи',
+          'partners': 'Партнеры',
+          'pay': 'Оплата',
+          'admin_panel': 'Панель администратора'
         }
       };
 }

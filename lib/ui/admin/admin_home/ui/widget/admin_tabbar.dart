@@ -22,7 +22,7 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
   Widget build(BuildContext context) => Column(
     children: [
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Container(
           height: height(context) * 0.06,
           decoration: BoxDecoration(
