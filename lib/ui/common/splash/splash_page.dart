@@ -30,15 +30,27 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
+        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         body: Container(
           padding: EdgeInsets.all(40.h),
           height: height(context),
           width: width(context),
           child: Center(
-            child: Image.asset(
-              AppImages.umdLogo,
-              fit: BoxFit.fitWidth,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset(
+                  AppImages.logo,
+                  width: width(context) * 0.16,
+                  fit: BoxFit.fitWidth,
+                ),
+                Image.asset(
+                  AppImages.logoText,
+                  fit: BoxFit.fitWidth,
+                  width: width(context) * 0.4,
+                  color: AdaptiveTheme.of(context).theme.hintColor,
+                ),
+              ],
             ),
           ),
         ),
