@@ -11,12 +11,12 @@ class BankingCardModel {
   factory BankingCardModel.fromJson(Map<String, dynamic> json) =>
       BankingCardModel(
         cardNumber: json['cardNumber'] ?? 'DefaultCardNumber',
-        balance: json['balance1'] ?? 100000.0,
+        balance: json['balance'] ?? 100000.0,
         purchaseInProgress: json['purchaseInProgress'] ?? 0.0,
         referrals: json['referrals'] ?? 0,
         allPurchased: json['allPurchased'] ?? 0.0,
       );
-  final String cardNumber;
+  String cardNumber;
   final num balance;
   final num purchaseInProgress;
   final int referrals;

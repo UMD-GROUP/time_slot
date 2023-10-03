@@ -9,3 +9,8 @@ class AddMarketEvent extends UserAccountEvent {
   UserModel user;
   String market;
 }
+
+class AddBankingCardEvent extends UserAccountEvent {
+  AddBankingCardEvent(this.bankingCard);
+  BankingCardModel bankingCard;
+}

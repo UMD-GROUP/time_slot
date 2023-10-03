@@ -79,6 +79,22 @@ class AppTranslations extends Translations {
           'you_cant_afford': "Kiritilgan mablag' hisobingizda\nmavjud emas!",
           'card_not_found':
               'Bank kartasi kirtimasdan\nushbu amaliyotni bajara olmaysiz!',
+          '[firebase_auth/email-already-in-use] The email address is already in use by another account.':
+              'Ushbu hisobga akkaunt ochilgan!',
+          'banking_card': 'Bank kartasi:',
+          'enter_money_amount': 'Miqdorni kiriting',
+          'invalid_card_number': "Karta raqami to'liq kiritilmadi!",
+          'add_your_banking_card': "Bank kartangizni qo'shing.",
+          'ok': 'Tasdiqlash',
+          'take_photo': 'Rasm tanlash',
+          'show_products': "Mahsulotlarni ko'rsatish",
+          'logging_out': 'Akkauntdan chiqish',
+          'are_you_sure_you_want_to_logout':
+              'Chindan ham akkauntdan chiqmoqchimisiz?',
+          'yes': 'Ha',
+          'orders': 'Buyurtmalar',
+          'membership': 'Hamkorlik',
+          'account': 'Shaxsiy hisob'
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -100,7 +116,7 @@ class AppTranslations extends Translations {
           'delivery_note': 'Накладная',
           'count': 'Количество',
           'choose_photo': 'Выберите изображениеh',
-          'add': 'Добавлять',
+          'add': 'Добавить',
           'order': 'Формализация',
           'you_must_select_market': 'Магазин не выбран!',
           'you_must_select_data': 'Необходимо ввести хотя\nбы одну дату!',
@@ -146,12 +162,26 @@ class AppTranslations extends Translations {
           'russian': 'Pусский язык',
           'dark_mode': 'Ночной режим',
           'light_mode': 'Дневной режим',
-          'light_mode': 'Kunduzgi rejim',
           'you_need_to_enter_more_then_50':
               'Вывести можно не менее 50 000 сумов.',
           'you_cant_afford': 'Внесенные средства недоступны на вашем счету!',
           'card_not_found':
-              'Вы не сможете выполнить эту\nоперацию без ввода банковской карты!'
+              'Вы не сможете выполнить эту\nоперацию без ввода банковской карты!',
+          '[firebase_auth/email-already-in-use] The email address is already in use by another account.':
+              'Адрес электронной почты уже\nиспользуется другой учетной записью!',
+          'banking_card': 'Kарта:',
+          'enter_money_amount': 'Введите сумму',
+          'invalid_card_number': 'Номер карты введен не полностью!',
+          'add_your_banking_card': 'Добавьте свою банковскую карту.',
+          'ok': 'Подтверждать',
+          'take_photo': 'Выбор фотографии',
+          'show_products': 'Показать продукты',
+          'logging_out': 'Выйти из аккаунта',
+          'are_you_sure_you_want_to_logout': 'Вы действительно хотите выйти?',
+          'yes': 'Да',
+          'orders': 'Заказы',
+          'membership': 'Сотрудничество',
+          'account': 'Персональный аккаунт'
         }
       };
 }

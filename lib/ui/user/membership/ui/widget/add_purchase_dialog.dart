@@ -7,7 +7,7 @@ class AddPurchaseDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
-        title: const Text('Enter Money Amount'),
+        title: Text('enter_money_amount'.tr),
         content: CupertinoTextField(
           controller: controller,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -16,13 +16,14 @@ class AddPurchaseDialog extends StatelessWidget {
         ),
         actions: <Widget>[
           CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
             child: Text('cancel'.tr),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           CupertinoDialogAction(
-            child: const Text('OK'),
+            child: Text('ok'.tr),
             onPressed: () {
               String error = '';
               if (int.parse(controller.text.trim()) < 50000) {

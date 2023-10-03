@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
+import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -163,5 +165,20 @@ void showMoneyInputDialog(BuildContext context) {
     context: context,
     builder: (context) =>
         AddPurchaseDialog(controller: TextEditingController()),
+  );
+}
+
+void showAddBankingCardDialog(BuildContext context) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) =>
+        AddBankingCardDialog(controller: TextEditingController()),
+  );
+}
+
+void showLogOutDialog(BuildContext context) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (context) => const LogoutDialog(),
   );
 }
