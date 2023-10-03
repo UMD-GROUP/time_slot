@@ -62,9 +62,7 @@ class AuthorizationRepository {
       }
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      print('MAnA error $e');
-      myResponse.message =
-          "Server bilan muammo mavjud.\nIltimos keyinroq urinib ko'ring!";
+      myResponse.message = e.toString().tr;
     }
     return myResponse;
   }

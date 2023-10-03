@@ -7,10 +7,10 @@ class MembershipPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
+        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
-          title: const Text('Membership Page'),
+          title: Text('membership'.tr),
         ),
         body: Container(
           padding: EdgeInsets.all(20.h),
@@ -20,12 +20,12 @@ class MembershipPage extends StatelessWidget {
             children: [UserCard(), PurchasesWidget()],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            postPurchases(context.read<UserBloc>().state.user!.uid,
-                context.read<UserBloc>().state.user!.referallId);
-            context.read<PurchaseBloc>().add(GetPurchasesEvent());
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     // postPurchases(context.read<UserBloc>().state.user!.uid,
+        //     //     context.read<UserBloc>().state.user!.referallId);
+        //     context.read<PurchaseBloc>().add(GetPurchasesEvent());
+        //   },
+        // ),
       );
 }

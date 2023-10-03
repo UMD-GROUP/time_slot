@@ -1,4 +1,5 @@
 // ignore_for_file: type_annotate_public_apis
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AddProductSection extends StatefulWidget {
@@ -41,7 +42,9 @@ class _AddProductSectionState extends State<AddProductSection> {
                   children: [
                     Text('count_of_products'.tr,
                         style: AppTextStyles.labelLarge(context,
-                            fontWeight: FontWeight.w700, fontSize: 16)),
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16)),
                     Text(
                         '${state.order.products.length}  |  ${state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))}'
                             .tr),
@@ -79,9 +82,10 @@ class _AddProductSectionState extends State<AddProductSection> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('123456 -',
+                            Text(
+                                '${context.read<DataFromAdminBloc>().state.data!.deliveryNote} -',
                                 style: AppTextStyles.labelLarge(context,
-                                    fontSize: 16)),
+                                    color: Colors.black, fontSize: 16)),
                             Expanded(
                               child: TextField(
                                 onChanged: (value) {
