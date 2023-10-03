@@ -1,3 +1,5 @@
+// ignore_for_file: parameter_assignments
+
 import 'package:flutter/services.dart';
 
 class MyTextInputFormatter extends FilteringTextInputFormatter {
@@ -99,5 +101,29 @@ class MoneyInputFormatter extends TextInputFormatter {
       formatted.write(numericOnly[i]);
     }
     return formatted.toString();
+  }
+}
+
+class CardNumberInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final String formatted = _formatCardNumber(newValue.text);
+    return TextEditingValue(
+      text: formatted,
+      selection: TextSelection.collapsed(offset: formatted.length),
+    );
+  }
+
+  String _formatCardNumber(String input) {
+    input = input.replaceAll(RegExp(r'\D'), ''); // Remove non-digit characters
+    if (input.length > 16) {
+      input = input.substring(0, 16); // Truncate to 16 characters
+    }
+    final List<String> parts = [];
+    for (int i = 0; i < input.length; i += 4) {
+      parts.add(input.substring(i, i + 4));
+    }
+    return parts.join(' ');
   }
 }

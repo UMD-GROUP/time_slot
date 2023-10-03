@@ -79,6 +79,13 @@ class AppTranslations extends Translations {
           'you_cant_afford': "Kiritilgan mablag' hisobingizda\nmavjud emas!",
           'card_not_found':
               'Bank kartasi kirtimasdan\nushbu amaliyotni bajara olmaysiz!',
+          '[firebase_auth/email-already-in-use] The email address is already in use by another account.':
+              'Ushbu hisobga akkaunt ochilgan!',
+          'banking_card': 'Bank kartasi:',
+          'enter_money_amount': 'Miqdorni kiriting',
+          'invalid_card_number': "Karta raqami to'liq kiritilmadi!",
+          'add_your_banking_card': "Bank kartangizni qo'shing.",
+          'ok': 'Tasdiqlash',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -151,7 +158,14 @@ class AppTranslations extends Translations {
               'Вывести можно не менее 50 000 сумов.',
           'you_cant_afford': 'Внесенные средства недоступны на вашем счету!',
           'card_not_found':
-              'Вы не сможете выполнить эту\nоперацию без ввода банковской карты!'
+              'Вы не сможете выполнить эту\nоперацию без ввода банковской карты!',
+          '[firebase_auth/email-already-in-use] The email address is already in use by another account.':
+              'Адрес электронной почты уже\nиспользуется другой учетной записью!',
+          'banking_card': 'Банковская карта:',
+          'enter_money_amount': 'Введите сумму',
+          'invalid_card_number': 'Номер карты введен не полностью!',
+          'add_your_banking_card': 'Добавьте свою банковскую карту.',
+          'ok': 'Подтверждать',
         }
       };
 }

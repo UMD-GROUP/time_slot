@@ -1,10 +1,13 @@
-import 'package:time_slot/ui/user/account/ui/widgets/appearance.dart';
-import 'package:time_slot/ui/user/account/ui/widgets/user_stores.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
+  @override
+  State<AccountPage> createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
@@ -18,30 +21,56 @@ class AccountPage extends StatelessWidget {
             padding: EdgeInsets.all(20.h),
             child: Column(
               children: [
-                const Appearance(),
-                SizedBox(height: height(context) * 0.02),
-                const UserStores(),
-                GestureDetector(
+                InfoActionButton(
+                  title: 'referral',
                   onTap: () {
-                    copyToClipboard(context, 'some');
+                    copyToClipboard(
+                        context, context.read<UserBloc>().state.user!.token);
                   },
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '${'referral'.tr}       ',
-                          style: AppTextStyles.labelLarge(context,
-                              fontWeight: FontWeight.w600, fontSize: 18),
+                  icon: Icons.token,
+                  subtitle: context.read<UserBloc>().state.user!.token,
+                ),
+                BlocListener<UserAccountBloc, UserAccountState>(
+                  listener: (context, state) {
+                    if (state.addCardStatus == ResponseStatus.inProgress) {
+                      showLoadingDialog(context);
+                    }
+                    if (state.addCardStatus == ResponseStatus.inFail) {
+                      Navigator.pop(context);
+                      AnimatedSnackBar(
+                        snackBarStrategy: RemoveSnackBarStrategy(),
+                        builder: (context) => AppErrorSnackBar(
+                          text: state.message,
                         ),
-                        TextSpan(
-                          style: AppTextStyles.labelLarge(context),
-                          text:
-                              'somefdfdsfds', // Empty text to ensure the whole text is selectable
+                      ).show(context);
+                    } else if (state.addCardStatus ==
+                        ResponseStatus.inSuccess) {
+                      Navigator.pop(context);
+                      AnimatedSnackBar(
+                        snackBarStrategy: RemoveSnackBarStrategy(),
+                        builder: (context) => AppSnackBar(
+                          color: AppColors.c7FCD51,
+                          text: 'added_successfully'.tr,
+                          icon: '',
                         ),
-                      ],
-                    ),
+                      ).show(context);
+                      setState(() {});
+                    }
+                  },
+                  child: InfoActionButton(
+                    title: 'banking_card',
+                    onTap: () {
+                      showAddBankingCardDialog(context);
+                    },
+                    icon: Icons.credit_card,
+                    subtitle:
+                        context.read<UserBloc>().state.user!.card.cardNumber,
                   ),
                 ),
+                SizedBox(height: height(context) * 0.02),
+                const UserStores(),
+                SizedBox(height: height(context) * 0.02),
+                const Appearance(),
               ],
             ),
           ),

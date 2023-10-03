@@ -16,7 +16,7 @@ class BankingCardModel {
         referrals: json['referrals'] ?? 0,
         allPurchased: json['allPurchased'] ?? 0.0,
       );
-  final String cardNumber;
+  String cardNumber;
   final num balance;
   final num purchaseInProgress;
   final int referrals;
