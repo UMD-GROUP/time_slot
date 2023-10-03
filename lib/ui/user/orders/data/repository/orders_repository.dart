@@ -7,7 +7,7 @@ class OrdersRepository {
   final FirebaseFirestore firestore;
 
   Future<MyResponse> getOrders() async {
-    final data = await firestore.collection('orders').get();
+    final data = await firestore.collection('admin_data').get();
     final List<OrderModel> result =
     data.docs.map((e) => OrderModel.fromJson(e.data())).toList();
     return MyResponse(data: result, statusCode: 200);

@@ -9,7 +9,7 @@ class UserCardButton extends StatelessWidget {
     onTap: onTap,
     child: Container(
         height: height(context)*0.04,
-        width: height(context)*0.18,
+        width: height(context)*0.19,
         decoration: BoxDecoration(
             color: Colors.green,
             borderRadius: BorderRadius.circular(6.r)
@@ -20,7 +20,7 @@ class UserCardButton extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(AppIcons.download, color: Colors.white,),
+                SvgPicture.asset(AppIcons.download, color: Colors.white,height: height(context)*0.03),
                 SizedBox(height: 5.h,)
               ],
             ),

@@ -1,4 +1,3 @@
-import 'package:flutter_svg/svg.dart';
 import '../../../../../utils/tools/file_importers.dart';
 
 class PurchaseTextWidget extends StatelessWidget {
@@ -6,7 +5,6 @@ class PurchaseTextWidget extends StatelessWidget {
   final String icon;
   final String text1;
   final String text2;
-
   @override
   Widget build(BuildContext context) => Row(
       children: [
