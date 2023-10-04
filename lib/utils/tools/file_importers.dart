@@ -75,3 +75,7 @@ export 'package:time_slot/utils/constants/input_formatters.dart';
 export 'package:time_slot/utils/tools/assistants.dart';
 export 'package:time_slot/utils/tools/get_it.dart';
 export 'package:time_slot/utils/tools/router.dart';
+export 'package:time_slot/ui/admin/admin_home/data/repository/users_repository.dart';
+export 'package:time_slot/ui/user/account/data/repositories/user_account_repository.dart';
+export 'package:time_slot/ui/admin/admin_home/bloc/all_user/all_user_bloc.dart';
+export 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_bloc.dart';

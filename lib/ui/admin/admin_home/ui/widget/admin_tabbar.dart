@@ -1,4 +1,8 @@
 import 'package:time_slot/ui/admin/admin_home/ui/widget/admin_tabbar_item.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/all_orders_widget.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/all_purchases_widget.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/all_users_widget.dart';
+import 'package:time_slot/ui/user/orders/ui/widgets/order_item.dart';
 import '../../../../../utils/tools/file_importers.dart';
 
 class AdminTabBarWidget extends StatefulWidget {
@@ -20,55 +24,58 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
 
   @override
   Widget build(BuildContext context) => Column(
-    children: [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w),
-        child: Container(
-          height: height(context) * 0.06,
-          decoration: BoxDecoration(
-              color: AdaptiveTheme.of(context).theme.disabledColor,
-              borderRadius: BorderRadius.circular(15.r),
-              border: Border.all(width: 0.5, color: Colors.grey)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              AdminTabBarItem(
-                  text: 'orders',
-                  isActive: _currentIndex == 0,
-                  context: context,
-                  onTap: () {
-                    _onTabTapped(0);
-                  }),
-              AdminTabBarItem(
-                  text: 'users',
-                  isActive: _currentIndex == 1,
-                  context: context,
-                  onTap: () {
-                    _onTabTapped(1);
-                  }),
-              AdminTabBarItem(
-                  text: 'partners',
-                  isActive: _currentIndex == 2,
-                  context: context,
-                  onTap: () {
-                    _onTabTapped(2);
-                  }),
-              AdminTabBarItem(
-                  text: 'pay',
-                  isActive: _currentIndex == 3,
-                  context: context,
-                  onTap: () {
-                    _onTabTapped(3);
-                  }),
-            ],
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Container(
+              height: height(context) * 0.06,
+              decoration: BoxDecoration(
+                  color: AdaptiveTheme.of(context).theme.disabledColor,
+                  borderRadius: BorderRadius.circular(15.r),
+                  border: Border.all(width: 0.5, color: Colors.grey)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  AdminTabBarItem(
+                      text: 'orders',
+                      isActive: _currentIndex == 0,
+                      context: context,
+                      onTap: () {
+                        _onTabTapped(0);
+                      }),
+                  AdminTabBarItem(
+                      text: 'users',
+                      isActive: _currentIndex == 1,
+                      context: context,
+                      onTap: () {
+                        _onTabTapped(1);
+                      }),
+                  AdminTabBarItem(
+                      text: 'partners',
+                      isActive: _currentIndex == 2,
+                      context: context,
+                      onTap: () {
+                        _onTabTapped(2);
+                      }),
+                  AdminTabBarItem(
+                      text: 'pay',
+                      isActive: _currentIndex == 3,
+                      context: context,
+                      onTap: () {
+                        _onTabTapped(3);
+                      }),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-      Container(
-        height: height(context)*0.3,
-        width: width(context),
-        color:_currentIndex == 0?  Colors.deepPurple : _currentIndex == 1?  _currentIndex == 2? Colors.blue : Colors.amber : Colors.red
-      ),
-    ],
-  );
+          _currentIndex == 0
+              ? const AllOrdersWidget()
+              : _currentIndex == 1?
+                const AllUsersWidget()
+              : _currentIndex == 2?
+              Container():
+              const AllPurchasesWidget(),
+
+        ],
+      );
 }

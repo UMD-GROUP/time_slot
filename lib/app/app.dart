@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_expression_function_bodies
-import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_bloc.dart';
+
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -11,6 +11,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => UserBloc()),
         BlocProvider(create: (context) => CreateOrderBloc()),
         BlocProvider(create: (context) => DataFromAdminBloc()),
+        BlocProvider(create: (context) => AllUserBloc()),
         BlocProvider(create: (context) => OrderBloc()),
         BlocProvider(create: (context) => PurchaseBloc()),
         BlocProvider(create: (context) => UserAccountBloc()),
