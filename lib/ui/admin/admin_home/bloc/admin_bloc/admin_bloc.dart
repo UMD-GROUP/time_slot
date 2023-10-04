@@ -7,6 +7,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   AdminBloc() : super(AdminState()) {
     on<AddBannerEvent>(addBanner);
     on<RemoveBannerEvent>(removeBanner);
+    on<UpdatePricesEvent>(updatePrices);
   }
 
   Future<void> addBanner(AddBannerEvent event, Emitter emit) async {
@@ -34,5 +35,19 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
           message: myResponse.message));
     }
     emit(state.copyWith(deleteBannerStatus: ResponseStatus.pure));
+  }
+
+  Future<void> updatePrices(UpdatePricesEvent event, Emitter emit) async {
+    emit(state.copyWith(updatePricesStatus: ResponseStatus.inProgress));
+    final MyResponse myResponse =
+        await getIt<AdminRepository>().updatePrices(event.data);
+    if (myResponse.statusCode == 200) {
+      emit(state.copyWith(updatePricesStatus: ResponseStatus.inSuccess));
+    } else {
+      emit(state.copyWith(
+          updatePricesStatus: ResponseStatus.inFail,
+          message: myResponse.message));
+    }
+    emit(state.copyWith(updatePricesStatus: ResponseStatus.pure));
   }
 }
