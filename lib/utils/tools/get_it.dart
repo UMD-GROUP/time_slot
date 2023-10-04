@@ -1,4 +1,4 @@
-import 'package:time_slot/ui/user/account/data/repositories/user_account_repository.dart';
+
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 final getIt = GetIt.instance;
@@ -13,5 +13,6 @@ void setup() {
     ..registerLazySingleton(() => PurchaseRepository(fireStoreInstance))
     ..registerLazySingleton(CreateOrderRepository.new)
     ..registerLazySingleton(() => OrdersRepository(fireStoreInstance))
+    ..registerLazySingleton(() => UsersRepository(fireStoreInstance))
     ..registerLazySingleton(() => UserAccountRepository(fireStoreInstance));
 }
