@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/order_confirm_bottom_sheet.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
-import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class CreateOrderPage extends StatefulWidget {

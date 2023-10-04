@@ -112,6 +112,10 @@ class AppTranslations extends Translations {
           'partners': 'Hamkorlar',
           'pay': "To'lov",
           'admin_panel': "Admin bo'limi",
+          'are_you_sure_you_want_to_delete_this_banner':
+              "Bannerni o'chirishga ishonchingiz komilmi?",
+          'delete_banner': "Bannerni o'chirish",
+          'delete': "O'chirish",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -216,7 +220,11 @@ class AppTranslations extends Translations {
           'users': 'Пользователи',
           'partners': 'Партнеры',
           'pay': 'Оплата',
-          'admin_panel': 'Панель администратора'
+          'admin_panel': 'Панель администратора',
+          'are_you_sure_you_want_to_delete_this_banner':
+              'Вы уверены, что хотите удалить баннер?',
+          'delete_banner': 'Удалить баннер',
+          'delete': 'Удалить',
         }
       };
 }

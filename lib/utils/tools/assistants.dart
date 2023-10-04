@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:time_slot/data/models/data_from_admin_model.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
@@ -117,7 +117,7 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   }
   if (error.isNotEmpty) {
     AnimatedSnackBar(
-            builder: (context) => AppErrorSnackBar(text: 'try_again'.tr),
+            builder: (context) => AppErrorSnackBar(text: error),
             snackBarStrategy: RemoveSnackBarStrategy())
         .show(context);
     return false;
@@ -185,6 +185,13 @@ void showLogOutDialog(BuildContext context) {
   showCupertinoModalPopup(
     context: context,
     builder: (context) => const LogoutDialog(),
+  );
+}
+
+void showDeleteDialog(BuildContext context, String image) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => DeleteBannerDialog(image: image),
   );
 }
 
