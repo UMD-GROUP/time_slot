@@ -9,11 +9,11 @@ class PriceInputDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
-        title: const Text('Enter Price'),
+        title: Text('enter_price'.tr),
         content: CupertinoTextField(
           controller: priceController,
           keyboardType: TextInputType.number,
-          placeholder: 'Enter price (max: 9999)',
+          placeholder: 'enter_price'.tr,
         ),
         actions: <Widget>[
           CupertinoDialogAction(
