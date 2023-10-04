@@ -116,6 +116,7 @@ class AppTranslations extends Translations {
               "Bannerni o'chirishga ishonchingiz komilmi?",
           'delete_banner': "Bannerni o'chirish",
           'delete': "O'chirish",
+          'enter_price': 'Narxni kiriting: '
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -225,6 +226,7 @@ class AppTranslations extends Translations {
               'Вы уверены, что хотите удалить баннер?',
           'delete_banner': 'Удалить баннер',
           'delete': 'Удалить',
+          'enter_price': 'Введите цену:'
         }
       };
 }
