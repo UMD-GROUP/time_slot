@@ -39,4 +39,18 @@ class AdminRepository {
     }
     return myResponse;
   }
+
+  Future<MyResponse> updatePrices(List prices) async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      await instance
+          .collection('admin_data')
+          .doc('admin_data')
+          .update({'prices': prices});
+      myResponse.statusCode = 200;
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
 }

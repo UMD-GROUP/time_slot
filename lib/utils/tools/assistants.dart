@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
@@ -192,6 +193,15 @@ void showDeleteDialog(BuildContext context, String image) {
   showCupertinoDialog(
     context: context,
     builder: (context) => DeleteBannerDialog(image: image),
+  );
+}
+
+void showPriceInputDialog(BuildContext context, VoidCallback onDoneTap,
+    TextEditingController controller) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (context) =>
+        PriceInputDialog(priceController: controller, onDoneTap: onDoneTap),
   );
 }
 

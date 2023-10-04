@@ -15,3 +15,8 @@ class RemoveBannerEvent extends AdminEvent {
   String path;
   DataFromAdminModel data;
 }
+
+class UpdatePricesEvent extends AdminEvent {
+  UpdatePricesEvent(this.data);
+  List data;
+}
