@@ -28,17 +28,33 @@ class UsersItemWidget extends StatelessWidget {
             ),
             child: Center(child: SvgPicture.asset(AppIcons.refresh, color: Colors.white,height: height(context)*0.05,))),
         SizedBox(width: 10.w,),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PurchaseTextWidget(icon: AppIcons.check, text1: 'emails:',text2: userModel.email.toString(),),
-            PurchaseTextWidget(icon: AppIcons.dollar, text1: 'balance',text2: userModel.card.balance.toString(),),
-            PurchaseTextWidget(icon: AppIcons.check, text1: 'referallId:',text2: userModel.referallId.toString(),),
+        SizedBox(
+          width: width(context)*0.55,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PurchaseTextWidget(icon: AppIcons.check, text1: 'emails:',text2: userModel.email.toString().length > 15?  userModel.email.substring(0,15) : userModel.email,),
+              PurchaseTextWidget(icon: AppIcons.dollar, text1: 'balance',text2: userModel.card.balance.toString(),),
+              PurchaseTextWidget(icon: AppIcons.check, text1: 'referallId:',text2: userModel.referallId.toString(),),
 
-          ],
+            ],
+          ),
         ),
         const Spacer(),
+        GestureDetector(
+            onTap: (){
+
+              // showCupertinoModalPopup(
+              //     context: context,
+              //     builder: (context) => OrderInfoBottomSheet(
+              //       order: order,
+              //     ));
+              showOrderDialog(context, userModel);
+            },
+            child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)),
+        SizedBox(width: 10.w,)
+
       ],
     ),
   );

@@ -76,9 +76,6 @@ class AdminHomePage extends StatelessWidget {
               height: height(context) * 0.03,
             ),
             const Expanded(child: AdminTabBarWidget()),
-            Container(),
-            Container(),
-            Container(),
           ],
         ),
       );

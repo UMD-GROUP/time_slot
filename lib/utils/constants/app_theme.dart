@@ -6,6 +6,7 @@ class AppTheme {
   static ThemeData light = ThemeData(
     backgroundColor: Colors.white,
     hintColor: Colors.black,
+    bottomAppBarColor: Colors.black,
     disabledColor:  Colors.white,
     fontFamily: 'Inter',
     primaryColor: Colors.deepPurple,
@@ -15,6 +16,7 @@ class AppTheme {
   static ThemeData dark = ThemeData(
     backgroundColor: AppColors.c0F1620,
     disabledColor:  AppColors.c1C2632,
+      bottomAppBarColor: Colors.white,
     hintColor: Colors.white,
     fontFamily: 'Inter',
     primaryColor: Colors.deepPurple,

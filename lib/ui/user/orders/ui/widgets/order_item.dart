@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/order_info_sheet.dart';
 import 'package:time_slot/ui/user/orders/ui/widgets/order_text_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -110,6 +112,18 @@ class OrderItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
+                GestureDetector(
+                    onTap: (){
+
+                      showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => OrderInfoBottomSheet(
+                        order: order,
+                      ));
+                // showOrderDialog(context, order);
+                },
+                    child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)),
+                SizedBox(width: 10.w,)
               ],
             )),
       );
