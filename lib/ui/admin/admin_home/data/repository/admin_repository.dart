@@ -53,4 +53,16 @@ class AdminRepository {
     }
     return myResponse;
   }
+
+  Future<MyResponse> updateOther(String deliveryNote, int memberPercent) async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      await instance.collection('admin_data').doc('admin_data').update(
+          {'partnerPercent': memberPercent, 'deliveryNote': deliveryNote});
+      myResponse.statusCode = 200;
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
 }

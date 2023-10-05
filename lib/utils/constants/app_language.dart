@@ -116,7 +116,10 @@ class AppTranslations extends Translations {
               "Bannerni o'chirishga ishonchingiz komilmi?",
           'delete_banner': "Bannerni o'chirish",
           'delete': "O'chirish",
-          'enter_price': 'Narxni kiriting: '
+          'enter_price': 'Narxni kiriting: ',
+          'enter_member_percent': 'Hamkor ulushini kiriting',
+          'enter_delivery_note': 'Yukxatini kiriting.',
+          'member_percent': 'Hamkor ulushi',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -226,7 +229,10 @@ class AppTranslations extends Translations {
               'Вы уверены, что хотите удалить баннер?',
           'delete_banner': 'Удалить баннер',
           'delete': 'Удалить',
-          'enter_price': 'Введите цену:'
+          'enter_price': 'Введите цену:',
+          'enter_member_percent': 'Введите партнерскую долю',
+          'enter_delivery_note': 'Введитe...',
+          'member_percent': 'Партнерская доля'
         }
       };
 }
