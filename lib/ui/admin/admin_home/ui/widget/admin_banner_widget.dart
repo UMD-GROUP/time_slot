@@ -14,7 +14,8 @@ class _AdminBannerWidgetState extends State<AdminBannerWidget> {
   Widget build(BuildContext context) => BlocListener<AdminBloc, AdminState>(
         listener: (context, state) {
           if (state.deleteBannerStatus == ResponseStatus.inSuccess ||
-              state.updatePricesStatus == ResponseStatus.inSuccess) {
+              state.updatePricesStatus == ResponseStatus.inSuccess ||
+              state.updateOthersStatus == ResponseStatus.inSuccess) {
             setState(() {});
           }
           if (state.addBannerStatus == ResponseStatus.inSuccess) {

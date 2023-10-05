@@ -20,3 +20,9 @@ class UpdatePricesEvent extends AdminEvent {
   UpdatePricesEvent(this.data);
   List data;
 }
+
+class UpdateOtherEvent extends AdminEvent {
+  UpdateOtherEvent(this.deliveryNote, this.memberPercent);
+  String deliveryNote;
+  int memberPercent;
+}

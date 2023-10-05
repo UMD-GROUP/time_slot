@@ -127,3 +127,39 @@ class CardNumberInputFormatter extends TextInputFormatter {
     return parts.join(' ');
   }
 }
+
+class DeliveryNoteInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    // Use a regular expression to allow only digits (0-9)
+    final RegExp regex = RegExp('[0-9]');
+
+    // Filter out any non-numeric characters and limit to 6 characters
+    final newText = newValue.text.replaceAll(RegExp('[^0-9]'), '');
+    final result = newText.length > 6 ? newText.substring(0, 6) : newText;
+
+    return TextEditingValue(
+      text: result,
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}
+
+class MemberPercentInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    // Use a regular expression to allow only digits (0-9)
+    final RegExp regex = RegExp('[0-9]');
+
+    // Filter out any non-numeric characters and limit to 6 characters
+    final newText = newValue.text.replaceAll(RegExp('[^0-9]'), '');
+    final result = newText.length > 2 ? newText.substring(0, 2) : newText;
+
+    return TextEditingValue(
+      text: result,
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}

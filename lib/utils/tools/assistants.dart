@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
@@ -190,7 +190,6 @@ void showLogOutDialog(BuildContext context) {
   );
 }
 
-
 void showOrderDialog(BuildContext context, UserModel userModel) {
   showCupertinoDialog(
     context: context,
@@ -211,6 +210,24 @@ void showPriceInputDialog(BuildContext context, VoidCallback onDoneTap,
     context: context,
     builder: (context) =>
         PriceInputDialog(priceController: controller, onDoneTap: onDoneTap),
+  );
+}
+
+void showNumberInputDialog(BuildContext context,
+    {required VoidCallback onConfirmTapped,
+    required TextEditingController controller,
+    required TextInputFormatter inputFormatter,
+    required String title,
+    required String hintText}) {
+  showCupertinoModalPopup<void>(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => NumberInputDialog(
+        inputFormatter: inputFormatter,
+        controller: controller,
+        onConfirmTapped: onConfirmTapped,
+        title: title,
+        hintText: hintText),
   );
 }
 
@@ -315,4 +332,48 @@ String formatStringToMoney(String inputString) {
 
   // Format the double as currency and return the result
   return moneyFormatter.format(amount);
+}
+
+class NumberInputDialog extends StatelessWidget {
+  NumberInputDialog(
+      {required this.controller,
+      required this.title,
+      required this.inputFormatter,
+      required this.hintText,
+      required this.onConfirmTapped,
+      super.key});
+  String title;
+  String hintText;
+  VoidCallback onConfirmTapped;
+  TextEditingController controller = TextEditingController();
+  TextInputFormatter inputFormatter;
+
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: Text(title),
+        content: Column(
+          children: <Widget>[
+            CupertinoTextField(
+              inputFormatters: [inputFormatter],
+              controller: controller,
+              placeholder: hintText,
+              keyboardType: TextInputType.number,
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+          ),
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            onPressed: onConfirmTapped,
+            child: Text('confirm'.tr),
+          ),
+        ],
+      );
 }

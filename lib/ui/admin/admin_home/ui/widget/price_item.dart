@@ -47,7 +47,8 @@ class PriceItem extends StatelessWidget {
                         .data!
                         .prices[index]
                         .toString()),
-                    style: AppTextStyles.labelLarge(context)),
+                    style:
+                        AppTextStyles.labelLarge(context, color: Colors.white)),
               ),
             ],
           ),
