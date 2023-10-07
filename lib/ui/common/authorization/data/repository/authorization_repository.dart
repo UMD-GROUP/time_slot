@@ -57,6 +57,22 @@ class AuthorizationRepository {
             .collection('referalls')
             .doc('data')
             .update({'referalls': referalls});
+
+        final QuerySnapshot<Map<String, dynamic>> referalledUser =
+            await instance
+                .collection('users')
+                .where('token', isEqualTo: user.referallId)
+                .get();
+
+        print(referalledUser.docs.first.data());
+
+        final UserModel rUser =
+            UserModel.fromJson(referalledUser.docs.first.data());
+        rUser.referrals.add(user.uid);
+        await instance
+            .collection('users')
+            .doc(rUser.uid)
+            .update({'referrals': rUser.referrals});
       } else {
         myResponse.message = 'Siz kiritgan referall\nmavjud emas!';
       }
