@@ -9,7 +9,9 @@ class CreateOrderRepository {
     try {
       order.userPhoto = await uploadImageToFirebaseStorage(order.userPhoto);
       final FirebaseFirestore instance = FirebaseFirestore.instance;
-      await instance.collection('orders').add(order.toJson());
+      final DocumentReference<Map<String, dynamic>> orderDoc =
+          await instance.collection('orders').add(order.toJson());
+      await orderDoc.update({'orderDocId': orderDoc.id});
     } catch (e) {
       myResponse.message = e.toString();
     }

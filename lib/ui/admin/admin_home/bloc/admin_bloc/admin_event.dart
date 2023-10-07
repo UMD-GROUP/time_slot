@@ -26,3 +26,8 @@ class UpdateOtherEvent extends AdminEvent {
   String deliveryNote;
   int memberPercent;
 }
+
+class UpdateOrderEvent extends AdminEvent {
+  UpdateOrderEvent(this.order);
+  OrderModel order;
+}

@@ -130,6 +130,10 @@ class AppTranslations extends Translations {
           'user_data':"Foydalanuvchi ma'lumotlari",
           'block':'Bloklash',
           'UnBlock':'Blokdan chiqarish',
+          'are_you_sure_to_confirm_this_action':
+              'Ushbu amaliyotni amalga oshirishda ishonchingiz komilmi?',
+          'confirming': 'Tasdiqlash',
+          'updated_successfully': 'Muvaffaqqiyatli yangilandi!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -253,7 +257,9 @@ class AppTranslations extends Translations {
           'user_data':'Пользовательские данные',
           'block':'Блокировать',
           'UnBlock':'Разблокировать',
-
+          'are_you_sure_to_confirm_this_action': 'Вы уверены в этой практике?',
+          'confirming': 'Подтверждение',
+          'updated_successfully': 'Успешно обновлено!',
         }
       };
 }
