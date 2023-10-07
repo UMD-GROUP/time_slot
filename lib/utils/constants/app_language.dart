@@ -134,6 +134,8 @@ class AppTranslations extends Translations {
               'Ushbu amaliyotni amalga oshirishda ishonchingiz komilmi?',
           'confirming': 'Tasdiqlash',
           'updated_successfully': 'Muvaffaqqiyatli yangilandi!',
+          'benefit': 'Foyda:',
+          'createt':'Faoliyat:',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -151,7 +153,7 @@ class AppTranslations extends Translations {
           'surname': 'Фамилия',
           'choose_market': 'Выберите магазин',
           'choose_dates': 'Выберите даты',
-          'count_of_products': 'Количество продуктов:',
+          'count_of_products': 'Кол. продуктов:',
           'delivery_note': 'Накладная',
           'count': 'Количество',
           'choose_photo': 'Выберите изображениеh',
@@ -172,7 +174,7 @@ class AppTranslations extends Translations {
           'referalls': 'Рефералы: ',
           'all_purchased': 'Barcha yechilgan: ',
           'purchase': 'Снять деньги',
-          'product count:': 'Количество продуктов:',
+          'product count:': 'Кол. продуктов:',
           'sum': 'Цена услуги:',
           'all': 'Все',
           'mine': 'Мой',
@@ -252,7 +254,7 @@ class AppTranslations extends Translations {
           'finished':'Готово',
           'un_finished':'Незакончено',
           'edit':'редактировать',
-          'product_count':'Количество товаров:',
+          'product_count':'Кол. товаров:',
           'status':'Статус:',
           'user_data':'Пользовательские данные',
           'block':'Блокировать',
@@ -260,6 +262,8 @@ class AppTranslations extends Translations {
           'are_you_sure_to_confirm_this_action': 'Вы уверены в этой практике?',
           'confirming': 'Подтверждение',
           'updated_successfully': 'Успешно обновлено!',
+          'benefit': 'Выгода:',
+          'createt':'Активность:',
         }
       };
 }
