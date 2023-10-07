@@ -5,6 +5,7 @@ class UserModel {
       {required this.email,
       required this.password,
       this.markets = const [],
+      this.orders = const [],
       this.referrals = const [],
       required this.card,
       this.token = '',
@@ -17,6 +18,7 @@ class UserModel {
         referrals: json['referrals'] ?? [],
         markets: json['markets'] ?? [],
         uid: json['uid'] ?? '',
+        orders: json['orders'] ?? [],
         token: json['token'] ?? '',
         email: json['email'] ?? '',
         password: json['password'] ?? '',
@@ -29,6 +31,7 @@ class UserModel {
   List markets;
   final BankingCardModel card;
   List referrals;
+  List orders;
 
   Map<String, Object> toJson() => {
         'card': card.toJson(),
@@ -38,6 +41,7 @@ class UserModel {
         'token': token,
         'uid': uid,
         'referallId': referallId,
+        'orders': orders,
         'referrals': referrals
       };
 }

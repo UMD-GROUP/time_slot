@@ -18,8 +18,8 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
   Future<void> addOrder(AddOrderEvent event, Emitter emit) async {
     emit(state.copyWith(addingStatus: ResponseStatus.inProgress));
     if (orderValidator(event.order).isEmpty) {
-      final MyResponse myResponse =
-          await getIt<CreateOrderRepository>().addOrder(event.order);
+      final MyResponse myResponse = await getIt<CreateOrderRepository>()
+          .addOrder(event.order, event.user);
       if (!myResponse.message.isNull) {
         emit(state.copyWith(
             addingStatus: ResponseStatus.inFail, message: myResponse.message));
