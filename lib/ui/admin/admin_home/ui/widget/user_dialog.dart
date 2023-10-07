@@ -9,6 +9,9 @@ class UserDialog extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoAlertDialog(
           actions: [
             CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pop(context);
+              },
                 child: Text(
               'close',
               style: AppTextStyles.labelLarge(context, color: Colors.red),
