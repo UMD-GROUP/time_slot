@@ -38,13 +38,35 @@ class OrderInfoBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 OrderSheetItemWidget(
-                    context: context, text: 'Accept', color: Colors.yellow, onTap: (){}),
+                    context: context,
+                    text: 'Accept',
+                    color: Colors.yellow,
+                    onTap: () {
+                      showConfirmCancelDialog(
+                        context,
+                        () {
+                          order.status = OrderStatus.inProgress;
+                          context
+                              .read<AdminBloc>()
+                              .add(UpdateOrderEvent(order));
+                        },
+                      );
+                    }),
                 OrderSheetItemWidget(
-                    context: context, text: 'Decline', color: Colors.red, onTap: (){}),
+                    context: context,
+                    text: 'Decline',
+                    color: Colors.red,
+                    onTap: () {}),
                 OrderSheetItemWidget(
-                    context: context, text: 'Finished', color: Colors.green, onTap: (){}),
+                    context: context,
+                    text: 'Finished',
+                    color: Colors.green,
+                    onTap: () {}),
                 OrderSheetItemWidget(
-                    context: context, text: 'UnFinished', color: Colors.red, onTap: (){}),
+                    context: context,
+                    text: 'UnFinished',
+                    color: Colors.red,
+                    onTap: () {}),
               ],
             ),
             SizedBox(
@@ -85,8 +107,6 @@ class OrderInfoBottomSheet extends StatelessWidget {
             SizedBox(
               height: height(context) * 0.01,
             ),
-
-
             PurchaseTextWidget(
               icon: AppIcons.balance,
               text1: 'purchase',
@@ -170,7 +190,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
   // ignore: non_constant_identifier_names
   GestureDetector OrderSheetItemWidget(
           {required VoidCallback onTap,
-            required BuildContext context,
+          required BuildContext context,
           required String text,
           required Color color}) =>
       GestureDetector(

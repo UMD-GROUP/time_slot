@@ -5,7 +5,7 @@ class ProductModel {
   });
 
   // Create a ProductModel instance from a JSON map
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+  factory ProductModel.fromJson(Map json) => ProductModel(
         count: json['count'] as int,
         deliveryNote: json['deliveryNote'] as String,
       );

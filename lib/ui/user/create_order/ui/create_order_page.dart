@@ -108,7 +108,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                   .read<DataFromAdminBloc>()
                                   .state
                                   .data!
-                                  .prices[order.dates.length];
+                                  .prices[order.dates.length - 1];
 
                               showCupertinoModalPopup(
                                 context: context,

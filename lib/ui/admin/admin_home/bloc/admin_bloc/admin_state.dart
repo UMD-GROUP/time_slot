@@ -5,6 +5,7 @@ class AdminState extends Equatable {
       {this.addBannerStatus = ResponseStatus.pure,
       this.deleteBannerStatus = ResponseStatus.pure,
       this.updateOthersStatus = ResponseStatus.pure,
+      this.updateOrderState = ResponseStatus.pure,
       this.message = '',
       this.updatePricesStatus = ResponseStatus.pure});
 
@@ -12,6 +13,7 @@ class AdminState extends Equatable {
   ResponseStatus deleteBannerStatus;
   ResponseStatus updatePricesStatus;
   ResponseStatus updateOthersStatus;
+  ResponseStatus updateOrderState;
   String message;
 
   AdminState copyWith({
@@ -19,11 +21,13 @@ class AdminState extends Equatable {
     ResponseStatus? deleteBannerStatus,
     ResponseStatus? updatePricesStatus,
     ResponseStatus? updateOthersStatus,
+    ResponseStatus? updateOrderState,
     String? message,
   }) =>
       AdminState(
         updateOthersStatus: updateOthersStatus ?? this.updateOthersStatus,
         message: message ?? this.message,
+        updateOrderState: updateOrderState ?? this.updateOrderState,
         addBannerStatus: addBannerStatus ?? this.addBannerStatus,
         updatePricesStatus: updatePricesStatus ?? this.updatePricesStatus,
         deleteBannerStatus: deleteBannerStatus ?? this.deleteBannerStatus,
@@ -33,6 +37,7 @@ class AdminState extends Equatable {
         addBannerStatus,
         deleteBannerStatus,
         updatePricesStatus,
+        updateOrderState,
         message,
         updateOthersStatus
       ];

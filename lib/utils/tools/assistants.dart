@@ -231,6 +231,13 @@ void showNumberInputDialog(BuildContext context,
   );
 }
 
+void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => CancelConfirmDialog(onConfirmTap: onConfirmTap),
+  );
+}
+
 int generateRandomID(bool isOrder) {
   // Get the current date and time
   final DateTime now = DateTime.now();
@@ -372,6 +379,31 @@ class NumberInputDialog extends StatelessWidget {
           CupertinoDialogAction(
             isDefaultAction: true,
             onPressed: onConfirmTapped,
+            child: Text('confirm'.tr),
+          ),
+        ],
+      );
+}
+
+class CancelConfirmDialog extends StatelessWidget {
+  CancelConfirmDialog({required this.onConfirmTap, super.key});
+
+  VoidCallback onConfirmTap;
+
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: Text('confirming'.tr),
+        content: Text('are_you_sure_to_confirm_this_action'.tr),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+          ),
+          CupertinoDialogAction(
+            onPressed: onConfirmTap,
             child: Text('confirm'.tr),
           ),
         ],
