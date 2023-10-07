@@ -11,6 +11,7 @@ class PurchaseTextWidget extends StatelessWidget {
   final String text2;
   @override
   Widget build(BuildContext context) => Row(
+
         children: [
           SvgPicture.asset(
             icon,
@@ -33,4 +34,5 @@ class PurchaseTextWidget extends StatelessWidget {
           ),
         ],
       );
+
 }

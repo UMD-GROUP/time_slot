@@ -71,9 +71,9 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
           _currentIndex == 0
               ? const AllOrdersWidget()
               : _currentIndex == 1?
-                const AllUsersWidget()
+                 const AllUsersWidget(isPartner: false,)
               : _currentIndex == 2?
-              Container():
+              const AllUsersWidget(isPartner: true,):
               const AllPurchasesWidget(),
 
         ],

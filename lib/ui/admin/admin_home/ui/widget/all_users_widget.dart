@@ -3,7 +3,8 @@ import 'package:time_slot/ui/user/membership/ui/widget/purchase_shimmer_widget.d
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AllUsersWidget extends StatelessWidget {
-  const AllUsersWidget({super.key});
+  const AllUsersWidget({super.key, required this.isPartner});
+  final bool isPartner;
 
   @override
   Widget build(BuildContext context) => BlocBuilder<AllUserBloc, AllUserState>(
@@ -16,6 +17,7 @@ class AllUsersWidget extends StatelessWidget {
       }
       else if (state.status == ResponseStatus.inSuccess){
         final List<UserModel> curData = state.users!.cast();
+        final List<UserModel> data = curData.where((element) => element.referrals.isNotEmpty).toList();
         return curData.isEmpty ?
         Center(child: SizedBox( height: height(context)*0.34,child: Lottie.asset(AppLotties.empty)),)
             :  Expanded(
@@ -24,10 +26,10 @@ class AllUsersWidget extends StatelessWidget {
             shrinkWrap: true,
             children: [
               ...List.generate(
-                  curData.length,
+                  isPartner ? data.length: curData.length,
                       (index) => Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 8.w),
-                    child: UsersItemWidget(userModel: curData[index]),
+                    child: UsersItemWidget(userModel: isPartner ? data[index]  : curData[index]),
                   ))
             ],
           ),
