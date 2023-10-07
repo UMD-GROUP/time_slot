@@ -65,13 +65,15 @@ class AppErrorSnackBar extends StatelessWidget {
                 width: 1.w,
                 color: AppColors.cD3D3D3,
               ),
-              Text(
-                text.tr,
-                maxLines: 5,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.labelMedium(context,
-                    fontSize: 14.h,
-                    color: AdaptiveTheme.of(context).theme.hintColor),
+              Expanded(
+                child: Text(
+                  text.tr,
+                  maxLines: 5,
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.labelMedium(context,
+                      fontSize: 14.h,
+                      color: AdaptiveTheme.of(context).theme.hintColor),
+                ),
               ),
               const SizedBox(),
             ],

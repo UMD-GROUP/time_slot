@@ -15,7 +15,7 @@ class LoginPage extends StatelessWidget {
           listener: (context, state) {
             if (state.status == ResponseStatus.inFail) {
               AnimatedSnackBar(
-                  duration: const Duration(seconds: 4),
+                  duration: const Duration(seconds: 6),
                   snackBarStrategy: RemoveSnackBarStrategy(),
                   builder: (context) =>
                       AppErrorSnackBar(text: state.message.tr)).show(context);
