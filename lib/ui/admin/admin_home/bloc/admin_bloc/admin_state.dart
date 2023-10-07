@@ -6,6 +6,7 @@ class AdminState extends Equatable {
       this.deleteBannerStatus = ResponseStatus.pure,
       this.updateOthersStatus = ResponseStatus.pure,
       this.updateOrderState = ResponseStatus.pure,
+      this.userUpdatingStatus = ResponseStatus.pure,
       this.message = '',
       this.updatePricesStatus = ResponseStatus.pure});
 
@@ -14,6 +15,7 @@ class AdminState extends Equatable {
   ResponseStatus updatePricesStatus;
   ResponseStatus updateOthersStatus;
   ResponseStatus updateOrderState;
+  ResponseStatus userUpdatingStatus;
   String message;
 
   AdminState copyWith({
@@ -22,9 +24,12 @@ class AdminState extends Equatable {
     ResponseStatus? updatePricesStatus,
     ResponseStatus? updateOthersStatus,
     ResponseStatus? updateOrderState,
+    ResponseStatus? userUpdatingStatus,
+
     String? message,
   }) =>
       AdminState(
+        userUpdatingStatus: userUpdatingStatus??this.userUpdatingStatus,
         updateOthersStatus: updateOthersStatus ?? this.updateOthersStatus,
         message: message ?? this.message,
         updateOrderState: updateOrderState ?? this.updateOrderState,
@@ -34,6 +39,7 @@ class AdminState extends Equatable {
       );
   @override
   List<Object> get props => [
+    userUpdatingStatus,
         addBannerStatus,
         deleteBannerStatus,
         updatePricesStatus,
