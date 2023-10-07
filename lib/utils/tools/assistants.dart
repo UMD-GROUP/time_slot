@@ -9,7 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/partner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/purchase_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
@@ -190,10 +192,24 @@ void showLogOutDialog(BuildContext context) {
   );
 }
 
-void showOrderDialog(BuildContext context, UserModel userModel) {
+void showUserDialog(BuildContext context, UserModel userModel) {
   showCupertinoDialog(
     context: context,
     builder: (context) => UserDialog(user: userModel),
+  );
+}
+
+void showPartnerDialog(BuildContext context, UserModel userModel) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => PartnerDialog(user: userModel),
+  );
+}
+
+void showPurchaseDialog(BuildContext context, PurchaseModel purchaseModel) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => PurchaseDialog(purchaseModel: purchaseModel),
   );
 }
 

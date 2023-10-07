@@ -4,8 +4,9 @@ import 'package:time_slot/ui/user/orders/ui/widgets/order_text_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrderItem extends StatelessWidget {
-  OrderItem({required this.order, super.key});
+  OrderItem({required this.order, super.key, required this.isAdmin});
   OrderModel order;
+  final bool isAdmin;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -112,7 +113,7 @@ class OrderItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                GestureDetector(
+                isAdmin ? GestureDetector(
                     onTap: (){
 
                       showCupertinoModalPopup(
@@ -122,7 +123,7 @@ class OrderItem extends StatelessWidget {
                       ));
                 // showOrderDialog(context, order);
                 },
-                    child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)),
+                    child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)) : const SizedBox(),
                 SizedBox(width: 10.w,)
               ],
             )),

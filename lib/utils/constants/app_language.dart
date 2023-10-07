@@ -135,6 +135,11 @@ class AppTranslations extends Translations {
           'confirming': 'Tasdiqlash',
           'updated_successfully': 'Muvaffaqqiyatli yangilandi!',
           'benefit': 'Foyda:',
+          'createt':'Faoliyat:',
+          'partner_data':"Hamkor ma'lumotlari",
+          'komissiya':'Komissiya:',
+          'close': 'yopish',
+          'day_count': 'Kunlar soni:'
           'createt': 'Faoliyat:',
           'you_are_blocked':
               "Siz bloklangansiz! Ma'lumot uchun\n@Timeslot_Admin ga Telegram\norqali bog'laning!",
@@ -265,6 +270,11 @@ class AppTranslations extends Translations {
           'confirming': 'Подтверждение',
           'updated_successfully': 'Успешно обновлено!',
           'benefit': 'Выгода:',
+          'createt':'Активность:',
+          'partner_data':'Данные партнера',
+          'komissiya':'Комиссия:',
+          'close': 'закрывать',
+          'day_count': 'Количество дней:'
           'createt': 'Активность:',
           'you_are_blocked':
               'Вы заблокированы! Свяжитесь\n@Timeslot_Admin через Telegram\nля получения информации!',

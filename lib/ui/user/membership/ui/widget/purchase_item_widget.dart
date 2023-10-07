@@ -38,7 +38,7 @@ class PurchasesItemWidget extends StatelessWidget {
                      children: [
                      SvgPicture.asset( AppIcons.alert, color: AdaptiveTheme.of(context).theme.canvasColor, height: height(context)*0.025,),
                      SizedBox(width: 5.w,),
-                     Text('Status:'.tr, style: AppTextStyles.bodyMedium(context),),
+                     Text('Status:'.tr, style: AppTextStyles.bodyMedium(context, fontWeight: FontWeight.bold),),
                      SizedBox(width: 3.w,),
                      Text(purchaseModel.status == PurchaseStatus.finished ? 'done'.tr: purchaseModel.status == PurchaseStatus.inProgress ? 'progress'.tr:   purchaseModel.status == PurchaseStatus.created ? 'created'.tr:  'cancelled'.tr, style: AppTextStyles.bodyMedium(context,
                        color:purchaseModel.status == PurchaseStatus.finished ? Colors.green: purchaseModel.status == PurchaseStatus.inProgress ? Colors.amber:   purchaseModel.status == PurchaseStatus.created ? Colors.yellow : Colors.red
@@ -49,6 +49,16 @@ class PurchasesItemWidget extends StatelessWidget {
             ],
           ),
           const Spacer(),
+          GestureDetector(
+              onTap: (){
+
+
+                showPurchaseDialog(context, purchaseModel);
+
+
+              },
+              child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)),
+          SizedBox(width: 10.w,)
         ],
       ),
     );
