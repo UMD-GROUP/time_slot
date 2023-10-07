@@ -5,6 +5,7 @@ class UserModel {
       {required this.email,
       required this.password,
       this.markets = const [],
+      this.referrals = const [],
       required this.card,
       this.token = '',
       this.uid = '',
@@ -13,6 +14,7 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         card: BankingCardModel.fromJson(json['card'] ?? {}),
         referallId: json['referallId'] ?? '',
+        referrals: json['referrals'] ?? [],
         markets: json['markets'] ?? [],
         uid: json['uid'] ?? '',
         token: json['token'] ?? '',
@@ -26,6 +28,7 @@ class UserModel {
   String token;
   List markets;
   final BankingCardModel card;
+  List referrals;
 
   Map<String, Object> toJson() => {
         'card': card.toJson(),
@@ -35,5 +38,6 @@ class UserModel {
         'token': token,
         'uid': uid,
         'referallId': referallId,
+        'referrals': referrals
       };
 }
