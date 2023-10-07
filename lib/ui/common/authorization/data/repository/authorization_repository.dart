@@ -11,24 +11,34 @@ class AuthorizationRepository {
     final MyResponse myResponse = MyResponse();
     final FirebaseAuth authInstance = getAuthInstance();
     try {
+      final FirebaseFirestore instance = FirebaseFirestore.instance;
+
       final UserCredential result =
           await authInstance.signInWithEmailAndPassword(
               email: user.email, password: user.password);
+      final DocumentSnapshot<Map<String, dynamic>> userData =
+          await instance.collection('users').doc(result.user!.uid).get();
+      final UserModel currentUser = UserModel.fromJson(userData.data()!);
+      if (currentUser.isBlocked) {
+        myResponse.message = 'you_are_blocked'.tr;
+      }
     } catch (e) {
       myResponse.message = e.toString().replaceAll(' ', '\n');
-      // if (e is FirebaseAuthException) {
-      //   if (e.code == 'user-not-found') {
-      //     myResponse.message = 'Kiritilgan hisob mavjud emas!';
-      //   } else if (e.code == 'wrong-password') {
-      //     myResponse.message = 'Parol xato kiritildi!';
-      //   } else {
-      //     myResponse.message =
-      //         "Server bilan muammo mavjud.\nIltimos keyinroq urinib ko'ring!";
-      //   }
-      // } else {
-      //   myResponse.message =
-      //       "Server bilan muammo mavjud.\nIltimos keyinroq urinib ko'ring!";
-      // }
+      if (e is FirebaseAuthException) {
+        if (e.code == 'user-not-found') {
+          myResponse.message = 'Kiritilgan hisob mavjud emas!';
+        } else if (e.code == 'wrong-password') {
+          myResponse.message = 'Parol xato kiritildi!';
+        } else {
+          print(e);
+
+          myResponse.message = 'Login yoki parolda xatolik mavjud!';
+        }
+      } else {
+        print(e.toString());
+        myResponse.message =
+            "Server bilan muammo mavjud.\nIltimos keyinroq urinib ko'ring!";
+      }
     }
     return myResponse;
   }

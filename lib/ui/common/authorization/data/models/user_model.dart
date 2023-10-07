@@ -8,6 +8,8 @@ class UserModel {
       this.orders = const [],
       this.referrals = const [],
       required this.card,
+      this.isBlocked = false,
+      this.willGetPercent = true,
       this.token = '',
       this.uid = '',
       this.referallId = ''});
@@ -18,6 +20,8 @@ class UserModel {
         referrals: json['referrals'] ?? [],
         markets: json['markets'] ?? [],
         uid: json['uid'] ?? '',
+        isBlocked: json['isBlocked'] ?? false,
+        willGetPercent: json['willGetPercent'] ?? true,
         orders: json['orders'] ?? [],
         token: json['token'] ?? '',
         email: json['email'] ?? '',
@@ -32,6 +36,8 @@ class UserModel {
   final BankingCardModel card;
   List referrals;
   List orders;
+  bool isBlocked;
+  bool willGetPercent;
 
   Map<String, Object> toJson() => {
         'card': card.toJson(),
@@ -42,6 +48,8 @@ class UserModel {
         'uid': uid,
         'referallId': referallId,
         'orders': orders,
-        'referrals': referrals
+        'referrals': referrals,
+        'willGetPercent': willGetPercent,
+        'isBlocked': isBlocked
       };
 }
