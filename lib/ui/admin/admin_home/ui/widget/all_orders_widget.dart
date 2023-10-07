@@ -27,7 +27,7 @@ class AllOrdersWidget extends StatelessWidget {
             child: ListView.builder(
                 itemCount: curData.length,
                 itemBuilder: (context, index) =>
-                    OrderItem(order: curData[index])),
+                    OrderItem(order: curData[index], isAdmin: true,)),
           );
         } else {
           return const Center(

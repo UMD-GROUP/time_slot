@@ -1,7 +1,8 @@
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class UsersItemWidget extends StatelessWidget {
-  const UsersItemWidget({super.key, required this.userModel});
+  const UsersItemWidget({super.key, required this.userModel, required this.isPartner});
+  final bool isPartner;
   final UserModel userModel;
 
   @override
@@ -45,12 +46,12 @@ class UsersItemWidget extends StatelessWidget {
         GestureDetector(
             onTap: (){
 
-              // showCupertinoModalPopup(
-              //     context: context,
-              //     builder: (context) => OrderInfoBottomSheet(
-              //       order: order,
-              //     ));
-              showOrderDialog(context, userModel);
+              if(isPartner){
+                showPartnerDialog(context, userModel);
+              }else{
+                showUserDialog(context, userModel);
+              }
+
             },
             child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)),
         SizedBox(width: 10.w,)

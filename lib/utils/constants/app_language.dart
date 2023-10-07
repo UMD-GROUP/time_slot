@@ -136,6 +136,10 @@ class AppTranslations extends Translations {
           'updated_successfully': 'Muvaffaqqiyatli yangilandi!',
           'benefit': 'Foyda:',
           'createt':'Faoliyat:',
+          'partner_data':"Hamkor ma'lumotlari",
+          'komissiya':'Komissiya:',
+          'close': 'yopish',
+          'day_count': 'Kunlar soni:'
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -264,6 +268,10 @@ class AppTranslations extends Translations {
           'updated_successfully': 'Успешно обновлено!',
           'benefit': 'Выгода:',
           'createt':'Активность:',
+          'partner_data':'Данные партнера',
+          'komissiya':'Комиссия:',
+          'close': 'закрывать',
+          'day_count': 'Количество дней:'
         }
       };
 }

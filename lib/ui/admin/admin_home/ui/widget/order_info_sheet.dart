@@ -15,7 +15,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
         //   style: AppTextStyles.labelLarge(context,
         //       fontSize: 18, color: Colors.black),
         // ),
-        message: Column(
+        message:
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
@@ -31,9 +32,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: height(context) * 0.01,
-            ),
+            SizedBox(height: height(context) * 0.01,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -57,41 +56,9 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     text: 'un_finished',
                     color: Colors.red,
                     onTap: () {}),
-
-                // context: context,
-                // text: 'Accept',
-                // color: Colors.yellow,
-                // onTap: () {
-                //   showConfirmCancelDialog(
-                //     context,
-                //     () {
-                //       order.status = OrderStatus.inProgress;
-                //       context
-                //           .read<AdminBloc>()
-                //           .add(UpdateOrderEvent(order));
-                //     },
-                //   );
-                // }),
-//                 OrderSheetItemWidget(
-//                     context: context,
-//                     text: 'Decline',
-//                     color: Colors.red,
-//                     onTap: () {}),
-//                 OrderSheetItemWidget(
-//                     context: context,
-//                     text: 'Finished',
-//                     color: Colors.green,
-//                     onTap: () {}),
-//                 OrderSheetItemWidget(
-//                     context: context,
-//                     text: 'UnFinished',
-//                     color: Colors.red,
-//                     onTap: () {}),
               ],
             ),
-            SizedBox(
-              height: height(context) * 0.01,
-            ),
+            SizedBox(height: height(context) * 0.01,),
             Row(
               children: [
                 Column(
@@ -105,14 +72,14 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     PurchaseTextWidget(
                       icon: AppIcons.basket,
                       text1: 'product_count',
-                      text2: order.referallId.toString(),
+                      text2: order.products.length.toString(),
                     ),
                   ],
                 ),
                 const Spacer(),
                 Container(
                   height: height(context) * 0.03,
-                  width: width(context) * 0.15,
+                  width: width(context) * 0.2,
                   decoration: BoxDecoration(
                       color: Colors.deepPurple,
                       borderRadius: BorderRadius.circular(10.r)),
@@ -124,28 +91,50 @@ class OrderInfoBottomSheet extends StatelessWidget {
                 )
               ],
             ),
+            ...List.generate(order.products.length, (index) {
+              final List<ProductModel> pducts = order.products.cast();
+              return Padding(
+                padding: EdgeInsets.only(left: width(context)*0.08),
+                child: Text('${index+1}. ${pducts[index].deliveryNote} - ${pducts[index].count} ${'piece'.tr}'
+                  , style: AppTextStyles.bodyMedium(context, fontSize: 15.sp),
+                ),
+              );
+            }
+            ),
+
+            PurchaseTextWidget(
+              icon: AppIcons.calendar,
+              text1: 'day_count',
+              text2: '${order.dates.length} ${'piece'.tr}',
+            ),
+            ...List.generate(order.dates.length, (index) => Padding(
+                  padding: EdgeInsets.only(left: width(context)*0.08),
+                  child: Text('${order.dates[index]}'
+              ,  style: AppTextStyles.bodyMedium(context, fontSize: 15.sp),
+                  ),
+              )),
             SizedBox(
               height: height(context) * 0.01,
             ),
             PurchaseTextWidget(
               icon: AppIcons.balance,
-              text1: 'purchase',
+              text1: 'payment',
               text2: order.sum.toString(),
             ),
             PurchaseTextWidget(
               icon: AppIcons.users,
-              text1: 'partner',
-              text2: order.dates.toString(),
+              text1: '${'partners'.tr}:',
+              text2: order.referallId.toString(),
             ),
-            PurchaseTextWidget(
+             PurchaseTextWidget(
               icon: AppIcons.calendar,
-              text1: 'created',
-              text2: order.dates.toString(),
+              text1: '${'created'.tr}:',
+              text2: 'mock_data',
             ),
             PurchaseTextWidget(
               icon: AppIcons.check,
-              text1: 'finished'.tr,
-              text2: order.dates.toString(),
+              text1: '${'finished'.tr}:',
+              text2: 'mock_data',
             ),
             Row(children: [
               Icon(
@@ -158,7 +147,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
               ),
               Text(
                 'status'.tr,
-                style: AppTextStyles.bodyMedium(context),
+                style: AppTextStyles.bodyMedium(context, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 width: 10.w,

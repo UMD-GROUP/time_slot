@@ -29,7 +29,7 @@ class AllUsersWidget extends StatelessWidget {
                   isPartner ? data.length: curData.length,
                       (index) => Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 8.w),
-                    child: UsersItemWidget(userModel: isPartner ? data[index]  : curData[index]),
+                    child: UsersItemWidget(userModel: isPartner ? data[index]  : curData[index], isPartner: isPartner),
                   ))
             ],
           ),

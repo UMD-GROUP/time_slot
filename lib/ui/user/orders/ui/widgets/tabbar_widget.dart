@@ -101,7 +101,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                         child: ListView.builder(
                             itemCount: curData.length,
                             itemBuilder: (context, index) =>
-                                OrderItem(order: curData[index])),
+                                OrderItem(order: curData[index], isAdmin: false,)),
                       );
               } else {
                 return const Center(

@@ -16,21 +16,21 @@ class PurchaseTextWidget extends StatelessWidget {
           SvgPicture.asset(
             icon,
             color: AdaptiveTheme.of(context).theme.canvasColor,
-            height: height(context) * 0.025,
+            height: height(context) * 0.022,
           ),
           SizedBox(
             width: 5.w,
           ),
           Text(
             text1.tr,
-            style: AppTextStyles.bodyMedium(context, fontSize: 14.sp),
+            style: AppTextStyles.bodyMedium(context, fontSize: 16.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(
             width: 3.w,
           ),
           Text(
             text2,
-            style: AppTextStyles.bodyMedium(context,fontSize: 14.sp),
+            style: AppTextStyles.bodyMedium(context,fontSize: 15.sp),
           ),
         ],
       );
