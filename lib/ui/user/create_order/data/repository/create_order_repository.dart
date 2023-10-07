@@ -3,7 +3,7 @@
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class CreateOrderRepository {
-  Future<MyResponse> addOrder(OrderModel order) async {
+  Future<MyResponse> addOrder(OrderModel order, UserModel user) async {
     final MyResponse myResponse = MyResponse();
 
     try {
@@ -12,6 +12,11 @@ class CreateOrderRepository {
       final DocumentReference<Map<String, dynamic>> orderDoc =
           await instance.collection('orders').add(order.toJson());
       await orderDoc.update({'orderDocId': orderDoc.id});
+      user.orders.add(orderDoc.id);
+      await instance
+          .collection('users')
+          .doc(user.uid)
+          .update({'orders': user.orders});
     } catch (e) {
       myResponse.message = e.toString();
     }

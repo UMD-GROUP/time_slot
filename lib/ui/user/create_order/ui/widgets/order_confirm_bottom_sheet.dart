@@ -57,7 +57,8 @@ class InfoBottomSheet extends StatelessWidget {
                     context.read<UserBloc>().state.user!.referallId;
                 order.ownerId = context.read<UserBloc>().state.user!.uid;
 
-                context.read<CreateOrderBloc>().add(AddOrderEvent(order));
+                context.read<CreateOrderBloc>().add(
+                    AddOrderEvent(order, context.read<UserBloc>().state.user!));
               },
               child: Text('confirm'.tr))
         ],

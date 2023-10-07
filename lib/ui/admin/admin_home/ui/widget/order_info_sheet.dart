@@ -38,29 +38,40 @@ class OrderInfoBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 OrderSheetItemWidget(
+                    context: context,
+                    text: 'accept',
+                    color: Colors.yellow,
+                    onTap: () {}),
+                OrderSheetItemWidget(
+                    context: context,
+                    text: 'decline',
+                    color: Colors.red,
+                    onTap: () {}),
+                OrderSheetItemWidget(
+                    context: context,
+                    text: 'finished',
+                    color: Colors.green,
+                    onTap: () {}),
+                OrderSheetItemWidget(
+                    context: context,
+                    text: 'un_finished',
+                    color: Colors.red,
+                    onTap: () {}),
 
-                    context: context, text: 'accept', color: Colors.yellow, onTap: (){}),
-                OrderSheetItemWidget(
-                    context: context, text: 'decline', color: Colors.red, onTap: (){}),
-                OrderSheetItemWidget(
-                    context: context, text: 'finished', color: Colors.green, onTap: (){}),
-                OrderSheetItemWidget(
-                    context: context, text: 'un_finished', color: Colors.red, onTap: (){}),
-
-                    // context: context,
-                    // text: 'Accept',
-                    // color: Colors.yellow,
-                    // onTap: () {
-                    //   showConfirmCancelDialog(
-                    //     context,
-                    //     () {
-                    //       order.status = OrderStatus.inProgress;
-                    //       context
-                    //           .read<AdminBloc>()
-                    //           .add(UpdateOrderEvent(order));
-                    //     },
-                    //   );
-                    // }),
+                // context: context,
+                // text: 'Accept',
+                // color: Colors.yellow,
+                // onTap: () {
+                //   showConfirmCancelDialog(
+                //     context,
+                //     () {
+                //       order.status = OrderStatus.inProgress;
+                //       context
+                //           .read<AdminBloc>()
+                //           .add(UpdateOrderEvent(order));
+                //     },
+                //   );
+                // }),
 //                 OrderSheetItemWidget(
 //                     context: context,
 //                     text: 'Decline',
@@ -76,7 +87,6 @@ class OrderInfoBottomSheet extends StatelessWidget {
 //                     text: 'UnFinished',
 //                     color: Colors.red,
 //                     onTap: () {}),
-
               ],
             ),
             SizedBox(
@@ -191,7 +201,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     context.read<UserBloc>().state.user!.referallId;
                 order.ownerId = context.read<UserBloc>().state.user!.uid;
 
-                context.read<CreateOrderBloc>().add(AddOrderEvent(order));
+                context.read<CreateOrderBloc>().add(
+                    AddOrderEvent(order, context.read<UserBloc>().state.user!));
               },
               child: Text('confirm'.tr))
         ],

@@ -9,6 +9,7 @@ class UpdateFieldsOrderEvent extends CreateOrderEvent {
 }
 
 class AddOrderEvent extends CreateOrderEvent {
-  AddOrderEvent(this.order);
+  AddOrderEvent(this.order, this.user);
   OrderModel order;
+  UserModel user;
 }
