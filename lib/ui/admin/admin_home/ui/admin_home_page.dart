@@ -12,7 +12,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
   Widget build(BuildContext context) => BlocListener<AdminBloc, AdminState>(
         listener: (context, state) {
           if (state.updateOrderState == ResponseStatus.inSuccess) {
-            context.read<DataFromAdminBloc>().add(GetBannersEvent());
+            context.read<OrderBloc>().add(GetOrderEvent());
             Navigator.pop(context);
             AnimatedSnackBar(
               snackBarStrategy: RemoveSnackBarStrategy(),
@@ -29,6 +29,8 @@ class _AdminHomePageState extends State<AdminHomePage> {
               builder: (context) => AppErrorSnackBar(text: state.message),
             ).show(context);
           } else if (state.updateOrderState == ResponseStatus.inProgress) {
+            Navigator.pop(context);
+            Navigator.pop(context);
             showLoadingDialog(context);
           }
         },
