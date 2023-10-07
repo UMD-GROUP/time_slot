@@ -34,7 +34,7 @@ class UsersItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PurchaseTextWidget(icon: AppIcons.check, text1: 'emails:',text2: userModel.email.toString().length > 15?  userModel.email.substring(0,15) : userModel.email,),
+              PurchaseTextWidget(icon: AppIcons.check, text1: 'Email:',text2: userModel.email.toString().length > 15?  userModel.email.substring(0,15) : userModel.email,),
               PurchaseTextWidget(icon: AppIcons.dollar, text1: 'balance',text2: userModel.card.balance.toString(),),
               PurchaseTextWidget(icon: AppIcons.check, text1: 'referallId:',text2: userModel.referallId.toString(),),
 

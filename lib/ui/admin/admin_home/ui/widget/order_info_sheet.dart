@@ -204,7 +204,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
                 context.read<CreateOrderBloc>().add(
                     AddOrderEvent(order, context.read<UserBloc>().state.user!));
               },
-              child: Text('confirm'.tr))
+              child: Text('close'.tr))
         ],
       );
 

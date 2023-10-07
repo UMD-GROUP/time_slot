@@ -7,10 +7,53 @@ class UserDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
-        title: Text('user_data'.tr),
-        content: SizedBox(
-          width: width(context) * 0.7,
-          child: Column(
+    title: Text('user_data'.tr),
+
+    content: SizedBox(
+      width: width(context)*0.7,
+      child: Column(
+        children: [
+          Container(
+            height: height(context)*0.15,
+            width: width(context),
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+              borderRadius: BorderRadius.circular(10.r)
+            ),child: Center(
+            child: SvgPicture.asset(AppIcons.refresh, height: height(context)*0.05,),
+          ),
+
+          ),
+          SizedBox(height: height(context)*0.01,),
+          Row(
+            children: [
+              Icon(Icons.person_2_outlined, size: height(context)*0.03,),
+              SizedBox(width: 4.w,),
+              Text('User:', style: AppTextStyles.bodyMedium(context),),
+              SizedBox(width: 10.w,),
+              Text(user.token,style: AppTextStyles.bodyMedium(context),),
+            ],
+          ),
+          Row(
+            children: [
+              SvgPicture.asset(AppIcons.users),
+              SizedBox(width: 4.w,),
+              Text('Partner:', style: AppTextStyles.bodyMedium(context),),
+              SizedBox(width: 10.w,),
+              Text(user.referallId,style: AppTextStyles.bodyMedium(context),),
+            ],
+          ),
+          Row(
+            children: [
+              SvgPicture.asset(AppIcons.check),
+              SizedBox(width: 4.w,),
+              Text('orders'.tr, style: AppTextStyles.bodyMedium(context),),
+              Text(':', style: AppTextStyles.bodyMedium(context),),
+              SizedBox(width: 10.w,),
+              Text(user.orders.length.toString(),style: AppTextStyles.bodyMedium(context),),
+            ],
+          ),
+          Row(
             children: [
               Container(
                 height: height(context) * 0.15,
