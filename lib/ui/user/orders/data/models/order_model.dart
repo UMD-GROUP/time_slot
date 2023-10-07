@@ -1,32 +1,34 @@
-import 'package:time_slot/ui/user/orders/data/models/product_model.dart';
-import 'package:time_slot/utils/constants/form_status.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrderModel {
-  OrderModel({
-    this.referallId = '',
-    this.ownerId = '',
-    this.adminPhoto = '',
-    this.orderId = 0,
-    required this.products,
-    this.sum = 0,
-    this.marketName = '',
-    required this.dates,
-    this.userPhoto = '',
-    this.status = OrderStatus.created,
-  });
+  OrderModel(
+      {this.referallId = '',
+      this.ownerId = '',
+      this.adminPhoto = '',
+      this.orderId = 0,
+      required this.products,
+      this.sum = 0,
+      this.marketName = '',
+      required this.dates,
+      this.userPhoto = '',
+      this.status = OrderStatus.created,
+      this.orderDocId = ''});
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         referallId: json['referallId'] ?? '',
-        adminPhoto: json['adminPhoto'] ?? '',
-        products: json['products']??[],
         ownerId: json['ownerId'] ?? '',
-        orderId: json['orderId'] ?? 0,
-        sum: json['sum'] as num,
+        adminPhoto: json['adminPhoto'] ?? '',
+        orderId: json['orderId'] as int? ?? 0,
+        products: (json['products'] as List<dynamic>?)
+                ?.map((e) => ProductModel.fromJson(e))
+                .toList() ??
+            [],
+        sum: (json['sum'] as num?)?.toDouble() ?? 0.0,
         marketName: json['marketName'] ?? '',
-        dates: List<dynamic>.from(json['dates'] ?? []),
+        dates: json['dates'] ?? [],
         userPhoto: json['userPhoto'] ?? '',
-        status: OrderStatus.values[json['status'] as int],
+        status: OrderStatus.values[json['status'] as int? ?? 0],
+        orderDocId: json['orderDocId'] ?? '',
       );
   String ownerId;
   String referallId;
@@ -37,7 +39,8 @@ class OrderModel {
   String userPhoto;
   OrderStatus status;
   String adminPhoto;
-  List<dynamic> products;
+  List products;
+  String orderDocId;
 
   Map<String, dynamic> toJson() => {
         'referallId': referallId,
@@ -46,34 +49,10 @@ class OrderModel {
         'orderId': orderId,
         'sum': sum,
         'marketName': marketName,
+        'orderDocId': orderDocId,
         'dates': dates,
         'userPhoto': userPhoto,
         'status': status.index,
         'products': products.map((e) => e.toJson())
       };
-
-  OrderModel copyWith({
-    String? newReferallId,
-    String? newOwnerId,
-    String? newAdminPhoto,
-    int? newOrderId,
-    num? newSum,
-    String? newMarketName,
-    List<dynamic>? newDates,
-    List<ProductModel>? products,
-    String? newUserPhoto,
-    OrderStatus? newStatus,
-  }) =>
-      OrderModel(
-        products: products ?? this.products,
-        referallId: newReferallId ?? referallId,
-        ownerId: newOwnerId ?? ownerId,
-        adminPhoto: newAdminPhoto ?? adminPhoto,
-        orderId: newOrderId ?? orderId,
-        sum: newSum ?? sum,
-        marketName: newMarketName ?? marketName,
-        dates: newDates ?? dates,
-        userPhoto: newUserPhoto ?? userPhoto,
-        status: newStatus ?? status,
-      );
 }

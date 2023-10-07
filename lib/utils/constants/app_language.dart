@@ -120,6 +120,10 @@ class AppTranslations extends Translations {
           'enter_member_percent': 'Hamkor ulushini kiriting',
           'enter_delivery_note': 'Yukxatini kiriting.',
           'member_percent': 'Hamkor ulushi',
+          'are_you_sure_to_confirm_this_action':
+              'Ushbu amaliyotni amalga oshirishda ishonchingiz komilmi?',
+          'confirming': 'Tasdiqlash',
+          'updated_successfully': 'Muvaffaqqiyatli yangilandi!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -232,7 +236,10 @@ class AppTranslations extends Translations {
           'enter_price': 'Введите цену:',
           'enter_member_percent': 'Введите партнерскую долю',
           'enter_delivery_note': 'Введитe...',
-          'member_percent': 'Партнерская доля'
+          'member_percent': 'Партнерская доля',
+          'are_you_sure_to_confirm_this_action': 'Вы уверены в этой практике?',
+          'confirming': 'Подтверждение',
+          'updated_successfully': 'Успешно обновлено!',
         }
       };
 }

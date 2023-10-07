@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:time_slot/data/models/data_from_admin_model.dart';
 import 'package:time_slot/data/models/my_response.dart';
+import 'package:time_slot/ui/user/orders/data/models/order_model.dart';
 import 'package:time_slot/utils/tools/assistants.dart';
 
 class AdminRepository {
@@ -61,6 +62,23 @@ class AdminRepository {
           {'partnerPercent': memberPercent, 'deliveryNote': deliveryNote});
       myResponse.statusCode = 200;
     } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> updateOrder(OrderModel order) async {
+    final MyResponse myResponse = MyResponse();
+    print(order.toJson());
+    try {
+      await instance
+          .collection('orders')
+          .doc(order.orderDocId)
+          .update(order.toJson());
+      myResponse.statusCode = 200;
+    } catch (e) {
+      print(e);
+      print('mNANANANA');
       myResponse.message = e.toString();
     }
     return myResponse;
