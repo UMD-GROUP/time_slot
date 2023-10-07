@@ -38,13 +38,13 @@ class OrderInfoBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 OrderSheetItemWidget(
-                    context: context, text: 'Accept', color: Colors.yellow, onTap: (){}),
+                    context: context, text: 'accept', color: Colors.yellow, onTap: (){}),
                 OrderSheetItemWidget(
-                    context: context, text: 'Decline', color: Colors.red, onTap: (){}),
+                    context: context, text: 'decline', color: Colors.red, onTap: (){}),
                 OrderSheetItemWidget(
-                    context: context, text: 'Finished', color: Colors.green, onTap: (){}),
+                    context: context, text: 'finished', color: Colors.green, onTap: (){}),
                 OrderSheetItemWidget(
-                    context: context, text: 'UnFinished', color: Colors.red, onTap: (){}),
+                    context: context, text: 'un_finished', color: Colors.red, onTap: (){}),
               ],
             ),
             SizedBox(
@@ -62,7 +62,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     ),
                     PurchaseTextWidget(
                       icon: AppIcons.basket,
-                      text1: 'Tovarlar soni:',
+                      text1: 'product_count',
                       text2: order.referallId.toString(),
                     ),
                   ],
@@ -99,7 +99,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
             ),
             PurchaseTextWidget(
               icon: AppIcons.calendar,
-              text1: 'Yaratildi',
+              text1: 'created',
               text2: order.dates.toString(),
             ),
             PurchaseTextWidget(
@@ -183,7 +183,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
           child: Center(
             child: Text(
               text.tr,
-              style: AppTextStyles.bodyMedium(context, fontSize: 14.sp),
+              style: AppTextStyles.bodyMedium(context, fontSize: 12.sp),
             ),
           ),
         ),

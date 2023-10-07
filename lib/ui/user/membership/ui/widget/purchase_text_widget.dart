@@ -10,9 +10,9 @@ class PurchaseTextWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(icon, color: AdaptiveTheme.of(context).theme.canvasColor, height: height(context)*0.025,),
         SizedBox(width: 5.w,),
-        Text(text1.tr, style: AppTextStyles.bodyMedium(context),),
+        Text(text1.tr, style: AppTextStyles.bodyMedium(context,fontSize: 14.sp ),),
         SizedBox(width: 3.w,),
-        Text(text2, style: AppTextStyles.bodyMedium(context),),
+        Text(text2, style: AppTextStyles.bodyMedium(context,fontSize: 14.sp ),),
       ],
     );
 }

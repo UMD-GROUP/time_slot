@@ -120,6 +120,16 @@ class AppTranslations extends Translations {
           'enter_member_percent': 'Hamkor ulushini kiriting',
           'enter_delivery_note': 'Yukxatini kiriting.',
           'member_percent': 'Hamkor ulushi',
+          'accept':'Qabul qilish',
+          'decline':'Bekor qilish',
+          'finished':'Tugagan',
+          'un_finished':'Tugamagan',
+          'edit':'tahrirlash',
+          'product_count':'Mahsulot soni:',
+          'status':'Status:',
+          'user_data':"Foydalanuvchi ma'lumotlari",
+          'block':'Bloklash',
+          'UnBlock':'Blokdan chiqarish',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -232,7 +242,18 @@ class AppTranslations extends Translations {
           'enter_price': 'Введите цену:',
           'enter_member_percent': 'Введите партнерскую долю',
           'enter_delivery_note': 'Введитe...',
-          'member_percent': 'Партнерская доля'
+          'member_percent': 'Партнерская доля',
+          'accept':'Принять',
+          'decline':'Отменить',
+          'finished':'Готово',
+          'un_finished':'Незакончено',
+          'edit':'редактировать',
+          'product_count':'Количество товаров:',
+          'status':'Статус:',
+          'user_data':'Пользовательские данные',
+          'block':'Блокировать',
+          'UnBlock':'Разблокировать',
+
         }
       };
 }
