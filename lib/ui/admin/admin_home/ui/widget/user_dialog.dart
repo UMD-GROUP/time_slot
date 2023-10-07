@@ -50,7 +50,7 @@ class UserDialog extends StatelessWidget {
               Text('orders'.tr, style: AppTextStyles.bodyMedium(context),),
               Text(':', style: AppTextStyles.bodyMedium(context),),
               SizedBox(width: 10.w,),
-              Text('mock_data',style: AppTextStyles.bodyMedium(context),),
+              Text(user.orders.length.toString(),style: AppTextStyles.bodyMedium(context),),
             ],
           ),
           Row(
@@ -102,7 +102,7 @@ class UserDialog extends StatelessWidget {
       //   },
       // ),
       CupertinoDialogAction(
-        child: Text('ok'.tr),
+        child: Text('close'.tr),
         onPressed: () {
           Navigator.of(context).pop();
         },
