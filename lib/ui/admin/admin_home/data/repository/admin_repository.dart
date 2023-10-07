@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:time_slot/data/models/data_from_admin_model.dart';
 import 'package:time_slot/data/models/my_response.dart';
+import 'package:time_slot/ui/common/authorization/data/models/user_model.dart';
 import 'package:time_slot/ui/user/orders/data/models/order_model.dart';
 import 'package:time_slot/utils/tools/assistants.dart';
 
@@ -69,7 +70,6 @@ class AdminRepository {
 
   Future<MyResponse> updateOrder(OrderModel order) async {
     final MyResponse myResponse = MyResponse();
-    print(order.toJson());
     try {
       await instance
           .collection('orders')
@@ -79,6 +79,18 @@ class AdminRepository {
     } catch (e) {
       print(e);
       print('mNANANANA');
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> updateUser(UserModel user) async {
+    final MyResponse myResponse = MyResponse();
+
+    try {
+      await instance.collection('users').doc(user.uid).update(user.toJson());
+      myResponse.statusCode = 200;
+    } catch (e) {
       myResponse.message = e.toString();
     }
     return myResponse;

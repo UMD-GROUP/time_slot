@@ -31,3 +31,8 @@ class UpdateOrderEvent extends AdminEvent {
   UpdateOrderEvent(this.order);
   OrderModel order;
 }
+
+class UpdateUserBEvent extends AdminEvent {
+  UpdateUserBEvent(this.user);
+  UserModel user;
+}
