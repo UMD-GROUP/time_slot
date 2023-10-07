@@ -47,20 +47,20 @@ class OrderInfoBottomSheet extends StatelessWidget {
                 OrderSheetItemWidget(
                     context: context, text: 'un_finished', color: Colors.red, onTap: (){}),
 
-                    context: context,
-                    text: 'Accept',
-                    color: Colors.yellow,
-                    onTap: () {
-                      showConfirmCancelDialog(
-                        context,
-                        () {
-                          order.status = OrderStatus.inProgress;
-                          context
-                              .read<AdminBloc>()
-                              .add(UpdateOrderEvent(order));
-                        },
-                      );
-                    }),
+                    // context: context,
+                    // text: 'Accept',
+                    // color: Colors.yellow,
+                    // onTap: () {
+                    //   showConfirmCancelDialog(
+                    //     context,
+                    //     () {
+                    //       order.status = OrderStatus.inProgress;
+                    //       context
+                    //           .read<AdminBloc>()
+                    //           .add(UpdateOrderEvent(order));
+                    //     },
+                    //   );
+                    // }),
 //                 OrderSheetItemWidget(
 //                     context: context,
 //                     text: 'Decline',

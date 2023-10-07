@@ -23,14 +23,14 @@ class PurchaseTextWidget extends StatelessWidget {
           ),
           Text(
             text1.tr,
-            style: AppTextStyles.bodyMedium(context),
+            style: AppTextStyles.bodyMedium(context, fontSize: 14.sp),
           ),
           SizedBox(
             width: 3.w,
           ),
           Text(
             text2,
-            style: AppTextStyles.bodyMedium(context),
+            style: AppTextStyles.bodyMedium(context,fontSize: 14.sp),
           ),
         ],
       );
