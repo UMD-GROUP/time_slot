@@ -50,7 +50,7 @@ class OrderModel {
         'sum': sum,
         'marketName': marketName,
         'orderDocId': orderDocId,
-        'dates': dates,
+        'dates': dates.map((e) => e.toString()),
         'userPhoto': userPhoto,
         'status': status.index,
         'products': products.map((e) => e.toJson())
