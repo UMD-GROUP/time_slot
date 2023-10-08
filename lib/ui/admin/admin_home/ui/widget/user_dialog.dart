@@ -154,8 +154,8 @@ class UserDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    'mock_data',
-                    style: AppTextStyles.bodyMedium(context),
+                    user.isBlocked ? 'blocked'.tr :'active'.tr,
+                    style: AppTextStyles.bodyMedium(context, color:  user.isBlocked ? Colors.red :Colors.green, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

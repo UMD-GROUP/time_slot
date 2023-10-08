@@ -15,6 +15,7 @@ class PurchaseDialog extends StatelessWidget {
               SizedBox(
                 height: height(context) * 0.01,
               ),
+
               Row(
                 children: [
                   SvgPicture.asset(
@@ -44,6 +45,35 @@ class PurchaseDialog extends StatelessWidget {
                     'uz_sum'.tr,
                     style: AppTextStyles.bodyMedium(context),
                   ),
+                ],
+              ),
+              SizedBox(
+                height: height(context) * 0.01,
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    AppIcons.calendar,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                    height: height(context) * 0.03,
+                  ),
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  Text(
+                    'created'.tr,
+                    style: AppTextStyles.bodyMedium(context,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    DateTime.parse(purchaseModel.createdAt).toUtc().toString().split(' ').first,
+                    // purchaseModel..toString(),
+                    style: AppTextStyles.bodyMedium(context),
+                  ),
+
                 ],
               ),
               SizedBox(

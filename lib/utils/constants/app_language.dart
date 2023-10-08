@@ -144,6 +144,8 @@ class AppTranslations extends Translations {
           'purchase_data': "To'lov malumotlari",
           'you_are_blocked':
               "Siz bloklangansiz! Ma'lumot uchun\n@Timeslot_Admin ga Telegram\norqali bog'laning!",
+          'active': 'Faol',
+          'blocked': 'Bloklangan',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -280,6 +282,8 @@ class AppTranslations extends Translations {
           'purchase_data': 'Платежная информация',
           'you_are_blocked':
               'Вы заблокированы! Свяжитесь\n@Timeslot_Admin через Telegram\nля получения информации!',
+          'active': 'Активный',
+          'blocked': 'Заблокировано',
         }
       };
 }
