@@ -195,21 +195,24 @@ void showLogOutDialog(BuildContext context) {
 void showUserDialog(BuildContext context, UserModel userModel) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => UserDialog(user: userModel),
+    builder: (context) => Theme(
+        data:AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(),
+
+        child: UserDialog(user: userModel)),
   );
 }
 
 void showPartnerDialog(BuildContext context, UserModel userModel) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => PartnerDialog(user: userModel),
+    builder: (context) => Theme(data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(), child : PartnerDialog(user: userModel)),
   );
 }
 
 void showPurchaseDialog(BuildContext context, PurchaseModel purchaseModel) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => PurchaseDialog(purchaseModel: purchaseModel),
+    builder: (context) => Theme(data:AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(),child: PurchaseDialog(purchaseModel: purchaseModel)),
   );
 }
 

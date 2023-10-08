@@ -13,7 +13,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
         title: Text(
           '${'order_detail'.tr}:',
           style: AppTextStyles.labelLarge(context,
-              fontSize: 18, color: Colors.black),
+              fontSize: 18.sp,),
         ),
         message: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,11 +107,11 @@ class OrderInfoBottomSheet extends StatelessWidget {
             ...List.generate(order.products.length, (index) {
               final List<ProductModel> pducts = order.products.cast();
               return Padding(
-                padding: EdgeInsets.only(left: width(context) * 0.08),
+                padding: EdgeInsets.only(left: width(context) * 0.04),
                 child: Text(
                   '${index + 1}. ${pducts[index].deliveryNote} - ${pducts[index].count} ${'piece'.tr}',
                   style: AppTextStyles.bodyMedium(context,
-                      fontSize: 15.sp, color: Colors.black),
+                      fontSize: 15.sp,),
                 ),
               );
             }),
@@ -120,27 +120,44 @@ class OrderInfoBottomSheet extends StatelessWidget {
               text1: 'day_count',
               text2: '${order.dates.length} ${'piece'.tr}',
             ),
-            SizedBox(
-              width: width(context),
-              height: height(context) * (0.03 * (order.dates.length % 3)),
-              child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 3, childAspectRatio: 2 / 3),
-                  itemCount: order.dates.length,
-                  itemBuilder: (context, index) {
-                    print(order.dates.length);
-                    return Text(
-                      DateTime.parse(order.dates[index])
-                          .toUtc()
-                          .toString()
-                          .split(' ')
-                          .first,
-                      style: AppTextStyles.bodyMedium(context,
-                          fontSize: 15.sp, color: Colors.black),
-                    );
-                  }),
-            ),
+            ...List.generate(order.dates.length, (index) => Padding(
+                padding: EdgeInsets.only(left: width(context) * 0.04),
+                child: Text(
+                  DateTime.parse(order.dates[index]).toUtc().toString().split(' ').first,
+                  style: AppTextStyles.bodyMedium(context,
+                      fontSize: 15.sp),
+                ),
+              )),
+  //           SizedBox(
+  //             width: width(context),
+  //             height: height(context) * (0.06*(order.dates.length%3)),
+  //             child: GridView.builder(
+  //                 shrinkWrap: true,
+  //                 padding: EdgeInsets.only(
+  //                     right: 3.w, left: 10.w, bottom: height(context) * 0.08),
+  //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  // crossAxisCount: 3,
+  // childAspectRatio: 0.7,
+  // crossAxisSpacing: 10.h,
+  // mainAxisSpacing: 5.h,
+  // ),
+  //                 // gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(crossAxisSpacing: 10,
+  //                 //     maxCrossAxisExtent: width(context)*0.4, childAspectRatio: 2 / 3,mainAxisSpacing: 10),
+  //                 itemCount: order.dates.length,
+  //                 itemBuilder: (context, index) {
+  //                   print(order.dates.length);
+  //                   return
+  //                     Text(
+  //                     DateTime.parse(order.dates[index])
+  //                         .toUtc()
+  //                         .toString()
+  //                         .split(' ')
+  //                         .first,
+  //                     style: AppTextStyles.bodyMedium(context,
+  //                         fontSize: 15.sp, ),
+  //                   );
+  //                 }),
+  //           ),
             SizedBox(
               height: height(context) * 0.01,
             ),
@@ -231,7 +248,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
             child: Text(
               text.tr,
               style: AppTextStyles.bodyMedium(context,
-                  fontSize: 12.sp, color: Colors.black),
+                  fontSize: 12.sp,),
             ),
           ),
         ),

@@ -24,8 +24,7 @@ class PurchaseTextWidget extends StatelessWidget {
             text1.tr,
             style: AppTextStyles.bodyMedium(context,
                 fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
+                fontWeight: FontWeight.bold,),
           ),
           SizedBox(
             width: 3.w,
@@ -33,7 +32,7 @@ class PurchaseTextWidget extends StatelessWidget {
           Text(
             text2,
             style: AppTextStyles.bodyMedium(context,
-                fontSize: 15.sp, color: Colors.black),
+                fontSize: 15.sp),
           ),
         ],
       );

@@ -19,6 +19,7 @@ class PartnerDialog extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     AppIcons.balance,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
                     height: height(context) * 0.03,
                   ),
                   SizedBox(
@@ -49,6 +50,7 @@ class PartnerDialog extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     AppIcons.refresh,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
                     height: height(context) * 0.03,
                   ),
                   SizedBox(
@@ -76,6 +78,7 @@ class PartnerDialog extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     AppIcons.users,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
                     height: height(context) * 0.03,
                   ),
                   SizedBox(
@@ -99,6 +102,7 @@ class PartnerDialog extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     AppIcons.download,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
                     height: height(context) * 0.03,
                   ),
                   SizedBox(
@@ -120,7 +124,7 @@ class PartnerDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.dollar),
+                  SvgPicture.asset(AppIcons.dollar,color: AdaptiveTheme.of(context).theme.canvasColor,),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -147,7 +151,7 @@ class PartnerDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.calendar),
+                  SvgPicture.asset(AppIcons.calendar,color: AdaptiveTheme.of(context).theme.canvasColor,),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -169,6 +173,7 @@ class PartnerDialog extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.info_outline,
+
                     size: height(context) * 0.03,
                   ),
                   SizedBox(
