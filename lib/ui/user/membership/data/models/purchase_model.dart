@@ -7,10 +7,12 @@ class PurchaseModel {
       required this.purchaseId,
       required this.amount,
       required this.status,
+      this.createdAt = '',
       this.docId = ''});
 
   factory PurchaseModel.fromJson(Map<String, dynamic> json) => PurchaseModel(
         docId: json['docId'] ?? '',
+        createdAt: json['createdAt'] ?? DateTime.now().toString(),
         ownerId: json['ownerId'] ?? 'defaultOwnerId',
         referralId: json['referralId'] ?? 'defaultReferralId',
         purchaseId: json['purchaseId'] ?? 0,
@@ -29,6 +31,7 @@ class PurchaseModel {
   final num amount;
   final PurchaseStatus status;
   final String docId;
+  final String createdAt;
 
   Map<String, dynamic> toJson() => {
         'ownerId': ownerId,
@@ -36,6 +39,7 @@ class PurchaseModel {
         'purchaseId': purchaseId,
         'amount': amount,
         'docId': docId,
+        'createdAt': createdAt,
         'status': status.toString().split('.').last, // Convert enum to String
       };
 }

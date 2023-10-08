@@ -17,19 +17,12 @@ class _MembershipPageState extends State<MembershipPage> {
           backgroundColor: Colors.deepPurple,
           title: Text('membership'.tr),
         ),
-        body: BlocListener<PurchaseBloc, PurchaseState>(
-          listener: (context, state) {
-            if (state.status == ResponseStatus.inSuccess) {
-              setState(() {});
-            }
-          },
-          child: Container(
-            padding: EdgeInsets.all(20.h),
-            height: height(context),
-            width: width(context),
-            child: const Column(
-              children: [UserCard(), PurchasesWidget()],
-            ),
+        body: Container(
+          padding: EdgeInsets.all(20.h),
+          height: height(context),
+          width: width(context),
+          child: const Column(
+            children: [UserCard(), PurchasesWidget()],
           ),
         ),
         // floatingActionButton: FloatingActionButton(

@@ -69,38 +69,40 @@ class MoneyInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.selection.baseOffset == 0) {
-      // Ensure that a digit is always at the beginning of the text.
+    if (newValue.text.isEmpty) {
+      return newValue;
+    }
+
+    final numericValue =
+        int.tryParse(newValue.text.replaceAll(' ', '')); // Remove spaces
+
+    if (numericValue != null) {
+      final formattedValue = _formatNumber(numericValue);
       return newValue.copyWith(
-        text: '0 ${_format(newValue.text)}',
-        selection: const TextSelection.collapsed(offset: 2),
-      );
-    } else {
-      return newValue.copyWith(
-        text: _format(newValue.text),
-        selection: TextSelection.collapsed(
-          offset: _format(newValue.text).length,
-        ),
+        text: formattedValue,
+        selection: TextSelection.collapsed(offset: formattedValue.length),
       );
     }
+
+    return newValue;
   }
 
-  String _format(String text) {
-    final numericOnly = text.replaceAll(RegExp('[^0-9]'), '');
-    final formatted = StringBuffer();
-    final int startFrom = text.length % 4 == 0
-        ? 2
-        : text.length % 5 == 0
-            ? 3
-            : 0;
+  String _formatNumber(int value) {
+    final String stringValue = value.toString();
+    final int length = stringValue.length;
+    final List<String> parts = [];
 
-    for (var i = startFrom; i < numericOnly.length; i++) {
-      if (i != 0 && i % 3 == 0) {
-        formatted.write(' ');
+    for (var i = 0; i < length; i += 3) {
+      final start = length - i - 3;
+      final end = length - i;
+      if (start < 0) {
+        parts.insert(0, stringValue.substring(0, end));
+      } else {
+        parts.insert(0, stringValue.substring(start, end));
       }
-      formatted.write(numericOnly[i]);
     }
-    return formatted.toString();
+
+    return parts.join(' ');
   }
 }
 
