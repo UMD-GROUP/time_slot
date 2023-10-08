@@ -80,8 +80,13 @@ class _AccountPageState extends State<AccountPage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.deepPurple,
+          child: const Icon(
+            Icons.admin_panel_settings_rounded,
+            color: Colors.white,
+          ),
           onPressed: () {
-            Navigator.pushNamed(context, RouteName.adminHome);
+            showAdminPasswordDialog(context, TextEditingController());
           },
         ),
       );

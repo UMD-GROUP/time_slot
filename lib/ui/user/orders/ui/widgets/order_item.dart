@@ -23,7 +23,7 @@ class OrderItem extends StatelessWidget {
                 SizedBox(
                   height: height(context) * 0.14,
                   width: width(context) * 0.35,
-                  child: isAdmin && order.adminPhoto.isNotEmpty
+                  child: isAdmin && order.adminPhoto.isNotEmpty || !isAdmin
                       ? CachedNetworkImage(
                           imageUrl:
                               isAdmin ? order.adminPhoto : order.userPhoto,
