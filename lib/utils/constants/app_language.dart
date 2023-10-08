@@ -141,6 +141,7 @@ class AppTranslations extends Translations {
           'close': 'Yopish',
           'day_count': 'Kunlar soni:',
           'createt': 'Faoliyat:',
+          'purchase_data': "To'lov malumotlari",
           'you_are_blocked':
               "Siz bloklangansiz! Ma'lumot uchun\n@Timeslot_Admin ga Telegram\norqali bog'laning!",
         },
@@ -276,6 +277,7 @@ class AppTranslations extends Translations {
           'close': 'Закрывать',
           'day_count': 'Количество дней:',
           'createt': 'Активность:',
+          'purchase_data': 'Платежная информация',
           'you_are_blocked':
               'Вы заблокированы! Свяжитесь\n@Timeslot_Admin через Telegram\nля получения информации!',
         }
