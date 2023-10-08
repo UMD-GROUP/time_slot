@@ -11,7 +11,6 @@ class PurchaseTextWidget extends StatelessWidget {
   final String text2;
   @override
   Widget build(BuildContext context) => Row(
-
         children: [
           SvgPicture.asset(
             icon,
@@ -23,16 +22,19 @@ class PurchaseTextWidget extends StatelessWidget {
           ),
           Text(
             text1.tr,
-            style: AppTextStyles.bodyMedium(context, fontSize: 16.sp, fontWeight: FontWeight.bold),
+            style: AppTextStyles.bodyMedium(context,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
           ),
           SizedBox(
             width: 3.w,
           ),
           Text(
             text2,
-            style: AppTextStyles.bodyMedium(context,fontSize: 15.sp),
+            style: AppTextStyles.bodyMedium(context,
+                fontSize: 15.sp, color: Colors.black),
           ),
         ],
       );
-
 }
