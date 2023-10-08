@@ -22,7 +22,7 @@ class AppTranslations extends Translations {
           'Already have an account?': 'Allaqachon shaxsiy hisobingiz bormi? ',
           'Login': 'Kirish',
           'product count:': 'Tovar soni',
-          'sum': "Xizmat to'lovi:",
+          'sum': "Xiz. to'lovi:",
           'all': 'Barchasi',
           'mine': 'Mening',
           'referals': 'Referallar',
