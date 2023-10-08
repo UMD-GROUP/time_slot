@@ -16,6 +16,15 @@ class _MembershipPageState extends State<MembershipPage> {
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text('membership'.tr),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<UserBloc>().add(
+                      GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
+                  context.read<PurchaseBloc>().add(GetPurchasesEvent());
+                },
+                icon: const Icon(Icons.refresh))
+          ],
         ),
         body: Container(
           padding: EdgeInsets.all(20.h),

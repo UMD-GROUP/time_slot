@@ -16,6 +16,14 @@ class _AccountPageState extends State<AccountPage> {
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text('account'.tr),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<UserBloc>().add(
+                      GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
+                },
+                icon: const Icon(Icons.refresh))
+          ],
         ),
         body: Center(
           child: Padding(
