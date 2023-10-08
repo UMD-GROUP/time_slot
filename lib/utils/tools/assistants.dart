@@ -268,6 +268,14 @@ void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap) {
   );
 }
 
+void showAdminPasswordDialog(
+    BuildContext context, TextEditingController controller) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => AdminPanelPasswordDialog(controller: controller),
+  );
+}
+
 int generateRandomID(bool isOrder) {
   // Get the current date and time
   final DateTime now = DateTime.now();
@@ -435,6 +443,53 @@ class CancelConfirmDialog extends StatelessWidget {
           CupertinoDialogAction(
             onPressed: onConfirmTap,
             child: Text('confirm'.tr),
+          ),
+        ],
+      );
+}
+
+class AdminPanelPasswordDialog extends StatelessWidget {
+  AdminPanelPasswordDialog({required this.controller, super.key});
+  TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: Text('admin_panel'.tr),
+        content: Column(
+          children: [
+            CupertinoTextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              maxLength: 4,
+              autofocus: true,
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+            child: Text('confirm'.tr),
+            onPressed: () {
+              // You can handle the PIN entered here
+              if (controller.text.trim() == '1984') {
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, RouteName.adminHome);
+              } else {
+                controller.clear();
+                AnimatedSnackBar(
+                  snackBarStrategy: RemoveSnackBarStrategy(),
+                  duration: const Duration(seconds: 4),
+                  builder: (context) =>
+                      AppErrorSnackBar(text: 'wrong_password'.tr),
+                ).show(context);
+              }
+            },
           ),
         ],
       );
