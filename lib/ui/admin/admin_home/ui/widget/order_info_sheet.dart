@@ -10,11 +10,11 @@ class OrderInfoBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CupertinoActionSheet(
-        // title: Text(
-        //   '${'order_detail'.tr}:',
-        //   style: AppTextStyles.labelLarge(context,
-        //       fontSize: 18, color: Colors.black),
-        // ),
+        title: Text(
+          '${'order_detail'.tr}:',
+          style: AppTextStyles.labelLarge(context,
+              fontSize: 18, color: Colors.black),
+        ),
         message: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -22,14 +22,9 @@ class OrderInfoBottomSheet extends StatelessWidget {
               height: height(context) * 0.15,
               width: width(context),
               decoration: BoxDecoration(
-                  color: Colors.deepPurple,
+                  image: DecorationImage(
+                      image: NetworkImage(order.userPhoto), fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(10.r)),
-              child: Center(
-                child: SvgPicture.asset(
-                  AppIcons.refresh,
-                  height: height(context) * 0.05,
-                ),
-              ),
             ),
             SizedBox(
               height: height(context) * 0.01,
@@ -84,7 +79,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
                   children: [
                     PurchaseTextWidget(
                       icon: AppIcons.check,
-                      text1: 'order:',
+                      text1: 'order:'.tr,
                       text2: order.orderId.toString(),
                     ),
                     PurchaseTextWidget(
@@ -115,7 +110,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
                 padding: EdgeInsets.only(left: width(context) * 0.08),
                 child: Text(
                   '${index + 1}. ${pducts[index].deliveryNote} - ${pducts[index].count} ${'piece'.tr}',
-                  style: AppTextStyles.bodyMedium(context, fontSize: 15.sp),
+                  style: AppTextStyles.bodyMedium(context,
+                      fontSize: 15.sp, color: Colors.black),
                 ),
               );
             }),
@@ -124,16 +120,27 @@ class OrderInfoBottomSheet extends StatelessWidget {
               text1: 'day_count',
               text2: '${order.dates.length} ${'piece'.tr}',
             ),
-            ...List.generate(
-                order.dates.length,
-                (index) => Padding(
-                      padding: EdgeInsets.only(left: width(context) * 0.08),
-                      child: Text(
-                        '${order.dates[index]}',
-                        style:
-                            AppTextStyles.bodyMedium(context, fontSize: 15.sp),
-                      ),
-                    )),
+            SizedBox(
+              width: width(context),
+              height: height(context) * (0.03 * (order.dates.length % 3)),
+              child: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 3, childAspectRatio: 2 / 3),
+                  itemCount: order.dates.length,
+                  itemBuilder: (context, index) {
+                    print(order.dates.length);
+                    return Text(
+                      DateTime.parse(order.dates[index])
+                          .toUtc()
+                          .toString()
+                          .split(' ')
+                          .first,
+                      style: AppTextStyles.bodyMedium(context,
+                          fontSize: 15.sp, color: Colors.black),
+                    );
+                  }),
+            ),
             SizedBox(
               height: height(context) * 0.01,
             ),
@@ -180,8 +187,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     : order.status.toString() == 'OrderStatus.inProgress'
                         ? 'progress'.tr
                         : order.status.toString() == 'OrderStatus.cancelled'
-                            ? 'cancelled'
-                            : 'done',
+                            ? 'cancelled'.tr
+                            : 'done'.tr,
                 style: AppTextStyles.bodyLargeSmall(context,
                     fontWeight: FontWeight.bold,
                     fontSize: 18.sp,
@@ -196,27 +203,15 @@ class OrderInfoBottomSheet extends StatelessWidget {
             ])
           ],
         ),
-        // cancelButton: CupertinoActionSheetAction(
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        //   child: const Text('Close'),
-        // ),
-        actions: [
-          CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.pop(context);
-                final OrderModel order =
-                    context.read<CreateOrderBloc>().state.order;
-                order.referallId =
-                    context.read<UserBloc>().state.user!.referallId;
-                order.ownerId = context.read<UserBloc>().state.user!.uid;
-
-                context.read<CreateOrderBloc>().add(
-                    AddOrderEvent(order, context.read<UserBloc>().state.user!));
-              },
-              child: Text('close'.tr))
-        ],
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'close'.tr,
+            style: const TextStyle(color: Colors.red),
+          ),
+        ),
       );
 
   // ignore: non_constant_identifier_names
@@ -235,7 +230,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
           child: Center(
             child: Text(
               text.tr,
-              style: AppTextStyles.bodyMedium(context, fontSize: 12.sp),
+              style: AppTextStyles.bodyMedium(context,
+                  fontSize: 12.sp, color: Colors.black),
             ),
           ),
         ),

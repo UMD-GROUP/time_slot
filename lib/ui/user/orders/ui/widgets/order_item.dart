@@ -90,8 +90,8 @@ class OrderItem extends StatelessWidget {
                                   ? 'progress'.tr
                                   : order.status.toString() ==
                                           'OrderStatus.cancelled'
-                                      ? 'cancelled'
-                                      : 'done',
+                                      ? 'cancelled'.tr
+                                      : 'done'.tr,
                           style: AppTextStyles.bodyLargeSmall(context,
                               fontWeight: FontWeight.bold,
                               fontSize: 15.sp,
@@ -113,18 +113,26 @@ class OrderItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                isAdmin ? GestureDetector(
-                    onTap: (){
-
-                      showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) => OrderInfoBottomSheet(
-                        order: order,
-                      ));
-                // showOrderDialog(context, order);
-                },
-                    child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)) : const SizedBox(),
-                SizedBox(width: 10.w,)
+                isAdmin
+                    ? GestureDetector(
+                        onTap: () {
+                          showCupertinoModalPopup(
+                              context: context,
+                              builder: (context) => OrderInfoBottomSheet(
+                                    order: order,
+                                  ));
+                          // showOrderDialog(context, order);
+                        },
+                        child: SvgPicture.asset(
+                          AppIcons.threeDots,
+                          color:
+                              AdaptiveTheme.of(context).theme.bottomAppBarColor,
+                          height: height(context) * 0.035,
+                        ))
+                    : const SizedBox(),
+                SizedBox(
+                  width: 10.w,
+                )
               ],
             )),
       );

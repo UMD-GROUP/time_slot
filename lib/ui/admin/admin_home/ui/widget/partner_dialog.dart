@@ -212,13 +212,8 @@ class PartnerDialog extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-          // CupertinoDialogAction(
-          //   child: Text('cancel'.tr),
-          //   onPressed: () {
-          //     Navigator.of(context).pop();
-          //   },
-          // ),
           CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
             child: Text('close'.tr),
             onPressed: () {
               Navigator.of(context).pop();
