@@ -54,7 +54,7 @@ class OrderModel {
         'ownerId': ownerId,
         'orderId': orderId,
         'sum': sum,
-        'createdAt': createdAt,
+        'createdAt': createdAt.toString(),
         'marketName': marketName,
         'orderDocId': orderDocId,
         'dates': dates.map((e) => e.toString()),
