@@ -9,6 +9,7 @@ class AddPurchaseDialog extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoAlertDialog(
         title: Text('enter_money_amount'.tr),
         content: CupertinoTextField(
+          inputFormatters: [MoneyInputFormatter()],
           controller: controller,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           placeholder: 'min 50 000 UZS',
