@@ -33,7 +33,7 @@ class UserModel {
   String uid;
   String token;
   List markets;
-  final BankingCardModel card;
+  BankingCardModel card;
   List referrals;
   List orders;
   bool isBlocked;

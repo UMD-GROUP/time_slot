@@ -6,6 +6,7 @@ class PurchaseEvent {}
 class GetPurchasesEvent extends PurchaseEvent {}
 
 class AddPurchaseEvent extends PurchaseEvent {
-  AddPurchaseEvent(this.purchase);
+  AddPurchaseEvent(this.purchase, this.user);
   PurchaseModel purchase;
+  UserModel user;
 }

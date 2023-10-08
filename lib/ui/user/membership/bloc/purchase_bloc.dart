@@ -27,8 +27,8 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
   Future<void> addPurchase(AddPurchaseEvent event, Emitter emit) async {
     if (event.purchase.amount < 50000) {}
     emit(state.copyWith(addingStatus: ResponseStatus.inProgress));
-    final MyResponse myResponse =
-        await getIt<PurchaseRepository>().addPurchase(event.purchase);
+    final MyResponse myResponse = await getIt<PurchaseRepository>()
+        .addPurchase(event.purchase, event.user);
     if (myResponse.statusCode! == 200) {
       emit(state.copyWith(addingStatus: ResponseStatus.inSuccess));
       add(GetPurchasesEvent());

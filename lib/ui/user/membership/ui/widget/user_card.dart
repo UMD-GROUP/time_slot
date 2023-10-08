@@ -27,7 +27,7 @@ class UserCard extends StatelessWidget {
                   width: 5.w,
                 ),
                 Text(
-                  "${'balance'.tr} ${context.read<UserBloc>().state.user!.card.balance} so'm",
+                  "${'balance'.tr} ${formatStringToMoney(context.read<UserBloc>().state.user!.card.balance.toString())} so'm",
                   style: AppTextStyles.labelLarge(context,
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
@@ -38,13 +38,13 @@ class UserCard extends StatelessWidget {
             UserCardItem(
                 icon: AppIcons.refresh,
                 text1: 'in_progress',
-                text2: context
+                text2: formatStringToMoney(context
                     .read<UserBloc>()
                     .state
                     .user!
                     .card
                     .purchaseInProgress
-                    .toString(),
+                    .toString()),
                 text3: 'uz_sum'),
             UserCardItem(
                 icon: AppIcons.users,
@@ -53,20 +53,20 @@ class UserCard extends StatelessWidget {
                     .read<UserBloc>()
                     .state
                     .user!
-                    .card
                     .referrals
+                    .length
                     .toString(),
                 text3: 'piece'),
             UserCardItem(
                 icon: AppIcons.check,
                 text1: 'total_amount_withdrawn',
-                text2: context
+                text2: formatStringToMoney(context
                     .read<UserBloc>()
                     .state
                     .user!
                     .card
                     .allPurchased
-                    .toString(),
+                    .toString()),
                 text3: 'uz_sum'),
             UserCardButton(onTap: () {
               if (context

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:time_slot/data/models/data_from_admin_model.dart';
 import 'package:time_slot/data/models/my_response.dart';
 import 'package:time_slot/ui/common/authorization/data/models/user_model.dart';
+import 'package:time_slot/ui/user/membership/data/models/purchase_model.dart';
 import 'package:time_slot/ui/user/orders/data/models/order_model.dart';
 import 'package:time_slot/utils/tools/assistants.dart';
 
@@ -77,8 +78,6 @@ class AdminRepository {
           .update(order.toJson());
       myResponse.statusCode = 200;
     } catch (e) {
-      print(e);
-      print('mNANANANA');
       myResponse.message = e.toString();
     }
     return myResponse;
@@ -89,6 +88,21 @@ class AdminRepository {
 
     try {
       await instance.collection('users').doc(user.uid).update(user.toJson());
+      myResponse.statusCode = 200;
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> updatePurchase(PurchaseModel purchase) async {
+    final MyResponse myResponse = MyResponse();
+
+    try {
+      await instance
+          .collection('purchases')
+          .doc(purchase.docId)
+          .update(purchase.toJson());
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();

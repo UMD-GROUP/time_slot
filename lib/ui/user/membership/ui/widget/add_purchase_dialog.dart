@@ -33,13 +33,15 @@ class AddPurchaseDialog extends StatelessWidget {
                 error = 'you_cant_afford'.tr;
               }
               if (error.isEmpty) {
-                context.read<PurchaseBloc>().add(AddPurchaseEvent(PurchaseModel(
-                    status: PurchaseStatus.created,
-                    amount: int.parse(controller.text.trim()),
-                    ownerId: context.read<UserBloc>().state.user!.uid,
-                    purchaseId: generateRandomID(false),
-                    referralId:
-                        context.read<UserBloc>().state.user!.referallId)));
+                context.read<PurchaseBloc>().add(AddPurchaseEvent(
+                    PurchaseModel(
+                        status: PurchaseStatus.created,
+                        amount: int.parse(controller.text.trim()),
+                        ownerId: context.read<UserBloc>().state.user!.uid,
+                        purchaseId: generateRandomID(false),
+                        referralId:
+                            context.read<UserBloc>().state.user!.referallId),
+                    context.read<UserBloc>().state.user!));
               } else {
                 AnimatedSnackBar(
                   snackBarStrategy: RemoveSnackBarStrategy(),
