@@ -20,7 +20,7 @@ class BankingCardModel {
   num balance;
   num purchaseInProgress;
   int referrals;
-  final num allPurchased;
+  num allPurchased;
 
   // Convert a BankingCardModel object to a JSON Map
   Map<String, dynamic> toJson() => {

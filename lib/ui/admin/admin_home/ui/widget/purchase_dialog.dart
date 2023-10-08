@@ -15,7 +15,6 @@ class PurchaseDialog extends StatelessWidget {
               SizedBox(
                 height: height(context) * 0.01,
               ),
-
               Row(
                 children: [
                   SvgPicture.asset(
@@ -69,11 +68,10 @@ class PurchaseDialog extends StatelessWidget {
                     width: 5.w,
                   ),
                   Text(
-                    DateTime.parse(purchaseModel.createdAt).toUtc().toString().split(' ').first,
+                    purchaseModel.createdAt.toUtc().toString().split(' ').first,
                     // purchaseModel..toString(),
                     style: AppTextStyles.bodyMedium(context),
                   ),
-
                 ],
               ),
               SizedBox(
@@ -81,7 +79,10 @@ class PurchaseDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(Icons.credit_card_outlined, size: height(context) * 0.03,),
+                  Icon(
+                    Icons.credit_card_outlined,
+                    size: height(context) * 0.03,
+                  ),
                   // SvgPicture.asset(
                   //   AppIcons.c,
                   //   color: AdaptiveTheme.of(context).theme.canvasColor,
@@ -99,48 +100,68 @@ class PurchaseDialog extends StatelessWidget {
                     width: 5.w,
                   ),
                   GestureDetector(
-                    onTap: (){
-                      copyToClipboard(context,purchaseModel.cardNumber.toString());
+                    onTap: () {
+                      copyToClipboard(
+                          context, purchaseModel.cardNumber.toString());
                     },
                     child: Text(
-                //      DateTime.parse(purchaseModel.cardNumber).toUtc().toString().split(' ').first,
-                      purchaseModel.cardNumber.toString().length > 4 ? '${purchaseModel.cardNumber.toString().substring(0,4)}***':purchaseModel.cardNumber.toString() ,
+                      //      DateTime.parse(purchaseModel.cardNumber).toUtc().toString().split(' ').first,
+                      purchaseModel.cardNumber.toString().length > 4
+                          ? '${purchaseModel.cardNumber.toString().substring(0, 4)}***'
+                          : purchaseModel.cardNumber.toString(),
                       style: AppTextStyles.bodyMedium(context),
                     ),
                   ),
-
                 ],
               ),
               SizedBox(
                 height: height(context) * 0.01,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'accept',
-                      color: Colors.yellow,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () {});
-                      }),
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'finished',
-                      color: Colors.green,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () {});
-                      }),
-                ],
-              ),
-              SizedBox(height: height(context)*0.01),
-              OrderSheetItemWidget(
-                  context: context,
-                  text: 'decline',
-                  color: Colors.red,
-                  onTap: () {
-                    showConfirmCancelDialog(context, () {});
-                  }),
+              if (purchaseModel.status != PurchaseStatus.finished)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'accept',
+                        color: Colors.yellow,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () {
+                            purchaseModel.status = PurchaseStatus.inProgress;
+                            context
+                                .read<AdminBloc>()
+                                .add(UpdatePurchaseEvent(purchaseModel));
+                          });
+                        }),
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'finished',
+                        color: Colors.green,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () {
+                            purchaseModel.status = PurchaseStatus.finished;
+                            context
+                                .read<AdminBloc>()
+                                .add(UpdatePurchaseEvent(purchaseModel));
+                          });
+                        }),
+                  ],
+                ),
+              if (purchaseModel.status != PurchaseStatus.finished)
+                SizedBox(height: height(context) * 0.01),
+              if (purchaseModel.status != PurchaseStatus.finished)
+                OrderSheetItemWidget(
+                    context: context,
+                    text: 'decline',
+                    color: Colors.red,
+                    onTap: () {
+                      showConfirmCancelDialog(context, () {
+                        purchaseModel.status = PurchaseStatus.cancelled;
+                        context
+                            .read<AdminBloc>()
+                            .add(UpdatePurchaseEvent(purchaseModel));
+                      });
+                    }),
             ],
           ),
         ),
