@@ -16,6 +16,7 @@ class PurchaseRepository {
   Future<MyResponse> addPurchase(PurchaseModel purchase, UserModel user) async {
     final MyResponse myResponse = MyResponse();
     try {
+      purchase.cardNumber = user.card.cardNumber;
       final DocumentReference doc =
           await firestore.collection('purchases').add(purchase.toJson());
       await doc.update({'docId': doc.id});
