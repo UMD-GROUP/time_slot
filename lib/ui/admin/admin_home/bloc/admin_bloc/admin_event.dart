@@ -28,8 +28,9 @@ class UpdateOtherEvent extends AdminEvent {
 }
 
 class UpdateOrderEvent extends AdminEvent {
-  UpdateOrderEvent(this.order);
+  UpdateOrderEvent(this.order, this.percent);
   OrderModel order;
+  int percent;
 }
 
 class UpdateUserBEvent extends AdminEvent {

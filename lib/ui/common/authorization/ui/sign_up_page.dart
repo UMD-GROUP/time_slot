@@ -85,6 +85,7 @@ class SignupPage extends StatelessWidget {
                           context
                               .read<AuthorizationBloc>()
                               .add(CreateAccountEvent(UserModel(
+                                createdAt: DateTime.now(),
                                 card: BankingCardModel(cardNumber: ''),
                                 password: controllers[1].text.trim(),
                                 email: controllers[0].text.trim(),

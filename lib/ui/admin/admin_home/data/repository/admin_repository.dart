@@ -6,6 +6,7 @@ import 'package:time_slot/data/models/my_response.dart';
 import 'package:time_slot/ui/common/authorization/data/models/user_model.dart';
 import 'package:time_slot/ui/user/membership/data/models/purchase_model.dart';
 import 'package:time_slot/ui/user/orders/data/models/order_model.dart';
+import 'package:time_slot/utils/constants/form_status.dart';
 import 'package:time_slot/utils/tools/assistants.dart';
 
 class AdminRepository {
@@ -69,16 +70,35 @@ class AdminRepository {
     return myResponse;
   }
 
-  Future<MyResponse> updateOrder(OrderModel order) async {
+  Future<MyResponse> updateOrder(OrderModel order, int percent) async {
     final MyResponse myResponse = MyResponse();
     try {
       await instance
           .collection('orders')
           .doc(order.orderDocId)
           .update(order.toJson());
+      print(order.status);
+      if (order.status == OrderStatus.done) {
+        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('token', isEqualTo: order.referallId)
+                .get();
+        print(partnerDoc.docs);
+        final UserModel partner =
+            UserModel.fromJson(partnerDoc.docs.first.data());
+        if (partner.willGetPercent) {
+          partner.card.balance += order.sum / percent;
+          await instance
+              .collection('users')
+              .doc(partner.uid)
+              .update(partner.toJson());
+        }
+      }
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();
+      print(e);
     }
     return myResponse;
   }
