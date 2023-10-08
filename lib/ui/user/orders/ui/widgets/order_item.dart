@@ -23,30 +23,44 @@ class OrderItem extends StatelessWidget {
                 SizedBox(
                   height: height(context) * 0.14,
                   width: width(context) * 0.35,
-                  child: CachedNetworkImage(
-                    imageUrl: order.userPhoto,
-                    placeholder: (context, url) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.h),
-                        child: CustomShimmer(
-                            child: Container(
-                          height: height(context),
+                  child: isAdmin && order.adminPhoto.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl:
+                              isAdmin ? order.adminPhoto : order.userPhoto,
+                          placeholder: (context, url) => Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.h),
+                              child: CustomShimmer(
+                                  child: Container(
+                                height: height(context),
+                                width: width(context),
+                                decoration: const BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                              ))),
+                          imageBuilder: (context, imageProvider) => Container(
+                            width: width(context),
+                            margin: EdgeInsets.symmetric(horizontal: 5.h),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.h),
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.fill)),
+                            ),
+                          ),
+                        )
+                      : Container(
+                          height: height(context) * 0.14,
                           width: width(context),
-                          decoration: const BoxDecoration(
-                              color: Colors.amber,
+                          margin: EdgeInsets.symmetric(horizontal: 5.h),
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurpleAccent,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                        ))),
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: width(context),
-                      margin: EdgeInsets.symmetric(horizontal: 5.h),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.h),
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.fill)),
-                      ),
-                    ),
-                  ),
+                                  BorderRadius.all(Radius.circular(10.h))),
+                          child: const Center(
+                            child: Icon(Icons.record_voice_over_outlined),
+                          ),
+                        ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,11 +133,16 @@ class OrderItem extends StatelessWidget {
                           showCupertinoModalPopup(
                               context: context,
                               builder: (context) => Theme(
-                                data:AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(),
-                                child: OrderInfoBottomSheet(
+                                    data: AdaptiveTheme.of(context)
+                                                .theme
+                                                .backgroundColor ==
+                                            Colors.white
+                                        ? ThemeData.light()
+                                        : ThemeData.dark(),
+                                    child: OrderInfoBottomSheet(
                                       order: order,
                                     ),
-                              ));
+                                  ));
                           // showOrderDialog(context, order);
                         },
                         child: SvgPicture.asset(
