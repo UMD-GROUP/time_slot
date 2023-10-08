@@ -136,7 +136,8 @@ class _AddProductSectionState extends State<AddProductSection> {
                                 context.read<CreateOrderBloc>().state.order;
                             order.products.add(ProductModel(
                                 count: int.parse(count.text),
-                                deliveryNote: deliveryNote.text));
+                                deliveryNote:
+                                    '${context.read<DataFromAdminBloc>().state.data!.deliveryNote} ${deliveryNote.text}'));
                             count.clear();
                             deliveryNote.clear();
                             changeStatus();
