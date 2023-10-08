@@ -38,6 +38,7 @@ class AddPurchaseDialog extends StatelessWidget {
               if (error.isEmpty) {
                 context.read<PurchaseBloc>().add(AddPurchaseEvent(
                     PurchaseModel(
+                        createdAt: DateTime.now(),
                         status: PurchaseStatus.created,
                         amount: int.parse(controller.text.trim()),
                         ownerId: context.read<UserBloc>().state.user!.uid,

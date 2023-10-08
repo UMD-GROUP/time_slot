@@ -140,6 +140,7 @@ Future<void> postPurchases(String ownerId, String referralId) async {
   // Generate and post 10 different PurchaseModel objects
   for (int i = 0; i < 10; i++) {
     final purchase = PurchaseModel(
+      createdAt: DateTime.now(),
       ownerId: ownerId,
       referralId: referralId,
       purchaseId: i,

@@ -37,3 +37,8 @@ class UpdateUserBEvent extends AdminEvent {
   UpdateUserBEvent(this.user);
   UserModel user;
 }
+
+class UpdatePurchaseEvent extends AdminEvent {
+  UpdatePurchaseEvent(this.purchase);
+  PurchaseModel purchase;
+}

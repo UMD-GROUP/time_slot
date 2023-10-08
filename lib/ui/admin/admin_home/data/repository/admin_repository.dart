@@ -123,6 +123,36 @@ class AdminRepository {
           .collection('purchases')
           .doc(purchase.docId)
           .update(purchase.toJson());
+      if (purchase.status == PurchaseStatus.finished) {
+        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('uid', isEqualTo: purchase.ownerId)
+                .get();
+        final UserModel partner =
+            UserModel.fromJson(partnerDoc.docs.first.data());
+        partner.card.purchaseInProgress -= purchase.amount;
+        partner.card.allPurchased += purchase.amount;
+        await instance
+            .collection('users')
+            .doc(partner.uid)
+            .update(partner.toJson());
+      }
+      if (purchase.status == PurchaseStatus.cancelled) {
+        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('uid', isEqualTo: purchase.ownerId)
+                .get();
+        final UserModel partner =
+            UserModel.fromJson(partnerDoc.docs.first.data());
+        partner.card.purchaseInProgress -= purchase.amount;
+        partner.card.balance += purchase.amount;
+        await instance
+            .collection('users')
+            .doc(partner.uid)
+            .update(partner.toJson());
+      }
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();
