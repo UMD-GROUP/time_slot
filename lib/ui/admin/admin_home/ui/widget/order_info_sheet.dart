@@ -190,7 +190,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
             PurchaseTextWidget(
               icon: AppIcons.calendar,
               text1: '${'created'.tr}:',
-              text2: order.createdAt.toString(),
+              text2: DateTime.parse(order.createdAt.toString()).toUtc().toString().split(' ').first,
             ),
             PurchaseTextWidget(
               icon: AppIcons.check,
