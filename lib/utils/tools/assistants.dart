@@ -53,6 +53,7 @@ Future<void> postOrders({String? uid, String? referallId}) async {
   final Random random = Random();
   for (int i = 1; i <= 5; i++) {
     final OrderModel randomOrder = OrderModel(
+      createdAt: DateTime.now(),
       products: [],
       referallId: 'XOGOO712',
       ownerId: uid ?? 'DhuNGAJq6ZcZwOUEDm66XQFDFa03',
@@ -196,8 +197,9 @@ void showUserDialog(BuildContext context, UserModel userModel) {
   showCupertinoDialog(
     context: context,
     builder: (context) => Theme(
-        data:AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(),
-
+        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
+            ? ThemeData.light()
+            : ThemeData.dark(),
         child: UserDialog(user: userModel)),
   );
 }
@@ -205,14 +207,22 @@ void showUserDialog(BuildContext context, UserModel userModel) {
 void showPartnerDialog(BuildContext context, UserModel userModel) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => Theme(data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(), child : PartnerDialog(user: userModel)),
+    builder: (context) => Theme(
+        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
+            ? ThemeData.light()
+            : ThemeData.dark(),
+        child: PartnerDialog(user: userModel)),
   );
 }
 
 void showPurchaseDialog(BuildContext context, PurchaseModel purchaseModel) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => Theme(data:AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(),child: PurchaseDialog(purchaseModel: purchaseModel)),
+    builder: (context) => Theme(
+        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
+            ? ThemeData.light()
+            : ThemeData.dark(),
+        child: PurchaseDialog(purchaseModel: purchaseModel)),
   );
 }
 
