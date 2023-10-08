@@ -155,50 +155,25 @@ class OrderInfoBottomSheet extends StatelessWidget {
               text1: 'day_count',
               text2: '${order.dates.length} ${'piece'.tr}',
             ),
-            ...List.generate(
-                order.dates.length,
-                (index) => Padding(
-                      padding: EdgeInsets.only(left: width(context) * 0.04),
-                      child: Text(
-                        DateTime.parse(order.dates[index])
-                            .toUtc()
-                            .toString()
-                            .split(' ')
-                            .first,
-                        style:
-                            AppTextStyles.bodyMedium(context, fontSize: 15.sp),
-                      ),
-                    )),
-            //           SizedBox(
-            //             width: width(context),
-            //             height: height(context) * (0.06*(order.dates.length%3)),
-            //             child: GridView.builder(
-            //                 shrinkWrap: true,
-            //                 padding: EdgeInsets.only(
-            //                     right: 3.w, left: 10.w, bottom: height(context) * 0.08),
-            //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            // crossAxisCount: 3,
-            // childAspectRatio: 0.7,
-            // crossAxisSpacing: 10.h,
-            // mainAxisSpacing: 5.h,
-            // ),
-            //                 // gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(crossAxisSpacing: 10,
-            //                 //     maxCrossAxisExtent: width(context)*0.4, childAspectRatio: 2 / 3,mainAxisSpacing: 10),
-            //                 itemCount: order.dates.length,
-            //                 itemBuilder: (context, index) {
-            //                   print(order.dates.length);
-            //                   return
-            //                     Text(
-            //                     DateTime.parse(order.dates[index])
-            //                         .toUtc()
-            //                         .toString()
-            //                         .split(' ')
-            //                         .first,
-            //                     style: AppTextStyles.bodyMedium(context,
-            //                         fontSize: 15.sp, ),
-            //                   );
-            //                 }),
-            //           ),
+
+
+  Wrap(
+  spacing: 4.w, // Horizontal spacing between items
+  runSpacing: 5.h, //
+
+  children: List.generate(order.dates.length, (index) => Padding(
+    padding:  EdgeInsets.only(left: width(context)*0.04),
+    child: Text(
+      DateTime.parse(order.dates[index])
+          .toUtc()
+          .toString()
+          .split(' ')
+          .first,
+      style:
+      AppTextStyles.bodyMedium(context, fontSize: 15.sp),
+    ),
+  )),
+  ),
             SizedBox(
               height: height(context) * 0.01,
             ),
