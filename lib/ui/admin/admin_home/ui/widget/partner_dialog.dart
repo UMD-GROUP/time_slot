@@ -137,15 +137,10 @@ class PartnerDialog extends StatelessWidget {
                     width: 5.w,
                   ),
                   Text(
-                    user.card.balance.toString(),
-                    style: AppTextStyles.bodyMedium(context),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Text(
-                    'uz_sum'.tr,
-                    style: AppTextStyles.bodyMedium(context),
+                      user.willGetPercent == true?
+                         '${context.read<DataFromAdminBloc>().state.data!.partnerPercent.toString()}%': '0%',
+                    // user.card.balance.toString(),
+                    style: AppTextStyles.bodyMedium(context,color: user.willGetPercent == true? Colors.green : Colors.red),
                   ),
                 ],
               ),
@@ -164,7 +159,7 @@ class PartnerDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    'mock_data',
+                    user.createdAt == null ? 'milloddan avval' : DateTime.parse(user.createdAt.toString()).toUtc().toString().split(' ').first,
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
@@ -173,7 +168,6 @@ class PartnerDialog extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.info_outline,
-
                     size: height(context) * 0.03,
                   ),
                   SizedBox(
@@ -188,8 +182,8 @@ class PartnerDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    'mock_data',
-                    style: AppTextStyles.bodyMedium(context),
+                    user.isBlocked ? 'blocked'.tr :'active'.tr,
+                    style: AppTextStyles.bodyMedium(context, color:  user.isBlocked ? Colors.red :Colors.green, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

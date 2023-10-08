@@ -131,7 +131,7 @@ class UserDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    'mock_data',
+                    user.createdAt == null ? 'milloddan avval' : DateTime.parse(user.createdAt.toString()).toUtc().toString().split(' ').first,
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],

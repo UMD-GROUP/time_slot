@@ -80,6 +80,41 @@ class PurchaseDialog extends StatelessWidget {
                 height: height(context) * 0.01,
               ),
               Row(
+                children: [
+                  Icon(Icons.credit_card_outlined, size: height(context) * 0.03,),
+                  // SvgPicture.asset(
+                  //   AppIcons.c,
+                  //   color: AdaptiveTheme.of(context).theme.canvasColor,
+                  //   height: height(context) * 0.03,
+                  // ),
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  Text(
+                    'banking_card'.tr,
+                    style: AppTextStyles.bodyMedium(context,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      copyToClipboard(context,purchaseModel.cardNumber.toString());
+                    },
+                    child: Text(
+                //      DateTime.parse(purchaseModel.cardNumber).toUtc().toString().split(' ').first,
+                      purchaseModel.cardNumber.toString().length > 4 ? '${purchaseModel.cardNumber.toString().substring(0,4)}***':purchaseModel.cardNumber.toString() ,
+                      style: AppTextStyles.bodyMedium(context),
+                    ),
+                  ),
+
+                ],
+              ),
+              SizedBox(
+                height: height(context) * 0.01,
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OrderSheetItemWidget(
