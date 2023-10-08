@@ -7,7 +7,9 @@ class CreateOrderRepository {
     final MyResponse myResponse = MyResponse();
 
     try {
-      order.userPhoto = await uploadImageToFirebaseStorage(order.userPhoto);
+      order
+        ..userPhoto = await uploadImageToFirebaseStorage(order.userPhoto)
+        ..createdAt = DateTime.now().toUtc();
       final FirebaseFirestore instance = FirebaseFirestore.instance;
       final DocumentReference<Map<String, dynamic>> orderDoc =
           await instance.collection('orders').add(order.toJson());

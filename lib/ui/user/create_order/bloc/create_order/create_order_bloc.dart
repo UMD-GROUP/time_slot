@@ -6,7 +6,10 @@ part 'create_order_state.dart';
 class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
   CreateOrderBloc()
       : super(CreateOrderState(OrderModel(
-            dates: [], products: [], orderId: generateRandomID(true)))) {
+            createdAt: DateTime.now(),
+            dates: [],
+            products: [],
+            orderId: generateRandomID(true)))) {
     on<UpdateFieldsOrderEvent>(updateFields);
     on<AddOrderEvent>(addOrder);
   }
@@ -26,7 +29,8 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       } else {
         emit(state.copyWith(
             addingStatus: ResponseStatus.inSuccess,
-            newOrder: OrderModel(products: [], dates: [])));
+            newOrder: OrderModel(
+                createdAt: DateTime.now(), products: [], dates: [])));
       }
     } else {
       emit(state.copyWith(
