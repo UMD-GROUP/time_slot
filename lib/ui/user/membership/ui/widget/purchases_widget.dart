@@ -27,7 +27,7 @@ class PurchasesWidget extends StatelessWidget {
               children: [
                 ...List.generate(
                     curData.length,
-                        (index) => PurchasesItemWidget(purchaseModel: curData[index],))
+                        (index) => PurchasesItemWidget(purchaseModel: curData[index], isAdmin: false,))
               ],
             ),
           );

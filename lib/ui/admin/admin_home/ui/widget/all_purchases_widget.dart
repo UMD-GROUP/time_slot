@@ -27,7 +27,7 @@ class AllPurchasesWidget extends StatelessWidget {
                     curData.length,
                         (index) => Padding(
                           padding:  EdgeInsets.symmetric(horizontal: 8.w),
-                          child: PurchasesItemWidget(purchaseModel: curData[index],),
+                          child: PurchasesItemWidget(purchaseModel: curData[index],isAdmin: true),
                         ))
               ],
             ),

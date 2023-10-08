@@ -1,7 +1,8 @@
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class PurchasesItemWidget extends StatelessWidget {
-  const PurchasesItemWidget({super.key, required this.purchaseModel});
+  const PurchasesItemWidget({super.key, required this.purchaseModel, required this.isAdmin});
+  final bool isAdmin;
   final PurchaseModel purchaseModel;
 
   @override
@@ -49,6 +50,7 @@ class PurchasesItemWidget extends StatelessWidget {
             ],
           ),
           const Spacer(),
+          isAdmin ?
           GestureDetector(
               onTap: (){
 
@@ -57,7 +59,7 @@ class PurchasesItemWidget extends StatelessWidget {
 
 
               },
-              child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)),
+              child: SvgPicture.asset(AppIcons.threeDots,color: AdaptiveTheme.of(context).theme.bottomAppBarColor, height: height(context)*0.035,)) : const SizedBox(),
           SizedBox(width: 10.w,)
         ],
       ),
