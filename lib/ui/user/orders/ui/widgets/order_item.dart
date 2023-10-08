@@ -12,7 +12,7 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 5.w),
         child: Container(
-            height: height(context) * 0.15,
+            height: height(context) * 0.16,
             width: width(context),
             decoration: BoxDecoration(
                 color: AdaptiveTheme.of(context).theme.disabledColor,
@@ -23,10 +23,11 @@ class OrderItem extends StatelessWidget {
                 SizedBox(
                   height: height(context) * 0.14,
                   width: width(context) * 0.35,
-                  child: isAdmin && order.adminPhoto.isNotEmpty || !isAdmin
+                  child: isAdmin && order.userPhoto.isNotEmpty ||
+                          !isAdmin && order.adminPhoto.isNotEmpty
                       ? CachedNetworkImage(
                           imageUrl:
-                              isAdmin ? order.adminPhoto : order.userPhoto,
+                              isAdmin ? order.userPhoto : order.adminPhoto,
                           placeholder: (context, url) => Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10.h),
                               child: CustomShimmer(
@@ -70,24 +71,33 @@ class OrderItem extends StatelessWidget {
                       height: height(context) * 0.01,
                     ),
                     OrderTextWidget(
+                        icon: isAdmin ? null : Icons.person,
                         context: context,
                         type: 'ID:',
                         value: order.orderId.toString()),
                     OrderTextWidget(
+                        icon: isAdmin
+                            ? null
+                            : Icons.production_quantity_limits_sharp,
                         context: context,
                         type: 'product count:',
                         value: order.products.length.toString()),
                     OrderTextWidget(
+                        icon: isAdmin ? null : Icons.money,
                         context: context,
                         type: 'sum',
                         value: order.sum.toString()),
                     OrderTextWidget(
+                        icon: isAdmin ? null : Icons.token,
                         context: context,
                         type: 'partner_id',
                         value: order.referallId.toString()),
                     //     OrderTextWidget(context: context, type: 'Status:',value: data[index].status.toString()),
                     Row(
                       children: [
+                        Icon(Icons.access_time_filled_outlined,
+                            color: AdaptiveTheme.of(context).theme.hintColor),
+                        SizedBox(width: width(context) * 0.02),
                         Text(
                           'Status:'.tr,
                           style: AppTextStyles.bodyMedium(context,

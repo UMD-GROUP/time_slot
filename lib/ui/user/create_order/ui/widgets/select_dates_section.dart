@@ -48,7 +48,8 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
       // Update values in a Set
       if (_selectedDays.contains(selectedDay)) {
         _selectedDays.remove(selectedDay);
-      } else if (selectedDay.isAfter(DateTime.now()) &&
+      } else if (selectedDay
+              .isAfter(DateTime.now().add(const Duration(days: 1))) &&
           _selectedDays.length != 30) {
         _selectedDays.add(selectedDay);
       }

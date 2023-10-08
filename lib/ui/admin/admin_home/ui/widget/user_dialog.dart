@@ -53,15 +53,19 @@ class UserDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.users,
-              color: AdaptiveTheme.of(context).theme.canvasColor,),
+                  SvgPicture.asset(
+                    AppIcons.users,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                  ),
                   SizedBox(
                     width: 4.w,
                   ),
                   Text(
                     'Partner:',
-                    style: AppTextStyles.bodyMedium(context,
-                        fontWeight: FontWeight.bold,),
+                    style: AppTextStyles.bodyMedium(
+                      context,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(
                     width: 10.w,
@@ -74,7 +78,10 @@ class UserDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.check,color: AdaptiveTheme.of(context).theme.canvasColor,),
+                  SvgPicture.asset(
+                    AppIcons.check,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                  ),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -98,7 +105,10 @@ class UserDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.dollar,color: AdaptiveTheme.of(context).theme.canvasColor,),
+                  SvgPicture.asset(
+                    AppIcons.dollar,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                  ),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -111,14 +121,17 @@ class UserDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.card.balance.toString(),
+                    user.sumOfOrders.toString(),
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.calendar,color: AdaptiveTheme.of(context).theme.canvasColor,),
+                  SvgPicture.asset(
+                    AppIcons.calendar,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                  ),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -131,7 +144,13 @@ class UserDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.createdAt == null ? 'milloddan avval' : DateTime.parse(user.createdAt.toString()).toUtc().toString().split(' ').first,
+                    user.createdAt == null
+                        ? 'milloddan avval'
+                        : DateTime.parse(user.createdAt.toString())
+                            .toUtc()
+                            .toString()
+                            .split(' ')
+                            .first,
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
@@ -154,29 +173,31 @@ class UserDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.isBlocked ? 'blocked'.tr :'active'.tr,
-                    style: AppTextStyles.bodyMedium(context, color:  user.isBlocked ? Colors.red :Colors.green, fontWeight: FontWeight.bold),
+                    user.isBlocked ? 'blocked'.tr : 'active'.tr,
+                    style: AppTextStyles.bodyMedium(context,
+                        color: user.isBlocked ? Colors.red : Colors.green,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               SizedBox(
                 height: height(context) * 0.01,
               ),
-              user.willGetPercent
+              user.isBlocked
                   ? OrderSheetItemWidget(
-                      context: context,
-                      text: 'block'.tr,
-                      color: Colors.red,
-                      onTap: () {
-                        user.willGetPercent = false;
-                        context.read<AdminBloc>().add(UpdateUserBEvent(user));
-                      })
-                  : OrderSheetItemWidget(
                       context: context,
                       text: 'unblock'.tr,
                       color: Colors.green,
                       onTap: () {
-                        user.willGetPercent = true;
+                        user.isBlocked = false;
+                        context.read<AdminBloc>().add(UpdateUserBEvent(user));
+                      })
+                  : OrderSheetItemWidget(
+                      context: context,
+                      text: 'block'.tr,
+                      color: Colors.red,
+                      onTap: () {
+                        user.isBlocked = true;
                         context.read<AdminBloc>().add(UpdateUserBEvent(user));
                       }),
             ],

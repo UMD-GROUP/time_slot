@@ -32,65 +32,67 @@ class OrderInfoBottomSheet extends StatelessWidget {
               height: height(context) * 0.01,
             ),
             Visibility(
-              visible: order.status != OrderStatus.done,
+              visible: order.status != OrderStatus.done &&
+                  order.status != OrderStatus.cancelled,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'accept',
-                      color: Colors.yellow,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () {
-                          order.status = OrderStatus.inProgress;
-                          context.read<AdminBloc>().add(UpdateOrderEvent(
-                              order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt()));
-                        });
-                      }),
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'decline',
-                      color: Colors.red,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () {
-                          order.status = OrderStatus.cancelled;
-                          context.read<AdminBloc>().add(UpdateOrderEvent(
-                              order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt()));
-                        });
-                      }),
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'finished',
-                      color: Colors.green,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () async {
-                          order.status = OrderStatus.done;
-                          final XFile? photo = await showPicker(context);
-                          final String url =
-                              await uploadImageToFirebaseStorage(photo!.path);
-                          order.adminPhoto = url;
-                          context.read<AdminBloc>().add(UpdateOrderEvent(
-                              order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt()));
-                        });
-                      }),
+                  if (order.status == OrderStatus.created)
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'accept',
+                        color: Colors.yellow,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () {
+                            order.status = OrderStatus.inProgress;
+                            context.read<AdminBloc>().add(UpdateOrderEvent(
+                                order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .partnerPercent
+                                    .toInt()));
+                          });
+                        }),
+                  if (order.status == OrderStatus.inProgress)
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'decline',
+                        color: Colors.red,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () {
+                            order.status = OrderStatus.cancelled;
+                            context.read<AdminBloc>().add(UpdateOrderEvent(
+                                order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .partnerPercent
+                                    .toInt()));
+                          });
+                        }),
+                  if (order.status == OrderStatus.inProgress)
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'finished',
+                        color: Colors.green,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () async {
+                            order.status = OrderStatus.done;
+                            final XFile? photo = await showPicker(context);
+                            context.read<AdminBloc>().add(UpdateOrderEvent(
+                                order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .partnerPercent
+                                    .toInt(),
+                                photo: photo!.path));
+                          });
+                        }),
                   // OrderSheetItemWidget(
                   //     context: context,
                   //     text: 'un_finished',
@@ -121,7 +123,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
                 ),
                 const Spacer(),
                 Visibility(
-                  visible: order.status != OrderStatus.done,
+                  visible: order.status != OrderStatus.done &&
+                      order.status != OrderStatus.cancelled,
                   child: Container(
                     height: height(context) * 0.03,
                     width: width(context) * 0.2,
@@ -155,25 +158,25 @@ class OrderInfoBottomSheet extends StatelessWidget {
               text1: 'day_count',
               text2: '${order.dates.length} ${'piece'.tr}',
             ),
+            Wrap(
+              spacing: 4.w, // Horizontal spacing between items
+              runSpacing: 5.h, //
 
-
-  Wrap(
-  spacing: 4.w, // Horizontal spacing between items
-  runSpacing: 5.h, //
-
-  children: List.generate(order.dates.length, (index) => Padding(
-    padding:  EdgeInsets.only(left: width(context)*0.04),
-    child: Text(
-      DateTime.parse(order.dates[index])
-          .toUtc()
-          .toString()
-          .split(' ')
-          .first,
-      style:
-      AppTextStyles.bodyMedium(context, fontSize: 15.sp),
-    ),
-  )),
-  ),
+              children: List.generate(
+                  order.dates.length,
+                  (index) => Padding(
+                        padding: EdgeInsets.only(left: width(context) * 0.04),
+                        child: Text(
+                          DateTime.parse(order.dates[index])
+                              .toUtc()
+                              .toString()
+                              .split(' ')
+                              .first,
+                          style: AppTextStyles.bodyMedium(context,
+                              fontSize: 15.sp),
+                        ),
+                      )),
+            ),
             SizedBox(
               height: height(context) * 0.01,
             ),
@@ -190,7 +193,11 @@ class OrderInfoBottomSheet extends StatelessWidget {
             PurchaseTextWidget(
               icon: AppIcons.calendar,
               text1: '${'created'.tr}:',
-              text2: DateTime.parse(order.createdAt.toString()).toUtc().toString().split(' ').first,
+              text2: DateTime.parse(order.createdAt.toString())
+                  .toUtc()
+                  .toString()
+                  .split(' ')
+                  .first,
             ),
             PurchaseTextWidget(
               icon: AppIcons.check,
@@ -263,10 +270,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
           child: Center(
             child: Text(
               text.tr,
-              style: AppTextStyles.bodyMedium(
-                context,
-                fontSize: 12.sp,
-              ),
+              style: AppTextStyles.bodyMedium(context,
+                  fontSize: 12.sp, color: Colors.black),
             ),
           ),
         ),

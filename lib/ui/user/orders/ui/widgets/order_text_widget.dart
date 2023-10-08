@@ -5,9 +5,13 @@ import 'package:time_slot/utils/tools/file_importers.dart';
 Row OrderTextWidget(
         {required BuildContext context,
         required String type,
+        IconData? icon,
         required String value}) =>
     Row(
       children: [
+        if (icon != null)
+          Icon(icon, color: AdaptiveTheme.of(context).theme.hintColor),
+        if (icon != null) SizedBox(width: width(context) * 0.02),
         Text(
           type.tr,
           style: AppTextStyles.bodyMedium(context, fontWeight: FontWeight.bold),
