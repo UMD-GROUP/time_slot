@@ -2,9 +2,14 @@ import 'package:time_slot/ui/user/membership/ui/widget/purchases_widget.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/user_card.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class MembershipPage extends StatelessWidget {
+class MembershipPage extends StatefulWidget {
   const MembershipPage({super.key});
 
+  @override
+  State<MembershipPage> createState() => _MembershipPageState();
+}
+
+class _MembershipPageState extends State<MembershipPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
@@ -12,12 +17,19 @@ class MembershipPage extends StatelessWidget {
           backgroundColor: Colors.deepPurple,
           title: Text('membership'.tr),
         ),
-        body: Container(
-          padding: EdgeInsets.all(20.h),
-          height: height(context),
-          width: width(context),
-          child: const Column(
-            children: [UserCard(), PurchasesWidget()],
+        body: BlocListener<PurchaseBloc, PurchaseState>(
+          listener: (context, state) {
+            if (state.status == ResponseStatus.inSuccess) {
+              setState(() {});
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.all(20.h),
+            height: height(context),
+            width: width(context),
+            child: const Column(
+              children: [UserCard(), PurchasesWidget()],
+            ),
           ),
         ),
         // floatingActionButton: FloatingActionButton(

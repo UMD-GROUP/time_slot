@@ -7,94 +7,107 @@ class PurchaseDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
-    title: Text('purchase_data'.tr),
-
-    content: SizedBox(
-      width: width(context)*0.7,
-      child: Column(
-        children: [
-          SizedBox(height: height(context)*0.01,),
-          Row(
+        title: Text('purchase_data'.tr),
+        content: SizedBox(
+          width: width(context) * 0.7,
+          child: Column(
             children: [
-              SvgPicture.asset(AppIcons.balance,color: AdaptiveTheme.of(context).theme.canvasColor, height: height(context)*0.03,),
-              SizedBox(width: 4.w,),
-              Text('amount'.tr, style: AppTextStyles.bodyMedium(context, fontWeight: FontWeight.bold),),
-              SizedBox(width: 5.w,),
-              Text(purchaseModel.amount.toString(),style: AppTextStyles.bodyMedium(context),),
-              SizedBox(width: 5.w,),
-              Text('uz_sum'.tr, style: AppTextStyles.bodyMedium(context),),
-            ],
-          ),
-          SizedBox(height: height(context)*0.01,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              OrderSheetItemWidget(
-                  context: context,
-                  text: 'accept',
-                  color: Colors.yellow,
-                  onTap: () {
-                    showConfirmCancelDialog(context, () {
-
-                    });
-                  }),
+              SizedBox(
+                height: height(context) * 0.01,
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    AppIcons.balance,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                    height: height(context) * 0.03,
+                  ),
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  Text(
+                    'amount'.tr,
+                    style: AppTextStyles.bodyMedium(context,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    purchaseModel.amount.toString(),
+                    style: AppTextStyles.bodyMedium(context),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    'uz_sum'.tr,
+                    style: AppTextStyles.bodyMedium(context),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: height(context) * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OrderSheetItemWidget(
+                      context: context,
+                      text: 'accept',
+                      color: Colors.yellow,
+                      onTap: () {
+                        showConfirmCancelDialog(context, () {});
+                      }),
+                  OrderSheetItemWidget(
+                      context: context,
+                      text: 'finished',
+                      color: Colors.green,
+                      onTap: () {
+                        showConfirmCancelDialog(context, () {});
+                      }),
+                ],
+              ),
+              SizedBox(height: height(context)*0.01),
               OrderSheetItemWidget(
                   context: context,
                   text: 'decline',
                   color: Colors.red,
                   onTap: () {
-                    showConfirmCancelDialog(context, () {
-
-                    });
+                    showConfirmCancelDialog(context, () {});
                   }),
-              OrderSheetItemWidget(
-                  context: context,
-                  text: 'finished',
-                  color: Colors.green,
-                  onTap: () {
-                    showConfirmCancelDialog(context, () {
-
-                    });
-                  }),
-              // OrderSheetItemWidget(
-              //     context: context,
-              //     text: 'un_finished',
-              //     color: Colors.red,
-              //     onTap: () {}),
             ],
           ),
-
+        ),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: Text('close'.tr),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ],
-      ),
-    ),
-    actions: <Widget>[
-
-      CupertinoDialogAction(
-        child: Text('close'.tr),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-    ],
-  );
+      );
 }
+
 // ignore: non_constant_identifier_names
 GestureDetector OrderSheetItemWidget(
-    {required VoidCallback onTap,
-      required BuildContext context,
-      required String text,
-      required Color color}) =>
+        {required VoidCallback onTap,
+        required BuildContext context,
+        required String text,
+        required Color color}) =>
     GestureDetector(
       onTap: onTap,
       child: Container(
         height: height(context) * 0.04,
-        width: width(context) * 0.18,
+        width: width(context) * 0.2,
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(10.r)),
         child: Center(
           child: Text(
             text.tr,
-            style: AppTextStyles.bodyMedium(context, fontSize: 14.sp),
+            style: AppTextStyles.bodyMedium(context,
+                fontSize: 14.sp, color: Colors.black),
           ),
         ),
       ),

@@ -13,10 +13,18 @@ class PurchaseRepository {
     return MyResponse(data: result, statusCode: 200);
   }
 
-  Future<MyResponse> addPurchase(PurchaseModel purchase) async {
+  Future<MyResponse> addPurchase(PurchaseModel purchase, UserModel user) async {
     final MyResponse myResponse = MyResponse();
     try {
-      await firestore.collection('purchases').add(purchase.toJson());
+      final DocumentReference doc =
+          await firestore.collection('purchases').add(purchase.toJson());
+      await doc.update({'docId': doc.id});
+
+      final String uid = FirebaseAuth.instance.currentUser!.uid;
+      print(purchase.amount);
+      user.card!.balance -= purchase.amount;
+      user.card.purchaseInProgress += purchase.amount;
+      await firestore.collection('users').doc(user.uid).update(user.toJson());
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();

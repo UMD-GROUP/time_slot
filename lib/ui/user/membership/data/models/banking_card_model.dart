@@ -17,8 +17,8 @@ class BankingCardModel {
         allPurchased: json['allPurchased'] ?? 0.0,
       );
   String cardNumber;
-  final num balance;
-  final num purchaseInProgress;
+  num balance;
+  num purchaseInProgress;
   final int referrals;
   final num allPurchased;
 
