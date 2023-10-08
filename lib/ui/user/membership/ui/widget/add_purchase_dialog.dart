@@ -9,7 +9,7 @@ class AddPurchaseDialog extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoAlertDialog(
         title: Text('enter_money_amount'.tr),
         content: CupertinoTextField(
-          inputFormatters: [MoneyInputFormatter()],
+          //inputFormatters: [MoneyInputFormatter()],
           controller: controller,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           placeholder: 'min 50 000 UZS',
@@ -27,7 +27,9 @@ class AddPurchaseDialog extends StatelessWidget {
             child: Text('ok'.tr),
             onPressed: () {
               String error = '';
-              if (int.parse(controller.text.trim()) < 50000) {
+              print(controller.text.trim().replaceAll(' ', ''));
+              if (int.parse(controller.text.trim().replaceAll(' ', '')) <
+                  50000) {
                 error = 'you_need_to_enter_more_then_50'.tr;
               } else if (int.parse(controller.text.trim()) >
                   context.read<UserBloc>().state.user!.card.balance) {

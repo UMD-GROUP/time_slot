@@ -60,8 +60,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
             ),
           ),
           SizedBox(height: height(context) * 0.008),
-          BlocConsumer<OrderBloc, OrderState>(
-            listener: (context, state) {},
+          BlocBuilder<OrderBloc, OrderState>(
             builder: (context, state) {
               if (state.status == ResponseStatus.pure) {
                 context.read<OrderBloc>().add(GetOrderEvent());
@@ -100,8 +99,10 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                     : Expanded(
                         child: ListView.builder(
                             itemCount: curData.length,
-                            itemBuilder: (context, index) =>
-                                OrderItem(order: curData[index], isAdmin: false,)),
+                            itemBuilder: (context, index) => OrderItem(
+                                  order: curData[index],
+                                  isAdmin: false,
+                                )),
                       );
               } else {
                 return const Center(

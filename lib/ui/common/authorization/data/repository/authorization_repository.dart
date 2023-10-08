@@ -52,16 +52,6 @@ class AuthorizationRepository {
           await instance.collection('referalls').get();
       final List referalls = tokens.docs.first.data()['referalls'] ?? [];
       if (referalls.contains(user.referallId)) {
-        final UserCredential result =
-            await authInstance.createUserWithEmailAndPassword(
-                email: user.email, password: user.password);
-        user.uid = result.user!.uid;
-
-        await instance
-            .collection('users')
-            .doc(result.user!.uid)
-            .set(user.toJson());
-
         referalls.add(user.token);
         await instance
             .collection('referalls')
@@ -79,16 +69,27 @@ class AuthorizationRepository {
         final UserModel rUser =
             UserModel.fromJson(referalledUser.docs.first.data());
         rUser.referrals.add(user.uid);
+        rUser.card.referrals += 1;
         await instance
             .collection('users')
             .doc(rUser.uid)
-            .update({'referrals': rUser.referrals});
+            .update(rUser.toJson());
+        final UserCredential result =
+            await authInstance.createUserWithEmailAndPassword(
+                email: user.email, password: user.password);
+        user.uid = result.user!.uid;
+
+        await instance
+            .collection('users')
+            .doc(result.user!.uid)
+            .set(user.toJson());
       } else {
         myResponse.message = 'Siz kiritgan referall\nmavjud emas!';
       }
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       myResponse.message = e.toString().tr;
+      print(e.toString());
     }
     return myResponse;
   }

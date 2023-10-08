@@ -19,7 +19,7 @@ class BankingCardModel {
   String cardNumber;
   num balance;
   num purchaseInProgress;
-  final int referrals;
+  int referrals;
   final num allPurchased;
 
   // Convert a BankingCardModel object to a JSON Map

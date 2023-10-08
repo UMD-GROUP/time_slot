@@ -41,7 +41,14 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     onTap: () {
                       showConfirmCancelDialog(context, () {
                         order.status = OrderStatus.inProgress;
-                        context.read<AdminBloc>().add(UpdateOrderEvent(order));
+                        context.read<AdminBloc>().add(UpdateOrderEvent(
+                            order,
+                            context
+                                .read<DataFromAdminBloc>()
+                                .state
+                                .data!
+                                .partnerPercent
+                                .toInt()));
                       });
                     }),
                 OrderSheetItemWidget(
@@ -51,7 +58,14 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     onTap: () {
                       showConfirmCancelDialog(context, () {
                         order.status = OrderStatus.cancelled;
-                        context.read<AdminBloc>().add(UpdateOrderEvent(order));
+                        context.read<AdminBloc>().add(UpdateOrderEvent(
+                            order,
+                            context
+                                .read<DataFromAdminBloc>()
+                                .state
+                                .data!
+                                .partnerPercent
+                                .toInt()));
                       });
                     }),
                 OrderSheetItemWidget(
@@ -65,7 +79,14 @@ class OrderInfoBottomSheet extends StatelessWidget {
                         final String url =
                             await uploadImageToFirebaseStorage(photo!.path);
                         order.adminPhoto = url;
-                        context.read<AdminBloc>().add(UpdateOrderEvent(order));
+                        context.read<AdminBloc>().add(UpdateOrderEvent(
+                            order,
+                            context
+                                .read<DataFromAdminBloc>()
+                                .state
+                                .data!
+                                .partnerPercent
+                                .toInt()));
                       });
                     }),
                 // OrderSheetItemWidget(
