@@ -118,9 +118,12 @@ class OrderItem extends StatelessWidget {
                         onTap: () {
                           showCupertinoModalPopup(
                               context: context,
-                              builder: (context) => OrderInfoBottomSheet(
-                                    order: order,
-                                  ));
+                              builder: (context) => Theme(
+                                data:AdaptiveTheme.of(context).theme.backgroundColor == Colors.white ? ThemeData.light() : ThemeData.dark(),
+                                child: OrderInfoBottomSheet(
+                                      order: order,
+                                    ),
+                              ));
                           // showOrderDialog(context, order);
                         },
                         child: SvgPicture.asset(

@@ -12,19 +12,19 @@ class UserDialog extends StatelessWidget {
           width: width(context) * 0.7,
           child: Column(
             children: [
-              Container(
-                height: height(context) * 0.15,
-                width: width(context),
-                decoration: BoxDecoration(
-                    // color: Colors.deepPurple,
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Center(
-                  child: SvgPicture.asset(
-                    AppIcons.refresh,
-                    height: height(context) * 0.05,
-                  ),
-                ),
-              ),
+              // Container(
+              //   height: height(context) * 0.15,
+              //   width: width(context),
+              //   decoration: BoxDecoration(
+              //       // color: Colors.deepPurple,
+              //       borderRadius: BorderRadius.circular(10.r)),
+              //   child: Center(
+              //     child: SvgPicture.asset(
+              //       AppIcons.refresh,
+              //       height: height(context) * 0.05,
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: height(context) * 0.01,
               ),
@@ -53,14 +53,15 @@ class UserDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.users),
+                  SvgPicture.asset(AppIcons.users,
+              color: AdaptiveTheme.of(context).theme.canvasColor,),
                   SizedBox(
                     width: 4.w,
                   ),
                   Text(
                     'Partner:',
                     style: AppTextStyles.bodyMedium(context,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,),
                   ),
                   SizedBox(
                     width: 10.w,
@@ -73,7 +74,7 @@ class UserDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.check),
+                  SvgPicture.asset(AppIcons.check,color: AdaptiveTheme.of(context).theme.canvasColor,),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -97,7 +98,7 @@ class UserDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.dollar),
+                  SvgPicture.asset(AppIcons.dollar,color: AdaptiveTheme.of(context).theme.canvasColor,),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -117,7 +118,7 @@ class UserDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.calendar),
+                  SvgPicture.asset(AppIcons.calendar,color: AdaptiveTheme.of(context).theme.canvasColor,),
                   SizedBox(
                     width: 4.w,
                   ),
