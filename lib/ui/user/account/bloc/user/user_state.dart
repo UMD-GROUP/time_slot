@@ -8,11 +8,11 @@ class UserState extends Equatable {
   String? message;
 
   UserState copyWith(
-          {UserModel? user, String? message, ResponseStatus? responseStatus}) =>
+          {UserModel? user, String? message, ResponseStatus? status}) =>
       UserState(
-          message: this.message ?? message,
-          status: responseStatus ?? status,
-          user: this.user ?? user);
+          message: message ?? this.message,
+          status: status ?? this.status,
+          user: user ?? this.user);
 
   @override
   List<Object?> get props => [user, status, message];

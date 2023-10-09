@@ -11,7 +11,7 @@ class AccountActionButton extends StatelessWidget {
   Widget build(BuildContext context) => OnTap(
         onTap: onTap,
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 20.h),
+          margin: EdgeInsets.symmetric(vertical: 8.h),
           height: height(context) * 0.06,
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           decoration: BoxDecoration(

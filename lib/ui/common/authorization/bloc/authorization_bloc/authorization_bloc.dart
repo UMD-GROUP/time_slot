@@ -36,8 +36,7 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
 
   Future<void> createAccount(CreateAccountEvent event, Emitter emit) async {
     if (EmailValidator.validate(event.user.email) &&
-        event.user.password.length > 7 &&
-        event.user.referallId.isNotEmpty) {
+        event.user.password.length > 7) {
       MyResponse myResponse = MyResponse();
       emit(state.copyWith(status: ResponseStatus.inProgress));
       final UserModel user = event.user;
@@ -53,11 +52,9 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
       print(event.user.password);
       emit(state.copyWith(
           status: ResponseStatus.inFail,
-          message: event.user.referallId.isEmpty
-              ? 'referall_not_valid'
-              : !EmailValidator.validate(event.user.email)
-                  ? 'email_not_valid'.tr
-                  : 'password_invalid'.tr));
+          message: !EmailValidator.validate(event.user.email)
+              ? 'email_not_valid'.tr
+              : 'password_invalid'.tr));
     }
     emit(state.copyWith(status: ResponseStatus.pure));
   }

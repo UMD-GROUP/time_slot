@@ -122,11 +122,16 @@ class CardNumberInputFormatter extends TextInputFormatter {
     if (input.length > 16) {
       input = input.substring(0, 16); // Truncate to 16 characters
     }
-    final List<String> parts = [];
-    for (int i = 0; i < input.length; i += 4) {
-      parts.add(input.substring(i, i + 4));
+    if (input.length > 16) {
+      final List<String> parts = [];
+      for (int i = 0; i < input.length; i += 4) {
+        if (input.length > i + 4) {
+          parts.add(input.substring(i, i + 4));
+        }
+      }
+      input = parts.join(' ');
     }
-    return parts.join(' ');
+    return input;
   }
 }
 
