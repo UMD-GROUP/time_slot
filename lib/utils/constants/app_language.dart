@@ -39,8 +39,7 @@ class AppTranslations extends Translations {
           'add': "Qo'shish",
           'you_must_select_market': "Do'kon tanlanmadi!",
           'you_must_select_data': 'Eng kamida bitta sana\ntanlanishi kerak!',
-          'you_must_add_product':
-              'Eng kamida bitta mahsulot\ntanlanishi kerak!',
+          'you_must_add_product': 'Eng kamida 10ta mahsulot\ntanlanishi kerak!',
           'you_must_select_photo': 'Rasm yuklanishi shart!',
           'products': 'Mahsulotlar:',
           'order': 'Rasmiylashtirish',
@@ -96,7 +95,7 @@ class AppTranslations extends Translations {
           'membership': 'Hamkorlik',
           'account': 'Shaxsiy hisob',
           'date_must_be_after': "O'tgan sanani tanlash mumkin emas!",
-          'date_limit_reached': '30 tadan ortiq sana tanlay olmaysiz!',
+          'date_limit_reached': '15 tadan ortiq sana tanlay olmaysiz!',
           'order_detail': 'Buyurtma haqida',
           'service_price': 'Xizmat haqi:  ',
           'dates_count': 'Sanalar soni:  ',
@@ -146,6 +145,8 @@ class AppTranslations extends Translations {
               "Siz bloklangansiz! Ma'lumot uchun\n@Timeslot_Admin ga Telegram\norqali bog'laning!",
           'active': 'Faol',
           'blocked': 'Bloklangan',
+          'pay': "To'lov qilish",
+          'update': 'Yangilash',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -171,7 +172,7 @@ class AppTranslations extends Translations {
           'order': 'Формализация',
           'you_must_select_market': 'Магазин не выбран!',
           'you_must_select_data': 'Необходимо ввести хотя\nбы одну дату!',
-          'you_must_add_product': 'Должен быть хотя бы один товар!',
+          'you_must_add_product': 'Должен быть хотя бы 10 товар!',
           'you_must_select_photo': 'Изображение должно\nбыть загружено!',
           'products': 'Продукты:',
           'ordered_successfully': 'Заказ выполнен!',
@@ -234,7 +235,7 @@ class AppTranslations extends Translations {
           'membership': 'Сотрудничество',
           'account': 'Персональный аккаунт',
           'date_must_be_after': 'Невозможно выбрать прошлую дату!',
-          'date_limit_reached': 'Вы не можете выбрать более 30 дат!',
+          'date_limit_reached': 'Вы не можете выбрать более 15 дат!',
           'order_detail': 'О заказе',
           'service_price': 'Плата за обслуживание:  ',
           'dates_count': 'Количество дат:  ',
@@ -284,6 +285,8 @@ class AppTranslations extends Translations {
               'Вы заблокированы! Свяжитесь\n@Timeslot_Admin через Telegram\nля получения информации!',
           'active': 'Активный',
           'blocked': 'Заблокировано',
+          'pay': 'Оплата',
+          'update': 'Обновлять',
         }
       };
 }

@@ -3,6 +3,7 @@
 import 'dart:collection';
 
 import 'package:table_calendar/table_calendar.dart';
+import 'package:time_slot/ui/user/orders/ui/widgets/order_text_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class SelectDatesSection extends StatefulWidget {
@@ -50,14 +51,17 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
         _selectedDays.remove(selectedDay);
       } else if (selectedDay
               .isAfter(DateTime.now().add(const Duration(days: 1))) &&
-          _selectedDays.length != 30) {
+          _selectedDays.length != 15) {
         _selectedDays.add(selectedDay);
+        final OrderModel order = context.read<CreateOrderBloc>().state.order;
+        order.dates = _selectedDays.toList();
+        context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(order));
       }
     });
     String error = '';
     if (!selectedDay.isAfter(DateTime.now())) {
       error = 'date_must_be_after'.tr;
-    } else if (_selectedDays.length == 30) {
+    } else if (_selectedDays.length == 15) {
       error = 'date_limit_reached'.tr;
     }
     if (error.isNotEmpty) {
@@ -75,23 +79,44 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
   }
 
   @override
-  Widget build(BuildContext context) => TableCalendar(
-        firstDay: kFirstDay,
-        lastDay: kLastDay,
-        focusedDay: _focusedDay,
-        calendarFormat: _calendarFormat,
-        startingDayOfWeek: StartingDayOfWeek.monday,
-        selectedDayPredicate: _selectedDays.contains,
-        onDaySelected: _onDaySelected,
-        onFormatChanged: (format) {
-          if (_calendarFormat != format) {
-            setState(() {
-              _calendarFormat = format;
-            });
-          }
-        },
-        onPageChanged: (focusedDay) {
-          _focusedDay = focusedDay;
-        },
+  Widget build(BuildContext context) => Column(
+        children: [
+          BlocBuilder<CreateOrderBloc, CreateOrderState>(
+            builder: (context, state) {
+              return OrderTextWidget(
+                  isDate: true,
+                  icon: Icons.money,
+                  context: context,
+                  type: 'sum',
+                  value: _selectedDays.isEmpty
+                      ? '0'
+                      : context
+                          .read<DataFromAdminBloc>()
+                          .state
+                          .data!
+                          .prices[_selectedDays.length - 1]
+                          .toString());
+            },
+          ),
+          TableCalendar(
+            firstDay: kFirstDay,
+            lastDay: kLastDay,
+            focusedDay: _focusedDay,
+            calendarFormat: _calendarFormat,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            selectedDayPredicate: _selectedDays.contains,
+            onDaySelected: _onDaySelected,
+            onFormatChanged: (format) {
+              if (_calendarFormat != format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
+              }
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
+          )
+        ],
       );
 }

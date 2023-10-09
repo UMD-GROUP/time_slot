@@ -34,7 +34,7 @@ class UserModel {
       );
   final String email;
   final String password;
-  final String referallId;
+  String referallId;
   String uid;
   String token;
   List markets;

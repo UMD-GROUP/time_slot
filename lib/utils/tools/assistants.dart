@@ -53,6 +53,7 @@ Future<void> postOrders({String? uid, String? referallId}) async {
   final Random random = Random();
   for (int i = 1; i <= 5; i++) {
     final OrderModel randomOrder = OrderModel(
+      finishedAt: DateTime.now(),
       createdAt: DateTime.now(),
       products: [],
       referallId: 'XOGOO712',
@@ -176,6 +177,24 @@ void showMoneyInputDialog(BuildContext context) {
     context: context,
     builder: (context) =>
         AddPurchaseDialog(controller: TextEditingController()),
+  );
+}
+
+void showEditProductDialog(BuildContext context, ProductModel product,
+    TextEditingController deliveryNote, TextEditingController count,
+    {required VoidCallback onSaved}) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => EditProductDialog(product,
+        onSaved: onSaved, deliveryNote: deliveryNote, count: count),
+  );
+}
+
+void showEditProductsBottomSheet(BuildContext context, OrderModel order) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) => EditOderSheet(order: order),
   );
 }
 
@@ -491,6 +510,176 @@ class AdminPanelPasswordDialog extends StatelessWidget {
               }
             },
           ),
+        ],
+      );
+}
+
+class EditOderSheet extends StatefulWidget {
+  EditOderSheet({required this.order, super.key});
+  OrderModel order;
+
+  @override
+  State<EditOderSheet> createState() => _EditOderSheetState();
+}
+
+class _EditOderSheetState extends State<EditOderSheet> {
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+          color: AdaptiveTheme.of(context).theme.backgroundColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: widget.order.products.length,
+          itemBuilder: (context, index) {
+            final item = widget.order.products[index];
+
+            return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: width(context) * 0.7,
+                    child: ListTile(
+                      title: Text(
+                        item.deliveryNote,
+                        style: AppTextStyles.labelLarge(context, fontSize: 18),
+                      ),
+                      subtitle: Text(
+                        item.count.toString(),
+                        style: AppTextStyles.labelLarge(context, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            color: AdaptiveTheme.of(context).theme.hintColor,
+                          ),
+                          onPressed: () {
+                            final TextEditingController deliveryNote =
+                                TextEditingController()
+                                  ..text = item.deliveryNote.split(' ').last;
+
+                            final TextEditingController count =
+                                TextEditingController()
+                                  ..text = item.count.toString();
+
+                            showEditProductDialog(
+                              context,
+                              item,
+                              deliveryNote,
+                              count,
+                              onSaved: () {
+                                final String note =
+                                    item.deliveryNote.split(' ').first;
+                                item
+                                  ..deliveryNote =
+                                      '$note ${deliveryNote.text.trim()}'
+                                  ..count = int.parse(count.text.trim());
+                                setState(() {});
+                                widget.order.sum = context
+                                        .read<DataFromAdminBloc>()
+                                        .state
+                                        .data!
+                                        .prices[widget.order.dates.length - 1] *
+                                    widget.order.products.fold(
+                                        0,
+                                        (previousValue, element) => int.parse(
+                                            (previousValue + element.count)
+                                                .toString()));
+                                Navigator.pop(context);
+                              },
+                            );
+                            setState(() {});
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            widget.order.products.remove(item);
+                            setState(() {});
+                          },
+                        ),
+                        SizedBox(width: 20.h)
+                      ],
+                    ),
+                  )
+                ]);
+          },
+        ),
+      );
+}
+
+class EditProductDialog extends StatefulWidget {
+  EditProductDialog(this.product,
+      {required this.deliveryNote,
+      required this.onSaved,
+      required this.count,
+      super.key});
+  TextEditingController deliveryNote;
+  TextEditingController count;
+  ProductModel product;
+  VoidCallback onSaved;
+
+  @override
+  State<EditProductDialog> createState() => _EditProductDialogState();
+}
+
+class _EditProductDialogState extends State<EditProductDialog> {
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: const Text('Enter Numbers'),
+        content: Column(
+          children: [
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.5,
+              child: CupertinoTextField(
+                controller: widget.deliveryNote,
+                keyboardType: TextInputType.number,
+                maxLength: 7, // Maximum of 7 numbers
+                placeholder: 'Enter up to 7 numbers',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.3,
+              child: CupertinoTextField(
+                controller: widget.count,
+                keyboardType: TextInputType.number,
+                maxLength: 3, // Maximum of 3 numbers
+                placeholder: 'Enter up to 3 numbers',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+              onPressed: widget.onSaved, child: Text('confirm'.tr)),
         ],
       );
 }

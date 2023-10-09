@@ -1,4 +1,4 @@
-// ignore_for_file: use_named_constants, cascade_invocations
+// ignore_for_file: use_named_constants, cascade_invocations, inference_failure_on_function_invocation
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/order_confirm_bottom_sheet.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
@@ -93,7 +93,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 title: Text('products'.tr),
                                 content: const AddProductSection()),
                             Step(
-                                title: Text('choose_photo'.tr),
+                                title: Text('pay'.tr),
                                 content: const ImageSection())
                           ]),
                       SizedBox(height: height(context) * 0.05),
@@ -105,10 +105,15 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             onTap: () {
                               final OrderModel order = orderState.order;
                               order.sum = context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .prices[order.dates.length - 1];
+                                      .read<DataFromAdminBloc>()
+                                      .state
+                                      .data!
+                                      .prices[order.dates.length - 1] *
+                                  order.products.fold(
+                                      0,
+                                      (previousValue, element) => int.parse(
+                                          (previousValue + element.count)
+                                              .toString()));
 
                               showCupertinoModalPopup(
                                 context: context,

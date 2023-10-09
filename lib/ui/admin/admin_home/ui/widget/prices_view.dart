@@ -46,12 +46,13 @@ class _PricesViewState extends State<PricesView> {
                   context.read<DataFromAdminBloc>().state.data!.prices.length +
                       1,
               itemBuilder: (context, index) => index ==
-                      context
-                          .read<DataFromAdminBloc>()
-                          .state
-                          .data!
-                          .prices
-                          .length
+                          context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .prices
+                              .length &&
+                      index != 16
                   ? OnTap(
                       onTap: () {
                         controller.clear();
@@ -91,7 +92,9 @@ class _PricesViewState extends State<PricesView> {
                         ),
                       ),
                     )
-                  : PriceItem(index: index)),
+                  : index == 15
+                      ? null
+                      : PriceItem(index: index)),
         ),
       );
 }

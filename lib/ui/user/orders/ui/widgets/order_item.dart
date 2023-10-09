@@ -22,7 +22,7 @@ class OrderItem extends StatelessWidget {
               children: [
                 SizedBox(
                   height: height(context) * 0.14,
-                  width: width(context) * 0.35,
+                  width: height(context) * 0.15,
                   child: isAdmin && order.userPhoto.isNotEmpty ||
                           !isAdmin && order.adminPhoto.isNotEmpty
                       ? CachedNetworkImage(
@@ -46,7 +46,7 @@ class OrderItem extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.h),
                                   image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.fill)),
+                                      image: imageProvider, fit: BoxFit.cover)),
                             ),
                           ),
                         )

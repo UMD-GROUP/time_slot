@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses
+// ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations
 
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -48,44 +48,48 @@ class AuthorizationRepository {
     final FirebaseAuth authInstance = getAuthInstance();
     try {
       final FirebaseFirestore instance = FirebaseFirestore.instance;
-      final QuerySnapshot<Map<String, dynamic>> tokens =
-          await instance.collection('referalls').get();
-      final List referalls = tokens.docs.first.data()['referalls'] ?? [];
-      if (referalls.contains(user.referallId)) {
-        referalls.add(user.token);
-        await instance
-            .collection('referalls')
-            .doc('data')
-            .update({'referalls': referalls});
 
-        final QuerySnapshot<Map<String, dynamic>> referalledUser =
-            await instance
-                .collection('users')
-                .where('token', isEqualTo: user.referallId)
-                .get();
+      if (user.referallId.isNotEmpty) {
+        final QuerySnapshot<Map<String, dynamic>> tokens =
+            await instance.collection('referalls').get();
+        final List referalls = tokens.docs.first.data()['referalls'] ?? [];
+        if (referalls.contains(user.referallId)) {
+          referalls.add(user.token);
+          await instance
+              .collection('referalls')
+              .doc('data')
+              .update({'referalls': referalls});
 
-        print(referalledUser.docs.first.data());
+          final QuerySnapshot<Map<String, dynamic>> referalledUser =
+              await instance
+                  .collection('users')
+                  .where('token', isEqualTo: user.referallId)
+                  .get();
 
-        final UserModel rUser =
-            UserModel.fromJson(referalledUser.docs.first.data());
-        rUser.referrals.add(user.uid);
-        rUser.card.referrals += 1;
-        await instance
-            .collection('users')
-            .doc(rUser.uid)
-            .update(rUser.toJson());
-        final UserCredential result =
-            await authInstance.createUserWithEmailAndPassword(
-                email: user.email, password: user.password);
-        user.uid = result.user!.uid;
-
-        await instance
-            .collection('users')
-            .doc(result.user!.uid)
-            .set(user.toJson());
-      } else {
-        myResponse.message = 'Siz kiritgan referall\nmavjud emas!';
+          final UserModel rUser =
+              UserModel.fromJson(referalledUser.docs.first.data());
+          rUser.referrals.add(user.uid);
+          rUser.card.referrals += 1;
+          await instance
+              .collection('users')
+              .doc(rUser.uid)
+              .update(rUser.toJson());
+        } else {
+          myResponse.message = 'Siz kiritgan referall\nmavjud emas!';
+          return myResponse;
+        }
       }
+      user.referallId = 'ADMIN2023';
+      final UserCredential result =
+          await authInstance.createUserWithEmailAndPassword(
+              email: user.email, password: user.password);
+      user.uid = result.user!.uid;
+
+      await instance
+          .collection('users')
+          .doc(result.user!.uid)
+          .set(user.toJson());
+
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       myResponse.message = e.toString().tr;

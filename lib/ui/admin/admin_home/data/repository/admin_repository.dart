@@ -74,11 +74,13 @@ class AdminRepository {
       {String? photo}) async {
     final MyResponse myResponse = MyResponse();
     try {
+      if (order.status == OrderStatus.done) {
+        order.finishedAt = DateTime.now();
+      }
       await instance
           .collection('orders')
           .doc(order.orderDocId)
           .update(order.toJson());
-      print(order.status);
       if (order.status == OrderStatus.inProgress) {
         print(order.referallId);
         final QuerySnapshot<Map<String, dynamic>> partnerDoc =

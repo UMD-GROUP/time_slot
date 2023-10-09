@@ -12,12 +12,15 @@ class OrderModel {
       required this.dates,
       this.userPhoto = '',
       required this.createdAt,
+      required this.finishedAt,
       this.status = OrderStatus.created,
       this.orderDocId = ''});
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     print(json['createdAt']);
     return OrderModel(
+      finishedAt:
+          DateTime.parse(json['finishedAt'] ?? DateTime(2023).toString()),
       referallId: json['referallId'] ?? '',
       ownerId: json['ownerId'] ?? '',
       createdAt: DateTime.parse(json['createdAt'] ?? DateTime(2023).toString()),
@@ -47,6 +50,7 @@ class OrderModel {
   List products;
   String orderDocId;
   DateTime createdAt;
+  DateTime finishedAt;
 
   Map<String, dynamic> toJson() => {
         'referallId': referallId,
@@ -55,6 +59,7 @@ class OrderModel {
         'orderId': orderId,
         'sum': sum,
         'createdAt': createdAt.toString(),
+        'finishedAt': finishedAt.toString(),
         'marketName': marketName,
         'orderDocId': orderDocId,
         'dates': dates.map((e) => e.toString()),

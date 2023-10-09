@@ -73,11 +73,11 @@ class _TabBarWidgetState extends State<TabBarWidget> {
 
                 final List<OrderModel> curData = _currentIndex == 0
                     ? data
-                        .where((e) =>
-                            e.ownerId ==
-                                context.read<UserBloc>().state.user!.uid ||
-                            e.referallId ==
-                                context.read<UserBloc>().state.user!.token)
+                        // .where((e) =>
+                        //     e.ownerId ==
+                        //         context.read<UserBloc>().state.user!.uid ||
+                        //     e.referallId ==
+                        //         context.read<UserBloc>().state.user!.token)
                         .toList()
                     : _currentIndex == 1
                         ? data

@@ -31,7 +31,7 @@ class StoreItem extends StatelessWidget {
             SizedBox(
               width: width(context) * 0.42,
               child: Text(
-                title,
+                title.length > 14 ? '${title.substring(0, 12)}...' : title,
                 style: AppTextStyles.labelLarge(context,
                     fontSize: 18, fontWeight: FontWeight.w600),
               ),
