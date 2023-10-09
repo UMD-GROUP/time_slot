@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrderInfoBottomSheet extends StatefulWidget {
-  OrderInfoBottomSheet({super.key, required this.order});
+  OrderInfoBottomSheet({super.key, this.isAdmin = true, required this.order});
+  bool isAdmin;
 
   OrderModel order;
 
@@ -46,7 +47,8 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             ),
             Visibility(
               visible: widget.order.status != OrderStatus.done &&
-                  widget.order.status != OrderStatus.cancelled,
+                  widget.order.status != OrderStatus.cancelled &&
+                  widget.isAdmin,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -68,7 +70,8 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                     .toInt()));
                           });
                         }),
-                  if (widget.order.status == OrderStatus.inProgress)
+                  if (widget.order.status == OrderStatus.inProgress &&
+                      widget.isAdmin)
                     OrderSheetItemWidget(
                         context: context,
                         text: 'decline',
@@ -86,7 +89,8 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                     .toInt()));
                           });
                         }),
-                  if (widget.order.status == OrderStatus.inProgress)
+                  if (widget.order.status == OrderStatus.inProgress &&
+                      widget.isAdmin)
                     OrderSheetItemWidget(
                         context: context,
                         text: 'finished',
@@ -127,17 +131,21 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                       text1: 'order:'.tr,
                       text2: widget.order.orderId.toString(),
                     ),
-                    PurchaseTextWidget(
-                      icon: AppIcons.basket,
-                      text1: 'product_count',
-                      text2: widget.order.products.length.toString(),
-                    ),
+                    if (!widget.isAdmin &&
+                        widget.order.ownerId ==
+                            context.read<UserBloc>().state.user!.uid)
+                      PurchaseTextWidget(
+                        icon: AppIcons.basket,
+                        text1: 'product_count',
+                        text2: widget.order.products.length.toString(),
+                      ),
                   ],
                 ),
                 const Spacer(),
                 Visibility(
                   visible: widget.order.status != OrderStatus.done &&
-                      widget.order.status != OrderStatus.cancelled,
+                      widget.order.status != OrderStatus.cancelled &&
+                      widget.isAdmin,
                   child: OnTap(
                     onTap: () {
                       showEditProductsBottomSheet(context, widget.order);
@@ -158,46 +166,49 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                 )
               ],
             ),
-            ...List.generate(widget.order.products.length, (index) {
-              final List<ProductModel> pducts = widget.order.products.cast();
-              return Padding(
-                padding: EdgeInsets.only(left: width(context) * 0.04),
-                child: Text(
-                  '${index + 1}. ${pducts[index].deliveryNote} - ${pducts[index].count} ${'piece'.tr}',
-                  style: AppTextStyles.bodyMedium(
-                    context,
-                    fontSize: 15.sp,
+            if (!widget.isAdmin &&
+                widget.order.ownerId ==
+                    context.read<UserBloc>().state.user!.uid)
+              ...List.generate(widget.order.products.length, (index) {
+                final List<ProductModel> pducts = widget.order.products.cast();
+                return Padding(
+                  padding: EdgeInsets.only(left: width(context) * 0.04),
+                  child: Text(
+                    '${index + 1}. ${pducts[index].deliveryNote} - ${pducts[index].count} ${'piece'.tr}',
+                    style: AppTextStyles.bodyMedium(
+                      context,
+                      fontSize: 15.sp,
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
             PurchaseTextWidget(
               icon: AppIcons.calendar,
               text1: 'day_count',
               text2: '${widget.order.dates.length} ${'piece'.tr}',
             ),
-            Wrap(
-              spacing: 4.w, // Horizontal spacing between items
-              runSpacing: 5.h, //
+            if (!widget.isAdmin &&
+                widget.order.ownerId ==
+                    context.read<UserBloc>().state.user!.uid)
+              Wrap(
+                spacing: 4.w, // Horizontal spacing between items
+                runSpacing: 5.h, //
 
-              children: List.generate(
-                  widget.order.dates.length,
-                  (index) => Padding(
-                        padding: EdgeInsets.only(left: width(context) * 0.04),
-                        child: Text(
-                          DateTime.parse(widget.order.dates[index])
-                              .toUtc()
-                              .toString()
-                              .split(' ')
-                              .first,
-                          style: AppTextStyles.bodyMedium(context,
-                              fontSize: 15.sp),
-                        ),
-                      )),
-            ),
-            SizedBox(
-              height: height(context) * 0.01,
-            ),
+                children: List.generate(
+                    widget.order.dates.length,
+                    (index) => Padding(
+                          padding: EdgeInsets.only(left: width(context) * 0.04),
+                          child: Text(
+                            DateTime.parse(widget.order.dates[index])
+                                .toUtc()
+                                .toString()
+                                .split(' ')
+                                .first,
+                            style: AppTextStyles.bodyMedium(context,
+                                fontSize: 15.sp),
+                          ),
+                        )),
+              ),
             PurchaseTextWidget(
               icon: AppIcons.balance,
               text1: 'payment',
@@ -211,7 +222,9 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             PurchaseTextWidget(
               icon: AppIcons.shop,
               text1: '${'market_name'.tr}:',
-              text2: widget.order.marketName,
+              text2: widget.order.marketName.length > 10
+                  ? widget.order.marketName.substring(0, 10)
+                  : widget.order.marketName,
             ),
             PurchaseTextWidget(
               icon: AppIcons.calendar,

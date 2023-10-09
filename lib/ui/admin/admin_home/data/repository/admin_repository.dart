@@ -101,6 +101,10 @@ class AdminRepository {
       if (order.status == OrderStatus.done) {
         final String url = await uploadImageToFirebaseStorage(photo!);
         order.adminPhoto = url;
+        await instance
+            .collection('orders')
+            .doc(order.orderDocId)
+            .update(order.toJson());
         final QuerySnapshot<Map<String, dynamic>> partnerDoc =
             await FirebaseFirestore.instance
                 .collection('users')

@@ -39,17 +39,18 @@ class _SplashPageState extends State<SplashPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  AppImages.logo,
+                Container(
+                  height: width(context) * 0.16,
                   width: width(context) * 0.16,
-                  fit: BoxFit.fitWidth,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.h),
+                      image: const DecorationImage(
+                          image: AssetImage(AppImages.logo),
+                          fit: BoxFit.cover)),
                 ),
-                Image.asset(
-                  AppImages.logoText,
-                  fit: BoxFit.fitWidth,
-                  width: width(context) * 0.4,
-                  color: AdaptiveTheme.of(context).theme.hintColor,
-                ),
+                Text('Time Slot Manager',
+                    style: AppTextStyles.labelLarge(context,
+                        fontSize: 22.sp, fontWeight: FontWeight.w600))
               ],
             ),
           ),

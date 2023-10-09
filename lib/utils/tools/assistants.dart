@@ -17,6 +17,7 @@ import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dar
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: type_annotate_public_apis
 double height(context) => MediaQuery.of(context).size.height;
@@ -682,4 +683,11 @@ class _EditProductDialogState extends State<EditProductDialog> {
               onPressed: widget.onSaved, child: Text('confirm'.tr)),
         ],
       );
+}
+
+Future<void> launch(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch $url');
+  }
 }

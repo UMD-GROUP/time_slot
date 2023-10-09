@@ -7,7 +7,7 @@ class StoreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.symmetric(vertical: 6),
+        margin: EdgeInsets.symmetric(vertical: 2.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -15,7 +15,7 @@ class StoreItem extends StatelessWidget {
               width: width(context) * 0.1,
               child: Image.asset(
                 AppImages.market,
-                height: 40,
+                height: 30,
                 fit: BoxFit.fitHeight,
               ),
             ),

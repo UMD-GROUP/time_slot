@@ -147,6 +147,8 @@ class AppTranslations extends Translations {
           'blocked': 'Bloklangan',
           'pay': "To'lov qilish",
           'update': 'Yangilash',
+          'support': "Qo'llab-quvvatlash",
+          'share': 'Ulashish'
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -287,6 +289,8 @@ class AppTranslations extends Translations {
           'blocked': 'Заблокировано',
           'pay': 'Оплата',
           'update': 'Обновлять',
+          'support': 'Центр поддержки',
+          'share': 'Делиться'
         }
       };
 }
