@@ -1,3 +1,4 @@
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/order_info_sheet.dart';
 import 'package:time_slot/ui/user/orders/ui/widgets/order_text_widget.dart';
@@ -42,29 +43,43 @@ class OrderItem extends StatelessWidget {
                     width: height(context) * 0.15,
                     child: (isAdmin && order.userPhoto.isNotEmpty) ||
                             (!isAdmin && order.adminPhoto.isNotEmpty)
-                        ? CachedNetworkImage(
-                            imageUrl:
-                                isAdmin ? order.userPhoto : order.adminPhoto,
-                            placeholder: (context, url) => Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.h),
-                                child: CustomShimmer(
-                                    child: Container(
-                                  height: height(context),
-                                  width: width(context),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.amber,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                ))),
-                            imageBuilder: (context, imageProvider) => Container(
-                              width: width(context),
-                              margin: EdgeInsets.symmetric(horizontal: 5.h),
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.h),
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover)),
+                        ? OnTap(
+                            onTap: () {
+                              final imageProvider = Image.network(isAdmin
+                                      ? order.userPhoto
+                                      : order.adminPhoto)
+                                  .image;
+                              showImageViewer(context, imageProvider,
+                                  onViewerDismissed: () {
+                                print('dismissed');
+                              });
+                            },
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  isAdmin ? order.userPhoto : order.adminPhoto,
+                              placeholder: (context, url) => Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.h),
+                                  child: CustomShimmer(
+                                      child: Container(
+                                    height: height(context),
+                                    width: width(context),
+                                    decoration: const BoxDecoration(
+                                        color: Colors.amber,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                  ))),
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: width(context),
+                                margin: EdgeInsets.symmetric(horizontal: 5.h),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.h),
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover)),
+                                ),
                               ),
                             ),
                           )

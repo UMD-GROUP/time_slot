@@ -33,7 +33,7 @@ class AddBankingCardDialog extends StatelessWidget {
             child: Text('ok'.tr),
             onPressed: () {
               String error = '';
-              if (controller.text.length != 19) {
+              if (controller.text.length != 16) {
                 error = 'invalid_card_number'.tr;
               }
               if (error.isEmpty) {
