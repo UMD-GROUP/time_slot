@@ -21,6 +21,8 @@ class SignupPage extends StatelessWidget {
                       AppErrorSnackBar(text: state.message.tr)).show(context);
             }
             if (state.status == ResponseStatus.inSuccess) {
+              context.read<UserBloc>().add(
+                  GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
               Navigator.pushNamedAndRemoveUntil(
                   context, RouteName.userMain, (route) => false);
             }

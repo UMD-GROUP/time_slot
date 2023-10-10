@@ -1,4 +1,4 @@
-// ignore_for_file: type_annotate_public_apis, avoid_catches_without_on_clauses
+// ignore_for_file: type_annotate_public_apis, avoid_catches_without_on_clauses, cascade_invocations
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:time_slot/data/models/data_from_admin_model.dart';
@@ -70,31 +70,85 @@ class AdminRepository {
     return myResponse;
   }
 
-  Future<MyResponse> updateOrder(OrderModel order, int percent) async {
+  Future<MyResponse> updateOrder(OrderModel order, int percent,
+      {String? photo}) async {
     final MyResponse myResponse = MyResponse();
     try {
+      if (order.status == OrderStatus.done) {
+        order.finishedAt = DateTime.now();
+      }
       await instance
           .collection('orders')
           .doc(order.orderDocId)
           .update(order.toJson());
-      print(order.status);
-      if (order.status == OrderStatus.done) {
+      if (order.status == OrderStatus.inProgress) {
+        print(order.referallId);
         final QuerySnapshot<Map<String, dynamic>> partnerDoc =
             await FirebaseFirestore.instance
                 .collection('users')
                 .where('token', isEqualTo: order.referallId)
                 .get();
-        print(partnerDoc.docs);
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());
         if (partner.willGetPercent) {
-          partner.card.balance += order.sum / percent;
+          partner.card.purchaseInProgress += order.sum / percent;
           await instance
               .collection('users')
               .doc(partner.uid)
               .update(partner.toJson());
         }
       }
+      if (order.status == OrderStatus.done) {
+        final String url = await uploadImageToFirebaseStorage(photo!);
+        order.adminPhoto = url;
+        await instance
+            .collection('orders')
+            .doc(order.orderDocId)
+            .update(order.toJson());
+        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('token', isEqualTo: order.referallId)
+                .get();
+        final UserModel partner =
+            UserModel.fromJson(partnerDoc.docs.first.data());
+        if (partner.willGetPercent) {
+          partner.card.balance += order.sum / percent;
+          partner.card.purchaseInProgress -= order.sum / percent;
+          await instance
+              .collection('users')
+              .doc(partner.uid)
+              .update(partner.toJson());
+        }
+
+        final QuerySnapshot<Map<String, dynamic>> userDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('uid', isEqualTo: order.ownerId)
+                .get();
+        final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
+        user.sumOfOrders += order.sum;
+        print(user.sumOfOrders);
+        print('${user.uid} - ${user.sumOfOrders}');
+        await instance.collection('users').doc(user.uid).update(user.toJson());
+      }
+      if (order.status == OrderStatus.cancelled) {
+        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('token', isEqualTo: order.referallId)
+                .get();
+        final UserModel partner =
+            UserModel.fromJson(partnerDoc.docs.first.data());
+        if (partner.willGetPercent) {
+          partner.card.purchaseInProgress -= order.sum / percent;
+          await instance
+              .collection('users')
+              .doc(partner.uid)
+              .update(partner.toJson());
+        }
+      }
+
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();
@@ -131,28 +185,14 @@ class AdminRepository {
                 .get();
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());
-        partner.card.purchaseInProgress -= purchase.amount;
+        partner.card.balance -= purchase.amount;
         partner.card.allPurchased += purchase.amount;
         await instance
             .collection('users')
             .doc(partner.uid)
             .update(partner.toJson());
       }
-      if (purchase.status == PurchaseStatus.cancelled) {
-        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('uid', isEqualTo: purchase.ownerId)
-                .get();
-        final UserModel partner =
-            UserModel.fromJson(partnerDoc.docs.first.data());
-        partner.card.purchaseInProgress -= purchase.amount;
-        partner.card.balance += purchase.amount;
-        await instance
-            .collection('users')
-            .doc(partner.uid)
-            .update(partner.toJson());
-      }
+
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();

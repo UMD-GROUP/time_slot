@@ -8,6 +8,7 @@ class UserModel {
       this.orders = const [],
       this.referrals = const [],
       this.createdAt,
+      this.sumOfOrders = 0,
       required this.card,
       this.isBlocked = false,
       this.willGetPercent = true,
@@ -19,6 +20,7 @@ class UserModel {
         card: BankingCardModel.fromJson(json['card'] ?? {}),
         referallId: json['referallId'] ?? '',
         referrals: json['referrals'] ?? [],
+        sumOfOrders: json['sumOfOrders'] ?? 10,
         createdAt:
             DateTime.parse(json['createdAt'] ?? DateTime(2023).toString()),
         markets: json['markets'] ?? [],
@@ -32,7 +34,7 @@ class UserModel {
       );
   final String email;
   final String password;
-  final String referallId;
+  String referallId;
   String uid;
   String token;
   List markets;
@@ -42,12 +44,14 @@ class UserModel {
   bool isBlocked;
   bool willGetPercent;
   DateTime? createdAt;
+  num sumOfOrders;
 
   Map<String, Object> toJson() => {
         'card': card.toJson(),
         'markets': markets,
         'email': email,
         'password': password,
+        'sumOfOrders': sumOfOrders,
         'token': token,
         'uid': uid,
         'referallId': referallId,

@@ -1,13 +1,20 @@
 // ignore_for_file: cascade_invocations, use_build_context_synchronously
 
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class OrderInfoBottomSheet extends StatelessWidget {
-  OrderInfoBottomSheet({super.key, required this.order});
+class OrderInfoBottomSheet extends StatefulWidget {
+  OrderInfoBottomSheet({super.key, this.isAdmin = true, required this.order});
+  bool isAdmin;
 
   OrderModel order;
 
+  @override
+  State<OrderInfoBottomSheet> createState() => _OrderInfoBottomSheetState();
+}
+
+class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
   @override
   Widget build(BuildContext context) => CupertinoActionSheet(
         title: Text(
@@ -17,80 +24,102 @@ class OrderInfoBottomSheet extends StatelessWidget {
             fontSize: 18.sp,
           ),
         ),
+        actions: [
+          CupertinoActionSheetAction(
+              onPressed: () {
+                setState(() {});
+              },
+              child: Text('update'.tr))
+        ],
         message: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              height: height(context) * 0.15,
-              width: width(context),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(order.userPhoto), fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(10.r)),
+            OnTap(
+              onTap: () {
+                final imageProvider =
+                    Image.network(widget.order.userPhoto).image;
+                showImageViewer(context, imageProvider, onViewerDismissed: () {
+                  print('dismissed');
+                });
+              },
+              child: Container(
+                height: height(context) * 0.15,
+                width: width(context),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(widget.order.userPhoto),
+                        fit: BoxFit.cover),
+                    borderRadius: BorderRadius.circular(10.r)),
+              ),
             ),
             SizedBox(
               height: height(context) * 0.01,
             ),
             Visibility(
-              visible: order.status != OrderStatus.done,
+              visible: widget.order.status != OrderStatus.done &&
+                  widget.order.status != OrderStatus.cancelled &&
+                  widget.isAdmin,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'accept',
-                      color: Colors.yellow,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () {
-                          order.status = OrderStatus.inProgress;
-                          context.read<AdminBloc>().add(UpdateOrderEvent(
-                              order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt()));
-                        });
-                      }),
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'decline',
-                      color: Colors.red,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () {
-                          order.status = OrderStatus.cancelled;
-                          context.read<AdminBloc>().add(UpdateOrderEvent(
-                              order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt()));
-                        });
-                      }),
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'finished',
-                      color: Colors.green,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () async {
-                          order.status = OrderStatus.done;
-                          final XFile? photo = await showPicker(context);
-                          final String url =
-                              await uploadImageToFirebaseStorage(photo!.path);
-                          order.adminPhoto = url;
-                          context.read<AdminBloc>().add(UpdateOrderEvent(
-                              order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt()));
-                        });
-                      }),
+                  if (widget.order.status == OrderStatus.created)
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'accept',
+                        color: Colors.yellow,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () {
+                            widget.order.status = OrderStatus.inProgress;
+                            context.read<AdminBloc>().add(UpdateOrderEvent(
+                                widget.order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .partnerPercent
+                                    .toInt()));
+                          });
+                        }),
+                  if (widget.order.status == OrderStatus.inProgress &&
+                      widget.isAdmin)
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'decline',
+                        color: Colors.red,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () {
+                            widget.order.status = OrderStatus.cancelled;
+                            context.read<AdminBloc>().add(UpdateOrderEvent(
+                                widget.order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .partnerPercent
+                                    .toInt()));
+                          });
+                        }),
+                  if (widget.order.status == OrderStatus.inProgress &&
+                      widget.isAdmin)
+                    OrderSheetItemWidget(
+                        context: context,
+                        text: 'finished',
+                        color: Colors.green,
+                        onTap: () {
+                          showConfirmCancelDialog(context, () async {
+                            widget.order.status = OrderStatus.done;
+                            final XFile? photo = await showPicker(context);
+                            context.read<AdminBloc>().add(UpdateOrderEvent(
+                                widget.order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .partnerPercent
+                                    .toInt(),
+                                photo: photo!.path));
+                          });
+                        }),
                   // OrderSheetItemWidget(
                   //     context: context,
                   //     text: 'un_finished',
@@ -110,92 +139,119 @@ class OrderInfoBottomSheet extends StatelessWidget {
                     PurchaseTextWidget(
                       icon: AppIcons.check,
                       text1: 'order:'.tr,
-                      text2: order.orderId.toString(),
+                      text2: widget.order.orderId.toString(),
                     ),
-                    PurchaseTextWidget(
-                      icon: AppIcons.basket,
-                      text1: 'product_count',
-                      text2: order.products.length.toString(),
-                    ),
+                    if (!widget.isAdmin &&
+                        widget.order.ownerId ==
+                            context.read<UserBloc>().state.user!.uid)
+                      PurchaseTextWidget(
+                        icon: AppIcons.basket,
+                        text1: 'product_count',
+                        text2: widget.order.products.length.toString(),
+                      ),
                   ],
                 ),
                 const Spacer(),
                 Visibility(
-                  visible: order.status != OrderStatus.done,
-                  child: Container(
-                    height: height(context) * 0.03,
-                    width: width(context) * 0.2,
-                    decoration: BoxDecoration(
-                        color: Colors.deepPurple,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Center(
-                        child: Text(
-                      'edit'.tr,
-                      style: AppTextStyles.bodyMedium(context),
-                    )),
+                  visible: widget.order.status != OrderStatus.done &&
+                      widget.order.status != OrderStatus.cancelled &&
+                      widget.isAdmin,
+                  child: OnTap(
+                    onTap: () {
+                      showEditProductsBottomSheet(context, widget.order);
+                    },
+                    child: Container(
+                      height: height(context) * 0.03,
+                      width: width(context) * 0.2,
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: Center(
+                          child: Text(
+                        'edit'.tr,
+                        style: AppTextStyles.bodyMedium(context),
+                      )),
+                    ),
                   ),
                 )
               ],
             ),
-            ...List.generate(order.products.length, (index) {
-              final List<ProductModel> pducts = order.products.cast();
-              return Padding(
-                padding: EdgeInsets.only(left: width(context) * 0.04),
-                child: Text(
-                  '${index + 1}. ${pducts[index].deliveryNote} - ${pducts[index].count} ${'piece'.tr}',
-                  style: AppTextStyles.bodyMedium(
-                    context,
-                    fontSize: 15.sp,
+            if (!widget.isAdmin &&
+                widget.order.ownerId ==
+                    context.read<UserBloc>().state.user!.uid)
+              ...List.generate(widget.order.products.length, (index) {
+                final List<ProductModel> pducts = widget.order.products.cast();
+                return Padding(
+                  padding: EdgeInsets.only(left: width(context) * 0.04),
+                  child: Text(
+                    '${index + 1}. ${pducts[index].deliveryNote} - ${pducts[index].count} ${'piece'.tr}',
+                    style: AppTextStyles.bodyMedium(
+                      context,
+                      fontSize: 15.sp,
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
             PurchaseTextWidget(
               icon: AppIcons.calendar,
               text1: 'day_count',
-              text2: '${order.dates.length} ${'piece'.tr}',
+              text2: '${widget.order.dates.length} ${'piece'.tr}',
             ),
+            if (!widget.isAdmin &&
+                widget.order.ownerId ==
+                    context.read<UserBloc>().state.user!.uid)
+              Wrap(
+                spacing: 4.w, // Horizontal spacing between items
+                runSpacing: 5.h, //
 
-
-  Wrap(
-  spacing: 4.w, // Horizontal spacing between items
-  runSpacing: 5.h, //
-
-  children: List.generate(order.dates.length, (index) => Padding(
-    padding:  EdgeInsets.only(left: width(context)*0.04),
-    child: Text(
-      DateTime.parse(order.dates[index])
-          .toUtc()
-          .toString()
-          .split(' ')
-          .first,
-      style:
-      AppTextStyles.bodyMedium(context, fontSize: 15.sp),
-    ),
-  )),
-  ),
-            SizedBox(
-              height: height(context) * 0.01,
-            ),
+                children: List.generate(
+                    widget.order.dates.length,
+                    (index) => Padding(
+                          padding: EdgeInsets.only(left: width(context) * 0.04),
+                          child: Text(
+                            DateTime.parse(widget.order.dates[index])
+                                .toUtc()
+                                .toString()
+                                .split(' ')
+                                .first,
+                            style: AppTextStyles.bodyMedium(context,
+                                fontSize: 15.sp),
+                          ),
+                        )),
+              ),
             PurchaseTextWidget(
               icon: AppIcons.balance,
               text1: 'payment',
-              text2: order.sum.toString(),
+              text2: widget.order.sum.toString(),
             ),
             PurchaseTextWidget(
               icon: AppIcons.users,
               text1: '${'partners'.tr}:',
-              text2: order.referallId.toString(),
+              text2: widget.order.referallId.toString(),
+            ),
+            PurchaseTextWidget(
+              icon: AppIcons.shop,
+              text1: '${'market_name'.tr}:',
+              text2: widget.order.marketName.length > 10
+                  ? widget.order.marketName.substring(0, 10)
+                  : widget.order.marketName,
             ),
             PurchaseTextWidget(
               icon: AppIcons.calendar,
               text1: '${'created'.tr}:',
-              text2: DateTime.parse(order.createdAt.toString()).toUtc().toString().split(' ').first,
+              text2: DateTime.parse(widget.order.createdAt.toString())
+                  .toUtc()
+                  .toString()
+                  .split(' ')
+                  .first,
             ),
-            PurchaseTextWidget(
-              icon: AppIcons.check,
-              text1: '${'finished'.tr}:',
-              text2: 'mock_data',
+            Visibility(
+              visible: widget.order.status == OrderStatus.done,
+              child: PurchaseTextWidget(
+                icon: AppIcons.check,
+                text1: '${'finished'.tr}:',
+                text2: widget.order.finishedAt.toString(),
+              ),
             ),
             Row(children: [
               Icon(
@@ -215,21 +271,24 @@ class OrderInfoBottomSheet extends StatelessWidget {
                 width: 10.w,
               ),
               Text(
-                order.status.toString() == 'OrderStatus.created'
+                widget.order.status.toString() == 'OrderStatus.created'
                     ? 'created'.tr
-                    : order.status.toString() == 'OrderStatus.inProgress'
+                    : widget.order.status.toString() == 'OrderStatus.inProgress'
                         ? 'progress'.tr
-                        : order.status.toString() == 'OrderStatus.cancelled'
+                        : widget.order.status.toString() ==
+                                'OrderStatus.cancelled'
                             ? 'cancelled'.tr
                             : 'done'.tr,
                 style: AppTextStyles.bodyLargeSmall(context,
                     fontWeight: FontWeight.bold,
                     fontSize: 18.sp,
-                    color: order.status == OrderStatus.created
+                    color: widget.order.status == OrderStatus.created
                         ? Colors.yellow
-                        : order.status.toString() == 'OrderStatus.inProgress'
+                        : widget.order.status.toString() ==
+                                'OrderStatus.inProgress'
                             ? AppColors.cGold
-                            : order.status.toString() == 'OrderStatus.cancelled'
+                            : widget.order.status.toString() ==
+                                    'OrderStatus.cancelled'
                                 ? AppColors.cFF3333
                                 : Colors.green),
               )
@@ -263,10 +322,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
           child: Center(
             child: Text(
               text.tr,
-              style: AppTextStyles.bodyMedium(
-                context,
-                fontSize: 12.sp,
-              ),
+              style: AppTextStyles.bodyMedium(context,
+                  fontSize: 12.sp, color: Colors.black),
             ),
           ),
         ),

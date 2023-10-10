@@ -12,15 +12,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> getUserData(GetUserDataEvent event, Emitter emit) async {
-    emit(state.copyWith(responseStatus: ResponseStatus.inProgress));
+    print(event.uid);
+    emit(state.copyWith(status: ResponseStatus.inProgress));
     final MyResponse myResponse =
         await getIt<UserRepository>().getUserData(event.uid);
     if (myResponse.message.isNull) {
       emit(state.copyWith(
-          user: myResponse.data, responseStatus: ResponseStatus.inSuccess));
+          user: myResponse.data, status: ResponseStatus.inSuccess));
     } else {
       emit(state.copyWith(
-          responseStatus: ResponseStatus.inFail, message: myResponse.message));
+          status: ResponseStatus.inFail, message: myResponse.message));
     }
   }
 

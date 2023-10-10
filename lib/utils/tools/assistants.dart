@@ -17,6 +17,7 @@ import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dar
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: type_annotate_public_apis
 double height(context) => MediaQuery.of(context).size.height;
@@ -53,6 +54,7 @@ Future<void> postOrders({String? uid, String? referallId}) async {
   final Random random = Random();
   for (int i = 1; i <= 5; i++) {
     final OrderModel randomOrder = OrderModel(
+      finishedAt: DateTime.now(),
       createdAt: DateTime.now(),
       products: [],
       referallId: 'XOGOO712',
@@ -117,7 +119,7 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   if (user!.markets.isEmpty) {
     error = 'you_need_to_create_market'.tr;
   }
-  if (data.prices.length != 30 && data.deliveryNote.length != 6) {
+  if (data.prices.length != 30 || data.deliveryNote.length != 6) {
     error = 'you_cant_create_order_now'.tr;
   }
   if (error.isNotEmpty) {
@@ -176,6 +178,24 @@ void showMoneyInputDialog(BuildContext context) {
     context: context,
     builder: (context) =>
         AddPurchaseDialog(controller: TextEditingController()),
+  );
+}
+
+void showEditProductDialog(BuildContext context, ProductModel product,
+    TextEditingController deliveryNote, TextEditingController count,
+    {required VoidCallback onSaved}) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => EditProductDialog(product,
+        onSaved: onSaved, deliveryNote: deliveryNote, count: count),
+  );
+}
+
+void showEditProductsBottomSheet(BuildContext context, OrderModel order) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) => EditOderSheet(order: order),
   );
 }
 
@@ -265,6 +285,14 @@ void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap) {
   showCupertinoDialog(
     context: context,
     builder: (context) => CancelConfirmDialog(onConfirmTap: onConfirmTap),
+  );
+}
+
+void showAdminPasswordDialog(
+    BuildContext context, TextEditingController controller) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => AdminPanelPasswordDialog(controller: controller),
   );
 }
 
@@ -438,4 +466,228 @@ class CancelConfirmDialog extends StatelessWidget {
           ),
         ],
       );
+}
+
+class AdminPanelPasswordDialog extends StatelessWidget {
+  AdminPanelPasswordDialog({required this.controller, super.key});
+  TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: Text('admin_panel'.tr),
+        content: Column(
+          children: [
+            CupertinoTextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              maxLength: 4,
+              autofocus: true,
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+            child: Text('confirm'.tr),
+            onPressed: () {
+              // You can handle the PIN entered here
+              if (controller.text.trim() == '1984') {
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, RouteName.adminHome);
+              } else {
+                controller.clear();
+                AnimatedSnackBar(
+                  snackBarStrategy: RemoveSnackBarStrategy(),
+                  duration: const Duration(seconds: 4),
+                  builder: (context) =>
+                      AppErrorSnackBar(text: 'wrong_password'.tr),
+                ).show(context);
+              }
+            },
+          ),
+        ],
+      );
+}
+
+class EditOderSheet extends StatefulWidget {
+  EditOderSheet({required this.order, super.key});
+  OrderModel order;
+
+  @override
+  State<EditOderSheet> createState() => _EditOderSheetState();
+}
+
+class _EditOderSheetState extends State<EditOderSheet> {
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+          color: AdaptiveTheme.of(context).theme.backgroundColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: widget.order.products.length,
+          itemBuilder: (context, index) {
+            final item = widget.order.products[index];
+
+            return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: width(context) * 0.7,
+                    child: ListTile(
+                      title: Text(
+                        item.deliveryNote,
+                        style: AppTextStyles.labelLarge(context, fontSize: 18),
+                      ),
+                      subtitle: Text(
+                        item.count.toString(),
+                        style: AppTextStyles.labelLarge(context, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            color: AdaptiveTheme.of(context).theme.hintColor,
+                          ),
+                          onPressed: () {
+                            final TextEditingController deliveryNote =
+                                TextEditingController()
+                                  ..text = item.deliveryNote.split(' ').last;
+
+                            final TextEditingController count =
+                                TextEditingController()
+                                  ..text = item.count.toString();
+
+                            showEditProductDialog(
+                              context,
+                              item,
+                              deliveryNote,
+                              count,
+                              onSaved: () {
+                                final String note =
+                                    item.deliveryNote.split(' ').first;
+                                item
+                                  ..deliveryNote =
+                                      '$note ${deliveryNote.text.trim()}'
+                                  ..count = int.parse(count.text.trim());
+                                setState(() {});
+                                widget.order.sum = context
+                                        .read<DataFromAdminBloc>()
+                                        .state
+                                        .data!
+                                        .prices[widget.order.dates.length - 1] *
+                                    widget.order.products.fold(
+                                        0,
+                                        (previousValue, element) => int.parse(
+                                            (previousValue + element.count)
+                                                .toString()));
+                                Navigator.pop(context);
+                              },
+                            );
+                            setState(() {});
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            widget.order.products.remove(item);
+                            setState(() {});
+                          },
+                        ),
+                        SizedBox(width: 20.h)
+                      ],
+                    ),
+                  )
+                ]);
+          },
+        ),
+      );
+}
+
+class EditProductDialog extends StatefulWidget {
+  EditProductDialog(this.product,
+      {required this.deliveryNote,
+      required this.onSaved,
+      required this.count,
+      super.key});
+  TextEditingController deliveryNote;
+  TextEditingController count;
+  ProductModel product;
+  VoidCallback onSaved;
+
+  @override
+  State<EditProductDialog> createState() => _EditProductDialogState();
+}
+
+class _EditProductDialogState extends State<EditProductDialog> {
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: const Text('Enter Numbers'),
+        content: Column(
+          children: [
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.5,
+              child: CupertinoTextField(
+                controller: widget.deliveryNote,
+                keyboardType: TextInputType.number,
+                maxLength: 7, // Maximum of 7 numbers
+                placeholder: 'Enter up to 7 numbers',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.3,
+              child: CupertinoTextField(
+                controller: widget.count,
+                keyboardType: TextInputType.number,
+                maxLength: 3, // Maximum of 3 numbers
+                placeholder: 'Enter up to 3 numbers',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+              onPressed: widget.onSaved, child: Text('confirm'.tr)),
+        ],
+      );
+}
+
+Future<void> launch(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch $url');
+  }
 }

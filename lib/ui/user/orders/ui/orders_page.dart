@@ -24,6 +24,14 @@ class _OrdersPageState extends State<OrdersPage> {
         appBar: AppBar(
           title: Text('orders'.tr),
           backgroundColor: Colors.deepPurple,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<OrderBloc>().add(GetOrderEvent());
+                  context.read<DataFromAdminBloc>().add(GetBannersEvent());
+                },
+                icon: const Icon(Icons.refresh))
+          ],
         ),
         body: Column(children: [
           SizedBox(height: height(context) * 0.02),
