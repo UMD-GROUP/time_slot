@@ -1,5 +1,6 @@
 // ignore_for_file: cascade_invocations, use_build_context_synchronously
 
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -33,14 +34,23 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
         message: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              height: height(context) * 0.15,
-              width: width(context),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(widget.order.userPhoto),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(10.r)),
+            OnTap(
+              onTap: () {
+                final imageProvider =
+                    Image.network(widget.order.userPhoto).image;
+                showImageViewer(context, imageProvider, onViewerDismissed: () {
+                  print('dismissed');
+                });
+              },
+              child: Container(
+                height: height(context) * 0.15,
+                width: width(context),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(widget.order.userPhoto),
+                        fit: BoxFit.cover),
+                    borderRadius: BorderRadius.circular(10.r)),
+              ),
             ),
             SizedBox(
               height: height(context) * 0.01,
