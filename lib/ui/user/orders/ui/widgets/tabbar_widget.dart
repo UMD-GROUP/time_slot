@@ -98,6 +98,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                       )
                     : Expanded(
                         child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
                             itemCount: curData.length,
                             itemBuilder: (context, index) => OrderItem(
                                   order: curData[index],
