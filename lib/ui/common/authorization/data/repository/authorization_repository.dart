@@ -48,11 +48,11 @@ class AuthorizationRepository {
     final FirebaseAuth authInstance = getAuthInstance();
     try {
       final FirebaseFirestore instance = FirebaseFirestore.instance;
-
+      final QuerySnapshot<Map<String, dynamic>> tokens =
+          await instance.collection('referalls').get();
+      final List referalls = tokens.docs.first.data()['referalls'] ?? [];
+      referalls.add(user.token);
       if (user.referallId.isNotEmpty) {
-        final QuerySnapshot<Map<String, dynamic>> tokens =
-            await instance.collection('referalls').get();
-        final List referalls = tokens.docs.first.data()['referalls'] ?? [];
         if (referalls.contains(user.referallId)) {
           referalls.add(user.token);
           await instance
@@ -74,12 +74,17 @@ class AuthorizationRepository {
               .collection('users')
               .doc(rUser.uid)
               .update(rUser.toJson());
+          await instance
+              .collection('referalls')
+              .doc('data')
+              .update({'referalls': referalls});
         } else {
           myResponse.message = 'Siz kiritgan referall\nmavjud emas!';
           return myResponse;
         }
+      } else {
+        user.referallId = 'ADMIN2023';
       }
-      user.referallId = 'ADMIN2023';
       final UserCredential result =
           await authInstance.createUserWithEmailAndPassword(
               email: user.email, password: user.password);
@@ -89,6 +94,10 @@ class AuthorizationRepository {
           .collection('users')
           .doc(result.user!.uid)
           .set(user.toJson());
+      await instance
+          .collection('referalls')
+          .doc('data')
+          .update({'referalls': referalls});
 
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {

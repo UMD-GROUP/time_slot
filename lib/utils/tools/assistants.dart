@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison
+// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names
 
 import 'dart:collection';
 import 'dart:io';
@@ -691,3 +691,6 @@ Future<void> launch(String url) async {
     throw Exception('Could not launch $url');
   }
 }
+
+String dateTimeToFormat(DateTime time) =>
+    '${time.day}.${time.month}.${time.year} ${time.hour > 10 ? time.hour : '0${time.hour}'}:${time.minute > 10 ? time.minute : '0${time.minute}'}';

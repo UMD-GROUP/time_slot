@@ -65,11 +65,14 @@ class _MainPageState extends State<MainPage> {
             unselectedItemColor: AdaptiveTheme.of(context).theme.hintColor,
             selectedItemColor: Colors.deepPurple,
             backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+            items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.monetization_on), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+                  icon: const Icon(Icons.home), label: 'orders'.tr),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.monetization_on),
+                  label: 'membership'.tr),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.person), label: 'account'.tr),
             ],
           ),
         ),

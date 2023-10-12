@@ -91,8 +91,12 @@ class OrderItem extends StatelessWidget {
                                 color: Colors.deepPurpleAccent,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.h))),
-                            child: const Center(
-                              child: Icon(Icons.record_voice_over_outlined),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                AppIcons.refresh,
+                                height: 36.h,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                   ),
@@ -104,7 +108,7 @@ class OrderItem extends StatelessWidget {
                         height: height(context) * 0.01,
                       ),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.person,
+                          icon: isAdmin ? null : Icons.install_desktop,
                           context: context,
                           type: 'ID:',
                           value: order.orderId.toString()),
@@ -114,14 +118,14 @@ class OrderItem extends StatelessWidget {
                               : Icons.production_quantity_limits_sharp,
                           context: context,
                           type: 'product count:',
-                          value: order.products.length.toString()),
+                          value: '${order.products.length} ${'piece'.tr}'),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.money,
+                          icon: isAdmin ? null : Icons.attach_money,
                           context: context,
                           type: 'sum',
-                          value: order.sum.toString()),
+                          value: '${order.sum.toInt()} UZS'),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.token,
+                          icon: isAdmin ? null : Icons.group,
                           context: context,
                           type: 'partner_id',
                           value: order.referallId.toString()),
@@ -129,7 +133,8 @@ class OrderItem extends StatelessWidget {
                       Row(
                         children: [
                           Icon(Icons.access_time_filled_outlined,
-                              color: AdaptiveTheme.of(context).theme.hintColor),
+                              color:
+                                  AdaptiveTheme.of(context).theme.hoverColor),
                           SizedBox(width: width(context) * 0.02),
                           Text(
                             'Status:'.tr,

@@ -77,13 +77,14 @@ class LoginPage extends StatelessWidget {
                         child: Container(
                           padding: const EdgeInsets.only(top: 3, left: 3),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: const Border(
-                                bottom: BorderSide(),
-                                top: BorderSide(),
-                                left: BorderSide(),
-                                right: BorderSide(),
-                              )),
+                            borderRadius: BorderRadius.circular(50),
+                            // border: const Border(
+                            //   bottom: BorderSide(),
+                            //   top: BorderSide(),
+                            //   left: BorderSide(),
+                            //   right: BorderSide(),
+                            // )
+                          ),
                           child: MaterialButton(
                             minWidth: double.infinity,
                             height: 60,

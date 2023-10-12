@@ -24,13 +24,15 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             fontSize: 18.sp,
           ),
         ),
-        actions: [
-          CupertinoActionSheetAction(
-              onPressed: () {
-                setState(() {});
-              },
-              child: Text('update'.tr))
-        ],
+        actions: widget.isAdmin
+            ? [
+                CupertinoActionSheetAction(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text('update'.tr))
+              ]
+            : null,
         message: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -138,7 +140,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                   children: [
                     PurchaseTextWidget(
                       icon: AppIcons.check,
-                      text1: 'order:'.tr,
+                      text1: 'order_id'.tr,
                       text2: widget.order.orderId.toString(),
                     ),
                     if (!widget.isAdmin &&
@@ -147,7 +149,8 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                       PurchaseTextWidget(
                         icon: AppIcons.basket,
                         text1: 'product_count',
-                        text2: widget.order.products.length.toString(),
+                        text2:
+                            '${widget.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}',
                       ),
                   ],
                 ),
@@ -222,7 +225,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             PurchaseTextWidget(
               icon: AppIcons.balance,
               text1: 'payment',
-              text2: widget.order.sum.toString(),
+              text2: '${widget.order.sum.toInt()} UZS',
             ),
             PurchaseTextWidget(
               icon: AppIcons.users,
@@ -239,18 +242,15 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             PurchaseTextWidget(
               icon: AppIcons.calendar,
               text1: '${'created'.tr}:',
-              text2: DateTime.parse(widget.order.createdAt.toString())
-                  .toUtc()
-                  .toString()
-                  .split(' ')
-                  .first,
+              text2: dateTimeToFormat(
+                  DateTime.parse(widget.order.createdAt.toString())),
             ),
             Visibility(
               visible: widget.order.status == OrderStatus.done,
               child: PurchaseTextWidget(
                 icon: AppIcons.check,
                 text1: '${'finished'.tr}:',
-                text2: widget.order.finishedAt.toString(),
+                text2: dateTimeToFormat(widget.order.finishedAt),
               ),
             ),
             Row(children: [

@@ -108,7 +108,7 @@ class AppTranslations extends Translations {
           'prices': 'Narxlar',
           'other': 'Boshqalar',
           'users': 'Foydalanuvchilar',
-          'partners': 'Hamkorlar',
+          'partners': 'Hamkor',
           'pay': "To'lov",
           'admin_panel': "Admin bo'limi",
           'are_you_sure_you_want_to_delete_this_banner':
@@ -121,7 +121,7 @@ class AppTranslations extends Translations {
           'member_percent': 'Hamkor ulushi',
           'accept': 'Qabul qilish',
           'decline': 'Bekor qilish',
-          'finished': 'Tugagan',
+          'finished': 'Yakunlangan',
           'un_finished': 'Tugamagan',
           'edit': 'tahrirlash',
           'product_count': 'Mahsulot soni:',
@@ -148,7 +148,8 @@ class AppTranslations extends Translations {
           'pay': "To'lov qilish",
           'update': 'Yangilash',
           'support': "Qo'llab-quvvatlash",
-          'share': 'Ulashish'
+          'share': 'Ulashish',
+          'order_id': 'Buyurtma:'
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -188,7 +189,7 @@ class AppTranslations extends Translations {
           'all_purchased': 'Barcha yechilgan: ',
           'purchase': 'Снять деньги',
           'product count:': 'Кол. продуктов:',
-          'sum': 'Цена услуги:',
+          'sum': 'Цена усл:',
           'all': 'Все',
           'mine': 'Мой',
           'referals': 'Рефералы',
@@ -251,7 +252,7 @@ class AppTranslations extends Translations {
           'prices': 'Цены',
           'other': 'Другие',
           'users': 'Пользователи',
-          'partners': 'Партнеры',
+          'partners': 'Партнер',
           'pay': 'Оплата',
           'admin_panel': 'Панель администратора',
           'are_you_sure_you_want_to_delete_this_banner':
@@ -290,7 +291,8 @@ class AppTranslations extends Translations {
           'pay': 'Оплата',
           'update': 'Обновлять',
           'support': 'Центр поддержки',
-          'share': 'Делиться'
+          'share': 'Делиться',
+          'order_id': 'Заказ:'
         }
       };
 }

@@ -4,23 +4,23 @@ import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AppTheme {
   static ThemeData light = ThemeData(
-    backgroundColor: Colors.white,
-    hintColor: Colors.black,
-    bottomAppBarColor: Colors.black,
-    disabledColor:  Colors.white,
-    fontFamily: 'Inter',
-    primaryColor: Colors.deepPurple,
-    primarySwatch: Colors.deepPurple,
-    canvasColor: Colors.black45
-  );
+      backgroundColor: Colors.white,
+      hintColor: Colors.black,
+      bottomAppBarColor: Colors.black,
+      disabledColor: Colors.white,
+      hoverColor: Colors.grey,
+      fontFamily: 'Inter',
+      primaryColor: Colors.deepPurple,
+      primarySwatch: Colors.deepPurple,
+      canvasColor: Colors.black45);
   static ThemeData dark = ThemeData(
-    backgroundColor: AppColors.c0F1620,
-    disabledColor:  AppColors.c1C2632,
+      backgroundColor: AppColors.c0F1620,
+      disabledColor: AppColors.c1C2632,
       bottomAppBarColor: Colors.white,
-    hintColor: Colors.white,
-    fontFamily: 'Inter',
-    primaryColor: Colors.deepPurple,
-    primarySwatch: Colors.deepPurple,
-    canvasColor: Colors.white
-  );
+      hintColor: Colors.white,
+      hoverColor: Colors.white.withOpacity(0.6),
+      fontFamily: 'Inter',
+      primaryColor: Colors.deepPurple,
+      primarySwatch: Colors.deepPurple,
+      canvasColor: Colors.white);
 }
