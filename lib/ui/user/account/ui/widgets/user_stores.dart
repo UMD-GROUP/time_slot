@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_function_invocation
+
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -53,24 +55,33 @@ class _UserStoresState extends State<UserStores> {
                       style: AppTextStyles.labelLarge(context,
                           fontSize: 18, fontWeight: FontWeight.w600)),
                 ),
+                if (widget.markets.length != 5)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Spacer(),
+                      Text('markets'.tr,
+                          style: AppTextStyles.labelLarge(context,
+                              fontSize: 15.sp)),
+                      const Spacer(),
+                      IconButton(
+                          onPressed: () {
+                            showCupertinoDialog(
+                                context: context,
+                                builder: (context) => AddStoreDialog(
+                                    user:
+                                        context.read<UserBloc>().state.user!));
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.deepPurple,
+                          ))
+                    ],
+                  ),
                 ...List.generate(
                     widget.markets.length,
                     (index) =>
                         StoreItem(index: index, title: widget.markets[index])),
-                if (widget.markets.length != 5)
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurple),
-                      onPressed: () {
-                        showCupertinoDialog(
-                          context: context,
-                          builder: (context) => AddStoreDialog(
-                              user: context.read<UserBloc>().state.user!),
-                        );
-                      },
-                      child: Text(
-                        'add'.tr,
-                      )),
               ],
             ),
           ));

@@ -90,7 +90,7 @@ class _AccountPageState extends State<AccountPage> {
                       const Appearance(),
                       AccountActionButton('support'.tr, onTap: () async {
                         await launch('https://t.me/Timeslot_Admin');
-                      }, icon: Icons.contact_support_outlined),
+                      }, icon: Icons.telegram),
                       AccountActionButton('share'.tr, onTap: () async {
                         await Share.share(
                             'https://play.google.com/store/apps/details?id=com.uzmobdev.time_slot');

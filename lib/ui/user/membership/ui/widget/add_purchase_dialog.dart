@@ -52,7 +52,6 @@ class AddPurchaseDialog extends StatelessWidget {
                   builder: (context) => AppErrorSnackBar(text: error),
                 ).show(context);
               }
-              Navigator.of(context).pop();
             },
           ),
         ],

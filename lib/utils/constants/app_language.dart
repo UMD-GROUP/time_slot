@@ -30,8 +30,8 @@ class AppTranslations extends Translations {
           'created': 'Yaratilgan',
           'cancelled': 'Rad etilgan',
           'progress': 'Jarayonda',
-          'choose_market': "Do'konni tanlash",
-          'choose_dates': 'Sanalarni tanlash',
+          'choose_market': "Do'kon: ",
+          'choose_dates': 'Sanalar: ',
           'count_of_products': 'Mahsulotlar soni:',
           'delivery_note': 'Yukxat',
           'count': 'Soni',
@@ -76,6 +76,8 @@ class AppTranslations extends Translations {
           'you_need_to_enter_more_then_50':
               "Eng kamida 50 000 so'm\nyechish mumkin.",
           'you_cant_afford': "Kiritilgan mablag' hisobingizda\nmavjud emas!",
+          'cant_purchase':
+              "Pul yechish uchun hisobingizda eng\nkamida 50 000 so'm bo'lishi kerak!",
           'card_not_found':
               'Bank kartasi kirtimasdan\nushbu amaliyotni bajara olmaysiz!',
           '[firebase_auth/email-already-in-use] The email address is already in use by another account.':
@@ -123,7 +125,7 @@ class AppTranslations extends Translations {
           'decline': 'Bekor qilish',
           'finished': 'Yakunlangan',
           'un_finished': 'Tugamagan',
-          'edit': 'tahrirlash',
+          'edit': 'Tahrirlash',
           'product_count': 'Mahsulot soni:',
           'status': 'Status:',
           'user_data': "Foydalanuvchi ma'lumotlari",
@@ -149,7 +151,9 @@ class AppTranslations extends Translations {
           'update': 'Yangilash',
           'support': "Qo'llab-quvvatlash",
           'share': 'Ulashish',
-          'order_id': 'Buyurtma:'
+          'order_id': 'Buyurtma:',
+          'price_per_one': 'Bir dona uchun: ',
+          'markets': "Sizning do'konlaringiz:",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -165,11 +169,11 @@ class AppTranslations extends Translations {
           'login_to_your_account': 'Войдите в свой аккаунт',
           'name': 'Имя',
           'surname': 'Фамилия',
-          'choose_market': 'Выберите магазин',
-          'choose_dates': 'Выберите даты',
+          'choose_market': 'Mагазин:',
+          'choose_dates': 'Даты',
           'count_of_products': 'Кол. продуктов:',
           'delivery_note': 'Накладная',
-          'count': 'Количество',
+          'count': 'шт',
           'choose_photo': 'Выберите изображениеh',
           'add': 'Добавить',
           'order': 'Формализация',
@@ -292,7 +296,11 @@ class AppTranslations extends Translations {
           'update': 'Обновлять',
           'support': 'Центр поддержки',
           'share': 'Делиться',
-          'order_id': 'Заказ:'
+          'order_id': 'Заказ:',
+          'price_per_one': 'За одну:  ',
+          'markets': 'Ваши магазины:',
+          'cant_purchase':
+              'Для вывода денег на вашем счет\n должно быть не менее 50 000 сум!',
         }
       };
 }

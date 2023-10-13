@@ -77,23 +77,28 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           steps: [
                             Step(
                               title: Text(
-                                'choose_market'.tr,
+                                "${'choose_market'.tr}  ${context.read<CreateOrderBloc>().state.order.marketName}",
                                 // style: AppTextStyles.labelLarge(context),
                               ),
                               content: const MarketOption(),
                             ),
                             Step(
                               title: Text(
-                                'choose_dates'.tr,
+                                "${'choose_dates'.tr}  ${context.read<CreateOrderBloc>().state.order.dates.length} ${'piece'.tr}",
                                 // style: AppTextStyles.labelLarge(context),
                               ),
                               content: const SelectDatesSection(),
                             ),
                             Step(
-                                title: Text('products'.tr),
+                                title: Text(
+                                    "${'products'.tr}  ${context.read<CreateOrderBloc>().state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}"),
                                 content: const AddProductSection()),
                             Step(
-                                title: Text('pay'.tr),
+                                title: BlocBuilder<CreateOrderBloc,
+                                    CreateOrderState>(
+                                  builder: (context, state) => Text(
+                                      '${'payment'.tr}     ${state.order.products.isNotEmpty ? (context.read<DataFromAdminBloc>().state.data!.prices[state.order.dates.length - 1] * state.order.products.fold(0, (previousValue, element) => int.parse((previousValue + element.count).toString()))).toString() : ''}  ${state.order.products.isNotEmpty ? 'UZS' : ''}'),
+                                ),
                                 content: const ImageSection())
                           ]),
                       SizedBox(height: height(context) * 0.05),

@@ -11,15 +11,7 @@ class StoreItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: width(context) * 0.1,
-              child: Image.asset(
-                AppImages.market,
-                height: 30,
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-            SizedBox(width: width(context) * 0.01),
+            SizedBox(width: width(context) * 0.007),
             SizedBox(
               width: width(context) * 0.25,
               child: Text(
