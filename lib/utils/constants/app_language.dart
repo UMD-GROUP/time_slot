@@ -153,7 +153,7 @@ class AppTranslations extends Translations {
           'share': 'Ulashish',
           'order_id': 'Buyurtma:',
           'price_per_one': 'Bir dona uchun: ',
-          'markets': "Sizning do'konlaringiz:",
+          'markets': "Do'konlar:",
           'instruction': "Qo'llanma",
           'terms_of_using': 'Foydalanish shartlari',
           'wrong_password': 'Parol xato kiritildi!',
@@ -306,7 +306,7 @@ class AppTranslations extends Translations {
           'share': 'Делиться',
           'order_id': 'Заказ:',
           'price_per_one': 'За одну:  ',
-          'markets': 'Ваши магазины:',
+          'markets': 'Mагазины:',
           'cant_purchase':
               'Для вывода денег на вашем счет\n должно быть не менее 50 000 сум!',
           'instruction': 'Инструкция',

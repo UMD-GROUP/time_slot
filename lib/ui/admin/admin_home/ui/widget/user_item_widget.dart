@@ -14,7 +14,7 @@ class UsersItemWidget extends StatelessWidget {
           if (isPartner) {
             showPartnerDialog(context, userModel);
           } else {
-            showUserDialog(context, userModel);
+            showUserPopUp(context, userModel);
           }
         },
         onLongTap: () {

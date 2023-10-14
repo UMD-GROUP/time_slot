@@ -214,14 +214,14 @@ void showLogOutDialog(BuildContext context) {
   );
 }
 
-void showUserDialog(BuildContext context, UserModel userModel) {
-  showCupertinoDialog(
+void showUserPopUp(BuildContext context, UserModel userModel) {
+  showCupertinoModalPopup(
     context: context,
     builder: (context) => Theme(
         data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
             ? ThemeData.light()
             : ThemeData.dark(),
-        child: UserDialog(user: userModel)),
+        child: UserInfoPopUp(user: userModel)),
   );
 }
 

@@ -34,7 +34,7 @@ class PartnerDialog extends StatelessWidget {
                     width: 5.w,
                   ),
                   Text(
-                    user.card.balance.toString(),
+                    user.card.balance.toInt().toString(),
                     style: AppTextStyles.bodyMedium(context),
                   ),
                   SizedBox(
