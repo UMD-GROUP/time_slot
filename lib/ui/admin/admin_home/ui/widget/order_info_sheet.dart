@@ -36,104 +36,114 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
         message: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            OnTap(
-              onTap: () {
-                final imageProvider =
-                    Image.network(widget.order.userPhoto).image;
-                showImageViewer(context, imageProvider, onViewerDismissed: () {
-                  print('dismissed');
-                });
-              },
-              child: Container(
-                height: height(context) * 0.15,
-                width: width(context),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(widget.order.userPhoto),
-                        fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(10.r)),
-              ),
-            ),
-            SizedBox(
-              height: height(context) * 0.01,
-            ),
+            widget.isAdmin ||
+                    context.read<UserBloc>().state.user!.uid ==
+                        widget.order.ownerId
+                ? OnTap(
+                    onTap: () {
+                      final imageProvider =
+                          Image.network(widget.order.userPhoto).image;
+                      showImageViewer(context, imageProvider,
+                          onViewerDismissed: () {
+                        print('dismissed');
+                      });
+                    },
+                    child: Container(
+                      height: height(context) * 0.15,
+                      width: width(context),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(widget.order.userPhoto),
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(10.r)),
+                    ),
+                  )
+                : const SizedBox(),
             Visibility(
               visible: widget.order.status != OrderStatus.done &&
                       widget.order.status != OrderStatus.cancelled &&
                       widget.isAdmin ||
-                  widget.order.status == OrderStatus.cancelled,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  widget.order.status == OrderStatus.cancelled &&
+                      widget.isAdmin,
+              child: Column(
                 children: [
-                  OrderSheetItemWidget(
-                      context: context,
-                      text: 'accept',
-                      color: Colors.yellow,
-                      onTap: () {
-                        showConfirmCancelDialog(context, () {
-                          widget.order.status = OrderStatus.inProgress;
-                          context.read<AdminBloc>().add(UpdateOrderEvent(
-                              widget.order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt()));
-                        });
-                      }),
-                  if (widget.order.status == OrderStatus.inProgress &&
-                      widget.isAdmin)
-                    OrderSheetItemWidget(
-                        context: context,
-                        text: 'decline',
-                        color: Colors.red,
-                        onTap: () async {
-                          final TextEditingController comment =
-                              TextEditingController();
-                          widget.order.status = OrderStatus.cancelled;
-                          comment.text = widget.order.comment;
-                          showTextInputDialog(context, onConfirmTapped: () {
-                            widget.order.comment = comment.text;
-                            context.read<AdminBloc>().add(UpdateOrderEvent(
-                                widget.order,
-                                context
-                                    .read<DataFromAdminBloc>()
-                                    .state
-                                    .data!
-                                    .partnerPercent
-                                    .toInt()));
-                          },
-                              controller: comment,
-                              title: 'add_comment'.tr,
-                              hintText: ' ');
-                        }),
-                  if (widget.order.status == OrderStatus.inProgress &&
-                      widget.isAdmin)
-                    OrderSheetItemWidget(
-                        context: context,
-                        text: 'finished',
-                        color: Colors.green,
-                        onTap: () {
-                          showConfirmCancelDialog(context, () async {
-                            widget.order.status = OrderStatus.done;
-                            final XFile? photo = await showPicker(context);
-                            context.read<AdminBloc>().add(UpdateOrderEvent(
-                                widget.order,
-                                context
-                                    .read<DataFromAdminBloc>()
-                                    .state
-                                    .data!
-                                    .partnerPercent
-                                    .toInt(),
-                                photo: photo!.path));
-                          });
-                        }),
-                  // OrderSheetItemWidget(
-                  //     context: context,
-                  //     text: 'un_finished',
-                  //     color: Colors.red,
-                  //     onTap: () {}),
+                  SizedBox(
+                    height: height(context) * 0.01,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      OrderSheetItemWidget(
+                          context: context,
+                          text: 'accept',
+                          color: Colors.yellow,
+                          onTap: () {
+                            showConfirmCancelDialog(context, () {
+                              widget.order.status = OrderStatus.inProgress;
+                              context.read<AdminBloc>().add(UpdateOrderEvent(
+                                  widget.order,
+                                  context
+                                      .read<DataFromAdminBloc>()
+                                      .state
+                                      .data!
+                                      .partnerPercent
+                                      .toInt()));
+                            });
+                          }),
+                      if (widget.order.status == OrderStatus.inProgress &&
+                          widget.isAdmin)
+                        OrderSheetItemWidget(
+                            context: context,
+                            text: 'decline',
+                            color: Colors.red,
+                            onTap: () async {
+                              final TextEditingController comment =
+                                  TextEditingController();
+                              widget.order.status = OrderStatus.cancelled;
+                              comment.text = widget.order.comment;
+                              showTextInputDialog(context, onConfirmTapped: () {
+                                widget.order.comment = comment.text;
+                                context.read<AdminBloc>().add(UpdateOrderEvent(
+                                    widget.order,
+                                    context
+                                        .read<DataFromAdminBloc>()
+                                        .state
+                                        .data!
+                                        .partnerPercent
+                                        .toInt()));
+                              },
+                                  controller: comment,
+                                  title: 'add_comment'.tr,
+                                  hintText: ' ');
+                            }),
+                      if (widget.order.status == OrderStatus.inProgress &&
+                          widget.isAdmin)
+                        OrderSheetItemWidget(
+                            context: context,
+                            text: 'finished',
+                            color: Colors.green,
+                            onTap: () {
+                              showConfirmCancelDialog(context, () async {
+                                widget.order.status = OrderStatus.done;
+                                final XFile? photo = await showPicker(context);
+                                context.read<AdminBloc>().add(UpdateOrderEvent(
+                                    widget.order,
+                                    context
+                                        .read<DataFromAdminBloc>()
+                                        .state
+                                        .data!
+                                        .partnerPercent
+                                        .toInt(),
+                                    photo: photo!.path));
+                              });
+                            }),
+                      // OrderSheetItemWidget(
+                      //     context: context,
+                      //     text: 'un_finished',
+                      //     color: Colors.red,
+                      //     onTap: () {}),
+                    ],
+                  ),
                 ],
               ),
             ),

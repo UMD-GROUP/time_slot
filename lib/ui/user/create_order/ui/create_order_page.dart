@@ -1,6 +1,4 @@
 // ignore_for_file: use_named_constants, cascade_invocations, inference_failure_on_function_invocation
-import 'package:flutter/cupertino.dart';
-import 'package:time_slot/ui/user/create_order/ui/widgets/order_confirm_bottom_sheet.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -119,13 +117,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                       (previousValue, element) => int.parse(
                                           (previousValue + element.count)
                                               .toString()));
-
-                              showCupertinoModalPopup(
-                                context: context,
-                                builder: (context) => InfoBottomSheet(
-                                  order: order,
-                                ),
-                              );
+                              context.read<CreateOrderBloc>().add(AddOrderEvent(
+                                  order, context.read<UserBloc>().state.user!));
                             },
                             color: Colors.deepPurple,
                             title: 'order'.tr,
