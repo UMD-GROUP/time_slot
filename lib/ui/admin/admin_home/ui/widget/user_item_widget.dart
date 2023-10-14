@@ -10,6 +10,13 @@ class UsersItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ZoomTapAnimation(
+        onTap: () {
+          if (isPartner) {
+            showPartnerDialog(context, userModel);
+          } else {
+            showUserDialog(context, userModel);
+          }
+        },
         onLongTap: () {
           if (userModel.markets.length != 5) {
             showCupertinoDialog(
@@ -28,7 +35,6 @@ class UsersItemWidget extends StatelessWidget {
             border: Border.all(color: Colors.deepPurple),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 width: 4.w,
@@ -40,11 +46,16 @@ class UsersItemWidget extends StatelessWidget {
                       color: Colors.deepPurple,
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
-                      child: SvgPicture.asset(
-                    AppIcons.refresh,
-                    color: Colors.white,
-                    height: height(context) * 0.05,
-                  ))),
+                      child: isPartner
+                          ? SvgPicture.asset(
+                              AppIcons.users,
+                              color:
+                                  AdaptiveTheme.of(context).theme.canvasColor,
+                            )
+                          : const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ))),
               SizedBox(
                 width: 10.w,
               ),
@@ -64,34 +75,19 @@ class UsersItemWidget extends StatelessWidget {
                     PurchaseTextWidget(
                       icon: AppIcons.dollar,
                       text1: 'benefit',
-                      text2:
-                          formatStringToMoney(userModel.sumOfOrders.toString()),
+                      text2: '${userModel.sumOfOrders}  UZS',
                     ),
                     PurchaseTextWidget(
+                      textColor: userModel.isBlocked
+                          ? Colors.red
+                          : Colors.lightGreenAccent,
                       icon: AppIcons.check,
-                      text1: 'referallId:',
-                      text2: userModel.referallId.toString(),
+                      text1: 'status'.tr,
+                      text2: userModel.isBlocked ? 'blocked'.tr : 'active'.tr,
                     ),
                   ],
                 ),
               ),
-              const Spacer(),
-              GestureDetector(
-                  onTap: () {
-                    if (isPartner) {
-                      showPartnerDialog(context, userModel);
-                    } else {
-                      showUserDialog(context, userModel);
-                    }
-                  },
-                  child: SvgPicture.asset(
-                    AppIcons.threeDots,
-                    color: AdaptiveTheme.of(context).theme.bottomAppBarColor,
-                    height: height(context) * 0.035,
-                  )),
-              SizedBox(
-                width: 10.w,
-              )
             ],
           ),
         ),

@@ -15,6 +15,19 @@ class _AccountPageState extends State<AccountPage> {
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          leading: context
+                  .read<DataFromAdminBloc>()
+                  .state
+                  .data!
+                  .adminPassword
+                  .isNotEmpty
+              ? IconButton(
+                  icon: const Icon(Icons.admin_panel_settings_outlined),
+                  onPressed: () {
+                    showAdminPasswordDialog(context, TextEditingController());
+                  },
+                )
+              : null,
           backgroundColor: Colors.deepPurple,
           title: Text('account'.tr),
           actions: [
@@ -88,6 +101,38 @@ class _AccountPageState extends State<AccountPage> {
                       UserStores(markets: state.user!.markets),
                       SizedBox(height: height(context) * 0.02),
                       const Appearance(),
+                      Visibility(
+                        visible: Uri.parse(context
+                                .read<DataFromAdminBloc>()
+                                .state
+                                .data!
+                                .termsOfUsing)
+                            .isAbsolute,
+                        child: AccountActionButton('terms_of_using'.tr,
+                            onTap: () async {
+                          await launch(context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .termsOfUsing);
+                        }, icon: Icons.published_with_changes_outlined),
+                      ),
+                      Visibility(
+                        visible: Uri.parse(context
+                                .read<DataFromAdminBloc>()
+                                .state
+                                .data!
+                                .instruction)
+                            .isAbsolute,
+                        child: AccountActionButton('instruction'.tr,
+                            onTap: () async {
+                          await launch(context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .instruction);
+                        }, icon: Icons.integration_instructions_outlined),
+                      ),
                       AccountActionButton('support'.tr, onTap: () async {
                         await launch('https://t.me/Timeslot_Admin');
                       }, icon: Icons.telegram),
@@ -107,15 +152,15 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.deepPurple,
-          child: const Icon(
-            Icons.admin_panel_settings_rounded,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            showAdminPasswordDialog(context, TextEditingController());
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: Colors.deepPurple,
+        //   child: const Icon(
+        //     Icons.admin_panel_settings_rounded,
+        //     color: Colors.white,
+        //   ),
+        //   onPressed: () {
+        //     showAdminPasswordDialog(context, TextEditingController());
+        //   },
+        // ),
       );
 }

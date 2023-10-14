@@ -12,20 +12,18 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => OnTap(
         onTap: () {
-          if (!isAdmin) {
-            showCupertinoModalPopup(
-                context: context,
-                builder: (context) => Theme(
-                      data: AdaptiveTheme.of(context).theme.backgroundColor ==
-                              Colors.white
-                          ? ThemeData.light()
-                          : ThemeData.dark(),
-                      child: OrderInfoBottomSheet(
-                        isAdmin: false,
-                        order: order,
-                      ),
-                    ));
-          }
+          showCupertinoModalPopup(
+              context: context,
+              builder: (context) => Theme(
+                    data: AdaptiveTheme.of(context).theme.backgroundColor ==
+                            Colors.white
+                        ? ThemeData.light()
+                        : ThemeData.dark(),
+                    child: OrderInfoBottomSheet(
+                      isAdmin: isAdmin,
+                      order: order,
+                    ),
+                  ));
         },
         child: Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 5.w),
@@ -108,24 +106,22 @@ class OrderItem extends StatelessWidget {
                         height: height(context) * 0.01,
                       ),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.install_desktop,
+                          icon: Icons.install_desktop,
                           context: context,
                           type: 'ID:',
                           value: order.orderId.toString()),
                       OrderTextWidget(
-                          icon: isAdmin
-                              ? null
-                              : Icons.production_quantity_limits_sharp,
+                          icon: Icons.production_quantity_limits_sharp,
                           context: context,
                           type: 'product count:',
                           value: '${order.products.length} ${'piece'.tr}'),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.attach_money,
+                          icon: Icons.attach_money,
                           context: context,
                           type: 'sum',
                           value: '${order.sum.toInt()} UZS'),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.group,
+                          icon: Icons.group,
                           context: context,
                           type: 'partner_id',
                           value: order.referallId.toString()),
@@ -174,33 +170,6 @@ class OrderItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  isAdmin
-                      ? GestureDetector(
-                          onTap: () {
-                            showCupertinoModalPopup(
-                                context: context,
-                                builder: (context) => Theme(
-                                      data: AdaptiveTheme.of(context)
-                                                  .theme
-                                                  .backgroundColor ==
-                                              Colors.white
-                                          ? ThemeData.light()
-                                          : ThemeData.dark(),
-                                      child: OrderInfoBottomSheet(
-                                        order: order,
-                                      ),
-                                    ));
-                            // showOrderDialog(context, order);
-                          },
-                          child: SvgPicture.asset(
-                            AppIcons.threeDots,
-                            color: AdaptiveTheme.of(context)
-                                .theme
-                                .bottomAppBarColor,
-                            height: height(context) * 0.035,
-                          ))
-                      : const SizedBox(),
                   SizedBox(
                     width: 10.w,
                   )

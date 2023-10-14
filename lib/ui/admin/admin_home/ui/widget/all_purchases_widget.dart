@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:time_slot/ui/user/membership/ui/widget/purchase_item_widget.dart';
 import 'package:time_slot/ui/user/membership/ui/widget/purchase_shimmer_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
@@ -45,6 +47,8 @@ class _AllPurchasesWidgetState extends State<AllPurchasesWidget> {
               return const PurchaseShimmerWidget();
             } else if (state.status == ResponseStatus.inSuccess) {
               final List<PurchaseModel> curData = state.orders!.cast();
+              curData.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+
               return curData.isEmpty
                   ? Center(
                       child: SizedBox(

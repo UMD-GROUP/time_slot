@@ -98,7 +98,7 @@ class UserDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.orders.length.toString(),
+                    '${user.orders.length} ${'piece'.tr}',
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
@@ -121,7 +121,7 @@ class UserDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.sumOfOrders.toString(),
+                    '${user.sumOfOrders} UZS',
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
@@ -146,12 +146,8 @@ class UserDialog extends StatelessWidget {
                   Text(
                     user.createdAt == null
                         ? 'milloddan avval'
-                        : DateTime.parse(user.createdAt.toString())
-                            .toUtc()
-                            .toString()
-                            .split(' ')
-                            .first,
-                    style: AppTextStyles.bodyMedium(context),
+                        : dateTimeToFormat(user.createdAt!),
+                    style: AppTextStyles.bodyMedium(context, fontSize: 14.sp),
                   ),
                 ],
               ),

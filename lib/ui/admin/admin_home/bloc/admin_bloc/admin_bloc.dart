@@ -58,7 +58,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   Future<void> updateOthers(UpdateOtherEvent event, Emitter emit) async {
     emit(state.copyWith(updateOthersStatus: ResponseStatus.inProgress));
     final MyResponse myResponse = await getIt<AdminRepository>()
-        .updateOther(event.deliveryNote, event.memberPercent);
+        .updateOther(event.deliveryNote, event.memberPercent, data: event.data);
     if (myResponse.statusCode == 200) {
       emit(state.copyWith(updateOthersStatus: ResponseStatus.inSuccess));
     } else {

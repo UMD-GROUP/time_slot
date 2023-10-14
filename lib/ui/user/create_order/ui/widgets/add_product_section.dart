@@ -79,8 +79,15 @@ class _AddProductSectionState extends State<AddProductSection> {
                                   )
                                 ],
                               )),
-                          SizedBox(
-                              width: width(context) * 0.17,
+                          Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.deepPurple),
+                                  borderRadius: BorderRadius.circular(6)),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
+                              width: width(context) * 0.18,
+                              alignment: Alignment.center,
+                              height: height(context) * 0.06,
                               child: TextField(
                                 controller: count,
                                 onChanged: (value) {
@@ -91,11 +98,9 @@ class _AddProductSectionState extends State<AddProductSection> {
                                 ],
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                    label: Text('count'.tr),
-                                    iconColor: Colors.deepPurple,
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.deepPurple))),
+                                    border: InputBorder.none,
+                                    hintText: 'count'.tr,
+                                    iconColor: Colors.deepPurple),
                               )),
                         ],
                       ),

@@ -281,6 +281,22 @@ void showNumberInputDialog(BuildContext context,
   );
 }
 
+void showTextInputDialog(BuildContext context,
+    {required VoidCallback onConfirmTapped,
+    required TextEditingController controller,
+    required String title,
+    required String hintText}) {
+  showCupertinoModalPopup<void>(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => TextInputDialog(
+        controller: controller,
+        onConfirmTapped: onConfirmTapped,
+        title: title,
+        hintText: hintText),
+  );
+}
+
 void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap) {
   showCupertinoDialog(
     context: context,
@@ -292,7 +308,9 @@ void showAdminPasswordDialog(
     BuildContext context, TextEditingController controller) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => AdminPanelPasswordDialog(controller: controller),
+    builder: (context) => AdminPanelPasswordDialog(
+        controller: controller,
+        password: context.read<DataFromAdminBloc>().state.data!.adminPassword),
   );
 }
 
@@ -328,20 +346,20 @@ int generateRandomNumber(bool isOdd) {
 }
 
 Future<void> postAdminData() async {
-  final DataFromAdminModel data = DataFromAdminModel(
-    banners: [
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRipGGPTs-IcBayNu-ulyxloogeyUVQaV0TnQ&usqp=CAU',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh7xkoaL6P4EvxEjdEyQoELJ1_yeymUd2ntQ&usqp=CAU',
-      'https://www.google.com/imgres?imgurl=https%3A%2F%2Fdaryo.uz%2Fstatic%2F2023%2F06%2F6489641736aff.png&tbnid=a7MJEddpPNyIFM&vet=12ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhSegUIARCFAg..i&imgrefurl=https%3A%2F%2Fdaryo.uz%2F2023%2F06%2F14%2F16-uzum-market-oz-geografiyasini-kengaytirmoqda&docid=L9sgqjxhXJRuhM&w=1768&h=992&q=uzum%20market&ved=2ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhSegUIARCFAg',
-      'https://www.google.com/imgres?imgurl=https%3A%2F%2Fstorage.kun.uz%2Fsource%2F9%2FIW9tYYvKjnLFsMRgINcrfnboO7WQpAZ0.jpg&tbnid=1ovC7kTBcZggPM&vet=12ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhIegUIARDtAQ..i&imgrefurl=https%3A%2F%2Fkun.uz%2Fuz%2Fnews%2F2022%2F12%2F28%2Fuzum-market-marketpleysida-elektronika-va-maishiy-texnikalarning-300-dan-ortiq-xalqaro-va-mahalliy-brendlari-taqdim-etilgan&docid=ACdpTEYnzdvjlM&w=1212&h=800&q=uzum%20market&ved=2ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhIegUIARDtAQ',
-    ],
-    deliveryNote: '123456',
-    prices: List<int>.generate(30, (index) => index * 100),
-    partnerPercent: 10.5,
-  );
-
-  final FirebaseFirestore instance = FirebaseFirestore.instance;
-  await instance.collection('admin_data').add(data.toJson());
+  // final DataFromAdminModel data = DataFromAdminModel(
+  //   banners: [
+  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRipGGPTs-IcBayNu-ulyxloogeyUVQaV0TnQ&usqp=CAU',
+  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh7xkoaL6P4EvxEjdEyQoELJ1_yeymUd2ntQ&usqp=CAU',
+  //     'https://www.google.com/imgres?imgurl=https%3A%2F%2Fdaryo.uz%2Fstatic%2F2023%2F06%2F6489641736aff.png&tbnid=a7MJEddpPNyIFM&vet=12ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhSegUIARCFAg..i&imgrefurl=https%3A%2F%2Fdaryo.uz%2F2023%2F06%2F14%2F16-uzum-market-oz-geografiyasini-kengaytirmoqda&docid=L9sgqjxhXJRuhM&w=1768&h=992&q=uzum%20market&ved=2ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhSegUIARCFAg',
+  //     'https://www.google.com/imgres?imgurl=https%3A%2F%2Fstorage.kun.uz%2Fsource%2F9%2FIW9tYYvKjnLFsMRgINcrfnboO7WQpAZ0.jpg&tbnid=1ovC7kTBcZggPM&vet=12ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhIegUIARDtAQ..i&imgrefurl=https%3A%2F%2Fkun.uz%2Fuz%2Fnews%2F2022%2F12%2F28%2Fuzum-market-marketpleysida-elektronika-va-maishiy-texnikalarning-300-dan-ortiq-xalqaro-va-mahalliy-brendlari-taqdim-etilgan&docid=ACdpTEYnzdvjlM&w=1212&h=800&q=uzum%20market&ved=2ahUKEwiVnvq89NmBAxUNBxAIHar4Bu8QMyhIegUIARDtAQ',
+  //   ],
+  //   deliveryNote: '123456',
+  //   prices: List<int>.generate(30, (index) => index * 100),
+  //   partnerPercent: 10.5,
+  // );
+  //
+  // final FirebaseFirestore instance = FirebaseFirestore.instance;
+  // await instance.collection('admin_data').add(data.toJson());
 }
 
 /// Example event class.
@@ -443,6 +461,47 @@ class NumberInputDialog extends StatelessWidget {
       );
 }
 
+class TextInputDialog extends StatelessWidget {
+  TextInputDialog(
+      {required this.controller,
+      required this.title,
+      required this.hintText,
+      required this.onConfirmTapped,
+      super.key});
+  String title;
+  String hintText;
+  VoidCallback onConfirmTapped;
+  TextEditingController controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: Text(title),
+        content: Column(
+          children: <Widget>[
+            CupertinoTextField(
+              controller: controller,
+              placeholder: hintText,
+              keyboardType: TextInputType.number,
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+          ),
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            onPressed: onConfirmTapped,
+            child: Text('confirm'.tr),
+          ),
+        ],
+      );
+}
+
 class CancelConfirmDialog extends StatelessWidget {
   CancelConfirmDialog({required this.onConfirmTap, super.key});
 
@@ -469,18 +528,20 @@ class CancelConfirmDialog extends StatelessWidget {
 }
 
 class AdminPanelPasswordDialog extends StatelessWidget {
-  AdminPanelPasswordDialog({required this.controller, super.key});
+  AdminPanelPasswordDialog(
+      {required this.password, required this.controller, super.key});
   TextEditingController controller;
+  String password;
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
         title: Text('admin_panel'.tr),
         content: Column(
           children: [
+            Text('you_will_be_blocked'.tr,
+                style: AppTextStyles.labelLarge(context, color: Colors.black)),
             CupertinoTextField(
               controller: controller,
-              keyboardType: TextInputType.number,
-              maxLength: 4,
               autofocus: true,
             ),
           ],
@@ -497,7 +558,7 @@ class AdminPanelPasswordDialog extends StatelessWidget {
             child: Text('confirm'.tr),
             onPressed: () {
               // You can handle the PIN entered here
-              if (controller.text.trim() == '1984') {
+              if (controller.text.trim() == password) {
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, RouteName.adminHome);
               } else {
@@ -693,4 +754,4 @@ Future<void> launch(String url) async {
 }
 
 String dateTimeToFormat(DateTime time) =>
-    '${time.day}.${time.month}.${time.year} ${time.hour > 10 ? time.hour : '0${time.hour}'}:${time.minute > 10 ? time.minute : '0${time.minute}'}';
+    '${time.day}.${time.month}.${time.year} ${time.hour >= 10 ? time.hour : '0${time.hour}'}:${time.minute >= 10 ? time.minute : '0${time.minute}'}';

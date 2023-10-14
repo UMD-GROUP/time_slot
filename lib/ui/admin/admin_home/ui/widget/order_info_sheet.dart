@@ -144,8 +144,9 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                       text2: widget.order.orderId.toString(),
                     ),
                     if (!widget.isAdmin &&
-                        widget.order.ownerId ==
-                            context.read<UserBloc>().state.user!.uid)
+                            widget.order.ownerId ==
+                                context.read<UserBloc>().state.user!.uid ||
+                        widget.isAdmin)
                       PurchaseTextWidget(
                         icon: AppIcons.basket,
                         text1: 'product_count',
@@ -179,7 +180,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                 )
               ],
             ),
-            if (!widget.isAdmin &&
+            if (widget.isAdmin ||
                 widget.order.ownerId ==
                     context.read<UserBloc>().state.user!.uid)
               ...List.generate(widget.order.products.length, (index) {
@@ -200,7 +201,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               text1: 'day_count',
               text2: '${widget.order.dates.length} ${'piece'.tr}',
             ),
-            if (!widget.isAdmin &&
+            if (widget.isAdmin ||
                 widget.order.ownerId ==
                     context.read<UserBloc>().state.user!.uid)
               Wrap(
@@ -233,6 +234,9 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               text2: widget.order.referallId.toString(),
             ),
             PurchaseTextWidget(
+              isVisible: widget.isAdmin ||
+                  widget.order.ownerId ==
+                      context.read<UserBloc>().state.user!.uid,
               icon: AppIcons.shop,
               text1: '${'market_name'.tr}:',
               text2: widget.order.marketName.length > 10

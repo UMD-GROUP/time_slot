@@ -154,6 +154,11 @@ class AppTranslations extends Translations {
           'order_id': 'Buyurtma:',
           'price_per_one': 'Bir dona uchun: ',
           'markets': "Sizning do'konlaringiz:",
+          'instruction': "Qo'llanma",
+          'terms_of_using': 'Foydalanish shartlari',
+          'wrong_password': 'Parol xato kiritildi!',
+          'you_will_be_blocked':
+              "Parolni 3 martadan ortiq noto'g'ri kiritilishi bloklanishingiz uchun asos bo'ladi! "
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -197,7 +202,7 @@ class AppTranslations extends Translations {
           'all': 'Все',
           'mine': 'Мой',
           'referals': 'Рефералы',
-          'done': 'Сделанный',
+          'done': 'Завершенный',
           'created': 'Созданный',
           'cancelled': 'Отменено',
           'progress': 'Прогресс',
@@ -301,6 +306,11 @@ class AppTranslations extends Translations {
           'markets': 'Ваши магазины:',
           'cant_purchase':
               'Для вывода денег на вашем счет\n должно быть не менее 50 000 сум!',
+          'instruction': 'Инструкция',
+          'terms_of_using': 'Условия использования',
+          'wrong_password': 'Пароль введен неверно!',
+          'you_will_be_blocked':
+              'Неправильный ввод пароля более 3 раз станет причиной вашей блокировки!'
         }
       };
 }

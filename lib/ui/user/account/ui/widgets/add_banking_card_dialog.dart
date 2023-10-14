@@ -14,6 +14,7 @@ class AddBankingCardDialog extends StatelessWidget {
         content: Container(
           margin: EdgeInsets.only(top: 12.h),
           child: CupertinoTextField(
+            autofocus: true,
             inputFormatters: [CardNumberInputFormatter()],
             controller: controller,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
