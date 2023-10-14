@@ -23,13 +23,10 @@ class GoogleButton extends StatelessWidget {
                 cardNumber: '',
               ));
           if (isSignIn) {
-            print("Sign in bo'lyapti");
             context
                 .read<AuthorizationBloc>()
                 .add(CreateAccountWithGoogleEvent(userModel, true));
           } else {
-            print("Sign Up bo'lyapti");
-
             context
                 .read<AuthorizationBloc>()
                 .add(CreateAccountWithGoogleEvent(userModel, false));
@@ -50,11 +47,11 @@ class GoogleButton extends StatelessWidget {
                 height: 36, // Adjust the height as needed
               ),
               const SizedBox(width: 12), // Spacing between the icon and text
-              const Text(
-                'Sign in with Google',
+              Text(
+                'sign_in_with_google'.tr,
                 style: TextStyle(
                   color: Colors.black, // Text color
-                  fontSize: 18, // Text font size
+                  fontSize: 18.sp, // Text font size
                 ),
               ),
             ],

@@ -163,6 +163,7 @@ class AppTranslations extends Translations {
           'you_will_be_blocked':
               "Parolni 3 martadan ortiq noto'g'ri kiritilishi bloklanishingiz uchun asos bo'ladi! ",
           'add_comment': "Izoh qo'shing",
+          'sign_in_with_google': 'Google orqali kirish',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -319,6 +320,7 @@ class AppTranslations extends Translations {
           'add_comment': 'Добавить комментарий',
           'don_not_forget_to_add_number':
               'Не забудьте добавить @number в свой магазин в качестве сотрудника по отправке писем и правильно ввести название магазина!',
+          'sign_in_with_google': 'Войти через Google',
         }
       };
 }
