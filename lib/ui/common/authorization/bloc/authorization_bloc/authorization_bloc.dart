@@ -10,6 +10,7 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
       : super(AuthorizationState(message: '', status: ResponseStatus.pure)) {
     on<SignInEvent>(signIn);
     on<CreateAccountEvent>(createAccount);
+    on<CreateAccountWithGoogleEvent>(createAccountWithGoogle);
   }
 
   Future<void> signIn(SignInEvent event, Emitter emit) async {
@@ -55,6 +56,21 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
           message: !EmailValidator.validate(event.user.email)
               ? 'email_not_valid'.tr
               : 'password_invalid'.tr));
+    }
+    emit(state.copyWith(status: ResponseStatus.pure));
+  }
+
+  Future<void> createAccountWithGoogle(
+      CreateAccountWithGoogleEvent event, Emitter emit) async {
+    MyResponse myResponse = MyResponse();
+    emit(state.copyWith(status: ResponseStatus.inProgress));
+    myResponse = await getIt<AuthorizationRepository>()
+        .createAnAccountWithGoogle(event.user, event.isSignIn);
+    if (myResponse.message.isNull) {
+      emit(state.copyWith(status: ResponseStatus.inSuccess));
+    } else {
+      emit(state.copyWith(
+          status: ResponseStatus.inFail, message: myResponse.message));
     }
     emit(state.copyWith(status: ResponseStatus.pure));
   }

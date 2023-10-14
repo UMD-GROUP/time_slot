@@ -59,38 +59,42 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             ),
             Visibility(
               visible: widget.order.status != OrderStatus.done &&
-                  widget.order.status != OrderStatus.cancelled &&
-                  widget.isAdmin,
+                      widget.order.status != OrderStatus.cancelled &&
+                      widget.isAdmin ||
+                  widget.order.status == OrderStatus.cancelled,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (widget.order.status == OrderStatus.created)
-                    OrderSheetItemWidget(
-                        context: context,
-                        text: 'accept',
-                        color: Colors.yellow,
-                        onTap: () {
-                          showConfirmCancelDialog(context, () {
-                            widget.order.status = OrderStatus.inProgress;
-                            context.read<AdminBloc>().add(UpdateOrderEvent(
-                                widget.order,
-                                context
-                                    .read<DataFromAdminBloc>()
-                                    .state
-                                    .data!
-                                    .partnerPercent
-                                    .toInt()));
-                          });
-                        }),
+                  OrderSheetItemWidget(
+                      context: context,
+                      text: 'accept',
+                      color: Colors.yellow,
+                      onTap: () {
+                        showConfirmCancelDialog(context, () {
+                          widget.order.status = OrderStatus.inProgress;
+                          context.read<AdminBloc>().add(UpdateOrderEvent(
+                              widget.order,
+                              context
+                                  .read<DataFromAdminBloc>()
+                                  .state
+                                  .data!
+                                  .partnerPercent
+                                  .toInt()));
+                        });
+                      }),
                   if (widget.order.status == OrderStatus.inProgress &&
                       widget.isAdmin)
                     OrderSheetItemWidget(
                         context: context,
                         text: 'decline',
                         color: Colors.red,
-                        onTap: () {
-                          showConfirmCancelDialog(context, () {
-                            widget.order.status = OrderStatus.cancelled;
+                        onTap: () async {
+                          final TextEditingController comment =
+                              TextEditingController();
+                          widget.order.status = OrderStatus.cancelled;
+                          comment.text = widget.order.comment;
+                          showTextInputDialog(context, onConfirmTapped: () {
+                            widget.order.comment = comment.text;
                             context.read<AdminBloc>().add(UpdateOrderEvent(
                                 widget.order,
                                 context
@@ -99,7 +103,10 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                     .data!
                                     .partnerPercent
                                     .toInt()));
-                          });
+                          },
+                              controller: comment,
+                              title: 'add_comment'.tr,
+                              hintText: ' ');
                         }),
                   if (widget.order.status == OrderStatus.inProgress &&
                       widget.isAdmin)

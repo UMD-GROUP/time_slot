@@ -126,44 +126,58 @@ class OrderItem extends StatelessWidget {
                           type: 'partner_id',
                           value: order.referallId.toString()),
                       //     OrderTextWidget(context: context, type: 'Status:',value: data[index].status.toString()),
-                      Row(
-                        children: [
-                          Icon(Icons.access_time_filled_outlined,
-                              color:
-                                  AdaptiveTheme.of(context).theme.hoverColor),
-                          SizedBox(width: width(context) * 0.02),
-                          Text(
-                            'Status:'.tr,
-                            style: AppTextStyles.bodyMedium(context,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Text(
-                            order.status.toString() == 'OrderStatus.created'
-                                ? 'created'.tr
-                                : order.status.toString() ==
-                                        'OrderStatus.inProgress'
-                                    ? 'progress'.tr
-                                    : order.status.toString() ==
-                                            'OrderStatus.cancelled'
-                                        ? 'cancelled'.tr
-                                        : 'done'.tr,
-                            style: AppTextStyles.bodyLargeSmall(context,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
-                                color: order.status == OrderStatus.created
-                                    ? Colors.yellow
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Icon(Icons.access_time_filled_outlined,
+                                color:
+                                    AdaptiveTheme.of(context).theme.hoverColor),
+                            SizedBox(width: width(context) * 0.02),
+                            Text(
+                              'Status:'.tr,
+                              style: AppTextStyles.bodyMedium(context,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            SizedBox(
+                              width: width(context) * 0.3,
+                              child: Text(
+                                order.status.toString() == 'OrderStatus.created'
+                                    ? 'created'.tr
                                     : order.status.toString() ==
                                             'OrderStatus.inProgress'
-                                        ? AppColors.cGold
+                                        ? 'progress'.tr
                                         : order.status.toString() ==
                                                 'OrderStatus.cancelled'
-                                            ? AppColors.cFF3333
-                                            : Colors.green),
-                          ),
-                        ],
+                                            ? order.ownerId ==
+                                                        context
+                                                            .read<UserBloc>()
+                                                            .state
+                                                            .user!
+                                                            .uid ||
+                                                    isAdmin
+                                                ? order.comment
+                                                : 'cancelled'.tr
+                                            : 'done'.tr,
+                                maxLines: 3,
+                                style: AppTextStyles.bodyLargeSmall(context,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp,
+                                    color: order.status == OrderStatus.created
+                                        ? Colors.yellow
+                                        : order.status.toString() ==
+                                                'OrderStatus.inProgress'
+                                            ? AppColors.cGold
+                                            : order.status.toString() ==
+                                                    'OrderStatus.cancelled'
+                                                ? AppColors.cFF3333
+                                                : Colors.green),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: height(context) * 0.01,

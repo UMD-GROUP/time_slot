@@ -12,3 +12,9 @@ class CreateAccountEvent extends AuthorizationEvent {
   CreateAccountEvent(this.user);
   UserModel user;
 }
+
+class CreateAccountWithGoogleEvent extends AuthorizationEvent {
+  CreateAccountWithGoogleEvent(this.user, this.isSignIn);
+  UserModel user;
+  bool isSignIn;
+}

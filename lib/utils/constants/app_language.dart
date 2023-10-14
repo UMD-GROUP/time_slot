@@ -161,7 +161,8 @@ class AppTranslations extends Translations {
           'don_not_forget_to_add_number':
               "Do'koningizga @number raqamini yuk xatlari bilan ishlaydigan xodim sifatida qo'shishni unutmang hamda do'kon nomini to'g'ri kiriting!",
           'you_will_be_blocked':
-              "Parolni 3 martadan ortiq noto'g'ri kiritilishi bloklanishingiz uchun asos bo'ladi! "
+              "Parolni 3 martadan ortiq noto'g'ri kiritilishi bloklanishingiz uchun asos bo'ladi! ",
+          'add_comment': "Izoh qo'shing",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -315,6 +316,7 @@ class AppTranslations extends Translations {
           'you_will_be_blocked':
               'Неправильный ввод пароля более 3 раз станет причиной вашей блокировки!',
           'phone_number': 'Номер телефона',
+          'add_comment': 'Добавить комментарий',
           'don_not_forget_to_add_number':
               'Не забудьте добавить @number в свой магазин в качестве сотрудника по отправке писем и правильно ввести название магазина!',
         }
