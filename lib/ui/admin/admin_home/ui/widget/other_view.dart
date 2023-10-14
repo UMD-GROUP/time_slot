@@ -14,6 +14,13 @@ class OtherView extends StatefulWidget {
 class _OtherViewState extends State<OtherView> {
   TextEditingController controller = TextEditingController();
 
+  void updateData(DataFromAdminModel data) {
+    context.read<AdminBloc>().add(UpdateOtherEvent(
+        context.read<DataFromAdminBloc>().state.data!.deliveryNote,
+        context.read<DataFromAdminBloc>().state.data!.partnerPercent.toInt(),
+        data: data));
+  }
+
   @override
   Widget build(BuildContext context) => BlocListener<AdminBloc, AdminState>(
         listener: (context, state) {
@@ -118,20 +125,7 @@ class _OtherViewState extends State<OtherView> {
                           final DataFromAdminModel data =
                               context.read<DataFromAdminBloc>().state.data!;
                           data.instruction = controller.text.trim();
-
-                          context.read<AdminBloc>().add(UpdateOtherEvent(
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .deliveryNote,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt(),
-                              data: data));
+                          updateData(data);
                         },
                       );
                     },
@@ -145,8 +139,7 @@ class _OtherViewState extends State<OtherView> {
                           .data!
                           .termsOfUsing
                           .toString();
-                      showNumberInputDialog(
-                        inputFormatter: MemberPercentInputFormatter(),
+                      showTextInputDialog(
                         context,
                         controller: controller,
                         hintText: ' '.tr,
@@ -155,20 +148,7 @@ class _OtherViewState extends State<OtherView> {
                           final DataFromAdminModel data =
                               context.read<DataFromAdminBloc>().state.data!;
                           data.termsOfUsing = controller.text.trim();
-
-                          context.read<AdminBloc>().add(UpdateOtherEvent(
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .deliveryNote,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt(),
-                              data: data));
+                          updateData(data);
                         },
                       );
                     },
@@ -191,24 +171,34 @@ class _OtherViewState extends State<OtherView> {
                           final DataFromAdminModel data =
                               context.read<DataFromAdminBloc>().state.data!;
                           data.adminPassword = controller.text.trim();
-
-                          context.read<AdminBloc>().add(UpdateOtherEvent(
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .deliveryNote,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .partnerPercent
-                                  .toInt(),
-                              data: data));
+                          updateData(data);
                         },
                       );
                     },
                     subtitle: state.data!.adminPassword),
+                OtherItem(
+                    title: 'phone_number'.tr,
+                    onTap: () {
+                      controller.text = context
+                          .read<DataFromAdminBloc>()
+                          .state
+                          .data!
+                          .phoneNumber
+                          .toString();
+                      showTextInputDialog(
+                        context,
+                        controller: controller,
+                        hintText: ' '.tr,
+                        title: 'phone_number'.tr,
+                        onConfirmTapped: () {
+                          final DataFromAdminModel data =
+                              context.read<DataFromAdminBloc>().state.data!;
+                          data.phoneNumber = controller.text.trim();
+                          updateData(data);
+                        },
+                      );
+                    },
+                    subtitle: state.data!.phoneNumber.isNotEmpty ? '+' : '-'),
               ],
             ),
           ),

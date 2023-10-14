@@ -1,16 +1,17 @@
 class DataFromAdminModel {
-  DataFromAdminModel({
-    required this.banners,
-    required this.deliveryNote,
-    required this.prices,
-    required this.instruction,
-    required this.termsOfUsing,
-    required this.partnerPercent,
-    required this.adminPassword,
-  });
+  DataFromAdminModel(
+      {required this.banners,
+      required this.deliveryNote,
+      required this.prices,
+      required this.instruction,
+      required this.termsOfUsing,
+      required this.partnerPercent,
+      required this.adminPassword,
+      required this.phoneNumber});
 
   factory DataFromAdminModel.fromJson(Map<String, dynamic> json) =>
       DataFromAdminModel(
+        phoneNumber: json['phoneNumber'] ?? '',
         banners: json['banners'] ?? [],
         instruction: json['instruction'] ?? '',
         termsOfUsing: json['termsOfUsing'] ?? '',
@@ -26,6 +27,7 @@ class DataFromAdminModel {
   String instruction;
   String termsOfUsing;
   String adminPassword;
+  String phoneNumber;
 
   Map<String, dynamic> toJson() => {
         'banners': banners,
@@ -35,5 +37,6 @@ class DataFromAdminModel {
         'adminPassword': adminPassword,
         'prices': prices,
         'partnerPercent': partnerPercent,
+        'phoneNumber': phoneNumber,
       };
 }

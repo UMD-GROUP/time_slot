@@ -11,7 +11,6 @@ class StoreItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width: width(context) * 0.007),
             SizedBox(
               width: width(context) * 0.25,
               child: Text(

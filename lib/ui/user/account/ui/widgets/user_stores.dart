@@ -43,28 +43,24 @@ class _UserStoresState extends State<UserStores> {
           child: Container(
             width: width(context),
             padding: EdgeInsets.symmetric(
-                horizontal: 10.h, vertical: widget.markets.isEmpty ? 10 : 6),
+                horizontal: 16.h, vertical: widget.markets.isEmpty ? 10 : 6),
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.deepPurple),
                 borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: [
-                Visibility(
-                  visible: widget.markets.isEmpty,
-                  child: Text('no_markets_yet'.tr,
-                      style: AppTextStyles.labelLarge(context,
-                          fontSize: 18, fontWeight: FontWeight.w600)),
-                ),
-                if (widget.markets.length != 5)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Spacer(),
-                      Text('markets'.tr,
-                          style: AppTextStyles.labelLarge(context,
-                              fontSize: 15.sp)),
-                      const Spacer(),
-                      IconButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('markets'.tr,
+                        style:
+                            AppTextStyles.labelLarge(context, fontSize: 15.sp)),
+                    const Spacer(),
+                    if (widget.markets.length != 5)
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple, // Background color
+                          ),
                           onPressed: () {
                             showCupertinoDialog(
                                 context: context,
@@ -72,12 +68,19 @@ class _UserStoresState extends State<UserStores> {
                                     user:
                                         context.read<UserBloc>().state.user!));
                           },
-                          icon: const Icon(
-                            Icons.add,
-                            color: Colors.deepPurple,
-                          ))
-                    ],
-                  ),
+                          child: Text(
+                            'add'.tr,
+                            style: TextStyle(fontSize: 12.sp),
+                          )),
+                  ],
+                ),
+                Visibility(
+                  visible: widget.markets.isEmpty,
+                  child: Text('no_markets_yet'.tr,
+                      style: AppTextStyles.labelLarge(context,
+                          fontSize: 18, fontWeight: FontWeight.w600)),
+                ),
+                SizedBox(height: height(context) * 0.01),
                 ...List.generate(
                     widget.markets.length,
                     (index) =>

@@ -14,7 +14,11 @@ class AddStoreDialog extends StatelessWidget {
           title: Text('add_your_store'.tr),
           content: Column(
             children: <Widget>[
-              Text('enter_your_stores_name_and_add'.tr),
+              if (!context.read<DataFromAdminBloc>().state.data.isNull)
+                Text('don_not_forget_to_add_number'.trParams({
+                  'number':
+                      context.read<DataFromAdminBloc>().state.data!.phoneNumber
+                })),
               const SizedBox(height: 16),
               CupertinoTextField(
                 controller: controller,

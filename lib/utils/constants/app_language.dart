@@ -157,6 +157,9 @@ class AppTranslations extends Translations {
           'instruction': "Qo'llanma",
           'terms_of_using': 'Foydalanish shartlari',
           'wrong_password': 'Parol xato kiritildi!',
+          'phone_number': 'Telefon raqam',
+          'don_not_forget_to_add_number':
+              "Do'koningizga @number raqamini yuk xatlari bilan ishlaydigan xodim sifatida qo'shishni unutmang hamda do'kon nomini to'g'ri kiriting!",
           'you_will_be_blocked':
               "Parolni 3 martadan ortiq noto'g'ri kiritilishi bloklanishingiz uchun asos bo'ladi! "
         },
@@ -310,7 +313,10 @@ class AppTranslations extends Translations {
           'terms_of_using': 'Условия использования',
           'wrong_password': 'Пароль введен неверно!',
           'you_will_be_blocked':
-              'Неправильный ввод пароля более 3 раз станет причиной вашей блокировки!'
+              'Неправильный ввод пароля более 3 раз станет причиной вашей блокировки!',
+          'phone_number': 'Номер телефона',
+          'don_not_forget_to_add_number':
+              'Не забудьте добавить @number в свой магазин в качестве сотрудника по отправке писем и правильно ввести название магазина!',
         }
       };
 }
