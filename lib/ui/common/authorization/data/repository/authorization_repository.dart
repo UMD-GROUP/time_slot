@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations, avoid_positional_boolean_parameters
 
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AuthorizationRepository {
@@ -111,6 +113,31 @@ class AuthorizationRepository {
       UserModel user, bool isSignIn) async {
     final MyResponse myResponse = MyResponse();
     final FirebaseAuth authInstance = getAuthInstance();
+
+    await authInstance.signOut();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    final UserCredential authResult =
+        await authInstance.signInWithCredential(credential);
+    final User? gUser = authResult.user;
+    final UserModel user = UserModel(
+        email: gUser?.email ?? '',
+        password: '12345678',
+        uid: gUser!.uid,
+        token: generateToken(),
+        createdAt: DateTime.now(),
+        referallId: 'ADMIN2023',
+        card: BankingCardModel(
+          cardNumber: '',
+        ));
     try {
       if (!isSignIn) {
         final FirebaseFirestore instance = FirebaseFirestore.instance;

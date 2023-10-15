@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names
+// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api
 
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -778,4 +779,83 @@ Future<User?> handleSignIn() async {
   } catch (error) {
     return null;
   }
+}
+
+class YouTubeVideo extends StatefulWidget {
+  YouTubeVideo(this.videoUrl, {super.key});
+  String videoUrl;
+
+  @override
+  State<YouTubeVideo> createState() => _YouTubeVideoState();
+}
+
+class _YouTubeVideoState extends State<YouTubeVideo> {
+  late VideoPlayerController _videoPlayerController,
+      _videoPlayerController2,
+      _videoPlayerController3;
+
+  late CustomVideoPlayerController _customVideoPlayerController;
+  late CustomVideoPlayerWebController _customVideoPlayerWebController;
+
+  final CustomVideoPlayerSettings _customVideoPlayerSettings =
+      CustomVideoPlayerSettings(
+          durationAfterControlsFadeOut: const Duration(seconds: 1),
+          alwaysShowThumbnailOnVideoPaused: true,
+          thumbnailWidget: Image.network(
+            'https://www.spot.uz/media/img/2022/08/85brvW16603795118030_b.jpg',
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ));
+
+  @override
+  void initState() {
+    super.initState();
+
+    _videoPlayerController = VideoPlayerController.network(
+      widget.videoUrl,
+    )..initialize().then((value) => setState(() {}));
+    _videoPlayerController2 = VideoPlayerController.network(widget.videoUrl);
+    _videoPlayerController3 = VideoPlayerController.network(widget.videoUrl);
+    _customVideoPlayerController = CustomVideoPlayerController(
+      context: context,
+      videoPlayerController: _videoPlayerController,
+      customVideoPlayerSettings: _customVideoPlayerSettings,
+      additionalVideoSources: {
+        '240p': _videoPlayerController2,
+        '480p': _videoPlayerController3,
+        '720p': _videoPlayerController,
+      },
+    );
+
+    // _customVideoPlayerWebController = CustomVideoPlayerWebController(
+    //   webVideoPlayerSettings: _customVideoPlayerWebSettings,
+    // );
+  }
+
+  @override
+  void dispose() {
+    _customVideoPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text('instruction'.tr),
+        ),
+        child: Center(
+          child: CustomVideoPlayer(
+            customVideoPlayerController: _customVideoPlayerController,
+          ),
+        ),
+      );
+}
+
+void showVideoPlayer(context, videoUrl) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => YouTubeVideo(
+      videoUrl,
+    ),
+  );
 }

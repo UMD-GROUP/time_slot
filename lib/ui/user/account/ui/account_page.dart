@@ -127,11 +127,13 @@ class _AccountPageState extends State<AccountPage> {
                               .isAbsolute,
                           child: AccountActionButton('instruction'.tr,
                               onTap: () async {
-                            await launch(context
-                                .read<DataFromAdminBloc>()
-                                .state
-                                .data!
-                                .instruction);
+                            showVideoPlayer(
+                                context,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .instruction);
                           }, icon: Icons.integration_instructions_outlined),
                         ),
                         AccountActionButton('support'.tr, onTap: () async {
