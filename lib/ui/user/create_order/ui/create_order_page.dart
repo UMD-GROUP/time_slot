@@ -61,14 +61,24 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           },
                           currentStep: state.currentStep,
                           onStepContinue: () {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToNextStepEvent());
+                            if (canTapStep(
+                                context,
+                                context.read<CreateOrderBloc>().state.order,
+                                state.currentStep + 1)) {
+                              context
+                                  .read<StepControllerBloc>()
+                                  .add(ToNextStepEvent());
+                            }
                           },
                           onStepTapped: (value) {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToStepEvent(value));
+                            if (canTapStep(
+                                context,
+                                context.read<CreateOrderBloc>().state.order,
+                                value)) {
+                              context
+                                  .read<StepControllerBloc>()
+                                  .add(ToStepEvent(value));
+                            }
                           },
                           connectorColor:
                               MaterialStateProperty.all(Colors.deepPurple),
@@ -107,6 +117,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 ResponseStatus.inProgress,
                             onTap: () {
                               final OrderModel order = orderState.order;
+                              order.ownerId =
+                                  context.read<UserBloc>().state.user!.uid;
                               order.sum = context
                                       .read<DataFromAdminBloc>()
                                       .state

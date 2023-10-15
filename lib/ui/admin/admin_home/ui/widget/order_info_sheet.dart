@@ -99,9 +99,9 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                             onTap: () async {
                               final TextEditingController comment =
                                   TextEditingController();
-                              widget.order.status = OrderStatus.cancelled;
                               comment.text = widget.order.comment;
                               showTextInputDialog(context, onConfirmTapped: () {
+                                widget.order.status = OrderStatus.cancelled;
                                 widget.order.comment = comment.text;
                                 context.read<AdminBloc>().add(UpdateOrderEvent(
                                     widget.order,

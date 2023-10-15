@@ -491,7 +491,7 @@ class TextInputDialog extends StatelessWidget {
             CupertinoTextField(
               controller: controller,
               placeholder: hintText,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
             ),
           ],
         ),
@@ -1296,4 +1296,26 @@ class NavigationControls extends StatelessWidget {
           ),
         ],
       );
+}
+
+bool canTapStep(context, OrderModel order, int step) {
+  String error = '';
+  if (step == 1 && order.marketName.isEmpty) {
+    error = 'you_must_select_market'.tr;
+  }
+  if (step == 2 && order.dates.isEmpty) {
+    error = 'you_must_select_data'.tr;
+  }
+  if (step == 3 && order.products.isEmpty) {
+    error = 'you_must_add_product'.tr;
+  }
+
+  if (error.isNotEmpty) {
+    AnimatedSnackBar(
+      snackBarStrategy: RemoveSnackBarStrategy(),
+      duration: const Duration(seconds: 4),
+      builder: (context) => AppErrorSnackBar(text: error),
+    ).show(context);
+  }
+  return error.isEmpty;
 }

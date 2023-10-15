@@ -89,13 +89,8 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
                   context: context,
                   type: 'price_per_one',
                   value: _selectedDays.isEmpty
-                      ? '0'
-                      : context
-                          .read<DataFromAdminBloc>()
-                          .state
-                          .data!
-                          .prices[_selectedDays.length - 1]
-                          .toString());
+                      ? '0 UZS'
+                      : '${context.read<DataFromAdminBloc>().state.data!.prices[_selectedDays.length - 1]} UZS');
             },
           ),
           TableCalendar(

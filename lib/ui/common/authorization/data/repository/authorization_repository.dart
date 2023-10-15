@@ -112,6 +112,7 @@ class AuthorizationRepository {
   Future<MyResponse> createAnAccountWithGoogle(bool isSignIn) async {
     final MyResponse myResponse = MyResponse();
     final FirebaseAuth authInstance = getAuthInstance();
+    final FirebaseFirestore instance = FirebaseFirestore.instance;
 
     await authInstance.signOut();
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -137,9 +138,11 @@ class AuthorizationRepository {
         card: BankingCardModel(
           cardNumber: '',
         ));
+    final DocumentSnapshot<Map<String, dynamic>> some =
+        await instance.collection('users').doc(gUser.uid).get();
+
     try {
-      if (!isSignIn) {
-        final FirebaseFirestore instance = FirebaseFirestore.instance;
+      if (!some.exists) {
         final QuerySnapshot<Map<String, dynamic>> tokens =
             await instance.collection('referalls').get();
         final List referalls = tokens.docs.first.data()['referalls'] ?? [];

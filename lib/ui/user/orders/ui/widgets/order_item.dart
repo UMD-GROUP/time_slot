@@ -114,7 +114,8 @@ class OrderItem extends StatelessWidget {
                           icon: Icons.production_quantity_limits_sharp,
                           context: context,
                           type: 'product count:',
-                          value: '${order.products.length} ${'piece'.tr}'),
+                          value:
+                              '${order.products.fold(0, (previousValue, element) => int.parse((previousValue + element.count).toString()))} ${'piece'.tr}'),
                       OrderTextWidget(
                           icon: Icons.attach_money,
                           context: context,

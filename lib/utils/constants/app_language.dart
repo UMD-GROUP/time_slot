@@ -39,7 +39,8 @@ class AppTranslations extends Translations {
           'add': "Qo'shish",
           'you_must_select_market': "Do'kon tanlanmadi!",
           'you_must_select_data': 'Eng kamida bitta sana\ntanlanishi kerak!',
-          'you_must_add_product': 'Eng kamida 10ta mahsulot\ntanlanishi kerak!',
+          'you_must_add_product':
+              'Eng kamida 10 ta mahsulot\ntanlanishi kerak!',
           'you_must_select_photo': 'Rasm yuklanishi shart!',
           'products': 'Mahsulotlar:',
           'order': 'Rasmiylashtirish',
@@ -153,7 +154,7 @@ class AppTranslations extends Translations {
           'share': 'Ulashish',
           'order_id': 'Buyurtma:',
           'price_per_one': 'Bir dona uchun: ',
-          'markets': "Do'konlar:",
+          'markets': "Do'konlar",
           'instruction': "Qo'llanma",
           'terms_of_using': 'Foydalanish shartlari',
           'wrong_password': 'Parol xato kiritildi!',
@@ -308,7 +309,7 @@ class AppTranslations extends Translations {
           'share': 'Делиться',
           'order_id': 'Заказ:',
           'price_per_one': 'За одну:  ',
-          'markets': 'Mагазины:',
+          'markets': 'Mагазины',
           'cant_purchase':
               'Для вывода денег на вашем счет\n должно быть не менее 50 000 сум!',
           'instruction': 'Инструкция',
