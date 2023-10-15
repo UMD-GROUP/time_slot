@@ -65,7 +65,7 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
     MyResponse myResponse = MyResponse();
     emit(state.copyWith(status: ResponseStatus.inProgress));
     myResponse = await getIt<AuthorizationRepository>()
-        .createAnAccountWithGoogle(event.user, event.isSignIn);
+        .createAnAccountWithGoogle(event.isSignIn);
     if (myResponse.message.isNull) {
       emit(state.copyWith(status: ResponseStatus.inSuccess));
     } else {

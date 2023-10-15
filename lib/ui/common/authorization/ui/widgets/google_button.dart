@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
-
 import '../../../../../utils/tools/file_importers.dart';
 
 class GoogleButton extends StatelessWidget {
@@ -11,25 +9,14 @@ class GoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => OnTap(
         onTap: () async {
-          final User? user = await handleSignIn();
-          final UserModel userModel = UserModel(
-              email: user?.email ?? '',
-              password: '12345678',
-              uid: user!.uid,
-              token: generateToken(),
-              createdAt: DateTime.now(),
-              referallId: 'ADMIN2023',
-              card: BankingCardModel(
-                cardNumber: '',
-              ));
           if (isSignIn) {
             context
                 .read<AuthorizationBloc>()
-                .add(CreateAccountWithGoogleEvent(userModel, true));
+                .add(CreateAccountWithGoogleEvent(true));
           } else {
             context
                 .read<AuthorizationBloc>()
-                .add(CreateAccountWithGoogleEvent(userModel, false));
+                .add(CreateAccountWithGoogleEvent(false));
           }
         },
         child: Container(

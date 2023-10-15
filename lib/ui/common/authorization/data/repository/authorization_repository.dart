@@ -109,8 +109,7 @@ class AuthorizationRepository {
     return myResponse;
   }
 
-  Future<MyResponse> createAnAccountWithGoogle(
-      UserModel user, bool isSignIn) async {
+  Future<MyResponse> createAnAccountWithGoogle(bool isSignIn) async {
     final MyResponse myResponse = MyResponse();
     final FirebaseAuth authInstance = getAuthInstance();
 
