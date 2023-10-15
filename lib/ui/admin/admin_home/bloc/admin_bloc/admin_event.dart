@@ -22,9 +22,10 @@ class UpdatePricesEvent extends AdminEvent {
 }
 
 class UpdateOtherEvent extends AdminEvent {
-  UpdateOtherEvent(this.deliveryNote, this.memberPercent);
+  UpdateOtherEvent(this.deliveryNote, this.memberPercent, {this.data});
   String deliveryNote;
   int memberPercent;
+  DataFromAdminModel? data;
 }
 
 class UpdateOrderEvent extends AdminEvent {

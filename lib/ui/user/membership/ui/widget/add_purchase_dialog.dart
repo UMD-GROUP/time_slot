@@ -9,6 +9,7 @@ class AddPurchaseDialog extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoAlertDialog(
         title: Text('enter_money_amount'.tr),
         content: CupertinoTextField(
+          autofocus: true,
           //inputFormatters: [MoneyInputFormatter()],
           controller: controller,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -52,7 +53,6 @@ class AddPurchaseDialog extends StatelessWidget {
                   builder: (context) => AppErrorSnackBar(text: error),
                 ).show(context);
               }
-              Navigator.of(context).pop();
             },
           ),
         ],

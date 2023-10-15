@@ -1,5 +1,4 @@
 // ignore_for_file: type_annotate_public_apis
-import 'package:time_slot/ui/user/orders/ui/widgets/order_text_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AddProductSection extends StatefulWidget {
@@ -15,8 +14,8 @@ class _AddProductSectionState extends State<AddProductSection> {
   bool canAdd = false;
 
   void changeStatus() {
-    canAdd =
-        deliveryNote.text.length == 7 && int.parse(count.text.trim()) >= 10;
+    canAdd = deliveryNote.text.length == 7 &&
+        int.parse(count.text.trim().toString() ?? '1') >= 10;
     setState(() {});
   }
 
@@ -38,62 +37,6 @@ class _AddProductSectionState extends State<AddProductSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('count_of_products'.tr,
-                        style: AppTextStyles.labelLarge(context,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16)),
-                    Text(
-                        '${state.order.products.length}  |  ${state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))}'
-                            .tr),
-                  ],
-                ),
-                SizedBox(height: height(context) * 0.03),
-                Visibility(
-                  visible: state.order.products.isNotEmpty,
-                  child: Column(
-                    children: [
-                      BlocBuilder<CreateOrderBloc, CreateOrderState>(
-                          builder: (context, state) => OrderTextWidget(
-                                isDate: true,
-                                icon: Icons.money,
-                                context: context,
-                                type: 'sum',
-                                value: (context
-                                                .read<DataFromAdminBloc>()
-                                                .state
-                                                .data!
-                                                .prices[
-                                            state.order.dates.length - 1] *
-                                        state.order.products.fold(
-                                            0,
-                                            (previousValue, element) =>
-                                                int.parse((previousValue +
-                                                        element.count)
-                                                    .toString())))
-                                    .toString(),
-                              )),
-                      SizedBox(height: height(context) * 0.02),
-                      Row(
-                        children: [
-                          const Spacer(),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.deepPurple, // Background color
-                              ),
-                              onPressed: () {
-                                showBottomSheet(context);
-                              },
-                              child: Text('show_products'.tr)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: height(context) * 0.02),
                 Visibility(
                   visible: state.order.products.length != 10,
                   child: Column(
@@ -136,8 +79,15 @@ class _AddProductSectionState extends State<AddProductSection> {
                                   )
                                 ],
                               )),
-                          SizedBox(
-                              width: width(context) * 0.17,
+                          Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.deepPurple),
+                                  borderRadius: BorderRadius.circular(6)),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
+                              width: width(context) * 0.18,
+                              alignment: Alignment.center,
+                              height: height(context) * 0.06,
                               child: TextField(
                                 controller: count,
                                 onChanged: (value) {
@@ -148,21 +98,31 @@ class _AddProductSectionState extends State<AddProductSection> {
                                 ],
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                    label: Text('count'.tr),
-                                    iconColor: Colors.deepPurple,
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.deepPurple))),
+                                    border: InputBorder.none,
+                                    hintText: 'count'.tr,
+                                    iconColor: Colors.deepPurple),
                               )),
                         ],
                       ),
                       SizedBox(height: height(context) * 0.01),
-                      Visibility(
-                        visible: canAdd,
-                        child: Row(
-                          children: [
-                            const Spacer(),
-                            ElevatedButton(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Visibility(
+                            visible: state.order.products.isNotEmpty,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary:
+                                      Colors.deepPurple, // Background color
+                                ),
+                                onPressed: () {
+                                  showBottomSheet(context);
+                                },
+                                child: Text('edit'.tr)),
+                          ),
+                          Visibility(
+                            visible: canAdd,
+                            child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary:
                                       Colors.deepPurple, // Background color
@@ -185,8 +145,8 @@ class _AddProductSectionState extends State<AddProductSection> {
                                       .add(UpdateFieldsOrderEvent(order));
                                 },
                                 child: Text('add'.tr)),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

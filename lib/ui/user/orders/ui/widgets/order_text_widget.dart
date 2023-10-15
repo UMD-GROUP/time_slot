@@ -13,8 +13,8 @@ Row OrderTextWidget(
         if (icon != null)
           Icon(icon,
               color: isDate
-                  ? Colors.black
-                  : AdaptiveTheme.of(context).theme.hintColor),
+                  ? Colors.grey
+                  : AdaptiveTheme.of(context).theme.hoverColor),
         if (icon != null) SizedBox(width: width(context) * 0.02),
         Text(
           type.tr,
@@ -25,7 +25,7 @@ Row OrderTextWidget(
           width: 5.w,
         ),
         Text(
-          isDate ? formatStringToMoney(value) : value,
+          value,
           style: AppTextStyles.bodyLargeSmall(context,
               fontSize: 15.sp, color: isDate ? Colors.black : null),
         ),

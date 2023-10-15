@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:time_slot/ui/user/orders/ui/widgets/order_item.dart';
 import 'package:time_slot/ui/user/orders/ui/widgets/tab_bar_custom_item.dart';
 
@@ -90,6 +92,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                 e.referallId ==
                                 context.read<UserBloc>().state.user!.token)
                             .toList();
+                curData.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
                 return curData.isEmpty
                     ? Center(
                         child: SizedBox(
@@ -98,6 +102,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                       )
                     : Expanded(
                         child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
                             itemCount: curData.length,
                             itemBuilder: (context, index) => OrderItem(
                                   order: curData[index],

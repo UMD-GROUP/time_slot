@@ -16,7 +16,7 @@ class OtherItem extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              title.tr,
+              title.tr.length > 7 ? '${title.tr.substring(0, 7)}...' : title.tr,
               style: AppTextStyles.bodyMedium(context),
             ),
             SizedBox(

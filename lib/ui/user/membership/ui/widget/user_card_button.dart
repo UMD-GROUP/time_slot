@@ -10,6 +10,7 @@ class UserCardButton extends StatelessWidget {
       BlocListener<PurchaseBloc, PurchaseState>(
         listener: (context, state) {
           if (state.addingStatus == ResponseStatus.inProgress) {
+            Navigator.pop(context);
             showLoadingDialog(context);
           } else if (state.addingStatus == ResponseStatus.inSuccess) {
             Navigator.pop(context);

@@ -34,7 +34,7 @@ class PartnerDialog extends StatelessWidget {
                     width: 5.w,
                   ),
                   Text(
-                    user.card.balance.toString(),
+                    user.card.balance.toInt().toString(),
                     style: AppTextStyles.bodyMedium(context),
                   ),
                   SizedBox(
@@ -69,7 +69,7 @@ class PartnerDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.card.purchaseInProgress.toString(),
+                    user.card.purchaseInProgress.toInt().toString(),
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
@@ -93,7 +93,7 @@ class PartnerDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.referrals.length.toString(),
+                    '${user.referrals.length} ${'piece'.tr}',
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
@@ -124,7 +124,10 @@ class PartnerDialog extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.dollar,color: AdaptiveTheme.of(context).theme.canvasColor,),
+                  SvgPicture.asset(
+                    AppIcons.dollar,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                  ),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -137,16 +140,23 @@ class PartnerDialog extends StatelessWidget {
                     width: 5.w,
                   ),
                   Text(
-                      user.willGetPercent == true?
-                         '${context.read<DataFromAdminBloc>().state.data!.partnerPercent.toString()}%': '0%',
+                    user.willGetPercent == true
+                        ? '${context.read<DataFromAdminBloc>().state.data!.partnerPercent.toString()}%'
+                        : '0%',
                     // user.card.balance.toString(),
-                    style: AppTextStyles.bodyMedium(context,color: user.willGetPercent == true? Colors.green : Colors.red),
+                    style: AppTextStyles.bodyMedium(context,
+                        color: user.willGetPercent == true
+                            ? Colors.green
+                            : Colors.red),
                   ),
                 ],
               ),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.calendar,color: AdaptiveTheme.of(context).theme.canvasColor,),
+                  SvgPicture.asset(
+                    AppIcons.calendar,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                  ),
                   SizedBox(
                     width: 4.w,
                   ),
@@ -159,7 +169,13 @@ class PartnerDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.createdAt == null ? 'milloddan avval' : DateTime.parse(user.createdAt.toString()).toUtc().toString().split(' ').first,
+                    user.createdAt == null
+                        ? 'milloddan avval'
+                        : DateTime.parse(user.createdAt.toString())
+                            .toUtc()
+                            .toString()
+                            .split(' ')
+                            .first,
                     style: AppTextStyles.bodyMedium(context),
                   ),
                 ],
@@ -182,8 +198,10 @@ class PartnerDialog extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    user.isBlocked ? 'blocked'.tr :'active'.tr,
-                    style: AppTextStyles.bodyMedium(context, color:  user.isBlocked ? Colors.red :Colors.green, fontWeight: FontWeight.bold),
+                    user.isBlocked ? 'blocked'.tr : 'active'.tr,
+                    style: AppTextStyles.bodyMedium(context,
+                        color: user.isBlocked ? Colors.red : Colors.green,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

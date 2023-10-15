@@ -41,12 +41,12 @@ class PriceItem extends StatelessWidget {
                     color: Colors.deepPurple,
                     borderRadius: BorderRadius.circular(10.r)),
                 child: Text(
-                    formatStringToMoney(context
+                    context
                         .read<DataFromAdminBloc>()
                         .state
                         .data!
                         .prices[index]
-                        .toString()),
+                        .toString(),
                     style:
                         AppTextStyles.labelLarge(context, color: Colors.white)),
               ),

@@ -21,11 +21,24 @@ class _MainPageState extends State<MainPage> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> checkForUpdate() async {
     await InAppUpdate.checkForUpdate().then((info) {
-      setState(() {
-        _updateInfo = info;
-      });
+      if (info.updateAvailability == UpdateAvailability.updateAvailable) {
+        print('UPDATE BORORORORO');
+        setState(() {
+          _updateInfo = info;
+          update();
+        });
+      } else {
+        print("Update yo'gakan");
+      }
     }).catchError((e) {
       showSnack(e.toString());
+    });
+  }
+
+  Future<void> update() async {
+    await InAppUpdate.startFlexibleUpdate();
+    await InAppUpdate.completeFlexibleUpdate().then((value) {}).catchError((e) {
+      print(e.toString());
     });
   }
 
@@ -34,6 +47,12 @@ class _MainPageState extends State<MainPage> {
       ScaffoldMessenger.of(_scaffoldKey.currentContext!)
           .showSnackBar(SnackBar(content: Text(text)));
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkForUpdate();
   }
 
   @override
@@ -65,11 +84,14 @@ class _MainPageState extends State<MainPage> {
             unselectedItemColor: AdaptiveTheme.of(context).theme.hintColor,
             selectedItemColor: Colors.deepPurple,
             backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+            items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.monetization_on), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+                  icon: const Icon(Icons.home), label: 'orders'.tr),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.monetization_on),
+                  label: 'membership'.tr),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.person), label: 'account'.tr),
             ],
           ),
         ),

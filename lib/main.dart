@@ -9,6 +9,6 @@ void main() async {
     androidProvider: AndroidProvider.debug,
   );
   setup();
-  Bloc.observer = AppBlocObserver();
+  // Bloc.observer = AppBlocObserver();
   runApp(const App());
 }

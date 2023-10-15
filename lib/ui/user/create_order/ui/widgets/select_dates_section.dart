@@ -85,9 +85,9 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
             builder: (context, state) {
               return OrderTextWidget(
                   isDate: true,
-                  icon: Icons.money,
+                  icon: Icons.attach_money,
                   context: context,
-                  type: 'sum',
+                  type: 'price_per_one',
                   value: _selectedDays.isEmpty
                       ? '0'
                       : context

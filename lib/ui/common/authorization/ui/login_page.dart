@@ -1,5 +1,6 @@
 // ignore_for_file: type_annotate_public_apis
 
+import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
 import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -30,118 +31,128 @@ class LoginPage extends StatelessWidget {
           builder: (context, state) => Scaffold(
             resizeToAvoidBottomInset: true,
             backgroundColor: Colors.white,
-            body: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.93,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            'login'.tr,
-                            style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'login_to_your_account'.tr,
-                            style: TextStyle(
-                                fontSize: 15, color: Colors.grey[700]),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40.h),
-                        child: Column(
-                          children: <Widget>[
-                            inputFile(
-                                label: 'email'.tr, controller: controllers[0]),
-                            inputFile(
-                                label: 'password'.tr,
-                                obscureText: true,
-                                controller: controllers[1])
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 3, left: 3),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: const Border(
-                                bottom: BorderSide(),
-                                top: BorderSide(),
-                                left: BorderSide(),
-                                right: BorderSide(),
-                              )),
-                          child: MaterialButton(
-                            minWidth: double.infinity,
-                            height: 60,
-                            onPressed: () {
-                              context.read<AuthorizationBloc>().add(SignInEvent(
-                                  UserModel(
-                                      card: BankingCardModel(cardNumber: ''),
-                                      email: controllers[0].text.trim(),
-                                      password: controllers[1].text.trim())));
-                            },
-                            color: Colors.deepPurple,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: state.status == ResponseStatus.inProgress
-                                ? const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : Text(
+                      SizedBox(
+                          height: height(context) * 0.65,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Text(
                                     'login'.tr,
                                     style: const TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.deepPurple),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    'login_to_your_account'.tr,
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.grey[700]),
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 40.h),
+                                child: Column(
+                                  children: <Widget>[
+                                    inputFile(
+                                        label: 'email'.tr,
+                                        controller: controllers[0]),
+                                    inputFile(
+                                        label: 'password'.tr,
+                                        obscureText: true,
+                                        controller: controllers[1])
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 40),
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.only(top: 3, left: 3),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    // border: const Border(
+                                    //   bottom: BorderSide(),
+                                    //   top: BorderSide(),
+                                    //   left: BorderSide(),
+                                    //   right: BorderSide(),
+                                    // )
+                                  ),
+                                  child: MaterialButton(
+                                    minWidth: double.infinity,
+                                    height: 60,
+                                    onPressed: () {
+                                      context.read<AuthorizationBloc>().add(
+                                          SignInEvent(UserModel(
+                                              card: BankingCardModel(
+                                                  cardNumber: ''),
+                                              email: controllers[0].text.trim(),
+                                              password:
+                                                  controllers[1].text.trim())));
+                                    },
+                                    color: Colors.deepPurple,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: state.status ==
+                                            ResponseStatus.inProgress
+                                        ? const CircularProgressIndicator(
+                                            color: Colors.white,
+                                          )
+                                        : Text(
+                                            'login'.tr,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Column(
+                        children: [
+                          GoogleButton(isSignIn: true),
+                          SizedBox(height: height(context) * 0.03),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text('do_not_have_an_account'.tr),
+                              OnTap(
+                                onTap: onTap,
+                                child: Text(
+                                  'sign_up'.tr,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                      color: Colors.deepPurple),
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text('do_not_have_an_account'.tr),
-                          OnTap(
-                            onTap: onTap,
-                            child: Text(
-                              'sign_up'.tr,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                  color: Colors.deepPurple),
-                            ),
-                          )
+                          SizedBox(height: height(context) * 0.03),
                         ],
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 100),
-                        height: 200,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(AppImages.background),
-                              fit: BoxFit.fitHeight),
-                        ),
                       )
                     ],
-                  ))
-                ],
+                  ),
+                ),
               ),
             ),
           ),

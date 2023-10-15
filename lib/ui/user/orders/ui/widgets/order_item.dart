@@ -12,20 +12,18 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => OnTap(
         onTap: () {
-          if (!isAdmin) {
-            showCupertinoModalPopup(
-                context: context,
-                builder: (context) => Theme(
-                      data: AdaptiveTheme.of(context).theme.backgroundColor ==
-                              Colors.white
-                          ? ThemeData.light()
-                          : ThemeData.dark(),
-                      child: OrderInfoBottomSheet(
-                        isAdmin: false,
-                        order: order,
-                      ),
-                    ));
-          }
+          showCupertinoModalPopup(
+              context: context,
+              builder: (context) => Theme(
+                    data: AdaptiveTheme.of(context).theme.backgroundColor ==
+                            Colors.white
+                        ? ThemeData.light()
+                        : ThemeData.dark(),
+                    child: OrderInfoBottomSheet(
+                      isAdmin: isAdmin,
+                      order: order,
+                    ),
+                  ));
         },
         child: Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 5.w),
@@ -91,8 +89,12 @@ class OrderItem extends StatelessWidget {
                                 color: Colors.deepPurpleAccent,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.h))),
-                            child: const Center(
-                              child: Icon(Icons.record_voice_over_outlined),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                AppIcons.refresh,
+                                height: 36.h,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                   ),
@@ -104,98 +106,84 @@ class OrderItem extends StatelessWidget {
                         height: height(context) * 0.01,
                       ),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.person,
+                          icon: Icons.install_desktop,
                           context: context,
                           type: 'ID:',
                           value: order.orderId.toString()),
                       OrderTextWidget(
-                          icon: isAdmin
-                              ? null
-                              : Icons.production_quantity_limits_sharp,
+                          icon: Icons.production_quantity_limits_sharp,
                           context: context,
                           type: 'product count:',
-                          value: order.products.length.toString()),
+                          value: '${order.products.length} ${'piece'.tr}'),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.money,
+                          icon: Icons.attach_money,
                           context: context,
                           type: 'sum',
-                          value: order.sum.toString()),
+                          value: '${order.sum.toInt()} UZS'),
                       OrderTextWidget(
-                          icon: isAdmin ? null : Icons.token,
+                          icon: Icons.group,
                           context: context,
                           type: 'partner_id',
                           value: order.referallId.toString()),
                       //     OrderTextWidget(context: context, type: 'Status:',value: data[index].status.toString()),
-                      Row(
-                        children: [
-                          Icon(Icons.access_time_filled_outlined,
-                              color: AdaptiveTheme.of(context).theme.hintColor),
-                          SizedBox(width: width(context) * 0.02),
-                          Text(
-                            'Status:'.tr,
-                            style: AppTextStyles.bodyMedium(context,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Text(
-                            order.status.toString() == 'OrderStatus.created'
-                                ? 'created'.tr
-                                : order.status.toString() ==
-                                        'OrderStatus.inProgress'
-                                    ? 'progress'.tr
-                                    : order.status.toString() ==
-                                            'OrderStatus.cancelled'
-                                        ? 'cancelled'.tr
-                                        : 'done'.tr,
-                            style: AppTextStyles.bodyLargeSmall(context,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
-                                color: order.status == OrderStatus.created
-                                    ? Colors.yellow
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Icon(Icons.access_time_filled_outlined,
+                                color:
+                                    AdaptiveTheme.of(context).theme.hoverColor),
+                            SizedBox(width: width(context) * 0.02),
+                            Text(
+                              'Status:'.tr,
+                              style: AppTextStyles.bodyMedium(context,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            SizedBox(
+                              width: width(context) * 0.3,
+                              child: Text(
+                                order.status.toString() == 'OrderStatus.created'
+                                    ? 'created'.tr
                                     : order.status.toString() ==
                                             'OrderStatus.inProgress'
-                                        ? AppColors.cGold
+                                        ? 'progress'.tr
                                         : order.status.toString() ==
                                                 'OrderStatus.cancelled'
-                                            ? AppColors.cFF3333
-                                            : Colors.green),
-                          ),
-                        ],
+                                            ? order.ownerId ==
+                                                        context
+                                                            .read<UserBloc>()
+                                                            .state
+                                                            .user!
+                                                            .uid ||
+                                                    isAdmin
+                                                ? order.comment
+                                                : 'cancelled'.tr
+                                            : 'done'.tr,
+                                maxLines: 3,
+                                style: AppTextStyles.bodyLargeSmall(context,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp,
+                                    color: order.status == OrderStatus.created
+                                        ? Colors.yellow
+                                        : order.status.toString() ==
+                                                'OrderStatus.inProgress'
+                                            ? AppColors.cGold
+                                            : order.status.toString() ==
+                                                    'OrderStatus.cancelled'
+                                                ? AppColors.cFF3333
+                                                : Colors.green),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: height(context) * 0.01,
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  isAdmin
-                      ? GestureDetector(
-                          onTap: () {
-                            showCupertinoModalPopup(
-                                context: context,
-                                builder: (context) => Theme(
-                                      data: AdaptiveTheme.of(context)
-                                                  .theme
-                                                  .backgroundColor ==
-                                              Colors.white
-                                          ? ThemeData.light()
-                                          : ThemeData.dark(),
-                                      child: OrderInfoBottomSheet(
-                                        order: order,
-                                      ),
-                                    ));
-                            // showOrderDialog(context, order);
-                          },
-                          child: SvgPicture.asset(
-                            AppIcons.threeDots,
-                            color: AdaptiveTheme.of(context)
-                                .theme
-                                .bottomAppBarColor,
-                            height: height(context) * 0.035,
-                          ))
-                      : const SizedBox(),
                   SizedBox(
                     width: 10.w,
                   )

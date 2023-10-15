@@ -30,8 +30,8 @@ class AppTranslations extends Translations {
           'created': 'Yaratilgan',
           'cancelled': 'Rad etilgan',
           'progress': 'Jarayonda',
-          'choose_market': "Do'konni tanlash",
-          'choose_dates': 'Sanalarni tanlash',
+          'choose_market': "Do'kon: ",
+          'choose_dates': 'Sanalar: ',
           'count_of_products': 'Mahsulotlar soni:',
           'delivery_note': 'Yukxat',
           'count': 'Soni',
@@ -76,6 +76,8 @@ class AppTranslations extends Translations {
           'you_need_to_enter_more_then_50':
               "Eng kamida 50 000 so'm\nyechish mumkin.",
           'you_cant_afford': "Kiritilgan mablag' hisobingizda\nmavjud emas!",
+          'cant_purchase':
+              "Pul yechish uchun hisobingizda eng\nkamida 50 000 so'm bo'lishi kerak!",
           'card_not_found':
               'Bank kartasi kirtimasdan\nushbu amaliyotni bajara olmaysiz!',
           '[firebase_auth/email-already-in-use] The email address is already in use by another account.':
@@ -108,7 +110,7 @@ class AppTranslations extends Translations {
           'prices': 'Narxlar',
           'other': 'Boshqalar',
           'users': 'Foydalanuvchilar',
-          'partners': 'Hamkorlar',
+          'partners': 'Hamkor',
           'pay': "To'lov",
           'admin_panel': "Admin bo'limi",
           'are_you_sure_you_want_to_delete_this_banner':
@@ -121,9 +123,9 @@ class AppTranslations extends Translations {
           'member_percent': 'Hamkor ulushi',
           'accept': 'Qabul qilish',
           'decline': 'Bekor qilish',
-          'finished': 'Tugagan',
+          'finished': 'Yakunlangan',
           'un_finished': 'Tugamagan',
-          'edit': 'tahrirlash',
+          'edit': 'Tahrirlash',
           'product_count': 'Mahsulot soni:',
           'status': 'Status:',
           'user_data': "Foydalanuvchi ma'lumotlari",
@@ -148,7 +150,20 @@ class AppTranslations extends Translations {
           'pay': "To'lov qilish",
           'update': 'Yangilash',
           'support': "Qo'llab-quvvatlash",
-          'share': 'Ulashish'
+          'share': 'Ulashish',
+          'order_id': 'Buyurtma:',
+          'price_per_one': 'Bir dona uchun: ',
+          'markets': "Do'konlar:",
+          'instruction': "Qo'llanma",
+          'terms_of_using': 'Foydalanish shartlari',
+          'wrong_password': 'Parol xato kiritildi!',
+          'phone_number': 'Telefon raqam',
+          'don_not_forget_to_add_number':
+              "Do'koningizga @number raqamini yuk xatlari bilan ishlaydigan xodim sifatida qo'shishni unutmang hamda do'kon nomini to'g'ri kiriting!",
+          'you_will_be_blocked':
+              "Parolni 3 martadan ortiq noto'g'ri kiritilishi bloklanishingiz uchun asos bo'ladi! ",
+          'add_comment': "Izoh qo'shing",
+          'sign_in_with_google': 'Google orqali kirish',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -164,11 +179,11 @@ class AppTranslations extends Translations {
           'login_to_your_account': 'Войдите в свой аккаунт',
           'name': 'Имя',
           'surname': 'Фамилия',
-          'choose_market': 'Выберите магазин',
-          'choose_dates': 'Выберите даты',
+          'choose_market': 'Mагазин:',
+          'choose_dates': 'Даты',
           'count_of_products': 'Кол. продуктов:',
           'delivery_note': 'Накладная',
-          'count': 'Количество',
+          'count': 'шт',
           'choose_photo': 'Выберите изображениеh',
           'add': 'Добавить',
           'order': 'Формализация',
@@ -188,11 +203,11 @@ class AppTranslations extends Translations {
           'all_purchased': 'Barcha yechilgan: ',
           'purchase': 'Снять деньги',
           'product count:': 'Кол. продуктов:',
-          'sum': 'Цена услуги:',
+          'sum': 'Цена усл:',
           'all': 'Все',
           'mine': 'Мой',
           'referals': 'Рефералы',
-          'done': 'Сделанный',
+          'done': 'Завершенный',
           'created': 'Созданный',
           'cancelled': 'Отменено',
           'progress': 'Прогресс',
@@ -251,7 +266,7 @@ class AppTranslations extends Translations {
           'prices': 'Цены',
           'other': 'Другие',
           'users': 'Пользователи',
-          'partners': 'Партнеры',
+          'partners': 'Партнер',
           'pay': 'Оплата',
           'admin_panel': 'Панель администратора',
           'are_you_sure_you_want_to_delete_this_banner':
@@ -290,7 +305,22 @@ class AppTranslations extends Translations {
           'pay': 'Оплата',
           'update': 'Обновлять',
           'support': 'Центр поддержки',
-          'share': 'Делиться'
+          'share': 'Делиться',
+          'order_id': 'Заказ:',
+          'price_per_one': 'За одну:  ',
+          'markets': 'Mагазины:',
+          'cant_purchase':
+              'Для вывода денег на вашем счет\n должно быть не менее 50 000 сум!',
+          'instruction': 'Инструкция',
+          'terms_of_using': 'Условия использования',
+          'wrong_password': 'Пароль введен неверно!',
+          'you_will_be_blocked':
+              'Неправильный ввод пароля более 3 раз станет причиной вашей блокировки!',
+          'phone_number': 'Номер телефона',
+          'add_comment': 'Добавить комментарий',
+          'don_not_forget_to_add_number':
+              'Не забудьте добавить @number в свой магазин в качестве сотрудника по отправке писем и правильно ввести название магазина!',
+          'sign_in_with_google': 'Войти через Google',
         }
       };
 }

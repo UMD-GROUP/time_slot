@@ -1,13 +1,6 @@
 // ignore_for_file: type_annotate_public_apis, avoid_catches_without_on_clauses, cascade_invocations
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:time_slot/data/models/data_from_admin_model.dart';
-import 'package:time_slot/data/models/my_response.dart';
-import 'package:time_slot/ui/common/authorization/data/models/user_model.dart';
-import 'package:time_slot/ui/user/membership/data/models/purchase_model.dart';
-import 'package:time_slot/ui/user/orders/data/models/order_model.dart';
-import 'package:time_slot/utils/constants/form_status.dart';
-import 'package:time_slot/utils/tools/assistants.dart';
+import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AdminRepository {
   AdminRepository(this.instance);
@@ -58,11 +51,22 @@ class AdminRepository {
     return myResponse;
   }
 
-  Future<MyResponse> updateOther(String deliveryNote, int memberPercent) async {
+  Future<MyResponse> updateOther(String deliveryNote, int memberPercent,
+      {DataFromAdminModel? data}) async {
     final MyResponse myResponse = MyResponse();
     try {
-      await instance.collection('admin_data').doc('admin_data').update(
-          {'partnerPercent': memberPercent, 'deliveryNote': deliveryNote});
+      if (data.isNull) {
+        await instance.collection('admin_data').doc('admin_data').update(
+            {'partnerPercent': memberPercent, 'deliveryNote': deliveryNote});
+      } else {
+        print('Shjfhefefheru');
+
+        print(data!.toJson());
+        await instance
+            .collection('admin_data')
+            .doc('admin_data')
+            .update(data!.toJson());
+      }
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();

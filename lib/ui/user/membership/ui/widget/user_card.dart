@@ -27,36 +27,38 @@ class _UserCardState extends State<UserCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppIcons.balance,
-                    color: Colors.white,
-                    height: height(context) * 0.032,
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Text(
-                    "${'balance'.tr} ${formatStringToMoney(context.read<UserBloc>().state.user!.card.balance.toString())} so'm",
-                    style: AppTextStyles.labelLarge(context,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.only(left: 20.h),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      AppIcons.balance,
+                      color: Colors.white,
+                      height: height(context) * 0.032,
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      "${'balance'.tr} ${context.read<UserBloc>().state.user!.card.balance.toString()} so'm",
+                      style: AppTextStyles.labelLarge(context,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
               UserCardItem(
                   icon: AppIcons.refresh,
                   text1: 'in_progress',
-                  text2: formatStringToMoney(context
+                  text2: context
                       .read<UserBloc>()
                       .state
                       .user!
                       .card
                       .purchaseInProgress
-                      .toString()),
+                      .toString(),
                   text3: 'uz_sum'),
               UserCardItem(
                   icon: AppIcons.users,
@@ -72,23 +74,33 @@ class _UserCardState extends State<UserCard> {
               UserCardItem(
                   icon: AppIcons.check,
                   text1: 'total_amount_withdrawn',
-                  text2: formatStringToMoney(context
+                  text2: context
                       .read<UserBloc>()
                       .state
                       .user!
                       .card
                       .allPurchased
-                      .toString()),
+                      .toString(),
                   text3: 'uz_sum'),
               UserCardButton(onTap: () {
                 if (context
-                    .read<UserBloc>()
-                    .state
-                    .user!
-                    .card
-                    .cardNumber
-                    .isNotEmpty) {
+                        .read<UserBloc>()
+                        .state
+                        .user!
+                        .card
+                        .cardNumber
+                        .isNotEmpty &&
+                    context.read<UserBloc>().state.user!.card.balance >=
+                        50000) {
                   showMoneyInputDialog(context);
+                } else if (context.read<UserBloc>().state.user!.card.balance <
+                    50000) {
+                  AnimatedSnackBar(
+                    duration: const Duration(seconds: 4),
+                    snackBarStrategy: RemoveSnackBarStrategy(),
+                    builder: (context) =>
+                        AppErrorSnackBar(text: 'cant_purchase'.tr),
+                  ).show(context);
                 } else {
                   AnimatedSnackBar(
                     duration: const Duration(seconds: 4),

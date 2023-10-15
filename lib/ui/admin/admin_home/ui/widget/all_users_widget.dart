@@ -41,6 +41,7 @@ class AllUsersWidget extends StatelessWidget {
               final List<UserModel> data = curData
                   .where((element) => element.referrals.isNotEmpty)
                   .toList();
+              curData.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
               return curData.isEmpty
                   ? Center(
                       child: SizedBox(
