@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:share_plus/share_plus.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/account_action_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
@@ -111,11 +113,16 @@ class _AccountPageState extends State<AccountPage> {
                               .isAbsolute,
                           child: AccountActionButton('terms_of_using'.tr,
                               onTap: () async {
-                            await launch(context
-                                .read<DataFromAdminBloc>()
-                                .state
-                                .data!
-                                .termsOfUsing);
+                            unawaited(Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WebViewExample(),
+                                )));
+                            // await launch(context
+                            //     .read<DataFromAdminBloc>()
+                            //     .state
+                            //     .data!
+                            //     .termsOfUsing);
                           }, icon: Icons.published_with_changes_outlined),
                         ),
                         Visibility(
