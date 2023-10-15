@@ -14,7 +14,12 @@ class SignupPage extends StatelessWidget {
         create: (context) => AuthorizationBloc(),
         child: BlocConsumer<AuthorizationBloc, AuthorizationState>(
           listener: (context, state) {
+            if (state.status == ResponseStatus.inProgress) {
+              showLoadingDialog(context);
+            }
             if (state.status == ResponseStatus.inFail) {
+              Navigator.pop(context);
+
               AnimatedSnackBar(
                   duration: const Duration(seconds: 4),
                   snackBarStrategy: RemoveSnackBarStrategy(),
@@ -22,6 +27,8 @@ class SignupPage extends StatelessWidget {
                       AppErrorSnackBar(text: state.message.tr)).show(context);
             }
             if (state.status == ResponseStatus.inSuccess) {
+              Navigator.pop(context);
+
               context.read<UserBloc>().add(
                   GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
               Navigator.pushNamedAndRemoveUntil(

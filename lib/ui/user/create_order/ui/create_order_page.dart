@@ -117,8 +117,14 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 ResponseStatus.inProgress,
                             onTap: () {
                               final OrderModel order = orderState.order;
+                              order.referallId = context
+                                  .read<UserBloc>()
+                                  .state
+                                  .user!
+                                  .referallId;
                               order.ownerId =
                                   context.read<UserBloc>().state.user!.uid;
+                              order.orderId = generateRandomID(true);
                               order.sum = context
                                       .read<DataFromAdminBloc>()
                                       .state
