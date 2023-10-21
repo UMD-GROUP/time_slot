@@ -8,10 +8,13 @@ import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/partner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
@@ -789,15 +792,15 @@ Future<User?> handleSignIn() async {
   }
 }
 
-class YouTubeVideo extends StatefulWidget {
-  YouTubeVideo(this.videoUrl, {super.key});
+class VideoPlayerWidget extends StatefulWidget {
+  VideoPlayerWidget(this.videoUrl, {super.key});
   String videoUrl;
 
   @override
-  State<YouTubeVideo> createState() => _YouTubeVideoState();
+  State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
 }
 
-class _YouTubeVideoState extends State<YouTubeVideo> {
+class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   late VideoPlayerController _videoPlayerController,
       _videoPlayerController2,
       _videoPlayerController3;
@@ -862,7 +865,7 @@ class _YouTubeVideoState extends State<YouTubeVideo> {
 void showVideoPlayer(context, videoUrl) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => YouTubeVideo(
+    builder: (context) => VideoPlayerWidget(
       videoUrl,
     ),
   );
@@ -1318,4 +1321,12 @@ bool canTapStep(context, OrderModel order, int step) {
     ).show(context);
   }
   return error.isEmpty;
+}
+
+void changeLanguage() {
+  final bool isUzbek = 'light_mode'.tr == 'Kunduzgi rejim';
+  Get.updateLocale(
+      isUzbek ? const Locale('ru', 'RU') : const Locale('uz', 'UZ'));
+  print(isUzbek);
+  StorageService().saveString('language', isUzbek ? 'ru' : 'uz');
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: type_annotate_public_apis
 
+import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
 import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
@@ -31,8 +32,12 @@ class SignupPage extends StatelessWidget {
 
               context.read<UserBloc>().add(
                   GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
-              Navigator.pushNamedAndRemoveUntil(
-                  context, RouteName.userMain, (route) => false);
+              if (getIt<StorageService>().getBool('isPassed')) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, RouteName.userMain, (route) => false);
+              } else {
+                Navigator.pushNamed(context, RouteName.onBoarding);
+              }
             }
           },
           builder: (context, state) => Scaffold(
