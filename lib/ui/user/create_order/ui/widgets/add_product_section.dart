@@ -14,7 +14,8 @@ class _AddProductSectionState extends State<AddProductSection> {
   bool canAdd = false;
 
   void changeStatus() {
-    canAdd = deliveryNote.text.length == 7 && count.text.isNotEmpty;
+    canAdd = deliveryNote.text.length == 7 &&
+        int.parse(count.text.trim().toString() ?? '1') >= 10;
     setState(() {});
   }
 
@@ -36,116 +37,120 @@ class _AddProductSectionState extends State<AddProductSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('count_of_products'.tr,
-                        style: AppTextStyles.labelLarge(context,
-                            fontWeight: FontWeight.w700, fontSize: 16)),
-                    Text(
-                        '${state.order.products.length}  |  ${state.order.products.fold(0, (previousValue, element) => previousValue + element.count)}'
-                            .tr),
-                  ],
-                ),
-                SizedBox(height: height(context) * 0.03),
                 Visibility(
-                  visible: state.order.products.isNotEmpty,
-                  child: Row(
+                  visible: state.order.products.length != 10,
+                  child: Column(
                     children: [
-                      const Spacer(),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple, // Background color
-                          ),
-                          onPressed: () {
-                            showBottomSheet(context);
-                          },
-                          child: Text('show_products'.tr)),
-                    ],
-                  ),
-                ),
-                SizedBox(height: height(context) * 0.02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.deepPurple),
-                            borderRadius: BorderRadius.circular(6)),
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        alignment: Alignment.center,
-                        width: width(context) * 0.45,
-                        height: height(context) * 0.06,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('123456 -',
-                                style: AppTextStyles.labelLarge(context,
-                                    fontSize: 16)),
-                            Expanded(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.deepPurple),
+                                  borderRadius: BorderRadius.circular(6)),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
+                              alignment: Alignment.center,
+                              width: width(context) * 0.45,
+                              height: height(context) * 0.06,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      '${context.read<DataFromAdminBloc>().state.data!.deliveryNote} -',
+                                      style: AppTextStyles.labelLarge(context,
+                                          color: Colors.black, fontSize: 16)),
+                                  Expanded(
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        changeStatus();
+                                      },
+                                      controller: deliveryNote,
+                                      inputFormatters: [
+                                        SevenDigitInputFormatter()
+                                      ],
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                          hintText: 'delivery_note'.tr,
+                                          border: InputBorder.none,
+                                          iconColor: Colors.deepPurple),
+                                    ),
+                                  )
+                                ],
+                              )),
+                          Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.deepPurple),
+                                  borderRadius: BorderRadius.circular(6)),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
+                              width: width(context) * 0.18,
+                              alignment: Alignment.center,
+                              height: height(context) * 0.06,
                               child: TextField(
+                                controller: count,
                                 onChanged: (value) {
                                   changeStatus();
                                 },
-                                controller: deliveryNote,
-                                inputFormatters: [SevenDigitInputFormatter()],
+                                inputFormatters: [
+                                  ThreeDigitInputFormatter(),
+                                ],
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                    hintText: 'delivery_note'.tr,
                                     border: InputBorder.none,
+                                    hintText: 'count'.tr,
                                     iconColor: Colors.deepPurple),
-                              ),
-                            )
-                          ],
-                        )),
-                    SizedBox(
-                        width: width(context) * 0.17,
-                        child: TextField(
-                          controller: count,
-                          onChanged: (value) {
-                            changeStatus();
-                          },
-                          inputFormatters: [
-                            ThreeDigitInputFormatter(),
-                          ],
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              label: Text('count'.tr),
-                              iconColor: Colors.deepPurple,
-                              border: const OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.deepPurple))),
-                        )),
-                  ],
-                ),
-                SizedBox(height: height(context) * 0.01),
-                Visibility(
-                  visible: canAdd,
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple, // Background color
+                              )),
+                        ],
+                      ),
+                      SizedBox(height: height(context) * 0.01),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Visibility(
+                            visible: state.order.products.isNotEmpty,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary:
+                                      Colors.deepPurple, // Background color
+                                ),
+                                onPressed: () {
+                                  showBottomSheet(context);
+                                },
+                                child: Text('edit'.tr)),
                           ),
-                          onPressed: () {
-                            final OrderModel order =
-                                context.read<CreateOrderBloc>().state.order;
-                            order.products.add(ProductModel(
-                                count: int.parse(count.text),
-                                deliveryNote: deliveryNote.text));
-                            count.clear();
-                            deliveryNote.clear();
-                            changeStatus();
+                          Visibility(
+                            visible: canAdd,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary:
+                                      Colors.deepPurple, // Background color
+                                ),
+                                onPressed: () {
+                                  final OrderModel order = context
+                                      .read<CreateOrderBloc>()
+                                      .state
+                                      .order;
+                                  order.products.add(ProductModel(
+                                      count: int.parse(count.text),
+                                      deliveryNote:
+                                          '${context.read<DataFromAdminBloc>().state.data!.deliveryNote} ${deliveryNote.text}'));
+                                  count.clear();
+                                  deliveryNote.clear();
+                                  changeStatus();
 
-                            context
-                                .read<CreateOrderBloc>()
-                                .add(UpdateFieldsOrderEvent(order));
-                          },
-                          child: Text('add'.tr)),
+                                  context
+                                      .read<CreateOrderBloc>()
+                                      .add(UpdateFieldsOrderEvent(order));
+                                },
+                                child: Text('add'.tr)),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),

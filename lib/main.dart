@@ -1,4 +1,6 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:time_slot/firebase_options.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -8,7 +10,10 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
+  final appDocumentDirectory = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
+  await Hive.openBox('settings');
   setup();
-  Bloc.observer = AppBlocObserver();
+  // Bloc.observer = AppBlocObserver();
   runApp(const App());
 }

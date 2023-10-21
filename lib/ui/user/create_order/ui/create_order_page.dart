@@ -1,6 +1,5 @@
-// ignore_for_file: use_named_constants, cascade_invocations
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: use_named_constants, cascade_invocations, inference_failure_on_function_invocation
+import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class CreateOrderPage extends StatefulWidget {
@@ -27,6 +26,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
           child: BlocConsumer<CreateOrderBloc, CreateOrderState>(
             listener: (context, state) {
               if (state.addingStatus == ResponseStatus.inSuccess) {
+                context.read<OrderBloc>().add(GetOrderEvent());
                 Navigator.pop(context);
                 AnimatedSnackBar(
                   snackBarStrategy: RemoveSnackBarStrategy(),
@@ -43,14 +43,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   builder: (context) => AppErrorSnackBar(text: state.message),
                 ).show(context);
               } else if (state.addingStatus == ResponseStatus.inProgress) {
-                showCupertinoDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) => const CupertinoAlertDialog(
-                    title: Text('Loading...'),
-                    content: CupertinoActivityIndicator(), // Loading indicator
-                  ),
-                );
+                showLoadingDialog(context);
               }
             },
             builder: (context, orderState) => BlocProvider(
@@ -68,46 +61,52 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           },
                           currentStep: state.currentStep,
                           onStepContinue: () {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToNextStepEvent());
+                            if (canTapStep(
+                                context,
+                                context.read<CreateOrderBloc>().state.order,
+                                state.currentStep + 1)) {
+                              context
+                                  .read<StepControllerBloc>()
+                                  .add(ToNextStepEvent());
+                            }
                           },
                           onStepTapped: (value) {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToStepEvent(value));
+                            if (canTapStep(
+                                context,
+                                context.read<CreateOrderBloc>().state.order,
+                                value)) {
+                              context
+                                  .read<StepControllerBloc>()
+                                  .add(ToStepEvent(value));
+                            }
                           },
                           connectorColor:
                               MaterialStateProperty.all(Colors.deepPurple),
                           steps: [
                             Step(
-                              title: Text('choose_market'.tr),
+                              title: Text(
+                                "${'choose_market'.tr}  ${context.read<CreateOrderBloc>().state.order.marketName}",
+                                // style: AppTextStyles.labelLarge(context),
+                              ),
                               content: const MarketOption(),
                             ),
                             Step(
-                              title: Text('choose_dates'.tr),
-                              content: CalendarDatePicker2(
-                                config: CalendarDatePicker2Config(
-                                  calendarType: CalendarDatePicker2Type.multi,
-                                ),
-                                value: orderState.order.dates.cast(),
-                                onValueChanged: (dates) {
-                                  final OrderModel order = context
-                                      .read<CreateOrderBloc>()
-                                      .state
-                                      .order;
-                                  order.dates = dates;
-                                  context
-                                      .read<CreateOrderBloc>()
-                                      .add(UpdateFieldsOrderEvent(order));
-                                },
+                              title: Text(
+                                "${'choose_dates'.tr}  ${context.read<CreateOrderBloc>().state.order.dates.length} ${'piece'.tr}",
+                                // style: AppTextStyles.labelLarge(context),
                               ),
+                              content: const SelectDatesSection(),
                             ),
                             Step(
-                                title: Text('products'.tr),
+                                title: Text(
+                                    "${'products'.tr}  ${context.read<CreateOrderBloc>().state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}"),
                                 content: const AddProductSection()),
                             Step(
-                                title: Text('choose_photo'.tr),
+                                title: BlocBuilder<CreateOrderBloc,
+                                    CreateOrderState>(
+                                  builder: (context, state) => Text(
+                                      '${'payment'.tr}     ${state.order.products.isNotEmpty ? (context.read<DataFromAdminBloc>().state.data!.prices[state.order.dates.length - 1] * state.order.products.fold(0, (previousValue, element) => int.parse((previousValue + element.count).toString()))).toString() : ''}  ${state.order.products.isNotEmpty ? 'UZS' : ''}'),
+                                ),
                                 content: const ImageSection())
                           ]),
                       SizedBox(height: height(context) * 0.05),
@@ -117,8 +116,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             isLoading: orderState.addingStatus ==
                                 ResponseStatus.inProgress,
                             onTap: () {
-                              final OrderModel order =
-                                  context.read<CreateOrderBloc>().state.order;
+                              final OrderModel order = orderState.order;
                               order.referallId = context
                                   .read<UserBloc>()
                                   .state
@@ -126,10 +124,19 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                   .referallId;
                               order.ownerId =
                                   context.read<UserBloc>().state.user!.uid;
-
-                              context
-                                  .read<CreateOrderBloc>()
-                                  .add(AddOrderEvent(order));
+                              order.orderId = generateRandomID(true);
+                              order.sum = context
+                                      .read<DataFromAdminBloc>()
+                                      .state
+                                      .data!
+                                      .prices[order.dates.length - 1] *
+                                  order.products.fold(
+                                      0,
+                                      (previousValue, element) => int.parse(
+                                          (previousValue + element.count)
+                                              .toString()));
+                              context.read<CreateOrderBloc>().add(AddOrderEvent(
+                                  order, context.read<UserBloc>().state.user!));
                             },
                             color: Colors.deepPurple,
                             title: 'order'.tr,
