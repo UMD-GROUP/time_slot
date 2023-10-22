@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations
+// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations, use_string_buffers
 
 import 'dart:async';
 import 'dart:collection';
@@ -14,6 +14,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:time_slot/service/storage_service/storage_service.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
@@ -204,6 +205,14 @@ void showPriceInputDialog(BuildContext context, VoidCallback onDoneTap,
     context: context,
     builder: (context) =>
         PriceInputDialog(priceController: controller, onDoneTap: onDoneTap),
+  );
+}
+
+void showCreatePromoCodeDialog(BuildContext context) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (context) => CreatePromoCodeDialog(
+        amount: TextEditingController(), discount: TextEditingController()),
   );
 }
 
@@ -1260,4 +1269,20 @@ void changeLanguage() {
       isUzbek ? const Locale('ru', 'RU') : const Locale('uz', 'UZ'));
   print(isUzbek);
   StorageService().saveString('language', isUzbek ? 'ru' : 'uz');
+}
+
+String generateUniquePromoCode(List<PromoCodeModel> existingPromoCodes) {
+  const String charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  final Random random = Random();
+  String promoCode = '';
+
+  do {
+    promoCode = '';
+    for (int i = 0; i < 7; i++) {
+      final int randomIndex = random.nextInt(charset.length);
+      promoCode += charset[randomIndex];
+    }
+  } while (existingPromoCodes.any((promo) => promo.promoCode == promoCode));
+
+  return promoCode;
 }

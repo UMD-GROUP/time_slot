@@ -178,6 +178,14 @@ class AppTranslations extends Translations {
           'logistics': 'Logistika',
           'soon_logistics':
               'Tez orada bu yerda logistika bilan bog’liq monopoliyaga chek qo’yish uchun siz kutgan logistika bo’limi ishga tushiriladi',
+          'promo_codes': 'Promokodlar',
+          'new_promo_code': 'Yangi Promokod',
+          'discount': 'Chegirma',
+          'min_count': 'Miqdor',
+          'times': ' marta',
+          'used': 'Foydalanildi: ',
+          'promo_code': 'Promokod',
+          'done_successfully': 'Muvaffaqqiyatli bajarildi!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -348,6 +356,14 @@ class AppTranslations extends Translations {
           'logistics': 'Логистика',
           'soon_logistics':
               'Здесь скоро откроется отдел логистики, которого вы так долго ждали, чтобы положить конец логистической монополии.',
+          'promo_codes': 'Промокоды',
+          'new_promo_code': 'Новый промокод',
+          'discount': 'Скидка',
+          'min_count': 'Кол.',
+          'times': ' раз',
+          'used': 'Использовал: ',
+          'promo_code': 'Промокод',
+          'done_successfully': 'Сделано успешно!',
         }
       };
 }

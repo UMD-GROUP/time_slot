@@ -1,5 +1,6 @@
 import 'package:time_slot/ui/admin/admin_home/ui/widget/admin_tabbar_item.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/all_orders_widget.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/all_promo_codes_widget.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/all_users_widget.dart';
 
 import '../../../../../utils/tools/file_importers.dart';
@@ -50,7 +51,7 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                         _onTabTapped(1);
                       }),
                   AdminTabBarItem(
-                      text: 'partners',
+                      text: 'promo_codes'.tr,
                       isActive: _currentIndex == 2,
                       context: context,
                       onTap: () {
@@ -74,9 +75,7 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                       isPartner: false,
                     )
                   : _currentIndex == 2
-                      ? const AllUsersWidget(
-                          isPartner: true,
-                        )
+                      ? const AllPromoCodesWidget()
                       : const SizedBox()
         ],
       );
