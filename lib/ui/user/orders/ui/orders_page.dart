@@ -10,9 +10,9 @@ class OrdersPage extends StatefulWidget {
 class _OrdersPageState extends State<OrdersPage> {
   @override
   void initState() {
-    if (context.read<UserBloc>().state.user == null) {
+    if (context.read<UserAccountBloc>().state.user == null) {
       context
-          .read<UserBloc>()
+          .read<UserAccountBloc>()
           .add(GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
     }
     super.initState();
@@ -22,7 +22,7 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
-          title: Text('orders'.tr),
+          title: Text('Time Slot'.tr),
           backgroundColor: Colors.deepPurple,
           actions: [
             IconButton(
@@ -33,17 +33,20 @@ class _OrdersPageState extends State<OrdersPage> {
                 icon: const Icon(Icons.refresh))
           ],
         ),
-        body: Column(children: [
-          SizedBox(height: height(context) * 0.02),
-          BannerCard(),
-          SizedBox(height: height(context) * 0.01),
-          const Expanded(child: TabBarWidget())
-        ]),
+        body: RefreshIndicator(
+          onRefresh: () async {},
+          child: Column(children: [
+            SizedBox(height: height(context) * 0.02),
+            BannerCard(),
+            SizedBox(height: height(context) * 0.01),
+            const Expanded(child: TabBarWidget())
+          ]),
+        ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.deepPurple,
           child: const Icon(Icons.add),
           onPressed: () {
-            if (canNavigate(context, context.read<UserBloc>().state.user,
+            if (canNavigate(context, context.read<UserAccountBloc>().state.user,
                 context.read<DataFromAdminBloc>().state.data!)) {
               Navigator.pushNamed(context, RouteName.createOrder);
             }

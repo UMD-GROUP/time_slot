@@ -39,7 +39,8 @@ class AppTranslations extends Translations {
           'add': "Qo'shish",
           'you_must_select_market': "Do'kon tanlanmadi!",
           'you_must_select_data': 'Eng kamida bitta sana\ntanlanishi kerak!',
-          'you_must_add_product': 'Eng kamida 10ta mahsulot\ntanlanishi kerak!',
+          'you_must_add_product':
+              'Eng kamida 10 ta mahsulot\ntanlanishi kerak!',
           'you_must_select_photo': 'Rasm yuklanishi shart!',
           'products': 'Mahsulotlar:',
           'order': 'Rasmiylashtirish',
@@ -153,7 +154,7 @@ class AppTranslations extends Translations {
           'share': 'Ulashish',
           'order_id': 'Buyurtma:',
           'price_per_one': 'Bir dona uchun: ',
-          'markets': "Do'konlar:",
+          'markets': "Do'konlar",
           'instruction': "Qo'llanma",
           'terms_of_using': 'Foydalanish shartlari',
           'wrong_password': 'Parol xato kiritildi!',
@@ -164,6 +165,27 @@ class AppTranslations extends Translations {
               "Parolni 3 martadan ortiq noto'g'ri kiritilishi bloklanishingiz uchun asos bo'ladi! ",
           'add_comment': "Izoh qo'shing",
           'sign_in_with_google': 'Google orqali kirish',
+          'onboarding_title': ' Diqqat bu muhim!',
+          'onboarding_1':
+              'Biz hech qachon katta miqdorni oldindan band qilmaymiz va bu boshqalar haqqiga xiyonat deb hisoblaymiz!',
+          'onboarding_2':
+              'Barcha zahira sanalarni bekor qilingan sanalar hisobidan shakllantiramiz va tabiiyki xizmat xarajati evaziga sizga imkon qadar arzon narxda taqdim etamiz!',
+          'onboarding_3':
+              'Maqsadimiz oldindan katta miqdorni band qilib so’ngra uni boshqa yuk xatiga almashtirib olishni reja qilganlarning ishi amalga oshmasligiga harakat qilish va bu orqali soxta bandliklarni yo’qqa chiqarish!',
+          'onboarding_4':
+              'Ilovaning kabinet bo’limida “Qo’llanma” va “Foydalanish shartlari” bilan tanishib chiqing. Bu orqali chegirmalar va tekin limitlar haqida ma’lumot olasiz!',
+          'start': 'Boshlash',
+          'logistics': 'Logistika',
+          'soon_logistics':
+              'Tez orada bu yerda logistika bilan bog’liq monopoliyaga chek qo’yish uchun siz kutgan logistika bo’limi ishga tushiriladi',
+          'promo_codes': 'Promokodlar',
+          'new_promo_code': 'Yangi Promokod',
+          'discount': 'Chegirma',
+          'min_count': 'Miqdor',
+          'times': ' marta',
+          'used': 'Foydalanildi: ',
+          'promo_code': 'Promokod',
+          'done_successfully': 'Muvaffaqqiyatli bajarildi!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -225,7 +247,7 @@ class AppTranslations extends Translations {
               'Название магазина должно\nсостоять минимум из 3 букв!',
           'uz_sum': 'сум',
           'total_amount_withdrawn': 'Всего снято:',
-          'piece': 'штук',
+          'piece': 'шт',
           'added_successfully': 'Добавлено успешно!',
           'uzbek': 'Узбекский язык',
           'russian': 'Pусский язык',
@@ -250,7 +272,7 @@ class AppTranslations extends Translations {
           'yes': 'Да',
           'orders': 'Заказы',
           'membership': 'Сотрудничество',
-          'account': 'Персональный аккаунт',
+          'account': 'Кабинет',
           'date_must_be_after': 'Невозможно выбрать прошлую дату!',
           'date_limit_reached': 'Вы не можете выбрать более 15 дат!',
           'order_detail': 'О заказе',
@@ -308,7 +330,7 @@ class AppTranslations extends Translations {
           'share': 'Делиться',
           'order_id': 'Заказ:',
           'price_per_one': 'За одну:  ',
-          'markets': 'Mагазины:',
+          'markets': 'Mагазины',
           'cant_purchase':
               'Для вывода денег на вашем счет\n должно быть не менее 50 000 сум!',
           'instruction': 'Инструкция',
@@ -321,6 +343,27 @@ class AppTranslations extends Translations {
           'don_not_forget_to_add_number':
               'Не забудьте добавить @number в свой магазин в качестве сотрудника по отправке писем и правильно ввести название магазина!',
           'sign_in_with_google': 'Войти через Google',
+          'onboarding_title': ' Внимание важно!',
+          'onboarding_1':
+              'Мы никогда не бронируем большую сумму вперед и считаем это предательством чужих прав!',
+          'onboarding_2':
+              'Все зарезервированные даты мы формируем на основе отмененных дат и предлагаем вам максимально дешевую цену, естественно, со стоимостью услуги!',
+          'onboarding_3':
+              'Наша цель – постараться предотвратить работу тех, кто планирует заранее забронировать крупную сумму, а затем обменять ее на другую накладную, и тем самым исключить фейковые бронирования!',
+          'onboarding_4':
+              'Прочтите «Руководство» и «Условия использования» в разделе кабинета приложения. Здесь вы получите информацию о скидках и бесплатных лимитах!',
+          'start': 'Начинать',
+          'logistics': 'Логистика',
+          'soon_logistics':
+              'Здесь скоро откроется отдел логистики, которого вы так долго ждали, чтобы положить конец логистической монополии.',
+          'promo_codes': 'Промокоды',
+          'new_promo_code': 'Новый промокод',
+          'discount': 'Скидка',
+          'min_count': 'Кол.',
+          'times': ' раз',
+          'used': 'Использовал: ',
+          'promo_code': 'Промокод',
+          'done_successfully': 'Сделано успешно!',
         }
       };
 }

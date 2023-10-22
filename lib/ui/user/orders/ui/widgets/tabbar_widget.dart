@@ -1,5 +1,6 @@
 // ignore_for_file: cascade_invocations
 
+import 'package:time_slot/ui/admin/admin_home/ui/widget/all_promo_codes_widget.dart';
 import 'package:time_slot/ui/user/orders/ui/widgets/order_item.dart';
 import 'package:time_slot/ui/user/orders/ui/widgets/tab_bar_custom_item.dart';
 
@@ -51,7 +52,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                         _onTabTapped(1);
                       }),
                   TabBarCustomItem(
-                      text: 'referals',
+                      text: 'promo_codes'.tr,
                       isActive: _currentIndex == 2,
                       context: context,
                       onTap: () {
@@ -74,41 +75,41 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                 final List<OrderModel> data = state.orders!.cast();
 
                 final List<OrderModel> curData = _currentIndex == 0
-                    ? data
-                        // .where((e) =>
-                        //     e.ownerId ==
-                        //         context.read<UserBloc>().state.user!.uid ||
-                        //     e.referallId ==
-                        //         context.read<UserBloc>().state.user!.token)
-                        .toList()
+                    ? data.toList()
                     : _currentIndex == 1
                         ? data
                             .where((e) =>
                                 e.ownerId ==
-                                context.read<UserBloc>().state.user!.uid)
+                                context.read<UserAccountBloc>().state.user!.uid)
                             .toList()
                         : data
                             .where((e) =>
                                 e.referallId ==
-                                context.read<UserBloc>().state.user!.token)
+                                context
+                                    .read<UserAccountBloc>()
+                                    .state
+                                    .user!
+                                    .token)
                             .toList();
                 curData.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-                return curData.isEmpty
-                    ? Center(
-                        child: SizedBox(
-                            height: height(context) * 0.35,
-                            child: Lottie.asset(AppLotties.empty)),
-                      )
-                    : Expanded(
-                        child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: curData.length,
-                            itemBuilder: (context, index) => OrderItem(
-                                  order: curData[index],
-                                  isAdmin: false,
-                                )),
-                      );
+                return _currentIndex == 2
+                    ? AllPromoCodesWidget()
+                    : curData.isEmpty
+                        ? Center(
+                            child: SizedBox(
+                                height: height(context) * 0.35,
+                                child: Lottie.asset(AppLotties.empty)),
+                          )
+                        : Expanded(
+                            child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: curData.length,
+                                itemBuilder: (context, index) => OrderItem(
+                                      order: curData[index],
+                                      isAdmin: false,
+                                    )),
+                          );
               } else {
                 return const Center(
                   child: Text('error'),

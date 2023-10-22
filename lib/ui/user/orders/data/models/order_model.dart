@@ -6,6 +6,7 @@ class OrderModel {
       this.ownerId = '',
       this.adminPhoto = '',
       this.orderId = 0,
+      this.tovarCount = 0,
       required this.products,
       this.sum = 0,
       this.marketName = '',
@@ -52,6 +53,7 @@ class OrderModel {
   DateTime createdAt;
   DateTime finishedAt;
   String comment;
+  int tovarCount;
 
   Map<String, dynamic> toJson() => {
         'referallId': referallId,

@@ -94,13 +94,6 @@ class AdminRepository {
                 .get();
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());
-        if (partner.willGetPercent) {
-          partner.card.purchaseInProgress += order.sum / percent;
-          await instance
-              .collection('users')
-              .doc(partner.uid)
-              .update(partner.toJson());
-        }
       }
       if (order.status == OrderStatus.done) {
         final String url = await uploadImageToFirebaseStorage(photo!);
@@ -116,14 +109,6 @@ class AdminRepository {
                 .get();
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());
-        if (partner.willGetPercent) {
-          partner.card.balance += order.sum / percent;
-          partner.card.purchaseInProgress -= order.sum / percent;
-          await instance
-              .collection('users')
-              .doc(partner.uid)
-              .update(partner.toJson());
-        }
 
         final QuerySnapshot<Map<String, dynamic>> userDoc =
             await FirebaseFirestore.instance
@@ -144,13 +129,6 @@ class AdminRepository {
                 .get();
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());
-        if (partner.willGetPercent) {
-          partner.card.purchaseInProgress -= order.sum / percent;
-          await instance
-              .collection('users')
-              .doc(partner.uid)
-              .update(partner.toJson());
-        }
       }
 
       myResponse.statusCode = 200;
@@ -166,37 +144,6 @@ class AdminRepository {
 
     try {
       await instance.collection('users').doc(user.uid).update(user.toJson());
-      myResponse.statusCode = 200;
-    } catch (e) {
-      myResponse.message = e.toString();
-    }
-    return myResponse;
-  }
-
-  Future<MyResponse> updatePurchase(PurchaseModel purchase) async {
-    final MyResponse myResponse = MyResponse();
-
-    try {
-      await instance
-          .collection('purchases')
-          .doc(purchase.docId)
-          .update(purchase.toJson());
-      if (purchase.status == PurchaseStatus.finished) {
-        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('uid', isEqualTo: purchase.ownerId)
-                .get();
-        final UserModel partner =
-            UserModel.fromJson(partnerDoc.docs.first.data());
-        partner.card.balance -= purchase.amount;
-        partner.card.allPurchased += purchase.amount;
-        await instance
-            .collection('users')
-            .doc(partner.uid)
-            .update(partner.toJson());
-      }
-
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();

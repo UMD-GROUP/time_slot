@@ -35,19 +35,20 @@ class _AccountPageState extends State<AccountPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  context.read<UserBloc>().add(
+                  context.read<UserAccountBloc>().add(
                       GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
                 },
                 icon: const Icon(Icons.refresh))
           ],
         ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.h),
-              child: BlocBuilder<UserBloc, UserState>(
-                builder: (context, state) {
-                  if (state.user != null) {
+        body: RefreshIndicator(
+          onRefresh: () async {},
+          child: SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.h),
+                child: BlocBuilder<UserAccountBloc, UserAccountState>(
+                  builder: (context, state) {
                     return Column(
                       children: [
                         InfoActionButton(
@@ -58,50 +59,8 @@ class _AccountPageState extends State<AccountPage> {
                           icon: Icons.token,
                           subtitle: state.user!.token,
                         ),
-                        BlocListener<UserAccountBloc, UserAccountState>(
-                          listener: (context, state) {
-                            if (state.addCardStatus ==
-                                ResponseStatus.inProgress) {
-                              showLoadingDialog(context);
-                            }
-                            if (state.addCardStatus == ResponseStatus.inFail) {
-                              Navigator.pop(context);
-                              AnimatedSnackBar(
-                                snackBarStrategy: RemoveSnackBarStrategy(),
-                                builder: (context) => AppErrorSnackBar(
-                                  text: state.message,
-                                ),
-                              ).show(context);
-                            } else if (state.addCardStatus ==
-                                ResponseStatus.inSuccess) {
-                              Navigator.pop(context);
-                              AnimatedSnackBar(
-                                snackBarStrategy: RemoveSnackBarStrategy(),
-                                builder: (context) => AppSnackBar(
-                                  color: AppColors.c7FCD51,
-                                  text: 'added_successfully'.tr,
-                                  icon: '',
-                                ),
-                              ).show(context);
-                              setState(() {});
-                            }
-                          },
-                          child: InfoActionButton(
-                            title: 'banking_card',
-                            onTap: () {
-                              showAddBankingCardDialog(context);
-                            },
-                            icon: Icons.credit_card,
-                            subtitle: context
-                                .read<UserBloc>()
-                                .state
-                                .user!
-                                .card
-                                .cardNumber,
-                          ),
-                        ),
                         SizedBox(height: height(context) * 0.02),
-                        UserStores(markets: state.user!.markets),
+                        const UserStores(),
                         SizedBox(height: height(context) * 0.02),
                         const Appearance(),
                         Visibility(
@@ -155,10 +114,10 @@ class _AccountPageState extends State<AccountPage> {
                         }, icon: Icons.logout)
                       ],
                     );
-                  }
-                  return CircularProgressIndicator(
-                      color: AdaptiveTheme.of(context).theme.hintColor);
-                },
+                    return CircularProgressIndicator(
+                        color: AdaptiveTheme.of(context).theme.hintColor);
+                  },
+                ),
               ),
             ),
           ),

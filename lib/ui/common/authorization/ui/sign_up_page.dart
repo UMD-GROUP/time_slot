@@ -1,7 +1,7 @@
-// ignore_for_file: type_annotate_public_apis
+// ignore_for_file: type_annotate_public_apis, use_build_context_synchronously
 
+import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class SignupPage extends StatelessWidget {
@@ -14,7 +14,12 @@ class SignupPage extends StatelessWidget {
         create: (context) => AuthorizationBloc(),
         child: BlocConsumer<AuthorizationBloc, AuthorizationState>(
           listener: (context, state) {
+            if (state.status == ResponseStatus.inProgress) {
+              showLoadingDialog(context);
+            }
             if (state.status == ResponseStatus.inFail) {
+              Navigator.pop(context);
+
               AnimatedSnackBar(
                   duration: const Duration(seconds: 4),
                   snackBarStrategy: RemoveSnackBarStrategy(),
@@ -22,10 +27,16 @@ class SignupPage extends StatelessWidget {
                       AppErrorSnackBar(text: state.message.tr)).show(context);
             }
             if (state.status == ResponseStatus.inSuccess) {
-              context.read<UserBloc>().add(
+              Navigator.pop(context);
+
+              context.read<UserAccountBloc>().add(
                   GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
-              Navigator.pushNamedAndRemoveUntil(
-                  context, RouteName.userMain, (route) => false);
+              if (getIt<StorageService>().getBool('isPassed')) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, RouteName.userMain, (route) => false);
+              } else {
+                Navigator.pushNamed(context, RouteName.onBoarding);
+              }
             }
           },
           builder: (context, state) => Scaffold(
@@ -93,12 +104,15 @@ class SignupPage extends StatelessWidget {
                               child: MaterialButton(
                                 minWidth: double.infinity,
                                 height: 60,
-                                onPressed: () {
+                                onPressed: () async {
+                                  final String? fcmToken =
+                                      await FirebaseMessaging.instance
+                                          .getToken();
                                   context
                                       .read<AuthorizationBloc>()
                                       .add(CreateAccountEvent(UserModel(
+                                        fcmToken: fcmToken ?? '',
                                         createdAt: DateTime.now(),
-                                        card: BankingCardModel(cardNumber: ''),
                                         password: controllers[1].text.trim(),
                                         email: controllers[0].text.trim(),
                                         referallId: controllers[2].text.trim(),

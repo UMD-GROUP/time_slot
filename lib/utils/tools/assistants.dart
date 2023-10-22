@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations
+// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations, use_string_buffers
 
 import 'dart:async';
 import 'dart:collection';
@@ -8,18 +8,17 @@ import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:time_slot/service/storage_service/storage_service.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/partner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/purchase_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
-import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
-import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -29,9 +28,7 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-// ignore: type_annotate_public_apis
 double height(context) => MediaQuery.of(context).size.height;
-// ignore: type_annotate_public_apis
 double width(context) => MediaQuery.of(context).size.width;
 
 String generateToken() {
@@ -142,52 +139,12 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   return true;
 }
 
-Future<void> postPurchases(String ownerId, String referralId) async {
-  // Initialize Firebase
-  await Firebase.initializeApp();
-
-  // Create a Firebase Firestore instance
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  // Generate and post 10 different PurchaseModel objects
-  for (int i = 0; i < 10; i++) {
-    final purchase = PurchaseModel(
-      createdAt: DateTime.now(),
-      ownerId: ownerId,
-      referralId: referralId,
-      purchaseId: i,
-      amount: 100.0 + i * 10.0,
-      status: PurchaseStatus.values[i % 4], // Cycle through the enum values
-    );
-
-    // Convert the PurchaseModel to JSON
-    final purchaseJson = purchase.toJson();
-
-    try {
-      // Post the PurchaseModel JSON data to Firestore
-      await firestore.collection('purchases').add(purchaseJson);
-
-      print('Purchase data $i posted to Firestore successfully!');
-    } catch (e) {
-      print('Error posting purchase data $i to Firestore: $e');
-    }
-  }
-}
-
 void copyToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text('Copied to clipboard: $text'),
     ),
-  );
-}
-
-void showMoneyInputDialog(BuildContext context) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) =>
-        AddPurchaseDialog(controller: TextEditingController()),
   );
 }
 
@@ -209,13 +166,13 @@ void showEditProductsBottomSheet(BuildContext context, OrderModel order) {
   );
 }
 
-void showAddBankingCardDialog(BuildContext context) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) =>
-        AddBankingCardDialog(controller: TextEditingController()),
-  );
-}
+// void showAddBankingCardDialog(BuildContext context) {
+//   showCupertinoDialog(
+//     context: context,
+//     builder: (context) =>
+//         AddBankingCardDialog(controller: TextEditingController()),
+//   );
+// }
 
 void showLogOutDialog(BuildContext context) {
   showCupertinoModalPopup(
@@ -235,28 +192,6 @@ void showUserPopUp(BuildContext context, UserModel userModel) {
   );
 }
 
-void showPartnerDialog(BuildContext context, UserModel userModel) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) => Theme(
-        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
-            ? ThemeData.light()
-            : ThemeData.dark(),
-        child: PartnerDialog(user: userModel)),
-  );
-}
-
-void showPurchaseDialog(BuildContext context, PurchaseModel purchaseModel) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) => Theme(
-        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
-            ? ThemeData.light()
-            : ThemeData.dark(),
-        child: PurchaseDialog(purchaseModel: purchaseModel)),
-  );
-}
-
 void showDeleteDialog(BuildContext context, String image) {
   showCupertinoDialog(
     context: context,
@@ -270,6 +205,14 @@ void showPriceInputDialog(BuildContext context, VoidCallback onDoneTap,
     context: context,
     builder: (context) =>
         PriceInputDialog(priceController: controller, onDoneTap: onDoneTap),
+  );
+}
+
+void showCreatePromoCodeDialog(BuildContext context) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (context) => CreatePromoCodeDialog(
+        amount: TextEditingController(), discount: TextEditingController()),
   );
 }
 
@@ -491,7 +434,7 @@ class TextInputDialog extends StatelessWidget {
             CupertinoTextField(
               controller: controller,
               placeholder: hintText,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
             ),
           ],
         ),
@@ -789,15 +732,15 @@ Future<User?> handleSignIn() async {
   }
 }
 
-class YouTubeVideo extends StatefulWidget {
-  YouTubeVideo(this.videoUrl, {super.key});
+class VideoPlayerWidget extends StatefulWidget {
+  VideoPlayerWidget(this.videoUrl, {super.key});
   String videoUrl;
 
   @override
-  State<YouTubeVideo> createState() => _YouTubeVideoState();
+  State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
 }
 
-class _YouTubeVideoState extends State<YouTubeVideo> {
+class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   late VideoPlayerController _videoPlayerController,
       _videoPlayerController2,
       _videoPlayerController3;
@@ -862,7 +805,7 @@ class _YouTubeVideoState extends State<YouTubeVideo> {
 void showVideoPlayer(context, videoUrl) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => YouTubeVideo(
+    builder: (context) => VideoPlayerWidget(
       videoUrl,
     ),
   );
@@ -1296,4 +1239,50 @@ class NavigationControls extends StatelessWidget {
           ),
         ],
       );
+}
+
+bool canTapStep(context, OrderModel order, int step) {
+  String error = '';
+  if (step == 1 && order.marketName.isEmpty) {
+    error = 'you_must_select_market'.tr;
+  }
+  if (step == 2 && order.dates.isEmpty) {
+    error = 'you_must_select_data'.tr;
+  }
+  if (step == 3 && order.products.isEmpty) {
+    error = 'you_must_add_product'.tr;
+  }
+
+  if (error.isNotEmpty) {
+    AnimatedSnackBar(
+      snackBarStrategy: RemoveSnackBarStrategy(),
+      duration: const Duration(seconds: 4),
+      builder: (context) => AppErrorSnackBar(text: error),
+    ).show(context);
+  }
+  return error.isEmpty;
+}
+
+void changeLanguage() {
+  final bool isUzbek = 'light_mode'.tr == 'Kunduzgi rejim';
+  Get.updateLocale(
+      isUzbek ? const Locale('ru', 'RU') : const Locale('uz', 'UZ'));
+  print(isUzbek);
+  StorageService().saveString('language', isUzbek ? 'ru' : 'uz');
+}
+
+String generateUniquePromoCode(List<PromoCodeModel> existingPromoCodes) {
+  const String charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  final Random random = Random();
+  String promoCode = '';
+
+  do {
+    promoCode = '';
+    for (int i = 0; i < 7; i++) {
+      final int randomIndex = random.nextInt(charset.length);
+      promoCode += charset[randomIndex];
+    }
+  } while (existingPromoCodes.any((promo) => promo.promoCode == promoCode));
+
+  return promoCode;
 }

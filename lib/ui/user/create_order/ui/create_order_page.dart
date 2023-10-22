@@ -61,14 +61,24 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           },
                           currentStep: state.currentStep,
                           onStepContinue: () {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToNextStepEvent());
+                            if (canTapStep(
+                                context,
+                                context.read<CreateOrderBloc>().state.order,
+                                state.currentStep + 1)) {
+                              context
+                                  .read<StepControllerBloc>()
+                                  .add(ToNextStepEvent());
+                            }
                           },
                           onStepTapped: (value) {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToStepEvent(value));
+                            if (canTapStep(
+                                context,
+                                context.read<CreateOrderBloc>().state.order,
+                                value)) {
+                              context
+                                  .read<StepControllerBloc>()
+                                  .add(ToStepEvent(value));
+                            }
                           },
                           connectorColor:
                               MaterialStateProperty.all(Colors.deepPurple),
@@ -107,6 +117,17 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 ResponseStatus.inProgress,
                             onTap: () {
                               final OrderModel order = orderState.order;
+                              order.referallId = context
+                                  .read<UserAccountBloc>()
+                                  .state
+                                  .user!
+                                  .referallId;
+                              order.ownerId = context
+                                  .read<UserAccountBloc>()
+                                  .state
+                                  .user!
+                                  .uid;
+                              order.orderId = generateRandomID(true);
                               order.sum = context
                                       .read<DataFromAdminBloc>()
                                       .state
@@ -118,7 +139,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                           (previousValue + element.count)
                                               .toString()));
                               context.read<CreateOrderBloc>().add(AddOrderEvent(
-                                  order, context.read<UserBloc>().state.user!));
+                                  order,
+                                  context.read<UserAccountBloc>().state.user!));
                             },
                             color: Colors.deepPurple,
                             title: 'order'.tr,

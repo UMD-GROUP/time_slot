@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
     final dynamic user = auth.currentUser;
     Future.delayed(const Duration(seconds: 3)).then((value) {
       if (user != null) {
-        context.read<UserBloc>().add(GetUserDataEvent(user.uid));
+        context.read<UserAccountBloc>().add(GetUserDataEvent(user.uid));
         Navigator.pushNamedAndRemoveUntil(
             context, RouteName.userMain, (route) => false);
       } else {
@@ -30,28 +30,18 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-        body: Container(
-          padding: EdgeInsets.all(40.h),
+        backgroundColor: Colors.white,
+        body: SizedBox(
           height: height(context),
           width: width(context),
           child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  height: width(context) * 0.16,
-                  width: width(context) * 0.16,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.h),
-                      image: const DecorationImage(
-                          image: AssetImage(AppImages.logo),
-                          fit: BoxFit.cover)),
-                ),
-                Text('Time Slot Manager',
-                    style: AppTextStyles.labelLarge(context,
-                        fontSize: 22.sp, fontWeight: FontWeight.w600))
-              ],
+            child: Container(
+              margin: EdgeInsets.only(right: 10.h),
+              alignment: Alignment.center,
+              height: width(context) * 0.16,
+              width: width(context),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage(AppImages.logo))),
             ),
           ),
         ),

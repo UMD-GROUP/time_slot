@@ -37,7 +37,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             widget.isAdmin ||
-                    context.read<UserBloc>().state.user!.uid ==
+                    context.read<UserAccountBloc>().state.user!.uid ==
                         widget.order.ownerId
                 ? OnTap(
                     onTap: () {
@@ -99,9 +99,9 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                             onTap: () async {
                               final TextEditingController comment =
                                   TextEditingController();
-                              widget.order.status = OrderStatus.cancelled;
                               comment.text = widget.order.comment;
                               showTextInputDialog(context, onConfirmTapped: () {
+                                widget.order.status = OrderStatus.cancelled;
                                 widget.order.comment = comment.text;
                                 context.read<AdminBloc>().add(UpdateOrderEvent(
                                     widget.order,
@@ -137,11 +137,11 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                     photo: photo!.path));
                               });
                             }),
-                      // OrderSheetItemWidget(
-                      //     context: context,
-                      //     text: 'un_finished',
-                      //     color: Colors.red,
-                      //     onTap: () {}),
+                      OrderSheetItemWidget(
+                          context: context,
+                          text: 'un_finished',
+                          color: Colors.red,
+                          onTap: () {}),
                     ],
                   ),
                 ],
@@ -155,16 +155,20 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PurchaseTextWidget(
+                    RowText(
                       icon: AppIcons.check,
                       text1: 'order_id'.tr,
                       text2: widget.order.orderId.toString(),
                     ),
                     if (!widget.isAdmin &&
                             widget.order.ownerId ==
-                                context.read<UserBloc>().state.user!.uid ||
+                                context
+                                    .read<UserAccountBloc>()
+                                    .state
+                                    .user!
+                                    .uid ||
                         widget.isAdmin)
-                      PurchaseTextWidget(
+                      RowText(
                         icon: AppIcons.basket,
                         text1: 'product_count',
                         text2:
@@ -199,7 +203,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             ),
             if (widget.isAdmin ||
                 widget.order.ownerId ==
-                    context.read<UserBloc>().state.user!.uid)
+                    context.read<UserAccountBloc>().state.user!.uid)
               ...List.generate(widget.order.products.length, (index) {
                 final List<ProductModel> pducts = widget.order.products.cast();
                 return Padding(
@@ -213,14 +217,14 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                   ),
                 );
               }),
-            PurchaseTextWidget(
+            RowText(
               icon: AppIcons.calendar,
               text1: 'day_count',
               text2: '${widget.order.dates.length} ${'piece'.tr}',
             ),
             if (widget.isAdmin ||
                 widget.order.ownerId ==
-                    context.read<UserBloc>().state.user!.uid)
+                    context.read<UserAccountBloc>().state.user!.uid)
               Wrap(
                 spacing: 4.w, // Horizontal spacing between items
                 runSpacing: 5.h, //
@@ -240,27 +244,27 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                           ),
                         )),
               ),
-            PurchaseTextWidget(
+            RowText(
               icon: AppIcons.balance,
               text1: 'payment',
               text2: '${widget.order.sum.toInt()} UZS',
             ),
-            PurchaseTextWidget(
+            RowText(
               icon: AppIcons.users,
               text1: '${'partners'.tr}:',
               text2: widget.order.referallId.toString(),
             ),
-            PurchaseTextWidget(
+            RowText(
               isVisible: widget.isAdmin ||
                   widget.order.ownerId ==
-                      context.read<UserBloc>().state.user!.uid,
+                      context.read<UserAccountBloc>().state.user!.uid,
               icon: AppIcons.shop,
               text1: '${'market_name'.tr}:',
               text2: widget.order.marketName.length > 10
                   ? widget.order.marketName.substring(0, 10)
                   : widget.order.marketName,
             ),
-            PurchaseTextWidget(
+            RowText(
               icon: AppIcons.calendar,
               text1: '${'created'.tr}:',
               text2: dateTimeToFormat(
@@ -268,7 +272,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             ),
             Visibility(
               visible: widget.order.status == OrderStatus.done,
-              child: PurchaseTextWidget(
+              child: RowText(
                 icon: AppIcons.check,
                 text1: '${'finished'.tr}:',
                 text2: dateTimeToFormat(widget.order.finishedAt),

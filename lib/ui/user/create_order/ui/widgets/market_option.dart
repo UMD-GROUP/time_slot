@@ -12,7 +12,8 @@ class MarketOption extends StatelessWidget {
           width: width(context),
           child: Wrap(
             children: [
-              for (final i in context.read<UserBloc>().state.user!.markets)
+              for (final i
+                  in context.read<UserAccountBloc>().state.user!.markets)
                 RadioListTile(
                   title: Text(
                     i,

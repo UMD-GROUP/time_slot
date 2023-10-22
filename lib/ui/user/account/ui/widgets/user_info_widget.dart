@@ -4,7 +4,8 @@ class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({super.key});
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<UserBloc, UserState>(
+  Widget build(BuildContext context) =>
+      BlocBuilder<UserAccountBloc, UserAccountState>(
         builder: (context, state) => Column(
           children: <Widget>[
             SizedBox(height: height(context) * 0.07),
@@ -15,12 +16,12 @@ class UserInfoWidget extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              '${'email'.tr}:  ${state.user?.email}', // Replace with user's email
+              '${'email'.tr}:  ${state.user.email}', // Replace with user's email
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10),
             Text(
-              '${'referral'.tr}  ${state.user?.token}', // Replace with user's promo code
+              '${'referral'.tr}  ${state.user.token}', // Replace with user's promo code
               style: const TextStyle(fontSize: 18),
             ),
           ],
