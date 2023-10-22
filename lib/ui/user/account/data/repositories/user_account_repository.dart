@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses
+// ignore_for_file: avoid_catches_without_on_clauses, inference_failure_on_function_invocation
 
 import 'package:time_slot/ui/user/account/data/models/store_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
@@ -10,6 +10,7 @@ class UserAccountRepository {
   Future<MyResponse> addStore(String title, UserModel user) async {
     final StoreModel store = StoreModel(
         storeDocId: '',
+        ownerDoc: user.uid,
         id: '',
         name: title,
         createdAt: DateTime.now(),
@@ -36,6 +37,23 @@ class UserAccountRepository {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({'card': card.toJson()});
       myResponse.statusCode = 200;
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> getUserStores(String ownerId) async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      final QuerySnapshot<Map<String, dynamic>> storesDoc = await instance
+          .collection('stores')
+          .where('ownerDoc', isEqualTo: ownerId)
+          .get();
+      myResponse
+        ..data =
+            storesDoc.docs.map((e) => StoreModel.fromJson(e.data())).toList()
+        ..statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();
     }

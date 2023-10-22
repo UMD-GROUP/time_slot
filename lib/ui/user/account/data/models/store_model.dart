@@ -5,9 +5,11 @@ class StoreModel {
     required this.name,
     required this.createdAt,
     required this.owner,
+    required this.ownerDoc,
   });
 
   factory StoreModel.fromJson(Map<String, dynamic> json) => StoreModel(
+        ownerDoc: json['ownerDoc'] ?? '',
         storeDocId: json['storeDocId'] ?? '',
         id: json['id'] ?? '',
         name: json['name'] ?? '',
@@ -21,11 +23,13 @@ class StoreModel {
   final String name;
   final DateTime createdAt;
   final StoreOwnerModel owner;
+  final String ownerDoc;
 
   Map<String, dynamic> toJson() => {
         'storeDocId': storeDocId,
         'id': id,
         'name': name,
+        'ownerDoc': ownerDoc,
         'createdAt': createdAt.toIso8601String(),
         'owner': owner.toJson(),
       };

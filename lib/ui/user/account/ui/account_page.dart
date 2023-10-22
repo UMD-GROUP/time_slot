@@ -60,7 +60,7 @@ class _AccountPageState extends State<AccountPage> {
                           subtitle: state.user!.token,
                         ),
                         SizedBox(height: height(context) * 0.02),
-                        UserStores(markets: state.user!.markets),
+                        const UserStores(),
                         SizedBox(height: height(context) * 0.02),
                         const Appearance(),
                         Visibility(

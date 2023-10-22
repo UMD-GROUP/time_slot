@@ -19,3 +19,8 @@ class GetUserDataEvent extends UserAccountEvent {
   GetUserDataEvent(this.uid);
   String uid;
 }
+
+class GetUserStoresEvent extends UserAccountEvent {
+  GetUserStoresEvent(this.ownerId);
+  String ownerId;
+}
