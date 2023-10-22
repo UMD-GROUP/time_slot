@@ -85,7 +85,7 @@ class _UserStoresState extends State<UserStores> {
               ...List.generate(
                   state.stores.length,
                   (index) =>
-                      StoreItem(index: index, title: state.stores[index].name)),
+                      StoreItem(index: index, store: state.stores[index])),
             ],
           ),
         ),

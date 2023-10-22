@@ -19,8 +19,8 @@ class StoreModel {
         owner: StoreOwnerModel.fromJson(json['owner'] ?? {}),
       );
   final String storeDocId;
-  final String id;
-  final String name;
+  String id;
+  String name;
   final DateTime createdAt;
   final StoreOwnerModel owner;
   final String ownerDoc;

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -11,6 +12,7 @@ class UsersItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ZoomTapAnimation(
         onTap: () {
+          context.read<StoresBloc>().add(GetStoresEvent(userModel.uid));
           showUserPopUp(context, userModel);
         },
         onLongTap: () {

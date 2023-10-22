@@ -186,6 +186,7 @@ class AppTranslations extends Translations {
           'used': 'Foydalanildi: ',
           'promo_code': 'Promokod',
           'done_successfully': 'Muvaffaqqiyatli bajarildi!',
+          'update_store': "Do'konni tahrirlash",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -364,6 +365,7 @@ class AppTranslations extends Translations {
           'used': 'Использовал: ',
           'promo_code': 'Промокод',
           'done_successfully': 'Сделано успешно!',
+          'update_store': 'Редактировать магазин',
         }
       };
 }
