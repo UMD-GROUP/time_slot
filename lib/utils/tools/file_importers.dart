@@ -33,6 +33,7 @@ export 'package:time_slot/ui/admin/admin_home/ui/widget/admin_banner_widget.dart
 export 'package:time_slot/ui/admin/admin_home/ui/widget/admin_tabbar.dart';
 export 'package:time_slot/ui/admin/admin_home/ui/widget/other_view.dart';
 export 'package:time_slot/ui/admin/admin_home/ui/widget/prices_view.dart';
+export 'package:time_slot/ui/admin/admin_home/ui/widget/row_text.dart';
 export 'package:time_slot/ui/common/authorization/bloc/authorization_bloc/authorization_bloc.dart';
 export 'package:time_slot/ui/common/authorization/data/models/user_model.dart';
 export 'package:time_slot/ui/common/authorization/data/repository/authorization_repository.dart';
@@ -40,7 +41,9 @@ export 'package:time_slot/ui/common/authorization/data/repository/user_repositor
 export 'package:time_slot/ui/common/splash/splash_page.dart';
 export 'package:time_slot/ui/user/account/bloc/user/user_bloc.dart';
 export 'package:time_slot/ui/user/account/bloc/user_account_bloc/user_account_bloc.dart';
+export 'package:time_slot/ui/user/account/data/models/banking_card_model.dart';
 export 'package:time_slot/ui/user/account/data/repositories/user_account_repository.dart';
+export 'package:time_slot/ui/user/account/ui/account_page.dart';
 export 'package:time_slot/ui/user/account/ui/widgets/add_store_dialog.dart';
 export 'package:time_slot/ui/user/account/ui/widgets/appearance.dart';
 export 'package:time_slot/ui/user/account/ui/widgets/info_action_button.dart';
@@ -53,11 +56,8 @@ export 'package:time_slot/ui/user/create_order/ui/widgets/add_product_section.da
 export 'package:time_slot/ui/user/create_order/ui/widgets/image_secion.dart';
 export 'package:time_slot/ui/user/create_order/ui/widgets/list_of_products.dart';
 export 'package:time_slot/ui/user/create_order/ui/widgets/market_option.dart';
+export 'package:time_slot/ui/user/logistics/ui/logistics_page.dart';
 export 'package:time_slot/ui/user/main/bloc/page_controller_bloc/page_controller_bloc.dart';
-export 'package:time_slot/ui/user/membership/bloc/purchase_bloc.dart';
-export 'package:time_slot/ui/user/membership/data/models/purchase_model.dart';
-export 'package:time_slot/ui/user/membership/data/repository/purchase_repository.dart';
-export 'package:time_slot/ui/user/membership/ui/widget/purchase_text_widget.dart';
 export 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_bloc.dart';
 export 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_event.dart';
 export 'package:time_slot/ui/user/orders/bloc/bloc/order/order_bloc.dart';
@@ -66,6 +66,7 @@ export 'package:time_slot/ui/user/orders/data/models/order_model.dart';
 export 'package:time_slot/ui/user/orders/data/models/product_model.dart';
 export 'package:time_slot/ui/user/orders/data/repository/data_from_admin_repository.dart';
 export 'package:time_slot/ui/user/orders/data/repository/orders_repository.dart';
+export 'package:time_slot/ui/user/orders/ui/orders_page.dart';
 export 'package:time_slot/ui/user/orders/ui/widgets/banner_card.dart';
 export 'package:time_slot/ui/user/orders/ui/widgets/banner_card.dart';
 export 'package:time_slot/ui/user/orders/ui/widgets/orders_shimmer.dart';

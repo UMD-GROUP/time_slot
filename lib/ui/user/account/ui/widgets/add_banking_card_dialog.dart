@@ -1,7 +1,6 @@
 // ignore_for_file: cascade_invocations
 
 import 'package:flutter/cupertino.dart';
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AddBankingCardDialog extends StatelessWidget {

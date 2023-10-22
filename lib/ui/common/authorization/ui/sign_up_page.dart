@@ -2,7 +2,6 @@
 
 import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class SignupPage extends StatelessWidget {

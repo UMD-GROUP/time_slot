@@ -1,5 +1,3 @@
-import 'package:time_slot/ui/user/account/data/repositories/user_account_repository.dart';
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 part 'user_account_event.dart';

@@ -155,7 +155,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PurchaseTextWidget(
+                    RowText(
                       icon: AppIcons.check,
                       text1: 'order_id'.tr,
                       text2: widget.order.orderId.toString(),
@@ -164,7 +164,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                             widget.order.ownerId ==
                                 context.read<UserBloc>().state.user!.uid ||
                         widget.isAdmin)
-                      PurchaseTextWidget(
+                      RowText(
                         icon: AppIcons.basket,
                         text1: 'product_count',
                         text2:
@@ -213,11 +213,11 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                   ),
                 );
               }),
-            PurchaseTextWidget(
-              icon: AppIcons.calendar,
-              text1: 'day_count',
-              text2: '${widget.order.dates.length} ${'piece'.tr}',
-            ),
+            // PurchaseTextWidget(
+            //   icon: AppIcons.calendar,
+            //   text1: 'day_count',
+            //   text2: '${widget.order.dates.length} ${'piece'.tr}',
+            // ),
             if (widget.isAdmin ||
                 widget.order.ownerId ==
                     context.read<UserBloc>().state.user!.uid)
@@ -240,40 +240,40 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                           ),
                         )),
               ),
-            PurchaseTextWidget(
-              icon: AppIcons.balance,
-              text1: 'payment',
-              text2: '${widget.order.sum.toInt()} UZS',
-            ),
-            PurchaseTextWidget(
-              icon: AppIcons.users,
-              text1: '${'partners'.tr}:',
-              text2: widget.order.referallId.toString(),
-            ),
-            PurchaseTextWidget(
-              isVisible: widget.isAdmin ||
-                  widget.order.ownerId ==
-                      context.read<UserBloc>().state.user!.uid,
-              icon: AppIcons.shop,
-              text1: '${'market_name'.tr}:',
-              text2: widget.order.marketName.length > 10
-                  ? widget.order.marketName.substring(0, 10)
-                  : widget.order.marketName,
-            ),
-            PurchaseTextWidget(
-              icon: AppIcons.calendar,
-              text1: '${'created'.tr}:',
-              text2: dateTimeToFormat(
-                  DateTime.parse(widget.order.createdAt.toString())),
-            ),
-            Visibility(
-              visible: widget.order.status == OrderStatus.done,
-              child: PurchaseTextWidget(
-                icon: AppIcons.check,
-                text1: '${'finished'.tr}:',
-                text2: dateTimeToFormat(widget.order.finishedAt),
-              ),
-            ),
+            // PurchaseTextWidget(
+            //   icon: AppIcons.balance,
+            //   text1: 'payment',
+            //   text2: '${widget.order.sum.toInt()} UZS',
+            // ),
+            // PurchaseTextWidget(
+            //   icon: AppIcons.users,
+            //   text1: '${'partners'.tr}:',
+            //   text2: widget.order.referallId.toString(),
+            // ),
+            // PurchaseTextWidget(
+            //   isVisible: widget.isAdmin ||
+            //       widget.order.ownerId ==
+            //           context.read<UserBloc>().state.user!.uid,
+            //   icon: AppIcons.shop,
+            //   text1: '${'market_name'.tr}:',
+            //   text2: widget.order.marketName.length > 10
+            //       ? widget.order.marketName.substring(0, 10)
+            //       : widget.order.marketName,
+            // ),
+            // PurchaseTextWidget(
+            //   icon: AppIcons.calendar,
+            //   text1: '${'created'.tr}:',
+            //   text2: dateTimeToFormat(
+            //       DateTime.parse(widget.order.createdAt.toString())),
+            // ),
+            // Visibility(
+            //   visible: widget.order.status == OrderStatus.done,
+            //   child: PurchaseTextWidget(
+            //     icon: AppIcons.check,
+            //     text1: '${'finished'.tr}:',
+            //     text2: dateTimeToFormat(widget.order.finishedAt),
+            //   ),
+            // ),
             Row(children: [
               Icon(
                 Icons.info_outline,

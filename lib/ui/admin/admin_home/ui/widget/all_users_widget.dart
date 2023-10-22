@@ -1,5 +1,4 @@
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_item_widget.dart';
-import 'package:time_slot/ui/user/membership/ui/widget/purchase_shimmer_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AllUsersWidget extends StatelessWidget {
@@ -34,8 +33,6 @@ class AllUsersWidget extends StatelessWidget {
           builder: (context, state) {
             if (state.status == ResponseStatus.pure) {
               context.read<AllUserBloc>().add(GetAllUserEvent());
-            } else if (state.status == ResponseStatus.inProgress) {
-              return const PurchaseShimmerWidget();
             } else if (state.status == ResponseStatus.inSuccess) {
               final List<UserModel> curData = state.users!.cast();
               final List<UserModel> data = curData

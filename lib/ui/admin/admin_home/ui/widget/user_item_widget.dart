@@ -65,19 +65,19 @@ class UsersItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PurchaseTextWidget(
+                    RowText(
                       icon: AppIcons.check,
                       text1: 'Email:',
                       text2: userModel.email.toString().length > 15
                           ? userModel.email.substring(0, 15)
                           : userModel.email,
                     ),
-                    PurchaseTextWidget(
+                    RowText(
                       icon: AppIcons.dollar,
                       text1: 'benefit',
                       text2: '${userModel.sumOfOrders}  UZS',
                     ),
-                    PurchaseTextWidget(
+                    RowText(
                       textColor: userModel.isBlocked
                           ? Colors.red
                           : Colors.lightGreenAccent,

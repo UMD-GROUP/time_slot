@@ -14,7 +14,6 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => DataFromAdminBloc()),
         BlocProvider(create: (context) => AllUserBloc()),
         BlocProvider(create: (context) => OrderBloc()),
-        BlocProvider(create: (context) => PurchaseBloc()),
         BlocProvider(create: (context) => UserAccountBloc()),
         BlocProvider(create: (context) => AdminBloc()),
       ], child: const MyApp());

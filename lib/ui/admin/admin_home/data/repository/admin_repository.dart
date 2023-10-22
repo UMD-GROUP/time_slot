@@ -172,35 +172,4 @@ class AdminRepository {
     }
     return myResponse;
   }
-
-  Future<MyResponse> updatePurchase(PurchaseModel purchase) async {
-    final MyResponse myResponse = MyResponse();
-
-    try {
-      await instance
-          .collection('purchases')
-          .doc(purchase.docId)
-          .update(purchase.toJson());
-      if (purchase.status == PurchaseStatus.finished) {
-        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('uid', isEqualTo: purchase.ownerId)
-                .get();
-        final UserModel partner =
-            UserModel.fromJson(partnerDoc.docs.first.data());
-        partner.card.balance -= purchase.amount;
-        partner.card.allPurchased += purchase.amount;
-        await instance
-            .collection('users')
-            .doc(partner.uid)
-            .update(partner.toJson());
-      }
-
-      myResponse.statusCode = 200;
-    } catch (e) {
-      myResponse.message = e.toString();
-    }
-    return myResponse;
-  }
 }

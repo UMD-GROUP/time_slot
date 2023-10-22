@@ -1,7 +1,4 @@
 import 'package:in_app_update/in_app_update.dart';
-import 'package:time_slot/ui/user/account/ui/account_page.dart';
-import 'package:time_slot/ui/user/membership/ui/membership_page.dart';
-import 'package:time_slot/ui/user/orders/ui/orders_page.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class MainPage extends StatefulWidget {
@@ -59,7 +56,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final List pages = [
       const OrdersPage(),
-      const MembershipPage(),
+      const LogisticsPage(),
       const AccountPage()
     ];
 

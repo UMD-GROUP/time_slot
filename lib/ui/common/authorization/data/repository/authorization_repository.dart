@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations, avoid_positional_boolean_parameters
 
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AuthorizationRepository {

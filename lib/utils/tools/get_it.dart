@@ -10,7 +10,6 @@ void setup() {
     ..registerLazySingleton(UserRepository.new)
     ..registerLazySingleton(() => DataFromAdminRepository(fireStoreInstance))
     // ignore: avoid_single_cascade_in_expression_statements
-    ..registerLazySingleton(() => PurchaseRepository(fireStoreInstance))
     ..registerLazySingleton(CreateOrderRepository.new)
     ..registerLazySingleton(() => OrdersRepository(fireStoreInstance))
     ..registerLazySingleton(() => UsersRepository(fireStoreInstance))

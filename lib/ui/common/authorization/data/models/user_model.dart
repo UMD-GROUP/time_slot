@@ -1,4 +1,4 @@
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
+import 'package:time_slot/ui/user/account/data/models/banking_card_model.dart';
 
 class UserModel {
   UserModel(

@@ -18,11 +18,9 @@ import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/partner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/purchase_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
-import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -32,9 +30,7 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-// ignore: type_annotate_public_apis
 double height(context) => MediaQuery.of(context).size.height;
-// ignore: type_annotate_public_apis
 double width(context) => MediaQuery.of(context).size.width;
 
 String generateToken() {
@@ -145,52 +141,12 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   return true;
 }
 
-Future<void> postPurchases(String ownerId, String referralId) async {
-  // Initialize Firebase
-  await Firebase.initializeApp();
-
-  // Create a Firebase Firestore instance
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  // Generate and post 10 different PurchaseModel objects
-  for (int i = 0; i < 10; i++) {
-    final purchase = PurchaseModel(
-      createdAt: DateTime.now(),
-      ownerId: ownerId,
-      referralId: referralId,
-      purchaseId: i,
-      amount: 100.0 + i * 10.0,
-      status: PurchaseStatus.values[i % 4], // Cycle through the enum values
-    );
-
-    // Convert the PurchaseModel to JSON
-    final purchaseJson = purchase.toJson();
-
-    try {
-      // Post the PurchaseModel JSON data to Firestore
-      await firestore.collection('purchases').add(purchaseJson);
-
-      print('Purchase data $i posted to Firestore successfully!');
-    } catch (e) {
-      print('Error posting purchase data $i to Firestore: $e');
-    }
-  }
-}
-
 void copyToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text('Copied to clipboard: $text'),
     ),
-  );
-}
-
-void showMoneyInputDialog(BuildContext context) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) =>
-        AddPurchaseDialog(controller: TextEditingController()),
   );
 }
 
@@ -246,17 +202,6 @@ void showPartnerDialog(BuildContext context, UserModel userModel) {
             ? ThemeData.light()
             : ThemeData.dark(),
         child: PartnerDialog(user: userModel)),
-  );
-}
-
-void showPurchaseDialog(BuildContext context, PurchaseModel purchaseModel) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) => Theme(
-        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
-            ? ThemeData.light()
-            : ThemeData.dark(),
-        child: PurchaseDialog(purchaseModel: purchaseModel)),
   );
 }
 

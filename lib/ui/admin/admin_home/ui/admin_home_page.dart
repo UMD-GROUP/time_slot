@@ -41,21 +41,20 @@ class _AdminHomePageState extends State<AdminHomePage> {
               backgroundColor: Colors.deepPurple,
               actions: [
                 IconButton(
-                  icon: SvgPicture.asset(AppIcons.refresh,     color: AdaptiveTheme.of(context).theme.canvasColor,
-                    height: height(context) * 0.03,),
+                  icon: SvgPicture.asset(
+                    AppIcons.refresh,
+                    color: AdaptiveTheme.of(context).theme.canvasColor,
+                    height: height(context) * 0.03,
+                  ),
                   onPressed: () {
-                       context.read<OrderBloc>().add(GetOrderEvent());
-                       context.read<AllUserBloc>().add(GetAllUserEvent());
-                       context.read<PurchaseBloc>().add(GetPurchasesEvent());
-                       context.read<DataFromAdminBloc>().add(GetBannersEvent());
-                      // context.read<DataFromAdminBloc>().add(GetPurchasesEvent());
-
+                    context.read<OrderBloc>().add(GetOrderEvent());
+                    context.read<AllUserBloc>().add(GetAllUserEvent());
+                    context.read<DataFromAdminBloc>().add(GetBannersEvent());
+                    // context.read<DataFromAdminBloc>().add(GetPurchasesEvent());
                   },
                 ),
               ],
               automaticallyImplyLeading: false),
-       
-
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

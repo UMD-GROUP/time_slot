@@ -1,8 +1,7 @@
 import 'package:time_slot/ui/admin/admin_home/ui/widget/admin_tabbar_item.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/all_orders_widget.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/all_purchases_widget.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/all_users_widget.dart';
-import 'package:time_slot/ui/user/orders/ui/widgets/order_item.dart';
+
 import '../../../../../utils/tools/file_importers.dart';
 
 class AdminTabBarWidget extends StatefulWidget {
@@ -70,12 +69,15 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
           ),
           _currentIndex == 0
               ? const AllOrdersWidget()
-              : _currentIndex == 1?
-                 const AllUsersWidget(isPartner: false,)
-              : _currentIndex == 2?
-              const AllUsersWidget(isPartner: true,):
-              const AllPurchasesWidget(),
-
+              : _currentIndex == 1
+                  ? const AllUsersWidget(
+                      isPartner: false,
+                    )
+                  : _currentIndex == 2
+                      ? const AllUsersWidget(
+                          isPartner: true,
+                        )
+                      : const SizedBox()
         ],
       );
 }
