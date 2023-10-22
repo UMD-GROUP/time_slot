@@ -174,7 +174,10 @@ class AppTranslations extends Translations {
               'Maqsadimiz oldindan katta miqdorni band qilib so’ngra uni boshqa yuk xatiga almashtirib olishni reja qilganlarning ishi amalga oshmasligiga harakat qilish va bu orqali soxta bandliklarni yo’qqa chiqarish!',
           'onboarding_4':
               'Ilovaning kabinet bo’limida “Qo’llanma” va “Foydalanish shartlari” bilan tanishib chiqing. Bu orqali chegirmalar va tekin limitlar haqida ma’lumot olasiz!',
-          'start': 'Boshlash'
+          'start': 'Boshlash',
+          'logistics': 'Logistika',
+          'soon_logistics':
+              'Tez orada bu yerda logistika bilan bog’liq monopoliyaga chek qo’yish uchun siz kutgan logistika bo’limi ishga tushiriladi',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -236,7 +239,7 @@ class AppTranslations extends Translations {
               'Название магазина должно\nсостоять минимум из 3 букв!',
           'uz_sum': 'сум',
           'total_amount_withdrawn': 'Всего снято:',
-          'piece': 'штук',
+          'piece': 'шт',
           'added_successfully': 'Добавлено успешно!',
           'uzbek': 'Узбекский язык',
           'russian': 'Pусский язык',
@@ -261,7 +264,7 @@ class AppTranslations extends Translations {
           'yes': 'Да',
           'orders': 'Заказы',
           'membership': 'Сотрудничество',
-          'account': 'Персональный аккаунт',
+          'account': 'Кабинет',
           'date_must_be_after': 'Невозможно выбрать прошлую дату!',
           'date_limit_reached': 'Вы не можете выбрать более 15 дат!',
           'order_detail': 'О заказе',
@@ -341,7 +344,10 @@ class AppTranslations extends Translations {
               'Наша цель – постараться предотвратить работу тех, кто планирует заранее забронировать крупную сумму, а затем обменять ее на другую накладную, и тем самым исключить фейковые бронирования!',
           'onboarding_4':
               'Прочтите «Руководство» и «Условия использования» в разделе кабинета приложения. Здесь вы получите информацию о скидках и бесплатных лимитах!',
-          'start': 'Начинать'
+          'start': 'Начинать',
+          'logistics': 'Логистика',
+          'soon_logistics':
+              'Здесь скоро откроется отдел логистики, которого вы так долго ждали, чтобы положить конец логистической монополии.',
         }
       };
 }

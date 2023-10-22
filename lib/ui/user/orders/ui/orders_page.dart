@@ -33,12 +33,15 @@ class _OrdersPageState extends State<OrdersPage> {
                 icon: const Icon(Icons.refresh))
           ],
         ),
-        body: Column(children: [
-          SizedBox(height: height(context) * 0.02),
-          BannerCard(),
-          SizedBox(height: height(context) * 0.01),
-          const Expanded(child: TabBarWidget())
-        ]),
+        body: RefreshIndicator(
+          onRefresh: () async {},
+          child: Column(children: [
+            SizedBox(height: height(context) * 0.02),
+            BannerCard(),
+            SizedBox(height: height(context) * 0.01),
+            const Expanded(child: TabBarWidget())
+          ]),
+        ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.deepPurple,
           child: const Icon(Icons.add),

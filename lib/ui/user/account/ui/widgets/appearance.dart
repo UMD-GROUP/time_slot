@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/appearance_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -13,10 +12,8 @@ class Appearance extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        AppearanceButton(isUzbek ? 'uzbek' : 'russian', onTap: () {
-          Get.updateLocale(
-              isUzbek ? const Locale('ru', 'RU') : const Locale('uz', 'UZ'));
-        }, icon: Icons.language),
+        AppearanceButton(isUzbek ? 'uzbek' : 'russian',
+            onTap: changeLanguage, icon: Icons.language),
         AppearanceButton(
           isLight ? 'light_mode' : 'dark_mode',
           icon: isLight ? Icons.light_mode : Icons.dark_mode,

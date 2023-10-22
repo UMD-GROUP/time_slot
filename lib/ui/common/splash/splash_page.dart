@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
+        backgroundColor: Colors.white,
         body: SizedBox(
           height: height(context),
           width: width(context),

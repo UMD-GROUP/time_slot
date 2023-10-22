@@ -105,8 +105,8 @@ class _MainPageState extends State<MainPage> {
               BottomNavigationBarItem(
                   icon: const Icon(Icons.home), label: 'orders'.tr),
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.monetization_on),
-                  label: 'membership'.tr),
+                  icon: const Icon(Icons.car_repair_sharp),
+                  label: 'logistics'.tr),
               BottomNavigationBarItem(
                   icon: const Icon(Icons.person), label: 'account'.tr),
             ],
