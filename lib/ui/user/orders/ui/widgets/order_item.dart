@@ -154,7 +154,8 @@ class OrderItem extends StatelessWidget {
                                                 'OrderStatus.cancelled'
                                             ? order.ownerId ==
                                                         context
-                                                            .read<UserBloc>()
+                                                            .read<
+                                                                UserAccountBloc>()
                                                             .state
                                                             .user!
                                                             .uid ||

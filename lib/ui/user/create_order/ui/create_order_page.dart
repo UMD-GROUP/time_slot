@@ -118,12 +118,15 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             onTap: () {
                               final OrderModel order = orderState.order;
                               order.referallId = context
-                                  .read<UserBloc>()
+                                  .read<UserAccountBloc>()
                                   .state
                                   .user!
                                   .referallId;
-                              order.ownerId =
-                                  context.read<UserBloc>().state.user!.uid;
+                              order.ownerId = context
+                                  .read<UserAccountBloc>()
+                                  .state
+                                  .user!
+                                  .uid;
                               order.orderId = generateRandomID(true);
                               order.sum = context
                                       .read<DataFromAdminBloc>()
@@ -136,7 +139,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                           (previousValue + element.count)
                                               .toString()));
                               context.read<CreateOrderBloc>().add(AddOrderEvent(
-                                  order, context.read<UserBloc>().state.user!));
+                                  order,
+                                  context.read<UserAccountBloc>().state.user!));
                             },
                             color: Colors.deepPurple,
                             title: 'order'.tr,

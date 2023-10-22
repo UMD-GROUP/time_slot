@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
             if (state.status == ResponseStatus.inSuccess) {
               Navigator.pop(context);
 
-              context.read<UserBloc>().add(
+              context.read<UserAccountBloc>().add(
                   GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
               if (getIt<StorageService>().getBool('isPassed')) {
                 Navigator.pushNamedAndRemoveUntil(
@@ -112,8 +112,6 @@ class LoginPage extends StatelessWidget {
                                       context.read<AuthorizationBloc>().add(
                                           SignInEvent(UserModel(
                                               fcmToken: fcmToken ?? '',
-                                              card: BankingCardModel(
-                                                  cardNumber: ''),
                                               email: controllers[0].text.trim(),
                                               password:
                                                   controllers[1].text.trim())));

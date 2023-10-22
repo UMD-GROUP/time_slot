@@ -29,7 +29,7 @@ class SignupPage extends StatelessWidget {
             if (state.status == ResponseStatus.inSuccess) {
               Navigator.pop(context);
 
-              context.read<UserBloc>().add(
+              context.read<UserAccountBloc>().add(
                   GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
               if (getIt<StorageService>().getBool('isPassed')) {
                 Navigator.pushNamedAndRemoveUntil(
@@ -113,7 +113,6 @@ class SignupPage extends StatelessWidget {
                                       .add(CreateAccountEvent(UserModel(
                                         fcmToken: fcmToken ?? '',
                                         createdAt: DateTime.now(),
-                                        card: BankingCardModel(cardNumber: ''),
                                         password: controllers[1].text.trim(),
                                         email: controllers[0].text.trim(),
                                         referallId: controllers[2].text.trim(),

@@ -11,11 +11,7 @@ class UsersItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ZoomTapAnimation(
         onTap: () {
-          if (isPartner) {
-            showPartnerDialog(context, userModel);
-          } else {
-            showUserPopUp(context, userModel);
-          }
+          showUserPopUp(context, userModel);
         },
         onLongTap: () {
           if (userModel.markets.length != 5) {

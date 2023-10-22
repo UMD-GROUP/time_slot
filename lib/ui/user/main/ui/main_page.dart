@@ -80,9 +80,10 @@ class _MainPageState extends State<MainPage> {
       const AccountPage()
     ];
 
-    return BlocListener<UserBloc, UserState>(
+    return BlocListener<UserAccountBloc, UserAccountState>(
       listener: (context, state) {
-        if (state.status == ResponseStatus.inSuccess && state.user!.isBlocked) {
+        if (state.getUserStatus == ResponseStatus.inSuccess &&
+            state.user!.isBlocked) {
           FirebaseAuth.instance.signOut();
           Navigator.pushNamedAndRemoveUntil(
               context, RouteName.splash, (route) => false);
@@ -103,7 +104,7 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
             items: [
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.home), label: 'orders'.tr),
+                  icon: const Icon(Icons.timeline), label: 'Time Slot'.tr),
               BottomNavigationBarItem(
                   icon: const Icon(Icons.car_repair_sharp),
                   label: 'logistics'.tr),

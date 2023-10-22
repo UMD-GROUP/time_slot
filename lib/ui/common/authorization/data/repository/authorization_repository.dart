@@ -76,7 +76,7 @@ class AuthorizationRepository {
           final UserModel rUser =
               UserModel.fromJson(referalledUser.docs.first.data());
           rUser.referrals.add(user.uid);
-          rUser.card.referrals += 1;
+          // rUser.card.referrals += 1;
           await instance
               .collection('users')
               .doc(rUser.uid)
@@ -141,10 +141,7 @@ class AuthorizationRepository {
         uid: gUser!.uid,
         token: generateToken(),
         createdAt: DateTime.now(),
-        referallId: 'ADMIN2023',
-        card: BankingCardModel(
-          cardNumber: '',
-        ));
+        referallId: 'ADMIN2023');
     final DocumentSnapshot<Map<String, dynamic>> some =
         await instance.collection('users').doc(gUser.uid).get();
 
@@ -171,7 +168,7 @@ class AuthorizationRepository {
             final UserModel rUser =
                 UserModel.fromJson(referalledUser.docs.first.data());
             rUser.referrals.add(user.uid);
-            rUser.card.referrals += 1;
+            // rUser.card.referrals += 1;
             await instance
                 .collection('users')
                 .doc(rUser.uid)

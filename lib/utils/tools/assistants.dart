@@ -12,14 +12,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/partner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
-import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -168,13 +165,13 @@ void showEditProductsBottomSheet(BuildContext context, OrderModel order) {
   );
 }
 
-void showAddBankingCardDialog(BuildContext context) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) =>
-        AddBankingCardDialog(controller: TextEditingController()),
-  );
-}
+// void showAddBankingCardDialog(BuildContext context) {
+//   showCupertinoDialog(
+//     context: context,
+//     builder: (context) =>
+//         AddBankingCardDialog(controller: TextEditingController()),
+//   );
+// }
 
 void showLogOutDialog(BuildContext context) {
   showCupertinoModalPopup(
@@ -191,17 +188,6 @@ void showUserPopUp(BuildContext context, UserModel userModel) {
             ? ThemeData.light()
             : ThemeData.dark(),
         child: UserInfoPopUp(user: userModel)),
-  );
-}
-
-void showPartnerDialog(BuildContext context, UserModel userModel) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) => Theme(
-        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
-            ? ThemeData.light()
-            : ThemeData.dark(),
-        child: PartnerDialog(user: userModel)),
   );
 }
 

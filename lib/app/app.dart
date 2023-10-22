@@ -9,7 +9,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(providers: [
         BlocProvider(create: (context) => PageControllerBloc()),
-        BlocProvider(create: (context) => UserBloc()),
         BlocProvider(create: (context) => CreateOrderBloc()),
         BlocProvider(create: (context) => DataFromAdminBloc()),
         BlocProvider(create: (context) => AllUserBloc()),

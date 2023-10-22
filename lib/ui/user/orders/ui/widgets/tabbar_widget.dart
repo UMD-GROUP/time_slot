@@ -85,12 +85,16 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                         ? data
                             .where((e) =>
                                 e.ownerId ==
-                                context.read<UserBloc>().state.user!.uid)
+                                context.read<UserAccountBloc>().state.user!.uid)
                             .toList()
                         : data
                             .where((e) =>
                                 e.referallId ==
-                                context.read<UserBloc>().state.user!.token)
+                                context
+                                    .read<UserAccountBloc>()
+                                    .state
+                                    .user!
+                                    .token)
                             .toList();
                 curData.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 

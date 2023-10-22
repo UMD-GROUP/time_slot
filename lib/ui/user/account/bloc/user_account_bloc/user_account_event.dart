@@ -14,3 +14,8 @@ class AddBankingCardEvent extends UserAccountEvent {
   AddBankingCardEvent(this.bankingCard);
   BankingCardModel bankingCard;
 }
+
+class GetUserDataEvent extends UserAccountEvent {
+  GetUserDataEvent(this.uid);
+  String uid;
+}

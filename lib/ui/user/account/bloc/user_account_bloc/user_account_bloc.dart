@@ -4,9 +4,24 @@ part 'user_account_event.dart';
 part 'user_account_state.dart';
 
 class UserAccountBloc extends Bloc<UserAccountEvent, UserAccountState> {
-  UserAccountBloc() : super(UserAccountState()) {
+  UserAccountBloc() : super(UserAccountState(user: UserModel())) {
     on<AddMarketEvent>(addMarket);
     on<AddBankingCardEvent>(addBankingCard);
+    on<GetUserDataEvent>(getUserData);
+  }
+
+  Future<void> getUserData(GetUserDataEvent event, Emitter emit) async {
+    print(event.uid);
+    emit(state.copyWith(getUserStatus: ResponseStatus.inProgress));
+    final MyResponse myResponse =
+        await getIt<UserRepository>().getUserData(event.uid);
+    if (myResponse.message.isNull) {
+      emit(state.copyWith(
+          user: myResponse.data, getUserStatus: ResponseStatus.inSuccess));
+    } else {
+      emit(state.copyWith(
+          getUserStatus: ResponseStatus.inFail, message: myResponse.message));
+    }
   }
 
   Future<void> addMarket(AddMarketEvent event, Emitter emit) async {

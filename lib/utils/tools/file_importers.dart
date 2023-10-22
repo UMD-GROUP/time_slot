@@ -44,7 +44,6 @@ export 'package:time_slot/ui/common/authorization/data/models/user_model.dart';
 export 'package:time_slot/ui/common/authorization/data/repository/authorization_repository.dart';
 export 'package:time_slot/ui/common/authorization/data/repository/user_repository.dart';
 export 'package:time_slot/ui/common/splash/splash_page.dart';
-export 'package:time_slot/ui/user/account/bloc/user/user_bloc.dart';
 export 'package:time_slot/ui/user/account/bloc/user_account_bloc/user_account_bloc.dart';
 export 'package:time_slot/ui/user/account/data/models/banking_card_model.dart';
 export 'package:time_slot/ui/user/account/data/repositories/user_account_repository.dart';

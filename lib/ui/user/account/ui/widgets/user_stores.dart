@@ -65,8 +65,10 @@ class _UserStoresState extends State<UserStores> {
                             showCupertinoDialog(
                                 context: context,
                                 builder: (context) => AddStoreDialog(
-                                    user:
-                                        context.read<UserBloc>().state.user!));
+                                    user: context
+                                        .read<UserAccountBloc>()
+                                        .state
+                                        .user!));
                           },
                           child: Text(
                             'add'.tr,

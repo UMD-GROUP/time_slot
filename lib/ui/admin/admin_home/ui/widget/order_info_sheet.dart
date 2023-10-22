@@ -37,7 +37,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             widget.isAdmin ||
-                    context.read<UserBloc>().state.user!.uid ==
+                    context.read<UserAccountBloc>().state.user!.uid ==
                         widget.order.ownerId
                 ? OnTap(
                     onTap: () {
@@ -162,7 +162,11 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                     ),
                     if (!widget.isAdmin &&
                             widget.order.ownerId ==
-                                context.read<UserBloc>().state.user!.uid ||
+                                context
+                                    .read<UserAccountBloc>()
+                                    .state
+                                    .user!
+                                    .uid ||
                         widget.isAdmin)
                       RowText(
                         icon: AppIcons.basket,
@@ -199,7 +203,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             ),
             if (widget.isAdmin ||
                 widget.order.ownerId ==
-                    context.read<UserBloc>().state.user!.uid)
+                    context.read<UserAccountBloc>().state.user!.uid)
               ...List.generate(widget.order.products.length, (index) {
                 final List<ProductModel> pducts = widget.order.products.cast();
                 return Padding(
@@ -220,7 +224,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             ),
             if (widget.isAdmin ||
                 widget.order.ownerId ==
-                    context.read<UserBloc>().state.user!.uid)
+                    context.read<UserAccountBloc>().state.user!.uid)
               Wrap(
                 spacing: 4.w, // Horizontal spacing between items
                 runSpacing: 5.h, //
@@ -253,7 +257,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             RowText(
               isVisible: widget.isAdmin ||
                   widget.order.ownerId ==
-                      context.read<UserBloc>().state.user!.uid,
+                      context.read<UserAccountBloc>().state.user!.uid,
               icon: AppIcons.shop,
               text1: '${'market_name'.tr}:',
               text2: widget.order.marketName.length > 10

@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
     final dynamic user = auth.currentUser;
     Future.delayed(const Duration(seconds: 3)).then((value) {
       if (user != null) {
-        context.read<UserBloc>().add(GetUserDataEvent(user.uid));
+        context.read<UserAccountBloc>().add(GetUserDataEvent(user.uid));
         Navigator.pushNamedAndRemoveUntil(
             context, RouteName.userMain, (route) => false);
       } else {
