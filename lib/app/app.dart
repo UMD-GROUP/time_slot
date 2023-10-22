@@ -2,6 +2,7 @@
 
 import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/admin/admin_home/bloc/promo_codes_bloc/promo_code_bloc.dart';
+import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -16,6 +17,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => OrderBloc()),
         BlocProvider(create: (context) => UserAccountBloc()),
         BlocProvider(create: (context) => AdminBloc()),
+        BlocProvider(create: (context) => StoresBloc()),
         BlocProvider(
             create: (context) => PromoCodeBloc()..add(GetPromoCodesEvent())),
       ], child: const MyApp());

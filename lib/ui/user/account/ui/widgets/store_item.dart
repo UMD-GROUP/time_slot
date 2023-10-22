@@ -1,3 +1,5 @@
+import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
+
 import '../../../../../utils/tools/file_importers.dart';
 
 class StoreItem extends StatelessWidget {
@@ -5,9 +7,9 @@ class StoreItem extends StatelessWidget {
       {this.isAdmin = false,
       required this.index,
       this.user,
-      required this.title,
+      required this.store,
       super.key});
-  String title;
+  StoreModel store;
   int index;
   bool isAdmin;
   UserModel? user;
@@ -29,7 +31,9 @@ class StoreItem extends StatelessWidget {
             SizedBox(
               width: width(context) * 0.33,
               child: Text(
-                title.length > 14 ? '${title.substring(0, 12)}...' : title,
+                store.name.length > 14
+                    ? '${store.name.substring(0, 12)}...'
+                    : store.name,
                 textAlign: TextAlign.start,
                 style: AppTextStyles.labelLarge(context,
                     fontSize: 18, fontWeight: FontWeight.w600),
@@ -40,23 +44,20 @@ class StoreItem extends StatelessWidget {
                 children: [
                   OnTap(
                       onTap: () {
-                        final TextEditingController controller =
-                            TextEditingController()..text = title;
-                        showTextInputDialog(context, onConfirmTapped: () {
-                          user!.markets[index] = controller.text;
-                          context
-                              .read<AdminBloc>()
-                              .add(UpdateUserBEvent(user!));
-                        },
-                            controller: controller,
-                            title: 'market_name'.tr,
-                            hintText: ' ');
+                        final TextEditingController id = TextEditingController()
+                          ..text = store.id;
+                        final TextEditingController market =
+                            TextEditingController()..text = store.name;
+                        showUpdateStoreDialog(context, id, market, store);
                       },
                       child: const Icon(Icons.edit)),
                   SizedBox(width: 26.h),
                   OnTap(
                       onTap: () {
                         showConfirmCancelDialog(context, () {
+                          context
+                              .read<StoresBloc>()
+                              .add(DeleteStoreEvent(user!.markets[index]));
                           user!.markets.removeAt(index);
                           context
                               .read<AdminBloc>()

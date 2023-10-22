@@ -17,6 +17,7 @@ import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/update_store_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
@@ -264,6 +265,15 @@ void showAdminPasswordDialog(
     builder: (context) => AdminPanelPasswordDialog(
         controller: controller,
         password: context.read<DataFromAdminBloc>().state.data!.adminPassword),
+  );
+}
+
+void showUpdateStoreDialog(BuildContext context, TextEditingController id,
+    TextEditingController marketName, StoreModel store) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) =>
+        UpdateStoreDialog(id: id, marketName: marketName, store: store),
   );
 }
 
