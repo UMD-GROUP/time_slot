@@ -22,6 +22,12 @@ class AuthorizationRepository {
       final UserModel currentUser = UserModel.fromJson(userData.data()!);
       if (currentUser.isBlocked) {
         myResponse.message = 'you_are_blocked'.tr;
+      } else {
+        final String? fcmToken = await FirebaseMessaging.instance.getToken();
+        await instance
+            .collection('users')
+            .doc(result.user!.uid)
+            .update({'fcmToken': fcmToken});
       }
     } catch (e) {
       myResponse.message = e.toString().replaceAll(' ', '\n');

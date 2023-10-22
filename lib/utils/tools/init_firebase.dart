@@ -10,6 +10,8 @@ Future<void> initFirebase() async {
         options: DefaultFirebaseOptions.currentPlatform);
   } else {
     await Firebase.initializeApp();
+
+    await FirebaseMessaging.instance.subscribeToTopic('/news');
   }
 
   // String? fcmToken = await FirebaseMessaging.instance.getToken();
