@@ -1,3 +1,5 @@
+// ignore_for_file: type_annotate_public_apis, always_declare_return_types
+
 import 'package:in_app_update/in_app_update.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -9,6 +11,23 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  handleFirebaseNotificationMessages() async {
+    final String? fcmToken = await FirebaseMessaging.instance.getToken();
+    // Clipboard.setData(ClipboardData(text: fcmToken ?? 'No token'));
+    debugPrint('FCM USER TOKEN: $fcmToken');
+    //Foregrounddan kelgan messagelarni tutib olamiz
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (message.notification != null) {
+        LocalNotificationService.localNotificationService
+            .showNotification(NotificationModel.fromJson(message.data));
+
+        // getIt<NotificationsBloc>().add(SaveNotificationEvent(
+        //     notificationModel: NotificationModel.fromJson(message.data)));
+        // getIt<NotificationsBloc>().add(GetNotificationsEvent());
+      }
+    });
+  }
+
   AppUpdateInfo? _updateInfo;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
@@ -17,6 +36,7 @@ class _MainPageState extends State<MainPage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> checkForUpdate() async {
+    handleFirebaseNotificationMessages();
     await InAppUpdate.checkForUpdate().then((info) {
       if (info.updateAvailability == UpdateAvailability.updateAvailable) {
         print('UPDATE BORORORORO');

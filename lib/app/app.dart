@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           builder: (light, dark) => GetMaterialApp(
             translations: AppTranslations(),
             locale: Locale(lang, lang.toUpperCase()),
-            initialRoute: RouteName.splash,
+            initialRoute: RouteName.authorization,
             onGenerateRoute: AppRoutes.generateRoute,
             debugShowCheckedModeBanner: false,
             // home: Material(child: EnterInfoPage()),

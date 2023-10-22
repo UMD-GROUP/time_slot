@@ -1,4 +1,4 @@
-// ignore_for_file: type_annotate_public_apis
+// ignore_for_file: type_annotate_public_apis, use_build_context_synchronously
 
 import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
@@ -105,9 +105,13 @@ class LoginPage extends StatelessWidget {
                                   child: MaterialButton(
                                     minWidth: double.infinity,
                                     height: 60,
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      final String? fcmToken =
+                                          await FirebaseMessaging.instance
+                                              .getToken();
                                       context.read<AuthorizationBloc>().add(
                                           SignInEvent(UserModel(
+                                              fcmToken: fcmToken ?? '',
                                               card: BankingCardModel(
                                                   cardNumber: ''),
                                               email: controllers[0].text.trim(),

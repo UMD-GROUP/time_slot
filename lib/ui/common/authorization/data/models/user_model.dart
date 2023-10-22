@@ -13,10 +13,12 @@ class UserModel {
       this.isBlocked = false,
       this.willGetPercent = true,
       this.token = '',
+      required this.fcmToken,
       this.uid = '',
       this.referallId = ''});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        fcmToken: json['fcmToken'] ?? '',
         card: BankingCardModel.fromJson(json['card'] ?? {}),
         referallId: json['referallId'] ?? '',
         referrals: json['referrals'] ?? [],
@@ -45,12 +47,14 @@ class UserModel {
   bool willGetPercent;
   DateTime? createdAt;
   num sumOfOrders;
+  String fcmToken;
 
   Map<String, Object> toJson() => {
         'card': card.toJson(),
         'markets': markets,
         'email': email,
         'password': password,
+        'fcmToken': fcmToken,
         'sumOfOrders': sumOfOrders,
         'token': token,
         'uid': uid,

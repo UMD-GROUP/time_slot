@@ -127,7 +127,9 @@ class AuthorizationRepository {
     final UserCredential authResult =
         await authInstance.signInWithCredential(credential);
     final User? gUser = authResult.user;
+    final String? fcmToken = await FirebaseMessaging.instance.getToken();
     final UserModel user = UserModel(
+        fcmToken: fcmToken ?? '',
         email: gUser?.email ?? '',
         password: '12345678',
         uid: gUser!.uid,
