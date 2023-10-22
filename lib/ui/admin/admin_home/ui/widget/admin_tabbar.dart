@@ -75,7 +75,7 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                       isPartner: false,
                     )
                   : _currentIndex == 2
-                      ? const AllPromoCodesWidget()
+                      ? AllPromoCodesWidget(isAdmin: true)
                       : const SizedBox()
         ],
       );

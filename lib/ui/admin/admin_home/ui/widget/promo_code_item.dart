@@ -4,16 +4,22 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../../utils/tools/file_importers.dart';
 
 class PromoCodeItem extends StatelessWidget {
-  const PromoCodeItem({super.key, required this.promoCode});
+  const PromoCodeItem(
+      {this.isAdmin = false, super.key, required this.promoCode});
   final PromoCodeModel promoCode;
+  final bool isAdmin;
 
   @override
   Widget build(BuildContext context) => ZoomTapAnimation(
         onLongTap: () {
-          showConfirmCancelDialog(context, () {
-            Navigator.pop(context);
-            context.read<PromoCodeBloc>().add(DeleteCodeEvent(promoCode.docId));
-          });
+          if (isAdmin) {
+            showConfirmCancelDialog(context, () {
+              Navigator.pop(context);
+              context
+                  .read<PromoCodeBloc>()
+                  .add(DeleteCodeEvent(promoCode.docId));
+            });
+          }
         },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 5.h),

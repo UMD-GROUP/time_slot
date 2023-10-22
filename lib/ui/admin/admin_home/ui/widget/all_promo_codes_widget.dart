@@ -3,7 +3,8 @@ import 'package:time_slot/ui/admin/admin_home/ui/widget/promo_code_item.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AllPromoCodesWidget extends StatelessWidget {
-  const AllPromoCodesWidget({super.key});
+  AllPromoCodesWidget({this.isAdmin = false, super.key});
+  bool isAdmin;
 
   @override
   Widget build(BuildContext context) => Expanded(
@@ -51,8 +52,9 @@ class AllPromoCodesWidget extends StatelessWidget {
                     state.promoCodes.length,
                     (index) => Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.h),
-                          child:
-                              PromoCodeItem(promoCode: state.promoCodes[index]),
+                          child: PromoCodeItem(
+                              promoCode: state.promoCodes[index],
+                              isAdmin: isAdmin),
                         ))
               ],
             ),
