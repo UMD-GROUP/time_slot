@@ -2,10 +2,9 @@ class DataFromAdminModel {
   DataFromAdminModel(
       {required this.banners,
       required this.deliveryNote,
-      required this.prices,
       required this.instruction,
       required this.termsOfUsing,
-      required this.partnerPercent,
+      required this.maxLimit,
       required this.adminPassword,
       required this.phoneNumber});
 
@@ -17,13 +16,11 @@ class DataFromAdminModel {
         termsOfUsing: json['termsOfUsing'] ?? '',
         adminPassword: json['adminPassword'] ?? '',
         deliveryNote: json['deliveryNote'] ?? '',
-        prices: json['prices'] ?? [],
-        partnerPercent: json['partnerPercent'] ?? 0,
+        maxLimit: json['maxLimit'] ?? 0,
       );
   List banners;
   String deliveryNote;
-  List prices;
-  num partnerPercent;
+  num maxLimit;
   String instruction;
   String termsOfUsing;
   String adminPassword;
@@ -35,8 +32,7 @@ class DataFromAdminModel {
         'instruction': instruction,
         'termsOfUsing': termsOfUsing,
         'adminPassword': adminPassword,
-        'prices': prices,
-        'partnerPercent': partnerPercent,
+        'maxLimit': maxLimit,
         'phoneNumber': phoneNumber,
       };
 }

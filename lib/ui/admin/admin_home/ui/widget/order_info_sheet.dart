@@ -86,7 +86,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                       .read<DataFromAdminBloc>()
                                       .state
                                       .data!
-                                      .partnerPercent
+                                      .maxLimit
                                       .toInt()));
                             });
                           }),
@@ -109,7 +109,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                         .read<DataFromAdminBloc>()
                                         .state
                                         .data!
-                                        .partnerPercent
+                                        .maxLimit
                                         .toInt()));
                               },
                                   controller: comment,
@@ -132,7 +132,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                         .read<DataFromAdminBloc>()
                                         .state
                                         .data!
-                                        .partnerPercent
+                                        .maxLimit
                                         .toInt(),
                                     photo: photo!.path));
                               });

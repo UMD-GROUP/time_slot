@@ -5,6 +5,7 @@ class UserModel {
       this.markets = const [],
       this.orders = const [],
       this.referrals = const [],
+      this.freeLimits = 0,
       this.createdAt,
       this.sumOfOrders = 0,
       this.isBlocked = false,
@@ -40,9 +41,11 @@ class UserModel {
   DateTime? createdAt;
   num sumOfOrders;
   String fcmToken;
+  int freeLimits;
 
   Map<String, Object> toJson() => {
         'markets': markets,
+        'freeLimits': freeLimits,
         'email': email,
         'password': password,
         'fcmToken': fcmToken,

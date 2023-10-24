@@ -38,7 +38,6 @@ export 'package:time_slot/ui/admin/admin_home/data/repository/users_repository.d
 export 'package:time_slot/ui/admin/admin_home/ui/widget/admin_banner_widget.dart';
 export 'package:time_slot/ui/admin/admin_home/ui/widget/admin_tabbar.dart';
 export 'package:time_slot/ui/admin/admin_home/ui/widget/other_view.dart';
-export 'package:time_slot/ui/admin/admin_home/ui/widget/prices_view.dart';
 export 'package:time_slot/ui/admin/admin_home/ui/widget/row_text.dart';
 export 'package:time_slot/ui/common/authorization/bloc/authorization_bloc/authorization_bloc.dart';
 export 'package:time_slot/ui/common/authorization/data/models/user_model.dart';

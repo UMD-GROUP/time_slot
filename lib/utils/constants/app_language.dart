@@ -187,6 +187,21 @@ class AppTranslations extends Translations {
           'promo_code': 'Promokod',
           'done_successfully': 'Muvaffaqqiyatli bajarildi!',
           'update_store': "Do'konni tahrirlash",
+          'max_limit': 'Maksimal miqdor',
+          'enter_max_limit': 'Maksimal miqdorni kiriting.',
+          'about_free_limit': 'Bepul limit haqida',
+          'text_about_free_limit':
+              'Bepul limit - bu siz o’z referal ID ingiz orqali dasturga taklif qilgan foydalanuvchilar hisobidan sizga bepul buyurtma berish uchun beriladigan limitdir. 1 ta yangi foydalanuvchi uchun siz 100 ta mahsulot uchun bepul limitga ega bo’lasiz.',
+          'your_token_is': 'Sizning referal: @token',
+          'copied_to_clipboard': 'Nusxalandi!',
+          'free_limits': 'Bepul limitlar: ',
+          'reserve': 'Zahira:',
+          'reserve_tab': 'Zahira',
+          'all_reserves': 'Jami zahira:',
+          'active_reserves': 'Faol zahira:',
+          'date': 'Sana:',
+          'price': 'Narx:',
+          'reserve_information': "Zahira ma'lumotlari:"
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -366,6 +381,21 @@ class AppTranslations extends Translations {
           'promo_code': 'Промокод',
           'done_successfully': 'Сделано успешно!',
           'update_store': 'Редактировать магазин',
+          'max_limit': 'Максимальное количество товара',
+          'enter_max_limit': 'Введите максимальное количество товара.',
+          'about_free_limit': 'О бесплатном лимите',
+          'text_about_free_limit':
+              'Бесплатный лимит — это лимит, предоставляемый вам для бесплатных заказов с аккаунтов пользователей, которых вы пригласили в программу через свой реферальный идентификатор. За 1 нового пользователя вы получаете бесплатный лимит в 100 товаров.',
+          'your_token_is': 'Ваш реферал: @token',
+          'copied_to_clipboard': 'Скопировано!',
+          'free_limits': 'Бесплатные лимиты: ',
+          'reserve': 'Pезерв:',
+          'reserve_tab': 'Pезерв',
+          'all_reserves': 'Общий резерв:',
+          'active_reserves': 'Активный резерв:',
+          'date': 'Дата:',
+          'price': 'Цена:',
+          'reserve_information': 'Резервные данные:'
         }
       };
 }

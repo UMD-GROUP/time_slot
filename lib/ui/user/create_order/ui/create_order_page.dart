@@ -1,4 +1,5 @@
 // ignore_for_file: use_named_constants, cascade_invocations, inference_failure_on_function_invocation
+import 'package:time_slot/ui/user/create_order/ui/widgets/free_limit_widget.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -14,6 +15,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text('create_order'.tr),
@@ -52,6 +54,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 builder: (context, state) => SingleChildScrollView(
                   child: Column(
                     children: [
+                      const FreeLimitWidget(),
                       Stepper(
                           margin: const EdgeInsets.only(left: 60),
                           onStepCancel: () {
@@ -86,26 +89,28 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             Step(
                               title: Text(
                                 "${'choose_market'.tr}  ${context.read<CreateOrderBloc>().state.order.marketName}",
-                                // style: AppTextStyles.labelLarge(context),
+                                style: AppTextStyles.labelLarge(context),
                               ),
                               content: const MarketOption(),
                             ),
                             Step(
                               title: Text(
                                 "${'choose_dates'.tr}  ${context.read<CreateOrderBloc>().state.order.dates.length} ${'piece'.tr}",
-                                // style: AppTextStyles.labelLarge(context),
+                                style: AppTextStyles.labelLarge(context),
                               ),
                               content: const SelectDatesSection(),
                             ),
                             Step(
                                 title: Text(
-                                    "${'products'.tr}  ${context.read<CreateOrderBloc>().state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}"),
+                                    "${'products'.tr}  ${context.read<CreateOrderBloc>().state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}",
+                                    style: AppTextStyles.labelLarge(context)),
                                 content: const AddProductSection()),
                             Step(
                                 title: BlocBuilder<CreateOrderBloc,
                                     CreateOrderState>(
                                   builder: (context, state) => Text(
-                                      '${'payment'.tr}     ${state.order.products.isNotEmpty ? (context.read<DataFromAdminBloc>().state.data!.prices[state.order.dates.length - 1] * state.order.products.fold(0, (previousValue, element) => int.parse((previousValue + element.count).toString()))).toString() : ''}  ${state.order.products.isNotEmpty ? 'UZS' : ''}'),
+                                      '${'payment'.tr}    0 UZS',
+                                      style: AppTextStyles.labelLarge(context)),
                                 ),
                                 content: const ImageSection())
                           ]),
@@ -128,16 +133,16 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                   .user!
                                   .uid;
                               order.orderId = generateRandomID(true);
-                              order.sum = context
-                                      .read<DataFromAdminBloc>()
-                                      .state
-                                      .data!
-                                      .prices[order.dates.length - 1] *
-                                  order.products.fold(
-                                      0,
-                                      (previousValue, element) => int.parse(
-                                          (previousValue + element.count)
-                                              .toString()));
+                              // order.sum = context
+                              //         .read<DataFromAdminBloc>()
+                              //         .state
+                              //         .data!
+                              //         .prices[order.dates.length - 1] *
+                              //     order.products.fold(
+                              //         0,
+                              //         (previousValue, element) => int.parse(
+                              //             (previousValue + element.count)
+                              //                 .toString()));
                               context.read<CreateOrderBloc>().add(AddOrderEvent(
                                   order,
                                   context.read<UserAccountBloc>().state.user!));

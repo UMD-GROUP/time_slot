@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations, use_string_buffers
 
 import 'dart:async';
-import 'dart:collection';
 import 'dart:io';
 
 import 'package:appinio_video_player/appinio_video_player.dart';
@@ -12,7 +11,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
@@ -127,7 +125,9 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   if (user!.markets.isEmpty) {
     error = 'you_need_to_create_market'.tr;
   }
-  if (data.prices.length != 30 || data.deliveryNote.length != 6) {
+  if (
+      // data.prices.length != 30 ||
+      data.deliveryNote.length != 6) {
     error = 'you_cant_create_order_now'.tr;
   }
   if (error.isNotEmpty) {
@@ -144,7 +144,8 @@ void copyToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text('Copied to clipboard: $text'),
+      duration: const Duration(seconds: 2),
+      content: Text('copied_to_clipboard'.tr),
     ),
   );
 }
@@ -324,50 +325,6 @@ Future<void> postAdminData() async {
   // final FirebaseFirestore instance = FirebaseFirestore.instance;
   // await instance.collection('admin_data').add(data.toJson());
 }
-
-/// Example event class.
-class Event {
-  const Event(this.title);
-  final String title;
-
-  @override
-  String toString() => title;
-}
-
-/// Example events.
-///
-/// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
-
-final _kEventSource = {
-  for (var item in List.generate(50, (index) => index))
-    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-        item % 4 + 1, (index) => Event('Event $item | ${index + 1}'))
-}..addAll({
-    kToday: [
-      const Event('Today\'s Event 1'),
-      const Event('Today\'s Event 2'),
-    ],
-  });
-
-int getHashCode(DateTime key) =>
-    key.day * 1000000 + key.month * 10000 + key.year;
-
-/// Returns a list of [DateTime] objects from [first] to [last], inclusive.
-List<DateTime> daysInRange(DateTime first, DateTime last) {
-  final dayCount = last.difference(first).inDays + 1;
-  return List.generate(
-    dayCount,
-    (index) => DateTime.utc(first.year, first.month, first.day + index),
-  );
-}
-
-final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
 
 String formatStringToMoney(String inputString) {
   // Parse the input string as a double
@@ -610,16 +567,16 @@ class _EditOderSheetState extends State<EditOderSheet> {
                                       '$note ${deliveryNote.text.trim()}'
                                   ..count = int.parse(count.text.trim());
                                 setState(() {});
-                                widget.order.sum = context
-                                        .read<DataFromAdminBloc>()
-                                        .state
-                                        .data!
-                                        .prices[widget.order.dates.length - 1] *
-                                    widget.order.products.fold(
-                                        0,
-                                        (previousValue, element) => int.parse(
-                                            (previousValue + element.count)
-                                                .toString()));
+                                // widget.order.sum = context
+                                //         .read<DataFromAdminBloc>()
+                                //         .state
+                                //         .data!
+                                //         .prices[widget.order.dates.length - 1] *
+                                //     widget.order.products.fold(
+                                //         0,
+                                //         (previousValue, element) => int.parse(
+                                //             (previousValue + element.count)
+                                //                 .toString()));
                                 Navigator.pop(context);
                               },
                             );
@@ -1295,4 +1252,54 @@ String generateUniquePromoCode(List<PromoCodeModel> existingPromoCodes) {
   } while (existingPromoCodes.any((promo) => promo.promoCode == promoCode));
 
   return promoCode;
+}
+
+class FreeLimitDialog extends StatelessWidget {
+  const FreeLimitDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final String token = context.read<UserAccountBloc>().state.user.token;
+    return CupertinoAlertDialog(
+      title: Text('about_free_limit'.tr,
+          style: AppTextStyles.labelLarge(context, fontSize: 16.sp)),
+      content: Column(children: [
+        Text('text_about_free_limit'.tr,
+            style: AppTextStyles.labelLarge(context)),
+        SizedBox(height: height(context) * 0.01),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('your_token_is'.trParams({'token': token}),
+                style: AppTextStyles.labelLarge(context, fontSize: 14.sp)),
+            OnTap(
+                onTap: () {
+                  copyToClipboard(context, 'token');
+                },
+                child: const Icon(Icons.copy))
+          ],
+        )
+      ]),
+      actions: [
+        CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('close'.tr,
+                style: AppTextStyles.labelLarge(context, color: Colors.red)))
+      ],
+    );
+  }
+}
+
+void showFreeLimitDialog(BuildContext context) {
+  showCupertinoDialog(
+      context: context,
+      builder: (context) => Theme(
+            data:
+                AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
+                    ? ThemeData.light()
+                    : ThemeData.dark(),
+            child: const FreeLimitDialog(),
+          ));
 }

@@ -71,26 +71,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
               ),
               const AdminBannerWidget(),
               SizedBox(
-                height: height(context) * 0.01,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  'prices'.tr,
-                  style: AppTextStyles.bodyMedium(context),
-                ),
-              ),
-              SizedBox(
-                height: height(context) * 0.01,
-              ),
-              const PricesView(),
-              SizedBox(
-                height: height(context) * 0.01,
-              ),
-              const OtherView(),
-              SizedBox(
                 height: height(context) * 0.03,
               ),
+              const OtherView(),
               const Expanded(child: AdminTabBarWidget()),
             ],
           ),
