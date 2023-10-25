@@ -1219,11 +1219,12 @@ class NavigationControls extends StatelessWidget {
 }
 
 bool canTapStep(context, OrderModel order, int step) {
+  print(order.date);
   String error = '';
   if (step == 1 && order.marketName.isEmpty) {
     error = 'you_must_select_market'.tr;
   }
-  if (step == 2 && order.date.isSameDay(DateTime.now())) {
+  if (step == 2 && order.date.isSameDay(DateTime(2021, 12, 12))) {
     error = 'you_must_select_data'.tr;
   }
   if (step == 3 && order.products.isEmpty) {

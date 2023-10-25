@@ -22,22 +22,37 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
         final OrderModel order = context.read<CreateOrderBloc>().state.order;
         order.date = date;
         context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(order));
+        context.read<PrivilegeBloc>().add(GetTheReverseEvent(date));
       },
       // readOnly: true,
       onPreviousMinDateTapped: (date) {},
       onAfterMaxDateTapped: (date) {},
       initialFocusDate: DateTime.now().add(const Duration(days: 2)),
-      initialDateSelected: DateTime.now().add(const Duration(days: 2)),
       // endDateSelected: DateTime(2022, 3, 20),
     );
     return Column(children: [
-      BlocBuilder<CreateOrderBloc, CreateOrderState>(
+      BlocBuilder<PrivilegeBloc, PrivilegeState>(
         builder: (context, state) {
-          return OrderTextWidget(
-              icon: Icons.attach_money,
-              context: context,
-              type: 'price_per_one',
-              value: [].isEmpty ? '0 UZS' : '0 UZS');
+          return Column(
+            children: [
+              OrderTextWidget(
+                  isLoading: state.reservesStatus == ResponseStatus.inProgress,
+                  icon: Icons.recycling,
+                  context: context,
+                  type: 'reserve',
+                  value: state.reserve.isNull
+                      ? '0 ${'piece'.tr}'
+                      : '${state.reserve!.reserve} ${'piece'.tr}'),
+              OrderTextWidget(
+                  isLoading: state.reservesStatus == ResponseStatus.inProgress,
+                  icon: Icons.attach_money,
+                  context: context,
+                  type: 'price_per_one',
+                  value: state.reserve.isNull
+                      ? '0 UZS'
+                      : '${state.reserve!.price} UZS'),
+            ],
+          );
         },
       ),
       SizedBox(
@@ -46,6 +61,7 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
         child: Theme(
           data: AdaptiveTheme.of(context).theme,
           child: ScrollableCleanCalendar(
+            locale: getIt<StorageService>().getString('language'),
             calendarController: calendarController,
             layout: Layout.BEAUTY,
             calendarCrossAxisSpacing: 0,

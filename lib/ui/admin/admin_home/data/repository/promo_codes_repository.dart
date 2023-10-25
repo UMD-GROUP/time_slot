@@ -21,6 +21,28 @@ class PromoCodesRepository {
     return myResponse;
   }
 
+  Future<MyResponse> getThePromoCode(String promoCode) async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      final promoDoc = await instance
+          .collection('promo_codes')
+          .where('promoCode', isEqualTo: promoCode)
+          .get();
+      if (promoDoc.docs.isNotEmpty) {
+        myResponse
+          ..statusCode = 200
+          ..data = PromoCodeModel.fromJson(promoDoc.docs.first.data());
+      } else {
+        myResponse
+          ..statusCode = 400
+          ..message = 'promo_code_not_found'.tr;
+      }
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
   Future<MyResponse> addPromoCode(PromoCodeModel promoCode) async {
     final MyResponse myResponse = MyResponse();
 

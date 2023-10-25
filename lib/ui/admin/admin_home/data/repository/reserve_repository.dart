@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations
-import 'package:time_slot/ui/admin/admin_home/data/models/reserve_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class ReserveRepository {

@@ -38,7 +38,7 @@ class AppTranslations extends Translations {
           'choose_photo': 'Rasm tanlash',
           'add': "Qo'shish",
           'you_must_select_market': "Do'kon tanlanmadi!",
-          'you_must_select_data': 'Eng kamida bitta sana\ntanlanishi kerak!',
+          'you_must_select_data': 'Sanani tanlash shart!',
           'you_must_add_product':
               'Eng kamida 10 ta mahsulot\ntanlanishi kerak!',
           'you_must_select_photo': 'Rasm yuklanishi shart!',
@@ -206,6 +206,8 @@ class AppTranslations extends Translations {
           'change_date': "Sanani o'zgartirish",
           'change_product': "Mahsulot qo'shish",
           'next': 'Keyingisi',
+          'in_this_day_reverse_is_not_enough':
+              '@day kuni uchun zahira miqdori @max_limit ga teng. Sizning tovarlaringgiz miqdori esa shu miqdordan oshishi mumkin emas!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -230,7 +232,7 @@ class AppTranslations extends Translations {
           'add': 'Добавить',
           'order': 'Формализация',
           'you_must_select_market': 'Магазин не выбран!',
-          'you_must_select_data': 'Необходимо ввести хотя\nбы одну дату!',
+          'you_must_select_data': 'Выбор даты обязателен!',
           'you_must_add_product': 'Должен быть хотя бы 10 товар!',
           'you_must_select_photo': 'Изображение должно\nбыть загружено!',
           'products': 'Продукты:',
@@ -404,6 +406,8 @@ class AppTranslations extends Translations {
           'change_date': 'Изменить дату',
           'change_product': 'Добавить продукт',
           'next': 'Следующий',
+          'in_this_day_reverse_is_not_enough':
+              'Сумма резерва на @day составляет @max_limit. И количество ваших товаров не может превышать эту сумму!',
         }
       };
 }

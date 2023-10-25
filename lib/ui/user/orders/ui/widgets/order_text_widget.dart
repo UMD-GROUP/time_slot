@@ -7,6 +7,7 @@ Row OrderTextWidget(
         bool isDate = false,
         required String type,
         IconData? icon,
+        bool isLoading = false,
         required String value}) =>
     Row(
       children: [
@@ -24,10 +25,13 @@ Row OrderTextWidget(
         SizedBox(
           width: 5.w,
         ),
-        Text(
-          value,
-          style: AppTextStyles.bodyLargeSmall(context,
-              fontSize: 15.sp, color: isDate ? Colors.black : null),
-        ),
+        isLoading
+            ? CustomCircularProgressIndicator(
+                color: AdaptiveTheme.of(context).theme.hintColor)
+            : Text(
+                value,
+                style: AppTextStyles.bodyLargeSmall(context,
+                    fontSize: 15.sp, color: isDate ? Colors.black : null),
+              ),
       ],
     );

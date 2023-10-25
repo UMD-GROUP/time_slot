@@ -1,9 +1,5 @@
 // ignore_for_file: prefer_expression_function_bodies
 
-import 'package:time_slot/service/storage_service/storage_service.dart';
-import 'package:time_slot/ui/admin/admin_home/bloc/promo_codes_bloc/promo_code_bloc.dart';
-import 'package:time_slot/ui/admin/admin_home/bloc/reserve_bloc/reserve_bloc.dart';
-import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -20,6 +16,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => AdminBloc()),
         BlocProvider(create: (context) => StoresBloc()),
         BlocProvider(create: (context) => ReserveBloc()),
+        BlocProvider(create: (context) => PrivilegeBloc()),
         BlocProvider(
             create: (context) => PromoCodeBloc()..add(GetPromoCodesEvent())),
       ], child: const MyApp());

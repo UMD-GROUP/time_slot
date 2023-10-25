@@ -16,6 +16,8 @@ class MarketOption extends StatelessWidget {
                 RadioListTile(
                   title: Text(i.name, style: AppTextStyles.labelLarge(context)),
                   value: i.name,
+                  fillColor:
+                      MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
                   activeColor: Colors.deepPurpleAccent,
                   groupValue: state.order.marketName,
                   onChanged: (value) {
