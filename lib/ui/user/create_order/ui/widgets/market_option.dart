@@ -14,11 +14,9 @@ class MarketOption extends StatelessWidget {
             children: [
               for (final i in context.read<UserAccountBloc>().state.stores)
                 RadioListTile(
-                  title: Text(
-                    i.name,
-                    // style: AppTextStyles.labelLarge(context)
-                  ),
+                  title: Text(i.name, style: AppTextStyles.labelLarge(context)),
                   value: i.name,
+                  activeColor: Colors.deepPurpleAccent,
                   groupValue: state.order.marketName,
                   onChanged: (value) {
                     final OrderModel order = state.order;

@@ -56,23 +56,55 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                     children: [
                       const FreeLimitWidget(),
                       Stepper(
+                          controlsBuilder: (context, details) {
+                            final List backTexts = [
+                              '',
+                              'change_market'.tr,
+                              'change_date'.tr,
+                              'change_product'.tr,
+                            ];
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    context
+                                        .read<StepControllerBloc>()
+                                        .add(ToPreviousStepEvent());
+                                  },
+                                  child: Text(backTexts[details.currentStep],
+                                      style: AppTextStyles.labelLarge(context,
+                                          color: Colors.deepPurpleAccent)),
+                                ),
+                                const SizedBox(width: 8),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (canTapStep(
+                                        context,
+                                        context
+                                            .read<CreateOrderBloc>()
+                                            .state
+                                            .order,
+                                        state.currentStep + 1)) {
+                                      context
+                                          .read<StepControllerBloc>()
+                                          .add(ToNextStepEvent());
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.deepPurpleAccent),
+                                  ),
+                                  child: Text(
+                                    'next'.tr,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                           margin: const EdgeInsets.only(left: 60),
-                          onStepCancel: () {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToPreviousStepEvent());
-                          },
                           currentStep: state.currentStep,
-                          onStepContinue: () {
-                            if (canTapStep(
-                                context,
-                                context.read<CreateOrderBloc>().state.order,
-                                state.currentStep + 1)) {
-                              context
-                                  .read<StepControllerBloc>()
-                                  .add(ToNextStepEvent());
-                            }
-                          },
                           onStepTapped: (value) {
                             if (canTapStep(
                                 context,
@@ -95,7 +127,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             ),
                             Step(
                               title: Text(
-                                "${'choose_dates'.tr}  ${context.read<CreateOrderBloc>().state.order.dates.length} ${'piece'.tr}",
+                                "${'date'.tr}  ${dateTimeToFormat(context.read<CreateOrderBloc>().state.order.date).split(' ').first}",
                                 style: AppTextStyles.labelLarge(context),
                               ),
                               content: const SelectDatesSection(),

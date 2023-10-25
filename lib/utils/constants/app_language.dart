@@ -201,7 +201,11 @@ class AppTranslations extends Translations {
           'active_reserves': 'Faol zahira:',
           'date': 'Sana:',
           'price': 'Narx:',
-          'reserve_information': "Zahira ma'lumotlari:"
+          'reserve_information': "Zahira ma'lumotlari:",
+          'change_market': "Do'konni o'zgartirish",
+          'change_date': "Sanani o'zgartirish",
+          'change_product': "Mahsulot qo'shish",
+          'next': 'Keyingisi',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -395,7 +399,11 @@ class AppTranslations extends Translations {
           'active_reserves': 'Активный резерв:',
           'date': 'Дата:',
           'price': 'Цена:',
-          'reserve_information': 'Резервные данные:'
+          'reserve_information': 'Резервные данные:',
+          'change_market': 'Сменить магазин',
+          'change_date': 'Изменить дату',
+          'change_product': 'Добавить продукт',
+          'next': 'Следующий',
         }
       };
 }

@@ -60,18 +60,22 @@ class _AddProductSectionState extends State<AddProductSection> {
                                   Text(
                                       '${context.read<DataFromAdminBloc>().state.data!.deliveryNote} -',
                                       style: AppTextStyles.labelLarge(context,
-                                          color: Colors.black, fontSize: 16)),
+                                          fontSize: 16)),
                                   Expanded(
                                     child: TextField(
                                       onChanged: (value) {
                                         changeStatus();
                                       },
+                                      style: AppTextStyles.labelLarge(context),
                                       controller: deliveryNote,
                                       inputFormatters: [
                                         SevenDigitInputFormatter()
                                       ],
                                       keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
+                                          hintStyle: AppTextStyles.labelLarge(
+                                              context,
+                                              color: Colors.grey),
                                           hintText: 'delivery_note'.tr,
                                           border: InputBorder.none,
                                           iconColor: Colors.deepPurple),
@@ -89,6 +93,7 @@ class _AddProductSectionState extends State<AddProductSection> {
                               alignment: Alignment.center,
                               height: height(context) * 0.06,
                               child: TextField(
+                                style: AppTextStyles.labelLarge(context),
                                 controller: count,
                                 onChanged: (value) {
                                   changeStatus();
@@ -98,6 +103,8 @@ class _AddProductSectionState extends State<AddProductSection> {
                                 ],
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
+                                    hintStyle: AppTextStyles.labelLarge(context,
+                                        color: Colors.grey),
                                     border: InputBorder.none,
                                     hintText: 'count'.tr,
                                     iconColor: Colors.deepPurple),

@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:time_slot/service/image_picker/image_picker_service.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class ImageSection extends StatelessWidget {
@@ -26,6 +25,10 @@ class ImageSection extends StatelessWidget {
                     border: Border.all(color: Colors.deepPurple)),
               ),
               ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.deepPurpleAccent),
+                  ),
                   onPressed: () async {
                     final photo = await showPicker(context);
                     final OrderModel order = state.order;

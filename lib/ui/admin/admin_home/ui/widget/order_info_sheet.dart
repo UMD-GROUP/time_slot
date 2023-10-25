@@ -217,32 +217,13 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                   ),
                 );
               }),
-            RowText(
-              icon: AppIcons.calendar,
-              text1: 'day_count',
-              text2: '${widget.order.dates.length} ${'piece'.tr}',
-            ),
             if (widget.isAdmin ||
                 widget.order.ownerId ==
                     context.read<UserAccountBloc>().state.user!.uid)
-              Wrap(
-                spacing: 4.w, // Horizontal spacing between items
-                runSpacing: 5.h, //
-
-                children: List.generate(
-                    widget.order.dates.length,
-                    (index) => Padding(
-                          padding: EdgeInsets.only(left: width(context) * 0.04),
-                          child: Text(
-                            DateTime.parse(widget.order.dates[index])
-                                .toUtc()
-                                .toString()
-                                .split(' ')
-                                .first,
-                            style: AppTextStyles.bodyMedium(context,
-                                fontSize: 15.sp),
-                          ),
-                        )),
+              RowText(
+                icon: AppIcons.calendar,
+                text1: 'date'.tr,
+                text2: '${widget.order.date}',
               ),
             RowText(
               icon: AppIcons.balance,

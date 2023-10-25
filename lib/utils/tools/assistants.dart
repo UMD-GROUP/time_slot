@@ -11,6 +11,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:scrollable_clean_calendar/utils/extensions.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
@@ -53,35 +54,35 @@ String generateToken() {
   return randomString.toUpperCase();
 }
 
-Future<void> postOrders({String? uid, String? referallId}) async {
-  final List<Map<String, dynamic>> randomOrderJsonList = [];
-
-  final Random random = Random();
-  for (int i = 1; i <= 5; i++) {
-    final OrderModel randomOrder = OrderModel(
-      finishedAt: DateTime.now(),
-      createdAt: DateTime.now(),
-      products: [],
-      referallId: 'XOGOO712',
-      ownerId: uid ?? 'DhuNGAJq6ZcZwOUEDm66XQFDFa03',
-      orderId: random.nextInt(1000),
-      sum: double.parse((random.nextDouble() * 100).toStringAsFixed(2)),
-      marketName: 'Market ${random.nextInt(5)}',
-      dates: ['2023-09-30', '2023-10-01'],
-      userPhoto: 'https://picsum.photos/200/300',
-      status: OrderStatus.values[random.nextInt(OrderStatus.values.length)],
-    );
-
-    randomOrderJsonList.add(randomOrder.toJson());
-  }
-
-  final FirebaseFirestore instance = FirebaseFirestore.instance;
-
-  for (final json in randomOrderJsonList) {
-    await instance.collection('orders').add(json);
-    print('Done');
-  }
-}
+// Future<void> postOrders({String? uid, String? referallId}) async {
+//   final List<Map<String, dynamic>> randomOrderJsonList = [];
+//
+//   final Random random = Random();
+//   for (int i = 1; i <= 5; i++) {
+//     final OrderModel randomOrder = OrderModel(
+//       finishedAt: DateTime.now(),
+//       createdAt: DateTime.now(),
+//       products: [],
+//       referallId: 'XOGOO712',
+//       ownerId: uid ?? 'DhuNGAJq6ZcZwOUEDm66XQFDFa03',
+//       orderId: random.nextInt(1000),
+//       sum: double.parse((random.nextDouble() * 100).toStringAsFixed(2)),
+//       marketName: 'Market ${random.nextInt(5)}',
+//       dates: ['2023-09-30', '2023-10-01'],
+//       userPhoto: 'https://picsum.photos/200/300',
+//       status: OrderStatus.values[random.nextInt(OrderStatus.values.length)],
+//     );
+//
+//     randomOrderJsonList.add(randomOrder.toJson());
+//   }
+//
+//   final FirebaseFirestore instance = FirebaseFirestore.instance;
+//
+//   for (final json in randomOrderJsonList) {
+//     await instance.collection('orders').add(json);
+//     print('Done');
+//   }
+// }
 
 Future<String> uploadImageToFirebaseStorage(String imagePath) async {
   late String downloadURL;
@@ -104,7 +105,7 @@ String orderValidator(OrderModel order) {
   if (order.marketName.isEmpty) {
     return 'you_must_select_market'.tr;
   }
-  if (order.dates.isEmpty) {
+  if (order.date.isSameDay(DateTime.now())) {
     return 'you_must_select_data'.tr;
   }
   if (order.products.isEmpty) {
@@ -1222,7 +1223,7 @@ bool canTapStep(context, OrderModel order, int step) {
   if (step == 1 && order.marketName.isEmpty) {
     error = 'you_must_select_market'.tr;
   }
-  if (step == 2 && order.dates.isEmpty) {
+  if (step == 2 && order.date.isSameDay(DateTime.now())) {
     error = 'you_must_select_data'.tr;
   }
   if (step == 3 && order.products.isEmpty) {

@@ -24,8 +24,11 @@ class RowText extends StatelessWidget {
         child: Row(
           children: [
             iconData.isNull
-                ? SvgPicture.asset(icon!,
-                    color: AdaptiveTheme.of(context).theme.hintColor)
+                ? SvgPicture.asset(
+                    icon!,
+                    color: AdaptiveTheme.of(context).theme.hintColor,
+                    height: 20.h,
+                  )
                 : Icon(
                     iconData,
                     color: AdaptiveTheme.of(context).theme.hintColor,

@@ -8,7 +8,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       : super(CreateOrderState(OrderModel(
             finishedAt: DateTime.now(),
             createdAt: DateTime.now(),
-            dates: [],
+            date: DateTime.now().add(const Duration(days: 2)),
             products: [],
             orderId: generateRandomID(true)))) {
     on<UpdateFieldsOrderEvent>(updateFields);
@@ -34,7 +34,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
                 finishedAt: DateTime.now(),
                 createdAt: DateTime.now(),
                 products: [],
-                dates: [])));
+                date: DateTime.now())));
       }
     } else {
       emit(state.copyWith(

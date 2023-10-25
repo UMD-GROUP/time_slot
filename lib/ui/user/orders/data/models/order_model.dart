@@ -10,7 +10,7 @@ class OrderModel {
       required this.products,
       this.sum = 0,
       this.marketName = '',
-      required this.dates,
+      required this.date,
       this.userPhoto = '',
       required this.createdAt,
       required this.finishedAt,
@@ -34,7 +34,7 @@ class OrderModel {
             [],
         sum: (json['sum'] as num?)?.toDouble() ?? 0.0,
         marketName: json['marketName'] ?? '',
-        dates: json['dates'] ?? [],
+        date: json['date'] ?? DateTime.now(),
         userPhoto: json['userPhoto'] ?? '',
         status: OrderStatus.values[json['status'] as int? ?? 0],
         orderDocId: json['orderDocId'] ?? '',
@@ -44,7 +44,7 @@ class OrderModel {
   int orderId;
   num sum;
   String marketName;
-  List<dynamic> dates;
+  DateTime date;
   String userPhoto;
   OrderStatus status;
   String adminPhoto;
@@ -65,7 +65,7 @@ class OrderModel {
         'finishedAt': finishedAt.toString(),
         'marketName': marketName,
         'orderDocId': orderDocId,
-        'dates': dates.map((e) => e.toString()),
+        'dates': date.toString(),
         'userPhoto': userPhoto,
         'status': status.index,
         'comment': comment,
