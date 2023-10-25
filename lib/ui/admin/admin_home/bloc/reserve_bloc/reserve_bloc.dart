@@ -1,4 +1,4 @@
-import 'package:time_slot/ui/admin/admin_home/data/models/reserve_model.dart';
+import 'package:scrollable_clean_calendar/utils/extensions.dart';
 import 'package:time_slot/ui/admin/admin_home/data/repository/reserve_repository.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -15,33 +15,39 @@ class ReserveBloc extends Bloc<ReserveEvent, ReserveState> {
   }
 
   Future<void> getAllReserves(GetAllReservesEvent event, Emitter emit) async {
+    bool isFirstTime = false;
     if (state.gettingStatus == ResponseStatus.pure) {
       emit(state.copyWith(status: ResponseStatus.inProgress));
+      isFirstTime = true;
     }
     final MyResponse myResponse =
         await getIt<ReserveRepository>().getAllReserves();
     if (myResponse.statusCode == 200) {
       emit(state.copyWith(
           status: ResponseStatus.inSuccess, reserves: myResponse.data));
+      add(ChangeCurrentReserveEvent(
+          isFirstTime ? DateTime.now().add(const Duration(days: 2)) : null,
+          myResponse.data));
     } else {
       emit(state.copyWith(
           status: ResponseStatus.inFail, message: myResponse.message));
     }
+    // emit(state.copyWith(status: ResponseStatus.pure));
   }
 
   Future<void> createTheReserve(
       CreateTheReserveEvent event, Emitter emit) async {
-    emit(state.copyWith(creatingStatus: ResponseStatus.inProgress));
+    emit(state.copyWith(updatingStatus: ResponseStatus.inProgress));
     final MyResponse myResponse =
         await getIt<ReserveRepository>().createReserve(event.reserve);
     if (myResponse.statusCode == 200) {
-      emit(state.copyWith(creatingStatus: ResponseStatus.inSuccess));
+      emit(state.copyWith(updatingStatus: ResponseStatus.inSuccess));
       add(GetAllReservesEvent());
     } else {
       emit(state.copyWith(
-          creatingStatus: ResponseStatus.inFail, message: myResponse.message));
+          updatingStatus: ResponseStatus.inFail, message: myResponse.message));
     }
-    emit(state.copyWith(creatingStatus: ResponseStatus.pure));
+    emit(state.copyWith(updatingStatus: ResponseStatus.pure));
   }
 
   Future<void> deleteTheReserve(
@@ -79,13 +85,14 @@ class ReserveBloc extends Bloc<ReserveEvent, ReserveState> {
   Future<void> changeCurrentReserve(
       ChangeCurrentReserveEvent event, Emitter emit) async {
     late ReserveModel reserve;
-    final List reserves = state.reserves
-        .where((element) => element.date.isAtSameMomentAs(event.day))
+    final List reserves = event.reserves
+        .where((element) =>
+            element.date.isSameDay(event.day ?? state.currentReserve!.date))
         .toList();
     if (reserves.isNotEmpty) {
       reserve = reserves.first;
     } else {
-      reserve = ReserveModel(date: event.day);
+      reserve = ReserveModel(date: event.day ?? state.currentReserve!.date);
     }
     emit(state.copyWith(currentReserve: reserve));
   }

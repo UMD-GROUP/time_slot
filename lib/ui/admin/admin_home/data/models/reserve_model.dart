@@ -16,8 +16,8 @@ class ReserveModel {
         docId: json['docId'] as String ?? 'defaultDocId',
       );
   final DateTime date;
-  final int reserve;
-  final int price;
+  int reserve;
+  int price;
   final String docId;
   final bool isNew;
 

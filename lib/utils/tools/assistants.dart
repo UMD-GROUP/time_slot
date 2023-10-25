@@ -11,7 +11,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
@@ -157,6 +156,16 @@ void showEditProductDialog(BuildContext context, ProductModel product,
     context: context,
     builder: (context) => EditProductDialog(product,
         onSaved: onSaved, deliveryNote: deliveryNote, count: count),
+  );
+}
+
+void showReserveDialog(BuildContext context, ReserveModel reserveModel,
+    TextEditingController reserve, TextEditingController price,
+    {required VoidCallback onConfirmTap}) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => ReserveDialog(reserveModel,
+        reserve: reserve, onConfirmTap: onConfirmTap, price: price),
   );
 }
 
@@ -1302,4 +1311,69 @@ void showFreeLimitDialog(BuildContext context) {
                     : ThemeData.dark(),
             child: const FreeLimitDialog(),
           ));
+}
+
+class ReserveDialog extends StatefulWidget {
+  ReserveDialog(this.reserveModel,
+      {required this.onConfirmTap,
+      required this.price,
+      required this.reserve,
+      super.key});
+  TextEditingController reserve;
+  TextEditingController price;
+  ReserveModel reserveModel;
+  VoidCallback onConfirmTap;
+
+  @override
+  State<ReserveDialog> createState() => _ReserveDialogState();
+}
+
+class _ReserveDialogState extends State<ReserveDialog> {
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: Text(
+            '${'date'.tr} ${widget.reserveModel.date.toString().split(' ').first}'),
+        content: Column(
+          children: [
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.4,
+              child: CupertinoTextField(
+                controller: widget.reserve,
+                keyboardType: TextInputType.number,
+                maxLength: 7, // Maximum of 7 numbers
+                placeholder:
+                    '${'reserve'.tr} (${widget.reserveModel.reserve} ${'piece'.tr})',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.4,
+              child: CupertinoTextField(
+                controller: widget.price,
+                keyboardType: TextInputType.number,
+                maxLength: 3, // Maximum of 3 numbers
+                placeholder: '${'price'.tr} (${widget.reserveModel.price} UZS)',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+              onPressed: widget.onConfirmTap, child: Text('confirm'.tr)),
+        ],
+      );
 }

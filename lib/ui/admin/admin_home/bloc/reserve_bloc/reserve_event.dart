@@ -21,6 +21,7 @@ class CreateTheReserveEvent extends ReserveEvent {
 }
 
 class ChangeCurrentReserveEvent extends ReserveEvent {
-  ChangeCurrentReserveEvent(this.day);
-  DateTime day;
+  ChangeCurrentReserveEvent(this.day, this.reserves);
+  DateTime? day;
+  List<ReserveModel> reserves;
 }
