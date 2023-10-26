@@ -13,6 +13,16 @@ class CreateOrderPage extends StatefulWidget {
 class _CreateOrderPageState extends State<CreateOrderPage> {
   List<DateTime> dates = [];
 
+  // ignore: type_annotate_public_apis
+  int returnSum(state) {
+    if (context.read<PrivilegeBloc>().state.reserve.isNull) {
+      return 0;
+    } else {
+      return (state.order.products.fold(0, (pV, e) => (pV + e.count).toInt())) *
+          context.read<PrivilegeBloc>().state.reserve!.price;
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
@@ -127,7 +137,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             ),
                             Step(
                               title: Text(
-                                "${'date'.tr}  ${dateTimeToFormat(context.read<CreateOrderBloc>().state.order.date).split(' ').first}",
+                                "${'date'.tr}  ${context.read<CreateOrderBloc>().state.order.date.isAfter(DateTime.now()) ? dateTimeToFormat(context.read<CreateOrderBloc>().state.order.date).split(' ').first : ''}",
                                 style: AppTextStyles.labelLarge(context),
                               ),
                               content: const SelectDatesSection(),
@@ -140,9 +150,36 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             Step(
                                 title: BlocBuilder<CreateOrderBloc,
                                     CreateOrderState>(
-                                  builder: (context, state) => Text(
-                                      '${'payment'.tr}    0 UZS',
-                                      style: AppTextStyles.labelLarge(context)),
+                                  builder: (context, state) => Row(
+                                    children: [
+                                      Text('${'payment'.tr}    ',
+                                          style: AppTextStyles.labelLarge(
+                                              context)),
+                                      Text('${state.order.sum}  ',
+                                          style: AppTextStyles.labelLarge(
+                                              isLineThrough:
+                                                  !state.order.promoCode.isNull,
+                                              color:
+                                                  state.order.promoCode.isNull
+                                                      ? null
+                                                      : Colors.red,
+                                              context)),
+                                      if (!state.order.promoCode.isNull)
+                                        Text(
+                                          '${state.order.totalSum}',
+                                          style: AppTextStyles.labelLarge(
+                                              context,
+                                              color: Colors.lightGreenAccent),
+                                        ),
+                                      Text('  UZS',
+                                          style: AppTextStyles.labelLarge(
+                                              context,
+                                              color: state
+                                                      .order.promoCode.isNull
+                                                  ? null
+                                                  : Colors.lightGreenAccent)),
+                                    ],
+                                  ),
                                 ),
                                 content: const ImageSection())
                           ]),
@@ -154,7 +191,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 ResponseStatus.inProgress,
                             onTap: () {
                               final OrderModel order = orderState.order;
-                              order.referallId = context
+                              order.referralId = context
                                   .read<UserAccountBloc>()
                                   .state
                                   .user!

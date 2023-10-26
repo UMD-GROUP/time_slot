@@ -19,19 +19,41 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
       onRangeSelected: (firstDate, secondDate) {},
       rangeMode: false,
       onDayTapped: (date) {
-        final OrderModel order = context.read<CreateOrderBloc>().state.order;
-        order.date = date;
-        context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(order));
         context.read<PrivilegeBloc>().add(GetTheReverseEvent(date));
       },
       // readOnly: true,
       onPreviousMinDateTapped: (date) {},
       onAfterMaxDateTapped: (date) {},
-      initialFocusDate: DateTime.now().add(const Duration(days: 2)),
+      initialFocusDate: context.read<CreateOrderBloc>().state.order.date,
       // endDateSelected: DateTime(2022, 3, 20),
     );
     return Column(children: [
-      BlocBuilder<PrivilegeBloc, PrivilegeState>(
+      BlocConsumer<PrivilegeBloc, PrivilegeState>(
+        listener: (context, state) {
+          if (state.reservesStatus == ResponseStatus.inSuccess) {
+            final OrderModel order =
+                context.read<CreateOrderBloc>().state.order;
+            final int productCount = order.products
+                .fold(0, (p, e) => int.parse((p + e.count).toString()));
+            if (productCount <= state.reserve!.reserve) {
+              order.reserve = state.reserve;
+              order.date = state.reserve!.date;
+              context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(order,
+                  freeLimit:
+                      context.read<UserAccountBloc>().state.user.freeLimits));
+            } else {
+              AnimatedSnackBar(
+                duration: const Duration(seconds: 5),
+                snackBarStrategy: RemoveSnackBarStrategy(),
+                builder: (context) => AppErrorSnackBar(
+                    text: 'selected_date_has_no_enough_reserve'.trParams({
+                  'count': state.reserve!.reserve.toString(),
+                  'date': dateTimeToFormat(state.reserve!.date, needTime: false)
+                })),
+              ).show(context);
+            }
+          }
+        },
         builder: (context, state) {
           return Column(
             children: [

@@ -120,12 +120,12 @@ class OrderItem extends StatelessWidget {
                           icon: Icons.attach_money,
                           context: context,
                           type: 'sum',
-                          value: '${order.sum.toInt()} UZS'),
+                          value: '${order.totalSum.toInt()} UZS'),
                       OrderTextWidget(
                           icon: Icons.group,
                           context: context,
                           type: 'partner_id',
-                          value: order.referallId.toString()),
+                          value: order.referralId.toString()),
                       //     OrderTextWidget(context: context, type: 'Status:',value: data[index].status.toString()),
                       Expanded(
                         child: Row(

@@ -13,10 +13,29 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
             orderId: generateRandomID(true)))) {
     on<UpdateFieldsOrderEvent>(updateFields);
     on<AddOrderEvent>(addOrder);
+    on<ReInitOrderEvent>(initOrder);
   }
 
   void updateFields(UpdateFieldsOrderEvent event, Emitter emit) {
+    if (!event.order.reserve.isNull && !event.freeLimit.isNull) {
+      event.order = calculateSum(event.order, event.freeLimit!);
+    }
     emit(state.copyWith(newOrder: event.order, isUpdated: !state.isUpdated));
+  }
+
+  OrderModel calculateSum(OrderModel order, int freeLimit) {
+    int sum = 0;
+    final int productCount =
+        order.products.fold(0, (i, e) => int.parse((i + e.count).toString()));
+    sum += (productCount >= freeLimit ? productCount - freeLimit : 0) *
+        order.reserve!.price;
+    order.sum = sum;
+    if (!order.promoCode.isNull && order.promoCode!.minAmount <= productCount) {
+      sum -= (sum / 100 * order.promoCode!.discount).toInt();
+    }
+    order.totalSum = sum;
+
+    return order;
   }
 
   Future<void> addOrder(AddOrderEvent event, Emitter emit) async {
@@ -42,5 +61,13 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
           message: orderValidator(event.order)));
     }
     emit(state.copyWith(addingStatus: ResponseStatus.pure));
+  }
+
+  void initOrder(ReInitOrderEvent event, Emitter emit) {
+    emit(CreateOrderState(OrderModel(
+        products: [],
+        date: DateTime(2021, 12, 12),
+        createdAt: DateTime.now(),
+        finishedAt: DateTime.now())));
   }
 }

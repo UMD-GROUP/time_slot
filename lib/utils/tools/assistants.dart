@@ -683,8 +683,9 @@ Future<void> launch(String url) async {
   }
 }
 
-String dateTimeToFormat(DateTime time) =>
-    '${time.day}.${time.month}.${time.year} ${time.hour >= 10 ? time.hour : '0${time.hour}'}:${time.minute >= 10 ? time.minute : '0${time.minute}'}';
+String dateTimeToFormat(DateTime time, {bool needTime = true}) => needTime
+    ? '${time.day}.${time.month}.${time.year} ${time.hour >= 10 ? time.hour : '0${time.hour}'}:${time.minute >= 10 ? time.minute : '0${time.minute}'}'
+    : '${time.day}.${time.month}.${time.year}';
 
 Future<User?> handleSignIn() async {
   try {

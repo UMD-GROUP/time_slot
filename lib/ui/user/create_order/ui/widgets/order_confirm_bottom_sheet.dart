@@ -48,7 +48,7 @@ class InfoBottomSheet extends StatelessWidget {
                 Navigator.pop(context);
                 final OrderModel order =
                     context.read<CreateOrderBloc>().state.order;
-                order.referallId =
+                order.referralId =
                     context.read<UserAccountBloc>().state.user!.referallId;
                 order.ownerId = context.read<UserAccountBloc>().state.user!.uid;
 

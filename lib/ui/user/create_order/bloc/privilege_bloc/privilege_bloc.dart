@@ -46,12 +46,16 @@ class PrivilegeBloc extends Bloc<PrivilegeEvent, PrivilegeState> {
     final MyResponse myResponse =
         await getIt<PromoCodesRepository>().getThePromoCode(event.promoCode);
     if (myResponse.statusCode == 200) {
+      print(myResponse.data);
       emit(state.copyWith(
           promoCodeStatus: ResponseStatus.inSuccess,
           promoCode: myResponse.data));
     } else {
+      print(myResponse.message);
+
       emit(state.copyWith(
           promoCodeStatus: ResponseStatus.inFail, message: myResponse.message));
     }
+    emit(state.copyWith(promoCodeStatus: ResponseStatus.pure));
   }
 }

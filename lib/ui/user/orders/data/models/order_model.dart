@@ -2,11 +2,11 @@ import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrderModel {
   OrderModel(
-      {this.referallId = '',
+      {this.referralId = '',
       this.ownerId = '',
       this.adminPhoto = '',
       this.orderId = 0,
-      this.tovarCount = 0,
+      this.promoCode,
       required this.products,
       this.sum = 0,
       this.marketName = '',
@@ -14,16 +14,20 @@ class OrderModel {
       this.userPhoto = '',
       required this.createdAt,
       required this.finishedAt,
+      this.reserve,
+      this.totalSum = 0,
       this.comment = '',
       this.status = OrderStatus.created,
       this.orderDocId = ''});
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+        reserve: ReserveModel.fromJson(json['reserve'] ?? {}),
         comment: json['comment'] ?? '',
         finishedAt:
             DateTime.parse(json['finishedAt'] ?? DateTime(2023).toString()),
-        referallId: json['referallId'] ?? '',
+        referralId: json['referallId'] ?? '',
         ownerId: json['ownerId'] ?? '',
+        promoCode: PromoCodeModel.fromJson(json['promoCode'] ?? {}),
         createdAt:
             DateTime.parse(json['createdAt'] ?? DateTime(2023).toString()),
         adminPhoto: json['adminPhoto'] ?? '',
@@ -32,6 +36,7 @@ class OrderModel {
                 ?.map((e) => ProductModel.fromJson(e))
                 .toList() ??
             [],
+        totalSum: json['totalSum'] ?? 0,
         sum: (json['sum'] as num?)?.toDouble() ?? 0.0,
         marketName: json['marketName'] ?? '',
         date: json['date'] ?? DateTime.now(),
@@ -40,7 +45,7 @@ class OrderModel {
         orderDocId: json['orderDocId'] ?? '',
       );
   String ownerId;
-  String referallId;
+  String referralId;
   int orderId;
   num sum;
   String marketName;
@@ -53,13 +58,18 @@ class OrderModel {
   DateTime createdAt;
   DateTime finishedAt;
   String comment;
-  int tovarCount;
+  PromoCodeModel? promoCode;
+  ReserveModel? reserve;
+  int totalSum;
 
   Map<String, dynamic> toJson() => {
-        'referallId': referallId,
+        'referallId': referralId,
+        'promoCode': promoCode?.toJson(),
         'adminPhoto': adminPhoto,
         'ownerId': ownerId,
         'orderId': orderId,
+        'reserve': reserve?.toJson(),
+        'totalSum': totalSum,
         'sum': sum,
         'createdAt': createdAt.toString(),
         'finishedAt': finishedAt.toString(),

@@ -228,12 +228,12 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             RowText(
               icon: AppIcons.balance,
               text1: 'payment',
-              text2: '${widget.order.sum.toInt()} UZS',
+              text2: '${widget.order.totalSum.toInt()} UZS',
             ),
             RowText(
               icon: AppIcons.users,
               text1: '${'partners'.tr}:',
-              text2: widget.order.referallId.toString(),
+              text2: widget.order.referralId.toString(),
             ),
             RowText(
               isVisible: widget.isAdmin ||

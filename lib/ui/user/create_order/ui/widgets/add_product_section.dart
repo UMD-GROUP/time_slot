@@ -14,9 +14,11 @@ class _AddProductSectionState extends State<AddProductSection> {
   bool canAdd = false;
 
   void changeStatus() {
+    final int countOfProduct =
+        int.parse(count.text.trim().toString().isEmpty ? '0' : count.text);
     canAdd = deliveryNote.text.length == 7 &&
-        int.parse(count.text.trim().toString() ?? '1') >= 10 &&
-        int.parse(count.text.trim().toString() ?? '1') <=
+        countOfProduct >= 10 &&
+        countOfProduct <=
             context.read<DataFromAdminBloc>().state.data!.maxLimit;
     setState(() {});
   }
@@ -165,9 +167,13 @@ class _AddProductSectionState extends State<AddProductSection> {
                                     count.clear();
                                     deliveryNote.clear();
                                     changeStatus();
-                                    context
-                                        .read<CreateOrderBloc>()
-                                        .add(UpdateFieldsOrderEvent(order));
+                                    context.read<CreateOrderBloc>().add(
+                                        UpdateFieldsOrderEvent(order,
+                                            freeLimit: context
+                                                .read<UserAccountBloc>()
+                                                .state
+                                                .user
+                                                .freeLimits));
                                   } else {
                                     AnimatedSnackBar(
                                       snackBarStrategy:

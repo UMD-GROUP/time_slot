@@ -208,6 +208,12 @@ class AppTranslations extends Translations {
           'next': 'Keyingisi',
           'in_this_day_reverse_is_not_enough':
               '@day kuni uchun zahira miqdori @max_limit ga teng. Sizning tovarlaringgiz miqdori esa shu miqdordan oshishi mumkin emas!',
+          'check': 'Tekshirish',
+          'promo_code_not_found': 'Promokod topilmadi!',
+          'min_limit_of_promo_code_is':
+              'Ushbu promokodni ishlatish uchun eng kamida @count ta mahsulot kiritish lozim!',
+          'selected_date_has_no_enough_reserve':
+              'Tanlangan kunda siz kiritgan miqdordagi tovarlar uchun zahira mavjud emas! @date kunida @count ta zahira mavjud!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -408,6 +414,12 @@ class AppTranslations extends Translations {
           'next': 'Следующий',
           'in_this_day_reverse_is_not_enough':
               'Сумма резерва на @day составляет @max_limit. И количество ваших товаров не может превышать эту сумму!',
+          'check': 'Проверять',
+          'promo_code_not_found': 'Промокод не найден!',
+          'min_limit_of_promo_code_is':
+              'Чтобы использовать этот промокод, вам необходимо ввести как минимум @count продуктов!',
+          'selected_date_has_no_enough_reserve':
+              'Резерва на количество товара, введенное вами в выбранный день, нет! @count доступно @date!',
         }
       };
 }

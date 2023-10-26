@@ -170,3 +170,26 @@ class MemberPercentInputFormatter extends TextInputFormatter {
     );
   }
 }
+
+class MaxLengthInputFormatter extends TextInputFormatter {
+  MaxLengthInputFormatter(this.maxLength);
+  final int maxLength;
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.length > maxLength) {
+      // If the text exceeds the maximum length, truncate it.
+      final truncatedValue = TextEditingValue(
+        text: newValue.text.substring(0, maxLength),
+        selection: newValue.selection.copyWith(
+          baseOffset: maxLength,
+          extentOffset: maxLength,
+        ),
+      );
+
+      return truncatedValue;
+    }
+    return newValue;
+  }
+}

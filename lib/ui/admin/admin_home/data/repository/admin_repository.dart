@@ -86,11 +86,11 @@ class AdminRepository {
           .doc(order.orderDocId)
           .update(order.toJson());
       if (order.status == OrderStatus.inProgress) {
-        print(order.referallId);
+        print(order.referralId);
         final QuerySnapshot<Map<String, dynamic>> partnerDoc =
             await FirebaseFirestore.instance
                 .collection('users')
-                .where('token', isEqualTo: order.referallId)
+                .where('token', isEqualTo: order.referralId)
                 .get();
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());
@@ -105,7 +105,7 @@ class AdminRepository {
         final QuerySnapshot<Map<String, dynamic>> partnerDoc =
             await FirebaseFirestore.instance
                 .collection('users')
-                .where('token', isEqualTo: order.referallId)
+                .where('token', isEqualTo: order.referralId)
                 .get();
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());
@@ -125,7 +125,7 @@ class AdminRepository {
         final QuerySnapshot<Map<String, dynamic>> partnerDoc =
             await FirebaseFirestore.instance
                 .collection('users')
-                .where('token', isEqualTo: order.referallId)
+                .where('token', isEqualTo: order.referralId)
                 .get();
         final UserModel partner =
             UserModel.fromJson(partnerDoc.docs.first.data());

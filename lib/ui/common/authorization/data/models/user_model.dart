@@ -26,6 +26,7 @@ class UserModel {
         isBlocked: json['isBlocked'] ?? false,
         orders: json['orders'] ?? [],
         token: json['token'] ?? '',
+        freeLimits: json['freeLimits'] ?? 0,
         email: json['email'] ?? '',
         password: json['password'] ?? '',
       );

@@ -48,6 +48,7 @@ class _OrdersPageState extends State<OrdersPage> {
           onPressed: () {
             if (canNavigate(context, context.read<UserAccountBloc>().state.user,
                 context.read<DataFromAdminBloc>().state.data!)) {
+              context.read<CreateOrderBloc>().add(ReInitOrderEvent());
               Navigator.pushNamed(context, RouteName.createOrder);
             }
             // postOrders(
