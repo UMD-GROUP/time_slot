@@ -7,10 +7,17 @@ class CreateOrderRepository {
     final MyResponse myResponse = MyResponse();
 
     try {
-      print('MANAAA ${DateTime.now().toUtc()}');
       order
-        ..userPhoto = await uploadImageToFirebaseStorage(order.userPhoto)
-        ..createdAt = DateTime.now();
+        ..referralId = user.referallId
+        ..ownerId = user.uid
+        ..orderId = generateRandomID(true)
+        ..ownerFcm = user.fcmToken
+        ..language = user.language;
+      if (order.totalSum != 0) {
+        order.userPhoto = await uploadImageToFirebaseStorage(order.userPhoto);
+      }
+
+      order.createdAt = DateTime.now();
       final FirebaseFirestore instance = FirebaseFirestore.instance;
       final DocumentReference<Map<String, dynamic>> orderDoc =
           await instance.collection('orders').add(order.toJson());
@@ -20,6 +27,11 @@ class CreateOrderRepository {
           .collection('users')
           .doc(user.uid)
           .update({'orders': user.orders});
+      user.freeLimits -= order.freeLimit;
+      await getIt<AdminRepository>().updateUser(user);
+      order.reserve!.reserve -=
+          order.products.fold(0, (p, e) => int.parse((p + e.count).toString()));
+      await getIt<ReserveRepository>().updateReserve(order.reserve!);
     } catch (e) {
       myResponse.message = e.toString();
     }

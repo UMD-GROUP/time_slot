@@ -17,6 +17,7 @@ class OrderModel {
       this.language = 'uz',
       this.reserve,
       this.totalSum = 0,
+      this.freeLimit = 0,
       this.ownerFcm = '',
       this.comment = '',
       this.status = OrderStatus.created,
@@ -26,6 +27,7 @@ class OrderModel {
         ownerFcm: json['ownerFcm'] ?? '',
         reserve: ReserveModel.fromJson(json['reserve'] ?? {}),
         comment: json['comment'] ?? '',
+        freeLimit: json['freeLimit'] ?? 0,
         finishedAt:
             DateTime.parse(json['finishedAt'] ?? DateTime(2023).toString()),
         referralId: json['referallId'] ?? '',
@@ -67,6 +69,7 @@ class OrderModel {
   int totalSum;
   String ownerFcm;
   String language;
+  int freeLimit;
 
   Map<String, dynamic> toJson() => {
         'referallId': referralId,
@@ -85,6 +88,7 @@ class OrderModel {
         'userPhoto': userPhoto,
         'status': status.index,
         'comment': comment,
+        'freeLimit': freeLimit,
         'language': language,
         'products': products.map((e) => e.toJson()),
         'ownerFcm': ownerFcm

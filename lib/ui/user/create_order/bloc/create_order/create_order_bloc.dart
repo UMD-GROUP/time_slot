@@ -34,6 +34,11 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       sum -= (sum / 100 * order.promoCode!.discount).toInt();
     }
     order.totalSum = sum;
+    if (freeLimit >= productCount) {
+      order.freeLimit = productCount;
+    } else {
+      order.freeLimit = freeLimit;
+    }
 
     return order;
   }

@@ -11,6 +11,7 @@ class UserModel {
       this.isBlocked = false,
       this.language = 'uz',
       this.token = '',
+      this.isConfirmed = false,
       this.fcmToken = '',
       this.uid = '',
       this.referallId = ''});
@@ -18,6 +19,7 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         fcmToken: json['fcmToken'] ?? '',
         referallId: json['referallId'] ?? '',
+        isConfirmed: json['isConfirmed'] ?? false,
         language: json['language'] ?? 'uz',
         referrals: json['referrals'] ?? [],
         sumOfOrders: json['sumOfOrders'] ?? 10,
@@ -46,6 +48,7 @@ class UserModel {
   String fcmToken;
   int freeLimits;
   String language;
+  bool isConfirmed;
 
   Map<String, Object> toJson() => {
         'markets': markets,
@@ -56,6 +59,7 @@ class UserModel {
         'sumOfOrders': sumOfOrders,
         'token': token,
         'uid': uid,
+        'isConfirmed': isConfirmed,
         'referallId': referallId,
         'orders': orders,
         'referrals': referrals,

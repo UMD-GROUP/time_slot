@@ -70,7 +70,7 @@ class _UsePromoCodeState extends State<UsePromoCode> {
                   inputFormatters: [
                     MaxLengthInputFormatter(7),
                   ],
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   onChanged: (value) {
                     checkStatus();
                   },

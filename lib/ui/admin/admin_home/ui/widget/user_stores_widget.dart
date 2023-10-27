@@ -1,5 +1,3 @@
-import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
-import 'package:time_slot/ui/widgets/custom_progres_indicator.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class UserStoresWidget extends StatelessWidget {
@@ -13,6 +11,7 @@ class UserStoresWidget extends StatelessWidget {
           if (state.updatingStatus == ResponseStatus.inProgress) {
             showLoadingDialog(context);
           } else if (state.updatingStatus == ResponseStatus.inSuccess) {
+            context.read<AllUserBloc>().add(GetAllUserEvent());
             Navigator.pop(context);
             AnimatedSnackBar(
               snackBarStrategy: RemoveSnackBarStrategy(),
@@ -24,12 +23,14 @@ class UserStoresWidget extends StatelessWidget {
             ).show(context);
             Navigator.pop(context);
           } else if (state.updatingStatus == ResponseStatus.inFail) {
+            context.read<AllUserBloc>().add(GetAllUserEvent());
             Navigator.pop(context);
             AnimatedSnackBar(
               snackBarStrategy: RemoveSnackBarStrategy(),
               duration: const Duration(seconds: 6),
               builder: (context) => AppErrorSnackBar(text: state.message),
             ).show(context);
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {

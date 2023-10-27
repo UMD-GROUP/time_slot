@@ -11,44 +11,112 @@ class ImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox(
         child: BlocBuilder<CreateOrderBloc, CreateOrderState>(
-          builder: (context, state) => Column(
-            children: [
-              Visibility(
-                  visible: state.order.promoCode.isNull,
-                  child: const UsePromoCode()),
-              SizedBox(height: height(context) * 0.02),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          builder: (context, state) {
+            if (state.order.totalSum != 0) {
+              return Column(
                 children: [
-                  Container(
-                    height: height(context) * 0.13,
-                    width: height(context) * 0.13,
-                    decoration: BoxDecoration(
-                        image: state.order.userPhoto.isNotEmpty
-                            ? DecorationImage(
-                                image: FileImage(File(state.order.userPhoto)))
-                            : null,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: Colors.deepPurple)),
+                  Visibility(
+                      visible: state.order.promoCode.isNull,
+                      child: const UsePromoCode()),
+                  SizedBox(height: height(context) * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('8860 9900 1232 4456',
+                          style: AppTextStyles.labelLarge(context,
+                              fontSize: 28.sp)),
+                      OnTap(
+                          onTap: () {
+                            copyToClipboard(context, '8860 8877 8888 2222');
+                          },
+                          child: Icon(Icons.copy,
+                              color:
+                                  AdaptiveTheme.of(context).theme.hintColor)),
+                    ],
                   ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.deepPurpleAccent),
+                  SizedBox(height: height(context) * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: height(context) * 0.13,
+                        width: height(context) * 0.13,
+                        decoration: BoxDecoration(
+                            image: state.order.userPhoto.isNotEmpty
+                                ? DecorationImage(
+                                    image:
+                                        FileImage(File(state.order.userPhoto)))
+                                : null,
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(color: Colors.deepPurple)),
                       ),
-                      onPressed: () async {
-                        final photo = await showPicker(context);
-                        final OrderModel order = state.order;
-                        order.userPhoto = photo!.path;
-                        context
-                            .read<CreateOrderBloc>()
-                            .add(UpdateFieldsOrderEvent(order));
-                      },
-                      child: Text('take_photo'.tr))
+                      SizedBox(
+                        height: height(context) * 0.14,
+                        width: width(context) * 0.45,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(Icons.info_outlined,
+                                    color: AdaptiveTheme.of(context)
+                                        .theme
+                                        .hintColor),
+                                SizedBox(
+                                  width: width(context) * 0.38,
+                                  child: Text('take_photo_info'.tr,
+                                      style: AppTextStyles.labelLarge(context,
+                                          fontSize: 12.sp)),
+                                ),
+                              ],
+                            ),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.deepPurpleAccent),
+                                ),
+                                onPressed: () async {
+                                  final photo = await showPicker(context);
+                                  final OrderModel order = state.order;
+                                  order.userPhoto = photo!.path;
+                                  context
+                                      .read<CreateOrderBloc>()
+                                      .add(UpdateFieldsOrderEvent(order));
+                                },
+                                child: Text(
+                                  'take_photo'.tr,
+                                  style: AppTextStyles.labelLarge(context,
+                                      color: Colors.white, fontSize: 12.sp),
+                                ))
+                          ],
+                        ),
+                      )
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
+              );
+            } else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'it_is_free'.tr,
+                    style: AppTextStyles.labelLarge(context),
+                  ),
+                  SizedBox(height: height(context) * 0.01),
+                  Text(
+                    'thanks_for_partnership'.tr,
+                    style: AppTextStyles.labelLarge(context,
+                        color: Colors.lightGreenAccent),
+                  ),
+                ],
+              );
+            }
+          },
         ),
       );
 }

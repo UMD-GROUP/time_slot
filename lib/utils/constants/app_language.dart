@@ -22,7 +22,7 @@ class AppTranslations extends Translations {
           'Already have an account?': 'Allaqachon shaxsiy hisobingiz bormi? ',
           'Login': 'Kirish',
           'product count:': 'Tovar soni',
-          'sum': "Xiz. to'lovi:",
+          'sum': "To'lov:",
           'all': 'Barchasi',
           'mine': 'Mening',
           'referals': 'Referallar',
@@ -222,6 +222,14 @@ class AppTranslations extends Translations {
               'Bizda yangi @discount % chegirma beruvchi promokod!',
           'try_now': 'Imkoniyatdan hoziroq foydalaning!',
           'news_in_order': 'Buyurtma yangilandi!',
+          'take_photo_info':
+              'To’lovni amalga oshirgandan so’ng chek rasmi yoki screenshotini quyidagi tugma orqali yuboring!',
+          'it_is_free':
+              'Ushbu buyurtmangiz Bepul limitlaringiz hisobidan bepul amalga oshiriladi!',
+          'thanks_for_partnership':
+              'Siz bilan hamkorlik qilishdan xursandmiz :)',
+          'confirm_order':
+              '@number ni xodimlar ro’yhatiga qo’shganingizga ishonchingiz komilmi? Tizimga kor’satilgan raqamni xodim sifatida qo’shmaganligingiz sababli do’konni topilmasligi va buyurtmangiz kechikishi mumkin!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -435,6 +443,13 @@ class AppTranslations extends Translations {
           'added_new_code': 'У нас новый промокод на скидку @discount %!',
           'try_now': 'Воспользуйтесь преимуществом сейчас!!',
           'news_in_order': 'Заказ обновлен!',
+          'take_photo_info':
+              'После оплаты отправьте фото чека или скриншот с помощью кнопки ниже!',
+          'it_is_free':
+              'Этот заказ делается бесплатно с вашими бесплатными лимитами!',
+          'thanks_for_partnership': 'Мы рады сотрудничеству с вами :)',
+          'confirm_order':
+              'Не забудьте добавить @number в свой список сотрудников! Если вы не добавили в качестве сотрудника указанный системой номер, ваш заказ может задержаться!',
         }
       };
 }

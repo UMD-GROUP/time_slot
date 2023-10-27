@@ -112,7 +112,7 @@ String orderValidator(OrderModel order) {
   if (order.products.isEmpty) {
     return 'you_must_add_product'.tr;
   }
-  if (order.userPhoto.isEmpty) {
+  if (order.totalSum != 0 && order.userPhoto.isEmpty) {
     return 'you_must_select_photo'.tr;
   }
   return '';
@@ -263,10 +263,12 @@ void showTextInputDialog(BuildContext context,
   );
 }
 
-void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap) {
+void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap,
+    {String? title}) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => CancelConfirmDialog(onConfirmTap: onConfirmTap),
+    builder: (context) =>
+        CancelConfirmDialog(onConfirmTap: onConfirmTap, title: title),
   );
 }
 
@@ -434,14 +436,15 @@ class TextInputDialog extends StatelessWidget {
 }
 
 class CancelConfirmDialog extends StatelessWidget {
-  CancelConfirmDialog({required this.onConfirmTap, super.key});
+  CancelConfirmDialog({required this.onConfirmTap, this.title, super.key});
+  String? title;
 
   VoidCallback onConfirmTap;
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
         title: Text('confirming'.tr),
-        content: Text('are_you_sure_to_confirm_this_action'.tr),
+        content: Text(title ?? 'are_you_sure_to_confirm_this_action'.tr),
         actions: <Widget>[
           CupertinoDialogAction(
             textStyle: const TextStyle(color: Colors.red),
@@ -1445,6 +1448,10 @@ String makeNotification(String msg,
         return 'Воспользуйтесь преимуществом сейчас!';
       case 'news_in_order':
         return 'Заказ обновлен';
+      case 'you_have_got_free_limit':
+        return 'Вам предоставлен бесплатный лимит!';
+      case 'congrats_for_free_limit':
+        return 'Предложенный вами пользователь проверен и вам предоставлена возможность бесплатно обслужить 100 товаров!';
     }
   } else {
     switch (msg) {
@@ -1460,6 +1467,10 @@ String makeNotification(String msg,
         return 'Imkoniyatdan hoziroq foydalaning!';
       case 'news_in_order':
         return 'Buyurtma yangilandi';
+      case 'you_have_got_free_limit':
+        return 'Sizga bepul limit berildi!';
+      case 'congrats_for_free_limit':
+        return "Siz taklif qilgan foydalanuvchi tasdiqlandi va sizga 100ta tovarni bepul xizmat ko'rsatish imkoniyati taqdim etildi!";
     }
   }
   return '';

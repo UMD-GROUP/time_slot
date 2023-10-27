@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class UpdateStoreDialog extends StatelessWidget {
@@ -54,7 +53,8 @@ class UpdateStoreDialog extends StatelessWidget {
               store
                 ..name = marketName.text.trim()
                 ..id = id.text.trim();
-              context.read<StoresBloc>().add(UpdateStoreEvent(store));
+              context.read<StoresBloc>().add(UpdateStoreEvent(
+                  store, context.read<UserAccountBloc>().state.user));
             },
             child: Text('confirm'.tr),
           ),
