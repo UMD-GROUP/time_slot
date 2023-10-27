@@ -83,6 +83,29 @@ class _OtherViewState extends State<OtherView> {
                     },
                     subtitle: state.data!.deliveryNote),
                 OtherItem(
+                    title: 'card_number',
+                    onTap: () {
+                      controller.text = context
+                          .read<DataFromAdminBloc>()
+                          .state
+                          .data!
+                          .cardNumber;
+                      showNumberInputDialog(
+                        inputFormatter: CardNumberInputFormatter(),
+                        context,
+                        controller: controller,
+                        hintText: ''.tr,
+                        title: 'card_number'.tr,
+                        onConfirmTapped: () {
+                          final DataFromAdminModel data =
+                              context.read<DataFromAdminBloc>().state.data!;
+                          data.cardNumber = controller.text.trim();
+                          updateData(data);
+                        },
+                      );
+                    },
+                    subtitle: state.data!.cardNumber.isEmpty ? '-' : '+'),
+                OtherItem(
                     title: 'max_limit',
                     onTap: () {
                       controller.text = context

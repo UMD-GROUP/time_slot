@@ -22,12 +22,24 @@ class ImageSection extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('8860 9900 1232 4456',
+                      Text(
+                          cardFormatter(context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .cardNumber),
                           style: AppTextStyles.labelLarge(context,
                               fontSize: 28.sp)),
                       OnTap(
                           onTap: () {
-                            copyToClipboard(context, '8860 8877 8888 2222');
+                            copyToClipboard(
+                              context,
+                              cardFormatter(context
+                                  .read<DataFromAdminBloc>()
+                                  .state
+                                  .data!
+                                  .cardNumber),
+                            );
                           },
                           child: Icon(Icons.copy,
                               color:

@@ -1475,3 +1475,18 @@ String makeNotification(String msg,
   }
   return '';
 }
+
+String cardFormatter(String cardNumber) {
+  final StringBuffer res = StringBuffer();
+  int index = 0;
+  while (true) {
+    if (index % 4 == 0) {
+      res.write(' ');
+    }
+    res.write(cardNumber[index++]);
+    if (index == 16) {
+      break;
+    }
+  }
+  return res.toString();
+}

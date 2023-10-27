@@ -230,6 +230,7 @@ class AppTranslations extends Translations {
               'Siz bilan hamkorlik qilishdan xursandmiz :)',
           'confirm_order':
               '@number ni xodimlar ro’yhatiga qo’shganingizga ishonchingiz komilmi? Tizimga kor’satilgan raqamni xodim sifatida qo’shmaganligingiz sababli do’konni topilmasligi va buyurtmangiz kechikishi mumkin!',
+          'card_number': 'Karta raqami',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -450,6 +451,7 @@ class AppTranslations extends Translations {
           'thanks_for_partnership': 'Мы рады сотрудничеству с вами :)',
           'confirm_order':
               'Не забудьте добавить @number в свой список сотрудников! Если вы не добавили в качестве сотрудника указанный системой номер, ваш заказ может задержаться!',
+          'card_number': 'Номер карты',
         }
       };
 }
