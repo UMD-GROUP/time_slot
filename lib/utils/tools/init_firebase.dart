@@ -9,10 +9,15 @@ Future<void> initFirebase() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
   } else {
-    await Firebase.initializeApp();
-
-    await FirebaseMessaging.instance.subscribeToTopic('/news');
+    await Firebase.initializeApp(
+        name: 'timeslot',
+        options: const FirebaseOptions(
+            apiKey: 'AIzaSyDKJP0QOYtTWaNrNaqTzrrljMmMF7D8FDk',
+            appId: '1:605235329516:android:2c8e0a05ab2a55935468c9',
+            messagingSenderId: '605235329516',
+            projectId: 'timeslot-6b4dc'));
   }
+  await FirebaseMessaging.instance.subscribeToTopic('/topics/news');
 
   // String? fcmToken = await FirebaseMessaging.instance.getToken();
 

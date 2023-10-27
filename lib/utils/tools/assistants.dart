@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -1248,6 +1249,10 @@ void changeLanguage() {
       isUzbek ? const Locale('ru', 'RU') : const Locale('uz', 'UZ'));
   print(isUzbek);
   StorageService().saveString('language', isUzbek ? 'ru' : 'uz');
+  if (!FirebaseAuth.instance.currentUser.isNull) {
+    getIt<UserRepository>().changeLanguage(
+        FirebaseAuth.instance.currentUser!.uid, isUzbek ? 'ru' : 'uz');
+  }
 }
 
 String generateUniquePromoCode(List<PromoCodeModel> existingPromoCodes) {
@@ -1379,4 +1384,83 @@ class _ReserveDialogState extends State<ReserveDialog> {
               onPressed: widget.onConfirmTap, child: Text('confirm'.tr)),
         ],
       );
+}
+
+Future<bool> sendPushNotification(
+    String deviceToken, String title, String message,
+    {bool isToAll = false}) async {
+  final dio = Dio();
+  const url = 'https://fcm.googleapis.com/fcm/send';
+  const String serverKey =
+      'AAAAjOrWOew:APA91bH0u9gHpSUtnshLDVTwbRnE3VdhScjO2dLleW0eG9r_8uP-VBxuNmPOyheW1Qftpj3ozIYe72_Pf7MsGQv33KjmSOaeBqwDqt4HoMIqABCIG97Ws22jmOgD-4731elCwz9v0dEb';
+
+  final headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'key=$serverKey',
+  };
+
+  final data = {
+    'notification': {
+      'title': title.tr,
+      'body': message.tr,
+    },
+    'to': isToAll ? '/topics/news' : deviceToken,
+    'data': {
+      'id': Random().nextInt(1000),
+      'title': title.tr,
+      'body': message.tr,
+    }
+  };
+
+  try {
+    final response = await dio.post(
+      url,
+      data: data,
+      options: Options(headers: headers),
+    );
+
+    if (response.statusCode == 200) {
+      return true; // Notification sent successfully
+    } else {
+      return false; // Failed to send notification
+    }
+  } catch (e) {
+    return false; // Failed to send notification
+  }
+}
+
+String makeNotification(String msg,
+    {PromoCodeModel? promoCode, OrderModel? order, String language = 'uz'}) {
+  if (order.isNull ? language == 'ru' : order!.language == 'ru') {
+    switch (msg) {
+      case 'update_confirmed':
+        return '${order!.orderId} — Ваш заказ подтвержден!';
+      case 'update_is_in_progress':
+        return '${order!.orderId} — Ваш заказ получен и находится в обработке!';
+      case 'update_cancelled':
+        return '${order!.orderId} — Ваш заказ отменен!';
+      case 'added_new_code':
+        return 'У нас новый промокод на скидку ${promoCode!.discount} %!';
+      case 'try_now':
+        return 'Воспользуйтесь преимуществом сейчас!';
+      case 'news_in_order':
+        return 'Заказ обновлен';
+    }
+  } else {
+    switch (msg) {
+      case 'update_confirmed':
+        return '${order!.orderId} — raqamli buyurtmangiz tasdiqlandi';
+      case 'update_is_in_progress':
+        return '${order!.orderId} — raqamli buyurtmangiz qabul qilindi va jarayonda!';
+      case 'update_cancelled':
+        return '${order!.orderId} — raqamli buyurtmangiz bekor qilindi';
+      case 'added_new_code':
+        return 'Bizda yangi ${promoCode!.discount} % chegirma beruvchi promokod!';
+      case 'try_now':
+        return 'Imkoniyatdan hoziroq foydalaning!';
+      case 'news_in_order':
+        return 'Buyurtma yangilandi';
+    }
+  }
+  return '';
 }

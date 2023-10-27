@@ -214,6 +214,14 @@ class AppTranslations extends Translations {
               'Ushbu promokodni ishlatish uchun eng kamida @count ta mahsulot kiritish lozim!',
           'selected_date_has_no_enough_reserve':
               'Tanlangan kunda siz kiritgan miqdordagi tovarlar uchun zahira mavjud emas! @date kunida @count ta zahira mavjud!',
+          'update_confirmed': '@orderId raqamli buyurtmangiz tasdiqlandi!',
+          'update_is_in_progress':
+              '@orderId raqamli buyurtmangiz qabul qilindi va jarayonda!',
+          'update_cancelled': '@orderId raqamli buyurtmangiz bekor qilindi',
+          'added_new_code':
+              'Bizda yangi @discount % chegirma beruvchi promokod!',
+          'try_now': 'Imkoniyatdan hoziroq foydalaning!',
+          'news_in_order': 'Buyurtma yangilandi!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -420,6 +428,13 @@ class AppTranslations extends Translations {
               'Чтобы использовать этот промокод, вам необходимо ввести как минимум @count продуктов!',
           'selected_date_has_no_enough_reserve':
               'Резерва на количество товара, введенное вами в выбранный день, нет! @count доступно @date!',
+          'update_confirmed': '@orderId — Ваш заказ подтвержден!',
+          'update_is_in_progress':
+              '@orderId - Ваш заказ получен и находится в обработке!',
+          'update_cancelled': '@orderId Ваш заказ отменен!',
+          'added_new_code': 'У нас новый промокод на скидку @discount %!',
+          'try_now': 'Воспользуйтесь преимуществом сейчас!!',
+          'news_in_order': 'Заказ обновлен!',
         }
       };
 }

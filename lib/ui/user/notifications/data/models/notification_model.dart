@@ -5,11 +5,8 @@ import 'package:hive/hive.dart';
 class NotificationModel {
   NotificationModel({
     required this.id,
-    this.isRated = false,
-    this.orderId,
     required this.createdAt,
     this.subtitle = '',
-    required this.type,
     required this.isRead,
     required this.title,
     required this.body,
@@ -17,25 +14,20 @@ class NotificationModel {
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(
-          id: int.parse((json['id'] ?? '0').toString()),
-          // createdAt: DateTime.parse(json["created_at"] ?? ''),
-          createdAt: DateTime.now(),
-          subtitle: json['subtitle'] ?? '',
-          type: json['type'],
-          isRead: json['is_read'] ?? false,
-          title: json['title'],
-          orderId: int.parse(json['orderId'] ?? '-1'),
-          body: json['body'],
-          isRated: json['is_rated'] ?? false);
+        id: int.parse((json['id'] ?? '0').toString()),
+        // createdAt: DateTime.parse(json["created_at"] ?? ''),
+        createdAt: DateTime.now(),
+        subtitle: json['subtitle'] ?? '',
+        isRead: json['is_read'] ?? false,
+        title: json['title'] ?? '',
+        body: json['body'] ?? '',
+      );
   int id;
   DateTime createdAt;
-  String type;
   bool isRead;
   String title;
   String subtitle;
   String body;
-  int? orderId;
-  bool isRated;
 }
 
 class NotificationModelAdapter extends TypeAdapter<NotificationModel> {
@@ -47,10 +39,7 @@ class NotificationModelAdapter extends TypeAdapter<NotificationModel> {
     // Deserialize your object here.
     return NotificationModel(
       id: reader.readInt(),
-      orderId: reader.readInt(),
-      isRated: reader.readBool(),
       createdAt: DateTime.parse(reader.readString()),
-      type: reader.readString(),
       isRead: reader.readBool(),
       title: reader.readString(),
       subtitle: reader.readString(),
@@ -63,10 +52,7 @@ class NotificationModelAdapter extends TypeAdapter<NotificationModel> {
     // Serialize your object here.
     writer
       ..writeInt(obj.id)
-      ..writeInt(obj.orderId!)
-      ..writeBool(obj.isRated)
       ..writeString(obj.createdAt.toString())
-      ..writeString(obj.type)
       ..writeBool(obj.isRead)
       ..writeString(obj.title)
       ..writeString(obj.subtitle)

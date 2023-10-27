@@ -59,9 +59,6 @@ class AdminRepository {
         await instance.collection('admin_data').doc('admin_data').update(
             {'partnerPercent': memberPercent, 'deliveryNote': deliveryNote});
       } else {
-        print('Shjfhefefheru');
-
-        print(data!.toJson());
         await instance
             .collection('admin_data')
             .doc('admin_data')
@@ -78,22 +75,18 @@ class AdminRepository {
       {String? photo}) async {
     final MyResponse myResponse = MyResponse();
     try {
+      String notification = '';
       if (order.status == OrderStatus.done) {
         order.finishedAt = DateTime.now();
+        notification = makeNotification('update_confirmed', order: order);
       }
       await instance
           .collection('orders')
           .doc(order.orderDocId)
           .update(order.toJson());
       if (order.status == OrderStatus.inProgress) {
-        print(order.referralId);
-        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('token', isEqualTo: order.referralId)
-                .get();
-        final UserModel partner =
-            UserModel.fromJson(partnerDoc.docs.first.data());
+        notification = 'update_is_in_progress'
+            .trParams({'orderId': order.orderId.toString()});
       }
       if (order.status == OrderStatus.done) {
         final String url = await uploadImageToFirebaseStorage(photo!);
@@ -117,18 +110,17 @@ class AdminRepository {
                 .get();
         final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
         user.sumOfOrders += order.sum;
-        print(user.sumOfOrders);
-        print('${user.uid} - ${user.sumOfOrders}');
         await instance.collection('users').doc(user.uid).update(user.toJson());
       }
       if (order.status == OrderStatus.cancelled) {
-        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('token', isEqualTo: order.referralId)
-                .get();
-        final UserModel partner =
-            UserModel.fromJson(partnerDoc.docs.first.data());
+        notification = makeNotification('update_is_cancelled', order: order);
+      }
+      if (order.ownerFcm.isNotEmpty) {
+        print('TOken bor');
+        await sendPushNotification(order.ownerFcm,
+            makeNotification('news_in_order', order: order), notification);
+      } else {
+        print('TOken yoq');
       }
 
       myResponse.statusCode = 200;

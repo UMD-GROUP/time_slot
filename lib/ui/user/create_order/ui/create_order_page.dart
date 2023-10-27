@@ -202,6 +202,16 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                   .user!
                                   .uid;
                               order.orderId = generateRandomID(true);
+                              order.ownerFcm = context
+                                  .read<UserAccountBloc>()
+                                  .state
+                                  .user!
+                                  .fcmToken;
+                              order.language = context
+                                  .read<UserAccountBloc>()
+                                  .state
+                                  .user!
+                                  .language;
                               // order.sum = context
                               //         .read<DataFromAdminBloc>()
                               //         .state

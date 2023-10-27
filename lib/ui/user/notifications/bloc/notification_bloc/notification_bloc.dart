@@ -12,7 +12,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<AddNotificationEvent>(addNotification);
     on<UpdateNotificationEvent>(updateNotification);
     on<RemoveNotificationEvent>(removeNotification);
-    on<MakeRatedEvent>(makeRated);
   }
 
   getNotifications(event, emit) async {
@@ -20,7 +19,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         getIt<NotificationsRepository>().getNotifications();
     emit(state.copyWith(
         notifications: notifications, status: ResponseStatus.inSuccess));
-    checkRating();
   }
 
   addNotification(AddNotificationEvent event, emit) {
@@ -35,35 +33,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
   removeNotification(RemoveNotificationEvent event, emit) {
     getIt<NotificationsRepository>().removeNotification(event.index);
-    add(GetAllNotificationsEvent());
-  }
-
-  checkRating() {
-    bool hasUnreadMessage = false;
-    for (final NotificationModel i in state.notifications) {
-      if (i.isRated == false && i.orderId != -1) {
-        emit(state.copyWith(needRate: true, orderId: i.orderId));
-      }
-      if (i.isRead == false) {
-        hasUnreadMessage = true;
-      }
-    }
-    emit(state.copyWith(
-        needRate: false, orderId: -1, hasUnReadMessage: hasUnreadMessage));
-  }
-
-  makeRated(MakeRatedEvent event, emit) {
-    int index = 0;
-    late NotificationModel notification;
-    for (final NotificationModel i in state.notifications) {
-      if (i.orderId == event.orderId) {
-        notification = i;
-        break;
-      }
-      index++;
-    }
-    notification.isRated = true;
-    getIt<NotificationsRepository>().makeRated(notification, index);
     add(GetAllNotificationsEvent());
   }
 }

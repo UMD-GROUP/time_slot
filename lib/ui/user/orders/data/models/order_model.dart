@@ -14,13 +14,16 @@ class OrderModel {
       this.userPhoto = '',
       required this.createdAt,
       required this.finishedAt,
+      this.language = 'uz',
       this.reserve,
       this.totalSum = 0,
+      this.ownerFcm = '',
       this.comment = '',
       this.status = OrderStatus.created,
       this.orderDocId = ''});
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+        ownerFcm: json['ownerFcm'] ?? '',
         reserve: ReserveModel.fromJson(json['reserve'] ?? {}),
         comment: json['comment'] ?? '',
         finishedAt:
@@ -36,6 +39,7 @@ class OrderModel {
                 ?.map((e) => ProductModel.fromJson(e))
                 .toList() ??
             [],
+        language: json['language'] ?? 'uz',
         totalSum: json['totalSum'] ?? 0,
         sum: (json['sum'] as num?)?.toDouble() ?? 0.0,
         marketName: json['marketName'] ?? '',
@@ -61,6 +65,8 @@ class OrderModel {
   PromoCodeModel? promoCode;
   ReserveModel? reserve;
   int totalSum;
+  String ownerFcm;
+  String language;
 
   Map<String, dynamic> toJson() => {
         'referallId': referralId,
@@ -79,6 +85,8 @@ class OrderModel {
         'userPhoto': userPhoto,
         'status': status.index,
         'comment': comment,
-        'products': products.map((e) => e.toJson())
+        'language': language,
+        'products': products.map((e) => e.toJson()),
+        'ownerFcm': ownerFcm
       };
 }
