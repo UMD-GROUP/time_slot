@@ -71,7 +71,8 @@ class AdminRepository {
     return myResponse;
   }
 
-  Future<MyResponse> updateOrder(OrderModel order, int percent,
+  Future<MyResponse> updateOrder(
+      OrderModel order, int percent, OrderStatus lastStatus,
       {String? photo}) async {
     final MyResponse myResponse = MyResponse();
     try {
@@ -95,22 +96,6 @@ class AdminRepository {
             .collection('orders')
             .doc(order.orderDocId)
             .update(order.toJson());
-        final QuerySnapshot<Map<String, dynamic>> partnerDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('token', isEqualTo: order.referralId)
-                .get();
-        final UserModel partner =
-            UserModel.fromJson(partnerDoc.docs.first.data());
-
-        final QuerySnapshot<Map<String, dynamic>> userDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('uid', isEqualTo: order.ownerId)
-                .get();
-        final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
-        user.sumOfOrders += order.sum;
-        await instance.collection('users').doc(user.uid).update(user.toJson());
       }
       if (order.status == OrderStatus.cancelled) {
         notification = makeNotification('update_is_cancelled', order: order);
@@ -124,6 +109,27 @@ class AdminRepository {
       }
 
       myResponse.statusCode = 200;
+
+      if (order.status == OrderStatus.cancelled) {
+        final QuerySnapshot<Map<String, dynamic>> userDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('uid', isEqualTo: order.ownerId)
+                .get();
+        final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
+        user.freeLimits += order.freeLimit;
+        await instance.collection('users').doc(user.uid).update(user.toJson());
+      } else if (lastStatus == OrderStatus.cancelled &&
+          order.status == OrderStatus.inProgress) {
+        final QuerySnapshot<Map<String, dynamic>> userDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('uid', isEqualTo: order.ownerId)
+                .get();
+        final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
+        user.freeLimits -= order.freeLimit;
+        await instance.collection('users').doc(user.uid).update(user.toJson());
+      }
     } catch (e) {
       myResponse.message = e.toString();
       print(e);

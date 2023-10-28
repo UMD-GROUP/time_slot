@@ -231,6 +231,8 @@ class AppTranslations extends Translations {
           'confirm_order':
               '@number ni xodimlar ro’yhatiga qo’shganingizga ishonchingiz komilmi? Tizimga kor’satilgan raqamni xodim sifatida qo’shmaganligingiz sababli do’konni topilmasligi va buyurtmangiz kechikishi mumkin!',
           'card_number': 'Karta raqami',
+          'call': "Adminstratorga qo'ng'iroq qilish",
+          'by_telegram': "Telegram orqali bog'lanish"
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -348,7 +350,7 @@ class AppTranslations extends Translations {
           'decline': 'Отменить',
           'finished': 'Готово',
           'un_finished': 'Незакончено',
-          'edit': 'редактировать',
+          'edit': 'Pедактировать',
           'product_count': 'Кол. товаров:',
           'status': 'Статус:',
           'user_data': 'Пользовательские данные',
@@ -452,6 +454,8 @@ class AppTranslations extends Translations {
           'confirm_order':
               'Не забудьте добавить @number в свой список сотрудников! Если вы не добавили в качестве сотрудника указанный системой номер, ваш заказ может задержаться!',
           'card_number': 'Номер карты',
+          'call': 'Позвонить администратору',
+          'by_telegram': 'Связаться через Telegram'
         }
       };
 }

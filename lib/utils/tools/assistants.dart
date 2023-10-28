@@ -12,6 +12,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:scrollable_clean_calendar/utils/extensions.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
@@ -21,6 +22,7 @@ import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:ussd_phone_call_sms/ussd_phone_call_sms.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // #docregion platform_imports
 // Import for Android features.
@@ -1489,4 +1491,24 @@ String cardFormatter(String cardNumber) {
     }
   }
   return res.toString();
+}
+
+String makeReport(
+  OrderModel order,
+) {
+  if (getIt<StorageService>().getString('language') == 'uz') {
+    return "Assalomu alaykum!\n Mening ${order.marketName} do'konimga biriktirilgan ${order.orderId}-raqamli buyurtmam ${dateTimeToFormat(order.finishedAt)}da xatolik sabab bekor qilinibdi. Quyida esa to'lovni tasdiqlovchi skrinshot uchun havola.\n\n${order.userPhoto}";
+  }
+  return 'Здравствуйте!\n Мой номер заказа ${order.orderId}, прикрепленный к моему магазину ${order.marketName}, был отменен из-за ошибки в ${dateTimeToFormat(order.finishedAt)}. Ниже приведена ссылка на скриншот подтверждения платежа.\n\n${order.userPhoto}';
+}
+
+Future<void> sendSMSTo(String message) async {
+  if (await Permission.sms.request().isGranted) {
+    await UssdPhoneCallSms()
+        .textSMS(recipients: '+998909319051', smsBody: message);
+  } else {
+    await Permission.sms.request();
+    await UssdPhoneCallSms()
+        .textSMS(recipients: '+998909319051', smsBody: message);
+  }
 }
