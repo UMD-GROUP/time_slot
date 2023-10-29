@@ -22,7 +22,6 @@ import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ussd_phone_call_sms/ussd_phone_call_sms.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // #docregion platform_imports
 // Import for Android features.
@@ -1502,11 +1501,11 @@ String makeReport(
 
 Future<void> sendSMSTo(String message) async {
   if (await Permission.sms.request().isGranted) {
-    await UssdPhoneCallSms()
-        .textSMS(recipients: '+998909319051', smsBody: message);
-  } else {
-    await Permission.sms.request();
-    await UssdPhoneCallSms()
-        .textSMS(recipients: '+998909319051', smsBody: message);
+    //   await UssdPhoneCallSms()
+    //       .textSMS(recipients: '+998909319051', smsBody: message);
+    // } else {
+    //   await Permission.sms.request();
+    //   await UssdPhoneCallSms()
+    //       .textSMS(recipients: '+998909319051', smsBody: message);
   }
 }

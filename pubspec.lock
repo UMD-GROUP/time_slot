@@ -446,14 +446,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
-  flutter_event_calendar:
-    dependency: "direct main"
-    description:
-      name: flutter_event_calendar
-      sha256: f5b6f22ae01c24a1fc3f6432d3080130bb40efc976e53941b5f6422b6a4f9d64
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -973,14 +965,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  scoped_model:
-    dependency: transitive
-    description:
-      name: scoped_model
-      sha256: "8dacc77cb5de78d5e159d54cab883847491a73dfaa3d28c52f4ec8b0be32645b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   scrollable_clean_calendar:
     dependency: "direct main"
     description:
@@ -997,14 +981,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.8"
-  shamsi_date:
-    dependency: transitive
-    description:
-      name: shamsi_date
-      sha256: "5df195a0b7794b7d4a8dc9321244400147896def157b7530c5b8a2f9cfc6a7a4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.15.0"
   share_plus:
     dependency: "direct main"
     description:
@@ -1085,14 +1061,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  simple_gesture_detector:
-    dependency: transitive
-    description:
-      name: simple_gesture_detector
-      sha256: "86d08f85f1f58583b7b4b941d989f48ea6ce08c1724a1d10954a277c2ec36592"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -1162,14 +1130,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
-  table_calendar:
-    dependency: "direct main"
-    description:
-      name: table_calendar
-      sha256: "1e3521a3e6d3fc7f645a58b135ab663d458ab12504f1ea7f9b4b81d47086c478"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.9"
   term_glyph:
     dependency: transitive
     description:
@@ -1266,14 +1226,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.8"
-  ussd_phone_call_sms:
-    dependency: "direct main"
-    description:
-      name: ussd_phone_call_sms
-      sha256: "2091b4295a0156db3cef354c5bc3c94a3a20e9d5387fc893acb1b04687a10f9a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   uuid:
     dependency: transitive
     description:
