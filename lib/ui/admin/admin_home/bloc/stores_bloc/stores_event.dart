@@ -9,9 +9,10 @@ class GetStoresEvent extends StoresEvent {
 }
 
 class UpdateStoreEvent extends StoresEvent {
-  UpdateStoreEvent(this.store, this.owner);
+  UpdateStoreEvent(this.store, this.owner, this.freeLimit);
   StoreModel store;
   UserModel owner;
+  int freeLimit;
 }
 
 class DeleteStoreEvent extends StoresEvent {

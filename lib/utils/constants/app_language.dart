@@ -232,7 +232,16 @@ class AppTranslations extends Translations {
               '@number ni xodimlar ro’yhatiga qo’shganingizga ishonchingiz komilmi? Tizimga kor’satilgan raqamni xodim sifatida qo’shmaganligingiz sababli do’konni topilmasligi va buyurtmangiz kechikishi mumkin!',
           'card_number': 'Karta raqami',
           'call': "Adminstratorga qo'ng'iroq qilish",
-          'by_telegram': "Telegram orqali bog'lanish"
+          'by_telegram': "Telegram orqali bog'lanish",
+          'referrals': 'Referallar: ',
+          'free_limits_disclaimer':
+              "Siz foydalanayotkan Bepul limitlar bir martalik hisoblanadi. Ya'ni buyurtmangizda xatolik uchrab qaytarilsa, hisoblangan bepul limitlar qaytarilmaydi!",
+          'you_need_to_add_free_limit':
+              "Qo'shilishi kerak bo'lgan bepul limitlar soni kiritilmagan!",
+          'upload_photo_from': 'Rasm yuklash',
+          'gallery': 'Galereyadan',
+          'camera': 'Kameradan',
+          'loading': 'Iltimos, kuting...',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -455,7 +464,16 @@ class AppTranslations extends Translations {
               'Не забудьте добавить @number в свой список сотрудников! Если вы не добавили в качестве сотрудника указанный системой номер, ваш заказ может задержаться!',
           'card_number': 'Номер карты',
           'call': 'Позвонить администратору',
-          'by_telegram': 'Связаться через Telegram'
+          'by_telegram': 'Связаться через Telegram',
+          'referrals': 'Рефералы: ',
+          'free_limits_disclaimer':
+              'Бесплатные лимиты, которые вы используете, являются единоразовыми. То есть, если ваш заказ будет возвращен по ошибке, рассчитанные бесплатные лимиты не будут возвращены!',
+          'you_need_to_add_free_limit':
+              'Количество добавляемых бесплатных лимитов не учитывается!',
+          'upload_photo_from': 'Загрузить изображение',
+          'gallery': 'Из галереи',
+          'camera': 'С камеры',
+          'loading': 'Пожалуйста, подождите...',
         }
       };
 }

@@ -189,10 +189,10 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 },
                                     title: 'confirm_order'.trParams({
                                       'number': context
-                                          .read<DataFromAdminBloc>()
+                                          .read<UserAccountBloc>()
                                           .state
-                                          .data!
-                                          .phoneNumber
+                                          .user
+                                          .marketNumber
                                     }));
                               },
                               color: Colors.deepPurple,

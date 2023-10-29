@@ -32,6 +32,8 @@ class CreateOrderRepository {
       order.reserve!.reserve -=
           order.products.fold(0, (p, e) => int.parse((p + e.count).toString()));
       await getIt<ReserveRepository>().updateReserve(order.reserve!);
+      user.freeLimits -= order.freeLimit;
+      await getIt<AdminRepository>().updateUser(user);
     } catch (e) {
       myResponse.message = e.toString();
     }

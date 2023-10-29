@@ -83,7 +83,9 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
         child: Theme(
           data: AdaptiveTheme.of(context).theme,
           child: ScrollableCleanCalendar(
-            locale: getIt<StorageService>().getString('language'),
+            locale: getIt<StorageService>().getString('language').isEmpty
+                ? 'uz'
+                : getIt<StorageService>().getString('language'),
             calendarController: calendarController,
             layout: Layout.BEAUTY,
             calendarCrossAxisSpacing: 0,

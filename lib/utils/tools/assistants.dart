@@ -128,9 +128,7 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   if (user!.markets.isEmpty) {
     error = 'you_need_to_create_market'.tr;
   }
-  if (
-      // data.prices.length != 30 ||
-      data.deliveryNote.length != 6) {
+  if (data.cardNumber.isEmpty || data.deliveryNote.length != 6) {
     error = 'you_cant_create_order_now'.tr;
   }
   if (error.isNotEmpty) {

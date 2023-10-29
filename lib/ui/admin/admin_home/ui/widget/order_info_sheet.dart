@@ -37,7 +37,11 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
       ),
       actions: [
         if (widget.isAdmin)
-          CupertinoActionSheetAction(onPressed: () {}, child: Text('edit'.tr)),
+          CupertinoActionSheetAction(
+              onPressed: () {
+                showEditProductsBottomSheet(context, widget.order);
+              },
+              child: Text('edit'.tr)),
         if (isCancelled)
           CupertinoActionSheetAction(
               onPressed: () async {
@@ -84,9 +88,10 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
       message: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          widget.isAdmin ||
+          widget.isAdmin && widget.order.userPhoto.isNotEmpty ||
                   context.read<UserAccountBloc>().state.user!.uid ==
-                      widget.order.ownerId
+                          widget.order.ownerId &&
+                      widget.order.userPhoto.isNotEmpty
               ? OnTap(
                   onTap: () {
                     final imageProvider =
@@ -134,6 +139,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                       .maxLimit
                                       .toInt(),
                                   lastStatus));
+                              setState(() {});
                             });
                           }),
                     if (widget.order.status == OrderStatus.inProgress &&
@@ -143,25 +149,27 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                           text: 'decline',
                           color: Colors.red,
                           onTap: () async {
-                            final TextEditingController comment =
-                                TextEditingController();
-                            comment.text = widget.order.comment;
-                            showTextInputDialog(context, onConfirmTapped: () {
-                              widget.order.status = OrderStatus.cancelled;
-                              widget.order.comment = comment.text;
-                              context.read<AdminBloc>().add(UpdateOrderEvent(
-                                  widget.order,
-                                  context
-                                      .read<DataFromAdminBloc>()
-                                      .state
-                                      .data!
-                                      .maxLimit
-                                      .toInt(),
-                                  lastStatus));
-                            },
-                                controller: comment,
-                                title: 'add_comment'.tr,
-                                hintText: ' ');
+                            widget.order.status = OrderStatus.cancelled;
+                            context.read<AdminBloc>().add(UpdateOrderEvent(
+                                widget.order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .maxLimit
+                                    .toInt(),
+                                lastStatus));
+                            setState(() {});
+
+                            // final TextEditingController comment =
+                            //     TextEditingController();
+                            // comment.text = widget.order.comment;
+                            // showTextInputDialog(context, onConfirmTapped: () {
+                            //
+                            // },
+                            //     controller: comment,
+                            //     title: 'add_comment'.tr,
+                            //     hintText: ' ');
                           }),
                     if (widget.order.status == OrderStatus.inProgress &&
                         widget.isAdmin)
@@ -183,6 +191,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                       .toInt(),
                                   lastStatus,
                                   photo: photo!.path));
+                              setState(() {});
                             });
                           }),
                   ],
@@ -203,16 +212,12 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                     text1: 'order_id'.tr,
                     text2: widget.order.orderId.toString(),
                   ),
-                  if (!widget.isAdmin &&
-                          widget.order.ownerId ==
-                              context.read<UserAccountBloc>().state.user!.uid ||
-                      widget.isAdmin)
-                    RowText(
-                      icon: AppIcons.basket,
-                      text1: 'product_count',
-                      text2:
-                          '${widget.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}',
-                    ),
+                  RowText(
+                    icon: AppIcons.basket,
+                    text1: 'product_count',
+                    text2:
+                        '${widget.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}',
+                  ),
                 ],
               ),
             ],
@@ -239,7 +244,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             RowText(
               icon: AppIcons.calendar,
               text1: 'date'.tr,
-              text2: '${widget.order.date}',
+              text2: dateTimeToFormat(widget.order.date, needTime: false),
             ),
           RowText(
             icon: AppIcons.balance,

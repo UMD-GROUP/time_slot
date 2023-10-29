@@ -54,7 +54,9 @@ class UpdateStoreDialog extends StatelessWidget {
                 ..name = marketName.text.trim()
                 ..id = id.text.trim();
               context.read<StoresBloc>().add(UpdateStoreEvent(
-                  store, context.read<UserAccountBloc>().state.user));
+                  store,
+                  context.read<UserAccountBloc>().state.user,
+                  context.read<DataFromAdminBloc>().state.data!.freeLimit));
             },
             child: Text('confirm'.tr),
           ),

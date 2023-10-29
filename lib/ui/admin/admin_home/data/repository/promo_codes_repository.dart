@@ -84,4 +84,18 @@ class PromoCodesRepository {
     }
     return myResponse;
   }
+
+  Future<MyResponse> updateThePromoCode(PromoCodeModel promoCode) async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      await instance
+          .collection('promo_codes')
+          .doc(promoCode.docId)
+          .update(promoCode.toJson());
+      myResponse.statusCode = 200;
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
 }

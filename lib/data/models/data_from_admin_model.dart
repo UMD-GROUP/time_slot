@@ -6,6 +6,7 @@ class DataFromAdminModel {
       required this.termsOfUsing,
       required this.maxLimit,
       required this.adminPassword,
+      this.freeLimit = 0,
       this.cardNumber = '',
       required this.phoneNumber});
 
@@ -13,6 +14,7 @@ class DataFromAdminModel {
       DataFromAdminModel(
           phoneNumber: json['phoneNumber'] ?? '',
           banners: json['banners'] ?? [],
+          freeLimit: json['freeLimit'] ?? 0,
           instruction: json['instruction'] ?? '',
           termsOfUsing: json['termsOfUsing'] ?? '',
           adminPassword: json['adminPassword'] ?? '',
@@ -27,6 +29,7 @@ class DataFromAdminModel {
   String adminPassword;
   String phoneNumber;
   String cardNumber;
+  int freeLimit;
 
   Map<String, dynamic> toJson() => {
         'banners': banners,
@@ -36,6 +39,7 @@ class DataFromAdminModel {
         'adminPassword': adminPassword,
         'maxLimit': maxLimit,
         'phoneNumber': phoneNumber,
-        'cardNumber': cardNumber
+        'cardNumber': cardNumber,
+        'freeLimit': freeLimit
       };
 }

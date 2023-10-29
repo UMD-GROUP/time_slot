@@ -30,7 +30,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
             ).show(context);
           } else if (state.updateOrderState == ResponseStatus.inProgress) {
             Navigator.pop(context);
-            Navigator.pop(context);
             showLoadingDialog(context);
           }
         },

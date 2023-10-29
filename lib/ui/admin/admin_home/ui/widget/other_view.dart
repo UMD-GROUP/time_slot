@@ -130,6 +130,30 @@ class _OtherViewState extends State<OtherView> {
                     },
                     subtitle: '${state.data!.maxLimit}'),
                 OtherItem(
+                    title: 'free_limits'.tr,
+                    onTap: () {
+                      controller.text = context
+                          .read<DataFromAdminBloc>()
+                          .state
+                          .data!
+                          .freeLimit
+                          .toString();
+                      showNumberInputDialog(
+                        inputFormatter: SevenDigitInputFormatter(),
+                        context,
+                        controller: controller,
+                        hintText: ' '.tr,
+                        title: 'free_limits'.tr,
+                        onConfirmTapped: () {
+                          final DataFromAdminModel data =
+                              context.read<DataFromAdminBloc>().state.data!;
+                          data.freeLimit = int.parse(controller.text.trim());
+                          updateData(data);
+                        },
+                      );
+                    },
+                    subtitle: '${state.data!.maxLimit}'),
+                OtherItem(
                     title: 'instruction'.tr,
                     onTap: () {
                       controller.text = context

@@ -12,6 +12,7 @@ class UserModel {
       this.language = 'uz',
       this.token = '',
       this.isConfirmed = false,
+      this.marketNumber = '',
       this.fcmToken = '',
       this.uid = '',
       this.referallId = ''});
@@ -23,6 +24,7 @@ class UserModel {
         language: json['language'] ?? 'uz',
         referrals: json['referrals'] ?? [],
         sumOfOrders: json['sumOfOrders'] ?? 10,
+        marketNumber: json['marketNumber'] ?? '',
         createdAt:
             DateTime.parse(json['createdAt'] ?? DateTime(2023).toString()),
         markets: json['markets'] ?? [],
@@ -49,6 +51,7 @@ class UserModel {
   int freeLimits;
   String language;
   bool isConfirmed;
+  String marketNumber;
 
   Map<String, Object> toJson() => {
         'markets': markets,
@@ -62,6 +65,7 @@ class UserModel {
         'isConfirmed': isConfirmed,
         'referallId': referallId,
         'orders': orders,
+        'marketNumber': marketNumber,
         'referrals': referrals,
         'isBlocked': isBlocked,
         'createdAt': createdAt.toString(),

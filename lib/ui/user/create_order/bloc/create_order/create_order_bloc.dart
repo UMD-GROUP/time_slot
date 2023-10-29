@@ -17,23 +17,23 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
   }
 
   void updateFields(UpdateFieldsOrderEvent event, Emitter emit) {
-    if (!event.order.reserve.isNull && !event.freeLimit.isNull) {
-      event.order = calculateSum(event.order, event.freeLimit!);
-    }
+    event.order = calculateSum(event.order, event.freeLimit);
     emit(state.copyWith(newOrder: event.order, isUpdated: !state.isUpdated));
   }
 
-  OrderModel calculateSum(OrderModel order, int freeLimit) {
+  OrderModel calculateSum(OrderModel order, int? freeLimit1) {
     int sum = 0;
+    final int price = order.reserve.isNull ? 0 : order.reserve!.price;
+    final int freeLimit = freeLimit1 ?? 0;
     final int productCount =
         order.products.fold(0, (i, e) => int.parse((i + e.count).toString()));
-    sum += (productCount >= freeLimit ? productCount - freeLimit : 0) *
-        order.reserve!.price;
+    sum += (productCount >= freeLimit ? productCount - freeLimit : 0) * price;
+
     order.sum = sum;
     if (!order.promoCode.isNull && order.promoCode!.minAmount <= productCount) {
       sum -= (sum / 100 * order.promoCode!.discount).toInt();
     }
-    order.totalSum = sum;
+    order.totalSum = sum - sum % 1000;
     if (freeLimit >= productCount) {
       order.freeLimit = productCount;
     } else {

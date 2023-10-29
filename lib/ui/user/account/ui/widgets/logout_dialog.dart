@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -22,7 +24,7 @@ class LogoutDialog extends StatelessWidget {
               Navigator.of(context).pop();
               FirebaseAuth.instance.signOut();
               Navigator.pushNamedAndRemoveUntil(
-                  context, RouteName.splash, (route) => false);
+                  context, RouteName.authorization, (route) => false);
             },
           ),
         ],

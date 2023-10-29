@@ -79,7 +79,8 @@ class AdminRepository {
       String notification = '';
       if (order.status == OrderStatus.done) {
         order.finishedAt = DateTime.now();
-        notification = makeNotification('update_confirmed', order: order);
+        notification = makeNotification('update_confirmed',
+            order: order, language: order.language);
       }
       await instance
           .collection('orders')
@@ -96,40 +97,49 @@ class AdminRepository {
             .collection('orders')
             .doc(order.orderDocId)
             .update(order.toJson());
+        if (!order.promoCode.isNull) {
+          order.promoCode!.usedOrders.add(order.orderDocId);
+          await getIt<PromoCodesRepository>()
+              .updateThePromoCode(order.promoCode!);
+        }
       }
       if (order.status == OrderStatus.cancelled) {
-        notification = makeNotification('update_is_cancelled', order: order);
+        notification = makeNotification('update_is_cancelled',
+            order: order, language: order.language);
       }
       if (order.ownerFcm.isNotEmpty) {
         print('TOken bor');
-        await sendPushNotification(order.ownerFcm,
-            makeNotification('news_in_order', order: order), notification);
+        await sendPushNotification(
+            order.ownerFcm,
+            makeNotification('news_in_order',
+                order: order, language: order.language),
+            notification);
       } else {
         print('TOken yoq');
       }
 
       myResponse.statusCode = 200;
 
-      if (order.status == OrderStatus.cancelled) {
-        final QuerySnapshot<Map<String, dynamic>> userDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('uid', isEqualTo: order.ownerId)
-                .get();
-        final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
-        user.freeLimits += order.freeLimit;
-        await instance.collection('users').doc(user.uid).update(user.toJson());
-      } else if (lastStatus == OrderStatus.cancelled &&
-          order.status == OrderStatus.inProgress) {
-        final QuerySnapshot<Map<String, dynamic>> userDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('uid', isEqualTo: order.ownerId)
-                .get();
-        final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
-        user.freeLimits -= order.freeLimit;
-        await instance.collection('users').doc(user.uid).update(user.toJson());
-      }
+      // if (order.status == OrderStatus.cancelled) {
+      //   final QuerySnapshot<Map<String, dynamic>> userDoc =
+      //       await FirebaseFirestore.instance
+      //           .collection('users')
+      //           .where('uid', isEqualTo: order.ownerId)
+      //           .get();
+      //   final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
+      //   user.freeLimits += order.freeLimit;
+      //   await instance.collection('users').doc(user.uid).update(user.toJson());
+      // } else if (lastStatus == OrderStatus.cancelled &&
+      //     order.status == OrderStatus.inProgress) {
+      //   final QuerySnapshot<Map<String, dynamic>> userDoc =
+      //       await FirebaseFirestore.instance
+      //           .collection('users')
+      //           .where('uid', isEqualTo: order.ownerId)
+      //           .get();
+      //   final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
+      //   user.freeLimits -= order.freeLimit;
+      //   await instance.collection('users').doc(user.uid).update(user.toJson());
+      // }
     } catch (e) {
       myResponse.message = e.toString();
       print(e);

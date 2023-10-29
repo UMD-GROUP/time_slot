@@ -96,6 +96,10 @@ class AuthorizationRepository {
           await authInstance.createUserWithEmailAndPassword(
               email: user.email, password: user.password);
       user.uid = result.user!.uid;
+      final MyResponse response =
+          await getIt<DataFromAdminRepository>().getAdminData();
+      final DataFromAdminModel data = response.data;
+      user.marketNumber = data.phoneNumber;
 
       await instance
           .collection('users')
@@ -184,7 +188,10 @@ class AuthorizationRepository {
         } else {
           user.referallId = 'ADMIN2023';
         }
-
+        final MyResponse response =
+            await getIt<DataFromAdminRepository>().getAdminData();
+        final DataFromAdminModel data = response.data;
+        user.marketNumber = data.phoneNumber;
         await instance.collection('users').doc(user.uid).set(user.toJson());
         await instance
             .collection('referalls')
