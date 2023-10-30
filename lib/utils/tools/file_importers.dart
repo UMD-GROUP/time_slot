@@ -69,9 +69,9 @@ export 'package:time_slot/ui/user/create_order/bloc/privilege_bloc/privilege_blo
 export 'package:time_slot/ui/user/create_order/bloc/step_controller/step_controller_bloc.dart';
 export 'package:time_slot/ui/user/create_order/data/repository/create_order_repository.dart';
 export 'package:time_slot/ui/user/create_order/ui/widgets/add_product_section.dart';
-export 'package:time_slot/ui/user/create_order/ui/widgets/image_secion.dart';
 export 'package:time_slot/ui/user/create_order/ui/widgets/list_of_products.dart';
 export 'package:time_slot/ui/user/create_order/ui/widgets/market_option.dart';
+export 'package:time_slot/ui/user/create_order/ui/widgets/payment_section.dart';
 export 'package:time_slot/ui/user/logistics/ui/logistics_page.dart';
 export 'package:time_slot/ui/user/main/bloc/page_controller_bloc/page_controller_bloc.dart';
 export 'package:time_slot/ui/user/notifications/bloc/notification_bloc/notification_bloc.dart';

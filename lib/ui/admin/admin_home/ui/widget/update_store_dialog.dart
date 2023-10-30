@@ -18,12 +18,12 @@ class UpdateStoreDialog extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: height(context) * 0.01),
             SizedBox(
-              width: width(context) * 0.15,
+              width: width(context) * 0.3,
               child: CupertinoTextField(
                 controller: id,
-                inputFormatters: [ThreeDigitInputFormatter()],
+                inputFormatters: [MaxLengthInputFormatter(8)],
                 // controller: discount,
-                maxLength: 3,
+                maxLength: 8,
                 keyboardType: TextInputType.number,
                 placeholder: 'Id'.tr,
               ),

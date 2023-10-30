@@ -244,7 +244,8 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             RowText(
               icon: AppIcons.calendar,
               text1: 'date'.tr,
-              text2: dateTimeToFormat(widget.order.date, needTime: false),
+              text2:
+                  dateTimeToFormat(widget.order.reserve!.date, needTime: false),
             ),
           RowText(
             icon: AppIcons.balance,

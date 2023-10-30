@@ -49,8 +49,10 @@ class ListOfProducts extends StatelessWidget {
                               .read<CreateOrderBloc>()
                               .add(UpdateFieldsOrderEvent(order));
                         },
-                            title:
-                                "Agar ushbu tovarlarni buyurtmadan chiqarsangiz, promo koddan foydalana olmaysiz. Chunki promo koddan foydalanishning minimal miqdori ${state.order.promoCode!.minAmount} ta tovarga teng. Tovrani o'chirishga rozimisiz?");
+                            title: 'you_can_not_remove_product'.trParams({
+                              'count':
+                                  state.order.promoCode!.minAmount.toString()
+                            }));
                       } else {
                         final OrderModel order = state.order;
                         order.products.removeAt(index);
@@ -65,13 +67,7 @@ class ListOfProducts extends StatelessWidget {
                           .read<CreateOrderBloc>()
                           .add(UpdateFieldsOrderEvent(order));
                     }
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Deleted: ${item.deliveryNote}'),
-                        duration: const Duration(seconds: 2),
-                      ),
-                    );
+                    getMyToast('deleted'.tr);
                   },
                 ),
               );

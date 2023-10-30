@@ -102,6 +102,14 @@ class AdminRepository {
           await getIt<PromoCodesRepository>()
               .updateThePromoCode(order.promoCode!);
         }
+        final QuerySnapshot<Map<String, dynamic>> userDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .where('uid', isEqualTo: order.ownerId)
+                .get();
+        final UserModel user = UserModel.fromJson(userDoc.docs.first.data());
+        user.sumOfOrders += order.totalSum;
+        await instance.collection('users').doc(user.uid).update(user.toJson());
       }
       if (order.status == OrderStatus.cancelled) {
         notification = makeNotification('update_is_cancelled',

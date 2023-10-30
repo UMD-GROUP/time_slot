@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -142,12 +143,7 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
 
 void copyToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      duration: const Duration(seconds: 2),
-      content: Text('copied_to_clipboard'.tr),
-    ),
-  );
+  getMyToast('copied_to_clipboard'.tr);
 }
 
 void showEditProductDialog(BuildContext context, ProductModel product,
@@ -1509,3 +1505,12 @@ Future<void> sendSMSTo(String message) async {
     //       .textSMS(recipients: '+998909319051', smsBody: message);
   }
 }
+
+getMyToast(String message) => Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM_RIGHT,
+      backgroundColor: const Color(0xFF1C2632),
+      textColor: Colors.white,
+      fontSize: 16,
+    );

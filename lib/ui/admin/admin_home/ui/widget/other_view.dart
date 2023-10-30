@@ -152,7 +152,7 @@ class _OtherViewState extends State<OtherView> {
                         },
                       );
                     },
-                    subtitle: '${state.data!.maxLimit}'),
+                    subtitle: '${state.data!.freeLimit}'),
                 OtherItem(
                     title: 'instruction'.tr,
                     onTap: () {

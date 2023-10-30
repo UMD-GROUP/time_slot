@@ -168,7 +168,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                       ],
                                     ),
                                   ),
-                                  content: const ImageSection())
+                                  content: const PaymentSection())
                             ]),
                         SizedBox(height: height(context) * 0.05),
                         Visibility(

@@ -1,4 +1,3 @@
-import 'package:time_slot/ui/admin/admin_home/bloc/promo_codes_bloc/promo_code_bloc.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../../../../utils/tools/file_importers.dart';
@@ -21,6 +20,9 @@ class PromoCodeItem extends StatelessWidget {
             });
           }
         },
+        onTap: () {
+          copyToClipboard(context, promoCode.promoCode);
+        },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 5.h),
           height: height(context) * 0.11,
@@ -37,7 +39,7 @@ class PromoCodeItem extends StatelessWidget {
               ),
               Container(
                   height: height(context) * 0.1,
-                  width: width(context) * 0.25,
+                  width: width(context) * 0.24,
                   decoration: BoxDecoration(
                       color: Colors.deepPurple,
                       borderRadius: BorderRadius.circular(10)),
@@ -79,6 +81,7 @@ class PromoCodeItem extends StatelessWidget {
                   ],
                 ),
               ),
+              Icon(Icons.copy, color: AdaptiveTheme.of(context).theme.hintColor)
             ],
           ),
         ),

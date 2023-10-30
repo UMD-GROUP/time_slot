@@ -27,8 +27,12 @@ class _OrdersPageState extends State<OrdersPage> {
           actions: [
             IconButton(
                 onPressed: () {
+                  context.read<UserAccountBloc>().add(
+                      GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
                   context.read<OrderBloc>().add(GetOrderEvent());
                   context.read<DataFromAdminBloc>().add(GetBannersEvent());
+                  context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
+                  getMyToast('updated'.tr);
                 },
                 icon: const Icon(Icons.refresh))
           ],

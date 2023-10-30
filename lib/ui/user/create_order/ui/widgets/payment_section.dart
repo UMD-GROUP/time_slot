@@ -5,17 +5,20 @@ import 'dart:io';
 import 'package:time_slot/ui/user/create_order/ui/widgets/use_promo_code.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class ImageSection extends StatelessWidget {
-  const ImageSection({super.key});
+class PaymentSection extends StatelessWidget {
+  const PaymentSection({super.key});
 
   @override
   Widget build(BuildContext context) => SizedBox(
         child: BlocBuilder<CreateOrderBloc, CreateOrderState>(
           builder: (context, state) => Column(
             children: [
-              Text('free_limits_disclaimer'.tr,
-                  style: AppTextStyles.labelLarge(context,
-                      color: Colors.deepPurpleAccent, fontSize: 12.sp)),
+              Visibility(
+                visible: state.order.freeLimit != 0,
+                child: Text('free_limits_disclaimer'.tr,
+                    style: AppTextStyles.labelLarge(context,
+                        color: Colors.deepPurpleAccent, fontSize: 12.sp)),
+              ),
               SizedBox(height: height(context) * 0.02),
               if (state.order.totalSum != 0)
                 Column(
@@ -34,7 +37,7 @@ class ImageSection extends StatelessWidget {
                                 .data!
                                 .cardNumber),
                             style: AppTextStyles.labelLarge(context,
-                                fontSize: 28.sp)),
+                                fontSize: 26.sp)),
                         OnTap(
                             onTap: () {
                               copyToClipboard(

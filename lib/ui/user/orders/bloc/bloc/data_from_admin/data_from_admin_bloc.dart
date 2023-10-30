@@ -10,7 +10,9 @@ class DataFromAdminBloc extends Bloc<DataFromAdminEvent, DataFromAdminState> {
   }
 
   Future<void> getBanners(GetBannersEvent event, Emitter emit) async {
-    emit(state.copyWith(status: ResponseStatus.inProgress));
+    if (state.status == ResponseStatus.pure) {
+      emit(state.copyWith(status: ResponseStatus.inProgress));
+    }
     final MyResponse myResponse =
         await getIt<DataFromAdminRepository>().getAdminData();
     if (myResponse.statusCode! == 200) {

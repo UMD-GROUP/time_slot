@@ -242,6 +242,10 @@ class AppTranslations extends Translations {
           'gallery': 'Galereyadan',
           'camera': 'Kameradan',
           'loading': 'Iltimos, kuting...',
+          'you_can_not_remove_product':
+              "Agar ushbu tovarlarni buyurtmadan chiqarsangiz, promo koddan foydalana olmaysiz. Chunki promo koddan foydalanishning minimal miqdori @count ta tovarga teng. Tovarani o'chirishga rozimisiz?",
+          'deleted': "O'chirildi!",
+          'updated': 'Yangilandi!',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -474,6 +478,10 @@ class AppTranslations extends Translations {
           'gallery': 'Из галереи',
           'camera': 'С камеры',
           'loading': 'Пожалуйста, подождите...',
+          'you_can_not_remove_product':
+              'Вы не сможете использовать промокод, если закажете эти товары. Потому что минимальная сумма использования промокода равна @count товаров. Вы согласны удалить товар?',
+          'deleted': 'Удалено!',
+          'updated': 'Обновлено!',
         }
       };
 }

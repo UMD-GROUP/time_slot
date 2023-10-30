@@ -1,4 +1,5 @@
 // ignore_for_file: cascade_invocations
+import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AddReserveWidget extends StatelessWidget {
@@ -107,8 +108,11 @@ class AddReserveWidget extends StatelessWidget {
                         child: Theme(
                           data: AdaptiveTheme.of(context).theme,
                           child: ScrollableCleanCalendar(
-                            locale:
-                                getIt<StorageService>().getString('language'),
+                            locale: getIt<StorageService>()
+                                    .getString('language')
+                                    .isEmpty
+                                ? 'uz'
+                                : getIt<StorageService>().getString('language'),
                             calendarController: calendarController,
                             layout: Layout.BEAUTY,
                             calendarCrossAxisSpacing: 0,
@@ -120,7 +124,7 @@ class AddReserveWidget extends StatelessWidget {
                 ),
               );
             }
-            return const CustomCircularProgressIndicator(color: Colors.white);
+            return const CupertinoActivityIndicator();
           },
         ),
       );
