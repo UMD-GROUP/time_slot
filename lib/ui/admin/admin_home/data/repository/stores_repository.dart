@@ -59,6 +59,12 @@ class StoresRepository {
               .collection('users')
               .doc(owner.uid)
               .update({'isConfirmed': true});
+
+          owner.freeLimits += freeLimit;
+          await instance
+              .collection('users')
+              .doc(owner.uid)
+              .update(owner.toJson());
           myResponse.statusCode = 200;
         } else {
           myResponse.message = 'you_need_to_add_free_limit'.tr;
