@@ -90,7 +90,7 @@ class AuthorizationRepository {
           return myResponse;
         }
       } else {
-        user.referallId = 'ADMIN2023';
+        user.referallId = 'SellerPRO';
       }
       final UserCredential result =
           await authInstance.createUserWithEmailAndPassword(
@@ -145,7 +145,7 @@ class AuthorizationRepository {
         uid: gUser!.uid,
         token: generateToken(),
         createdAt: DateTime.now(),
-        referallId: 'ADMIN2023');
+        referallId: 'SellerPRO');
     final DocumentSnapshot<Map<String, dynamic>> some =
         await instance.collection('users').doc(gUser.uid).get();
 
@@ -186,7 +186,7 @@ class AuthorizationRepository {
             return myResponse;
           }
         } else {
-          user.referallId = 'ADMIN2023';
+          user.referallId = 'SellerPRO';
         }
         final MyResponse response =
             await getIt<DataFromAdminRepository>().getAdminData();
