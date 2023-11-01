@@ -51,9 +51,11 @@ class _UserStoresState extends State<UserStores> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Image.asset(AppImages.market, width: 28.w),
+                  SizedBox(width: 8.w),
                   Text('markets'.tr,
                       style:
-                          AppTextStyles.labelLarge(context, fontSize: 15.sp)),
+                          AppTextStyles.labelLarge(context, fontSize: 16.sp)),
                   const Spacer(),
                   if (state.stores.length != 5)
                     ElevatedButton(
