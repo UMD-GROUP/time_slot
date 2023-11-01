@@ -57,7 +57,6 @@ class UsersItemWidget extends StatelessWidget {
                 width: 10.w,
               ),
               SizedBox(
-                width: width(context) * 0.55,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
