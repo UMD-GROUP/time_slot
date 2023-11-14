@@ -246,6 +246,9 @@ class AppTranslations extends Translations {
               "Agar ushbu tovarlarni buyurtmadan chiqarsangiz, promo koddan foydalana olmaysiz. Chunki promo koddan foydalanishning minimal miqdori @count ta tovarga teng. Tovarani o'chirishga rozimisiz?",
           'deleted': "O'chirildi!",
           'updated': 'Yangilandi!',
+          'make_an_order': 'Buyurtma berish',
+          'first_add_your_store':
+              "Avval Shaxsiy hisob sahifasiga o'tib do'koningizni qo'shing."
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -482,6 +485,9 @@ class AppTranslations extends Translations {
               'Вы не сможете использовать промокод, если закажете эти товары. Потому что минимальная сумма использования промокода равна @count товаров. Вы согласны удалить товар?',
           'deleted': 'Удалено!',
           'updated': 'Обновлено!',
+          'make_an_order': 'Сделать заказ',
+          'first_add_your_store':
+              'Сначала добавьте свой магазин, перейдя на страницу Личного кабинета.'
         }
       };
 }

@@ -92,26 +92,6 @@ class _MainPageState extends State<MainPage> {
       child: BlocBuilder<PageControllerBloc, PageControllerState>(
         builder: (context, state) => Scaffold(
           body: pages[state.currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (value) {
-              context
-                  .read<PageControllerBloc>()
-                  .add(ChangeCurrentPageEvent(value));
-            },
-            currentIndex: state.currentIndex,
-            unselectedItemColor: AdaptiveTheme.of(context).theme.hintColor,
-            selectedItemColor: Colors.deepPurple,
-            backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-            items: [
-              BottomNavigationBarItem(
-                  icon: const Icon(Icons.timeline), label: 'Time Slot'.tr),
-              BottomNavigationBarItem(
-                  icon: const Icon(Icons.car_repair_sharp),
-                  label: 'logistics'.tr),
-              BottomNavigationBarItem(
-                  icon: const Icon(Icons.person), label: 'account'.tr),
-            ],
-          ),
         ),
       ),
     );

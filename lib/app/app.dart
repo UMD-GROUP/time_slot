@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_expression_function_bodies
 
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class App extends StatelessWidget {
@@ -35,14 +36,16 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return AdaptiveTheme(
-          builder: (light, dark) => GetMaterialApp(
-            translations: AppTranslations(),
-            locale: Locale(lang, lang.toUpperCase()),
-            initialRoute: RouteName.splash,
-            onGenerateRoute: AppRoutes.generateRoute,
-            debugShowCheckedModeBanner: false,
-            // home: Material(child: EnterInfoPage()),
-            title: 'TimeSlot',
+          builder: (light, dark) => FeatureDiscovery(
+            child: GetMaterialApp(
+              translations: AppTranslations(),
+              locale: Locale(lang, lang.toUpperCase()),
+              initialRoute: RouteName.splash,
+              onGenerateRoute: AppRoutes.generateRoute,
+              debugShowCheckedModeBanner: false,
+              // home: Material(child: EnterInfoPage()),
+              title: 'TimeSlot',
+            ),
           ),
           light: AppTheme.light,
           initial: AdaptiveThemeMode.light,

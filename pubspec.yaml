@@ -74,6 +74,8 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   permission_handler: ^11.0.1
   fluttertoast: ^8.2.2
+  feature_discovery: ^0.14.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +87,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/sp_logo.png"
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
