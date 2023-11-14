@@ -120,66 +120,34 @@ class OrderItem extends StatelessWidget {
                           icon: Icons.attach_money,
                           context: context,
                           type: 'sum',
-                          value: '${order.sum.toInt()} UZS'),
+                          value: '${order.totalSum.toInt()} UZS'),
+                      // OrderTextWidget(
+                      //     icon: Icons.group,
+                      //     context: context,
+                      //     type: 'partner_id',
+                      //     value: order.referralId.toString()),
                       OrderTextWidget(
-                          icon: Icons.group,
-                          context: context,
-                          type: 'partner_id',
-                          value: order.referallId.toString()),
-                      //     OrderTextWidget(context: context, type: 'Status:',value: data[index].status.toString()),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Icon(Icons.access_time_filled_outlined,
-                                color:
-                                    AdaptiveTheme.of(context).theme.hoverColor),
-                            SizedBox(width: width(context) * 0.02),
-                            Text(
-                              'Status:'.tr,
-                              style: AppTextStyles.bodyMedium(context,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            SizedBox(
-                              width: width(context) * 0.3,
-                              child: Text(
-                                order.status.toString() == 'OrderStatus.created'
-                                    ? 'created'.tr
-                                    : order.status.toString() ==
-                                            'OrderStatus.inProgress'
-                                        ? 'progress'.tr
-                                        : order.status.toString() ==
-                                                'OrderStatus.cancelled'
-                                            ? order.ownerId ==
-                                                        context
-                                                            .read<
-                                                                UserAccountBloc>()
-                                                            .state
-                                                            .user!
-                                                            .uid ||
-                                                    isAdmin
-                                                ? order.comment
-                                                : 'cancelled'.tr
-                                            : 'done'.tr,
-                                maxLines: 3,
-                                style: AppTextStyles.bodyLargeSmall(context,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp,
-                                    color: order.status == OrderStatus.created
-                                        ? Colors.yellow
-                                        : order.status.toString() ==
-                                                'OrderStatus.inProgress'
-                                            ? AppColors.cGold
-                                            : order.status.toString() ==
-                                                    'OrderStatus.cancelled'
-                                                ? AppColors.cFF3333
-                                                : Colors.green),
-                              ),
-                            ),
-                          ],
-                        ),
+                        icon: Icons.access_time,
+                        context: context,
+                        type: 'status'.tr,
+                        subtitleColor: order.status == OrderStatus.created
+                            ? Colors.yellow
+                            : order.status.toString() ==
+                                    'OrderStatus.inProgress'
+                                ? AppColors.cGold
+                                : order.status.toString() ==
+                                        'OrderStatus.cancelled'
+                                    ? AppColors.cFF3333
+                                    : Colors.green,
+                        value: order.status.toString() == 'OrderStatus.created'
+                            ? 'created'.tr
+                            : order.status.toString() ==
+                                    'OrderStatus.inProgress'
+                                ? 'progress'.tr
+                                : order.status.toString() ==
+                                        'OrderStatus.cancelled'
+                                    ? 'cancelled'.tr
+                                    : 'done'.tr,
                       ),
                       SizedBox(
                         height: height(context) * 0.01,

@@ -18,4 +18,21 @@ class UserRepository {
     }
     return myResponse;
   }
+
+  Future<MyResponse> changeLanguage(String uid, String language) async {
+    final MyResponse myResponse = MyResponse();
+
+    try {
+      final FirebaseFirestore instance = FirebaseFirestore.instance;
+
+      await instance
+          .collection('users')
+          .doc(uid)
+          .update({'language': language});
+      myResponse.statusCode = 200;
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
 }

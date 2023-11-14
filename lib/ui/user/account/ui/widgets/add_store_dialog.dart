@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:time_slot/ui/user/account/bloc/user_account_bloc/user_account_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AddStoreDialog extends StatelessWidget {
@@ -16,10 +15,8 @@ class AddStoreDialog extends StatelessWidget {
           content: Column(
             children: <Widget>[
               if (!context.read<DataFromAdminBloc>().state.data.isNull)
-                Text('don_not_forget_to_add_number'.trParams({
-                  'number':
-                      context.read<DataFromAdminBloc>().state.data!.phoneNumber
-                })),
+                Text('don_not_forget_to_add_number'
+                    .trParams({'number': user.marketNumber})),
               const SizedBox(height: 16),
               CupertinoTextField(
                 controller: controller,

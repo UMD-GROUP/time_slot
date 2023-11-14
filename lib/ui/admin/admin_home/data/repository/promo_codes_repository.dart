@@ -21,6 +21,28 @@ class PromoCodesRepository {
     return myResponse;
   }
 
+  Future<MyResponse> getThePromoCode(String promoCode) async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      final promoDoc = await instance
+          .collection('promo_codes')
+          .where('promoCode', isEqualTo: promoCode)
+          .get();
+      if (promoDoc.docs.isNotEmpty) {
+        myResponse
+          ..statusCode = 200
+          ..data = PromoCodeModel.fromJson(promoDoc.docs.first.data());
+      } else {
+        myResponse
+          ..statusCode = 400
+          ..message = 'promo_code_not_found'.tr;
+      }
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
   Future<MyResponse> addPromoCode(PromoCodeModel promoCode) async {
     final MyResponse myResponse = MyResponse();
 
@@ -28,8 +50,25 @@ class PromoCodesRepository {
       final DocumentReference<Map<String, dynamic>> promoDoc =
           await instance.collection('promo_codes').add(promoCode.toJson());
       await promoDoc.update({'docId': promoDoc.id});
+
+      final MyResponse myResponse = await getIt<UsersRepository>().getUsers();
+      if (myResponse.statusCode == 200) {
+        final List<UserModel> users = myResponse!.data;
+        for (final UserModel user in users) {
+          if (user.fcmToken.isNotEmpty) {
+            await sendPushNotification(
+              user.fcmToken,
+              makeNotification('try_now',
+                  promoCode: promoCode, language: user.language),
+              makeNotification('added_new_code',
+                  promoCode: promoCode, language: user.language),
+            );
+          }
+        }
+      }
       myResponse.statusCode = 200;
     } catch (e) {
+      print(e.toString());
       myResponse.message = e.toString();
     }
     return myResponse;
@@ -39,6 +78,20 @@ class PromoCodesRepository {
     final MyResponse myResponse = MyResponse();
     try {
       await instance.collection('promo_codes').doc(docId).delete();
+      myResponse.statusCode = 200;
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> updateThePromoCode(PromoCodeModel promoCode) async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      await instance
+          .collection('promo_codes')
+          .doc(promoCode.docId)
+          .update(promoCode.toJson());
       myResponse.statusCode = 200;
     } catch (e) {
       myResponse.message = e.toString();

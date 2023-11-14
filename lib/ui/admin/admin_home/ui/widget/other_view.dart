@@ -17,7 +17,7 @@ class _OtherViewState extends State<OtherView> {
   void updateData(DataFromAdminModel data) {
     context.read<AdminBloc>().add(UpdateOtherEvent(
         context.read<DataFromAdminBloc>().state.data!.deliveryNote,
-        context.read<DataFromAdminBloc>().state.data!.partnerPercent.toInt(),
+        context.read<DataFromAdminBloc>().state.data!.maxLimit.toInt(),
         data: data));
   }
 
@@ -51,6 +51,7 @@ class _OtherViewState extends State<OtherView> {
             width: width(context),
             height: height(context) * 0.1,
             child: ListView(
+              // runSpacing: 20.h,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               children: [
@@ -75,39 +76,83 @@ class _OtherViewState extends State<OtherView> {
                                   .read<DataFromAdminBloc>()
                                   .state
                                   .data!
-                                  .partnerPercent
+                                  .maxLimit
                                   .toInt()));
                         },
                       );
                     },
                     subtitle: state.data!.deliveryNote),
                 OtherItem(
-                    title: 'member_percent',
+                    title: 'card_number',
                     onTap: () {
                       controller.text = context
                           .read<DataFromAdminBloc>()
                           .state
                           .data!
-                          .partnerPercent
-                          .toString();
+                          .cardNumber;
                       showNumberInputDialog(
-                        inputFormatter: MemberPercentInputFormatter(),
+                        inputFormatter: CardNumberInputFormatter(),
                         context,
                         controller: controller,
-                        hintText: 'enter_member_percent'.tr,
-                        title: 'member_percent'.tr,
+                        hintText: ''.tr,
+                        title: 'card_number'.tr,
                         onConfirmTapped: () {
-                          context.read<AdminBloc>().add(UpdateOtherEvent(
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .deliveryNote,
-                              int.parse(controller.text)));
+                          final DataFromAdminModel data =
+                              context.read<DataFromAdminBloc>().state.data!;
+                          data.cardNumber = controller.text.trim();
+                          updateData(data);
                         },
                       );
                     },
-                    subtitle: '${state.data!.partnerPercent} %'),
+                    subtitle: state.data!.cardNumber.isEmpty ? '-' : '+'),
+                OtherItem(
+                    title: 'max_limit',
+                    onTap: () {
+                      controller.text = context
+                          .read<DataFromAdminBloc>()
+                          .state
+                          .data!
+                          .maxLimit
+                          .toString();
+                      showNumberInputDialog(
+                        inputFormatter: SevenDigitInputFormatter(),
+                        context,
+                        controller: controller,
+                        hintText: 'enter_max_limit'.tr,
+                        title: 'max_limit'.tr,
+                        onConfirmTapped: () {
+                          final DataFromAdminModel data =
+                              context.read<DataFromAdminBloc>().state.data!;
+                          data.maxLimit = int.parse(controller.text.trim());
+                          updateData(data);
+                        },
+                      );
+                    },
+                    subtitle: '${state.data!.maxLimit}'),
+                OtherItem(
+                    title: 'free_limits'.tr,
+                    onTap: () {
+                      controller.text = context
+                          .read<DataFromAdminBloc>()
+                          .state
+                          .data!
+                          .freeLimit
+                          .toString();
+                      showNumberInputDialog(
+                        inputFormatter: SevenDigitInputFormatter(),
+                        context,
+                        controller: controller,
+                        hintText: ' '.tr,
+                        title: 'free_limits'.tr,
+                        onConfirmTapped: () {
+                          final DataFromAdminModel data =
+                              context.read<DataFromAdminBloc>().state.data!;
+                          data.freeLimit = int.parse(controller.text.trim());
+                          updateData(data);
+                        },
+                      );
+                    },
+                    subtitle: '${state.data!.freeLimit}'),
                 OtherItem(
                     title: 'instruction'.tr,
                     onTap: () {

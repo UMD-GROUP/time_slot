@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -58,7 +57,6 @@ class UsersItemWidget extends StatelessWidget {
                 width: 10.w,
               ),
               SizedBox(
-                width: width(context) * 0.55,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,14 +64,24 @@ class UsersItemWidget extends StatelessWidget {
                     RowText(
                       icon: AppIcons.check,
                       text1: 'Email:',
-                      text2: userModel.email.toString().length > 15
-                          ? userModel.email.substring(0, 15)
+                      text2: userModel.email.toString().length > 20
+                          ? userModel.email.substring(0, 20)
                           : userModel.email,
                     ),
                     RowText(
                       icon: AppIcons.dollar,
                       text1: 'benefit',
                       text2: '${userModel.sumOfOrders}  UZS',
+                    ),
+                    // RowText(
+                    //   icon: AppIcons.check,
+                    //   text1: 'orders'.tr,
+                    //   text2: '${userModel.orders.length} ${'piece'.tr}',
+                    // ),
+                    RowText(
+                      icon: AppIcons.check,
+                      text1: 'referrals'.tr,
+                      text2: '${userModel.referrals.length} ${'piece'.tr}',
                     ),
                     RowText(
                       textColor: userModel.isBlocked

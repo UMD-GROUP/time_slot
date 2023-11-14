@@ -21,7 +21,7 @@ class StepControllerBloc
   void toPreviousStep(ToPreviousStepEvent event, Emitter emit) {
     emit(state.copyWith(
         currentStep:
-            state.currentStep > 0 ? state.currentStep-- : state.currentStep));
+            state.currentStep > 0 ? --state.currentStep : state.currentStep));
   }
 
   void toStepEvent(ToStepEvent event, Emitter emit) {

@@ -30,13 +30,18 @@ class _AdminHomePageState extends State<AdminHomePage> {
             ).show(context);
           } else if (state.updateOrderState == ResponseStatus.inProgress) {
             Navigator.pop(context);
-            Navigator.pop(context);
             showLoadingDialog(context);
           }
         },
         child: Scaffold(
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
               title: Text('admin_panel'.tr),
               backgroundColor: Colors.deepPurple,
               actions: [
@@ -50,7 +55,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     context.read<OrderBloc>().add(GetOrderEvent());
                     context.read<AllUserBloc>().add(GetAllUserEvent());
                     context.read<DataFromAdminBloc>().add(GetBannersEvent());
-                    // context.read<DataFromAdminBloc>().add(GetPurchasesEvent());
+                    context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
                   },
                 ),
               ],
@@ -71,26 +76,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
               ),
               const AdminBannerWidget(),
               SizedBox(
-                height: height(context) * 0.01,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  'prices'.tr,
-                  style: AppTextStyles.bodyMedium(context),
-                ),
-              ),
-              SizedBox(
-                height: height(context) * 0.01,
-              ),
-              const PricesView(),
-              SizedBox(
-                height: height(context) * 0.01,
-              ),
-              const OtherView(),
-              SizedBox(
                 height: height(context) * 0.03,
               ),
+              const OtherView(),
               const Expanded(child: AdminTabBarWidget()),
             ],
           ),

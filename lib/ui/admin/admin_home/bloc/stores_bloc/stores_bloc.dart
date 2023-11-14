@@ -25,8 +25,8 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
 
   Future<void> updateTheStore(UpdateStoreEvent event, Emitter emit) async {
     emit(state.copyWith(updatingStatus: ResponseStatus.inProgress));
-    final MyResponse myResponse =
-        await getIt<StoresRepository>().updateStore(event.store);
+    final MyResponse myResponse = await getIt<StoresRepository>()
+        .updateStore(event.store, event.owner, event.freeLimit);
     if (myResponse.statusCode == 200) {
       emit(state.copyWith(updatingStatus: ResponseStatus.inSuccess));
       add(GetStoresEvent(event.store.ownerDoc));

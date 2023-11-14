@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class UpdateStoreDialog extends StatelessWidget {
@@ -19,12 +18,12 @@ class UpdateStoreDialog extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: height(context) * 0.01),
             SizedBox(
-              width: width(context) * 0.15,
+              width: width(context) * 0.3,
               child: CupertinoTextField(
                 controller: id,
-                inputFormatters: [ThreeDigitInputFormatter()],
+                inputFormatters: [MaxLengthInputFormatter(8)],
                 // controller: discount,
-                maxLength: 3,
+                maxLength: 8,
                 keyboardType: TextInputType.number,
                 placeholder: 'Id'.tr,
               ),
@@ -54,7 +53,10 @@ class UpdateStoreDialog extends StatelessWidget {
               store
                 ..name = marketName.text.trim()
                 ..id = id.text.trim();
-              context.read<StoresBloc>().add(UpdateStoreEvent(store));
+              context.read<StoresBloc>().add(UpdateStoreEvent(
+                  store,
+                  context.read<UserAccountBloc>().state.user,
+                  context.read<DataFromAdminBloc>().state.data!.freeLimit));
             },
             child: Text('confirm'.tr),
           ),

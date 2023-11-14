@@ -20,6 +20,7 @@ class PromoCodeBloc extends Bloc<PromoCodeEvent, PromoCodeState> {
       emit(state.copyWith(
           gettingStatus: ResponseStatus.inSuccess,
           promoCodes: myResponse.data));
+      getMyToast('updated'.tr);
     } else {
       emit(state.copyWith(
           gettingStatus: ResponseStatus.inFail, message: myResponse.message));

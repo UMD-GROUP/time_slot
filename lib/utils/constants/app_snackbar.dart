@@ -86,9 +86,9 @@ void showLoadingDialog(context) {
   showCupertinoDialog(
     barrierDismissible: false,
     context: context,
-    builder: (context) => const CupertinoAlertDialog(
-      title: Text('Loading...'),
-      content: CupertinoActivityIndicator(), // Loading indicator
+    builder: (context) => CupertinoAlertDialog(
+      title: Text('loading'.tr),
+      content: const CupertinoActivityIndicator(), // Loading indicator
     ),
   );
 }

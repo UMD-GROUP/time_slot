@@ -15,6 +15,7 @@ abstract class RouteName {
   static const adminHome = '/adminHome';
   static const onBoarding = '/onBoarding';
   static const notifications = '/notifications';
+  static const account = '/account';
 }
 
 // ignore: avoid_classes_with_only_static_members
@@ -28,6 +29,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const AuthorizationPage());
       case RouteName.onBoarding:
         return MaterialPageRoute(builder: (_) => const OnBoardingPage());
+      case RouteName.account:
+        return MaterialPageRoute(builder: (_) => const AccountPage());
       case RouteName.userMain:
         return MaterialPageRoute(builder: (_) => const MainPage());
       case RouteName.notifications:

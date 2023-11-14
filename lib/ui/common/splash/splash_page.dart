@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         body: SizedBox(
           height: height(context),
           width: width(context),
@@ -40,8 +40,30 @@ class _SplashPageState extends State<SplashPage> {
               alignment: Alignment.center,
               height: width(context) * 0.16,
               width: width(context),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage(AppImages.logo))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  Container(
+                      alignment: Alignment.center,
+                      height: height(context) * 0.06,
+                      width: height(context) * 0.06,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.h)),
+                      child: Image.asset(
+                        AppImages.spLogo,
+                        height: height(context) * 0.1,
+                        fit: BoxFit.fitHeight,
+                      )),
+                  SizedBox(width: width(context) * 0.03),
+                  Text(
+                    'Seller Pro',
+                    style: AppTextStyles.labelSBold(context,
+                        fontSize: 30.sp, fontWeight: FontWeight.w700),
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
           ),
         ),

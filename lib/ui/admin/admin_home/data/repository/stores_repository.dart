@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses
+// ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations
 
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -23,7 +23,8 @@ class StoresRepository {
     return myResponse;
   }
 
-  Future<MyResponse> updateStore(StoreModel store) async {
+  Future<MyResponse> updateStore(
+      StoreModel store, UserModel owner, int freeLimit) async {
     final MyResponse myResponse = MyResponse();
 
     try {
@@ -31,14 +32,47 @@ class StoresRepository {
           .collection('stores')
           .where('id', isEqualTo: store.id)
           .get();
-      if (storeDoc.docs.isEmpty) {
-        await instance
-            .collection('stores')
-            .doc(store.storeDocId)
-            .update(store.toJson());
-        myResponse.statusCode = 200;
-      } else if (storeDoc.docs.first.data()['owner']['email'] !=
-          store.owner.email) {
+      await instance
+          .collection('stores')
+          .doc(store.storeDocId)
+          .update(store.toJson());
+      if (!owner.isConfirmed) {
+        if (freeLimit != 0) {
+          final QuerySnapshot<Map<String, dynamic>> partnerDoc = await instance
+              .collection('users')
+              .where('token', isEqualTo: owner.referallId)
+              .get();
+          final UserModel partner =
+              UserModel.fromJson(partnerDoc.docs.first.data());
+          partner.freeLimits += freeLimit;
+          await instance
+              .collection('users')
+              .doc(partner.uid)
+              .update(partner.toJson());
+          await sendPushNotification(
+              partner.fcmToken,
+              makeNotification('you_have_got_free_limit',
+                  language: partner.language),
+              makeNotification('congrats_for_free_limit',
+                  language: partner.language));
+          await instance
+              .collection('users')
+              .doc(owner.uid)
+              .update({'isConfirmed': true});
+
+          owner.freeLimits += freeLimit;
+          await instance
+              .collection('users')
+              .doc(owner.uid)
+              .update(owner.toJson());
+          myResponse.statusCode = 200;
+        } else {
+          myResponse.message = 'you_need_to_add_free_limit'.tr;
+          myResponse.statusCode = 400;
+        }
+      }
+
+      if (storeDoc.docs.first.data()['owner']['email'] != store.owner.email) {
         final StoreModel usedStore =
             StoreModel.fromJson(storeDoc.docs.first.data());
         myResponse

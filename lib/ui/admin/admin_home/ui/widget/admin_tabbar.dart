@@ -4,6 +4,7 @@ import 'package:time_slot/ui/admin/admin_home/ui/widget/all_promo_codes_widget.d
 import 'package:time_slot/ui/admin/admin_home/ui/widget/all_users_widget.dart';
 
 import '../../../../../utils/tools/file_importers.dart';
+import 'add_reserve_widget.dart';
 
 class AdminTabBarWidget extends StatefulWidget {
   const AdminTabBarWidget({super.key});
@@ -17,6 +18,9 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
   int _currentIndex = 0;
 
   void _onTabTapped(int index) {
+    if (index == 3) {
+      context.read<ReserveBloc>().add(GetAllReservesEvent());
+    }
     setState(() {
       _currentIndex = index;
     });
@@ -58,7 +62,7 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                         _onTabTapped(2);
                       }),
                   AdminTabBarItem(
-                      text: 'pay',
+                      text: 'reserve_tab'.tr,
                       isActive: _currentIndex == 3,
                       context: context,
                       onTap: () {
@@ -76,7 +80,7 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                     )
                   : _currentIndex == 2
                       ? AllPromoCodesWidget(isAdmin: true)
-                      : const SizedBox()
+                      : const AddReserveWidget()
         ],
       );
 }

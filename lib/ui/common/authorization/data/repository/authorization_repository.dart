@@ -90,12 +90,16 @@ class AuthorizationRepository {
           return myResponse;
         }
       } else {
-        user.referallId = 'ADMIN2023';
+        user.referallId = 'SellerPRO';
       }
       final UserCredential result =
           await authInstance.createUserWithEmailAndPassword(
               email: user.email, password: user.password);
       user.uid = result.user!.uid;
+      final MyResponse response =
+          await getIt<DataFromAdminRepository>().getAdminData();
+      final DataFromAdminModel data = response.data;
+      user.marketNumber = data.phoneNumber;
 
       await instance
           .collection('users')
@@ -141,7 +145,7 @@ class AuthorizationRepository {
         uid: gUser!.uid,
         token: generateToken(),
         createdAt: DateTime.now(),
-        referallId: 'ADMIN2023');
+        referallId: 'SellerPRO');
     final DocumentSnapshot<Map<String, dynamic>> some =
         await instance.collection('users').doc(gUser.uid).get();
 
@@ -182,9 +186,12 @@ class AuthorizationRepository {
             return myResponse;
           }
         } else {
-          user.referallId = 'ADMIN2023';
+          user.referallId = 'SellerPRO';
         }
-
+        final MyResponse response =
+            await getIt<DataFromAdminRepository>().getAdminData();
+        final DataFromAdminModel data = response.data;
+        user.marketNumber = data.phoneNumber;
         await instance.collection('users').doc(user.uid).set(user.toJson());
         await instance
             .collection('referalls')

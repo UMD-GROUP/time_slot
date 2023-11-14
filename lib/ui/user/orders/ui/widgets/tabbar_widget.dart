@@ -84,7 +84,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                             .toList()
                         : data
                             .where((e) =>
-                                e.referallId ==
+                                e.referralId ==
                                 context
                                     .read<UserAccountBloc>()
                                     .state

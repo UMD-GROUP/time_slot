@@ -91,7 +91,7 @@ class LocalNotificationService {
     flutterLocalNotificationsPlugin.show(
       notification.id,
       notification.title,
-      notification.subtitle,
+      notification.body,
       NotificationDetails(
         android: AndroidNotificationDetails(
           androidNotificationChannel.id,

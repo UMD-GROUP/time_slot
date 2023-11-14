@@ -1,4 +1,5 @@
 import 'package:time_slot/service/storage_service/storage_service.dart';
+import 'package:time_slot/ui/admin/admin_home/data/repository/reserve_repository.dart';
 import 'package:time_slot/ui/admin/admin_home/data/repository/stores_repository.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -18,5 +19,6 @@ void setup() {
     ..registerLazySingleton(() => AdminRepository(fireStoreInstance))
     ..registerLazySingleton(StorageService.new)
     ..registerLazySingleton(() => PromoCodesRepository(fireStoreInstance))
-    ..registerLazySingleton(() => StoresRepository(fireStoreInstance));
+    ..registerLazySingleton(() => StoresRepository(fireStoreInstance))
+    ..registerLazySingleton(ReserveRepository.new);
 }
