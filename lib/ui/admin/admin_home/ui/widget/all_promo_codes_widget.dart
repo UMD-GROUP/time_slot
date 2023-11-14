@@ -1,4 +1,3 @@
-import 'package:time_slot/ui/admin/admin_home/bloc/promo_codes_bloc/promo_code_bloc.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/promo_code_item.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -59,13 +58,15 @@ class AllPromoCodesWidget extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.deepPurple,
-            child: const Icon(Icons.add, color: Colors.white),
-            onPressed: () async {
-              showCreatePromoCodeDialog(context);
-            },
-          ),
+          floatingActionButton: isAdmin
+              ? FloatingActionButton(
+                  backgroundColor: Colors.deepPurple,
+                  child: const Icon(Icons.add, color: Colors.white),
+                  onPressed: () async {
+                    showCreatePromoCodeDialog(context);
+                  },
+                )
+              : null,
         ),
       );
 }

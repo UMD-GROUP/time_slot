@@ -70,7 +70,7 @@ class _OrdersPageState extends State<OrdersPage> {
                 const Expanded(child: TabBarWidget())
               ]),
               Positioned(
-                bottom: height(context) * 0.02,
+                bottom: height(context) * 0.035,
                 child: OnTap(
                   onTap: () {
                     if (canNavigate(
