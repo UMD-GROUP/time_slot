@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations, avoid_positional_boolean_parameters
 
+import 'dart:io';
+
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -23,7 +25,10 @@ class AuthorizationRepository {
       if (currentUser.isBlocked) {
         myResponse.message = 'you_are_blocked'.tr;
       } else {
-        final String? fcmToken = await FirebaseMessaging.instance.getToken();
+        String? fcmToken = '';
+        if (Platform.isAndroid) {
+          fcmToken = await FirebaseMessaging.instance.getToken();
+        }
         await instance
             .collection('users')
             .doc(result.user!.uid)
@@ -137,7 +142,11 @@ class AuthorizationRepository {
     final UserCredential authResult =
         await authInstance.signInWithCredential(credential);
     final User? gUser = authResult.user;
-    final String? fcmToken = await FirebaseMessaging.instance.getToken();
+    String? fcmToken = '';
+    if (Platform.isAndroid) {
+      fcmToken = await FirebaseMessaging.instance.getToken();
+    }
+
     final UserModel user = UserModel(
         fcmToken: fcmToken ?? '',
         email: gUser?.email ?? '',

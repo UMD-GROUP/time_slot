@@ -1,5 +1,7 @@
 // ignore_for_file: type_annotate_public_apis, always_declare_return_types
 
+import 'dart:io';
+
 import 'package:in_app_update/in_app_update.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -12,7 +14,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   handleFirebaseNotificationMessages() async {
-    final String? fcmToken = await FirebaseMessaging.instance.getToken();
+    String? fcmToken = '';
+    if (Platform.isAndroid) {
+      fcmToken = await FirebaseMessaging.instance.getToken();
+    }
     // Clipboard.setData(ClipboardData(text: fcmToken ?? 'No token'));
     debugPrint('FCM USER TOKEN: $fcmToken');
     //Foregrounddan kelgan messagelarni tutib olamiz

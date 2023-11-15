@@ -51,9 +51,10 @@ class _SplashPageState extends State<SplashPage> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.h)),
                       child: Image.asset(
-                        AppImages.spLogo,
-                        height: height(context) * 0.1,
-                        fit: BoxFit.fitHeight,
+                        AppImages.logo,
+                        height: height(context) * 0.16,
+                        width: height(context) * 0.16,
+                        fit: BoxFit.fitWidth,
                       )),
                   SizedBox(width: width(context) * 0.03),
                   Text(
