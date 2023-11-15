@@ -105,9 +105,11 @@ class SignupPage extends StatelessWidget {
                                 minWidth: double.infinity,
                                 height: 60,
                                 onPressed: () async {
-                                  final String? fcmToken =
-                                      await FirebaseMessaging.instance
-                                          .getToken();
+                                  String? fcmToken = '';
+                                  if (Platform.isAndroid) {
+                                    fcmToken = await FirebaseMessaging.instance
+                                        .getToken();
+                                  }
                                   context
                                       .read<AuthorizationBloc>()
                                       .add(CreateAccountEvent(UserModel(
