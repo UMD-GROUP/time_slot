@@ -1,6 +1,7 @@
 // ignore_for_file: type_annotate_public_apis, use_build_context_synchronously
 
-import 'package:time_slot/service/storage_service/storage_service.dart';
+import 'dart:io';
+
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
