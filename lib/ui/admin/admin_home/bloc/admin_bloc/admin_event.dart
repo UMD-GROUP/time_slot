@@ -29,18 +29,14 @@ class UpdateOtherEvent extends AdminEvent {
 }
 
 class UpdateOrderEvent extends AdminEvent {
-  UpdateOrderEvent(this.order, this.percent, {this.photo});
+  UpdateOrderEvent(this.order, this.percent, this.lastStatus, {this.photo});
   OrderModel order;
   int percent;
   String? photo;
+  OrderStatus lastStatus;
 }
 
 class UpdateUserBEvent extends AdminEvent {
   UpdateUserBEvent(this.user);
   UserModel user;
-}
-
-class UpdatePurchaseEvent extends AdminEvent {
-  UpdatePurchaseEvent(this.purchase);
-  PurchaseModel purchase;
 }

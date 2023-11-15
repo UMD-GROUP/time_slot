@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses, cascade_invocations, avoid_positional_boolean_parameters
 
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AuthorizationRepository {
@@ -23,6 +22,12 @@ class AuthorizationRepository {
       final UserModel currentUser = UserModel.fromJson(userData.data()!);
       if (currentUser.isBlocked) {
         myResponse.message = 'you_are_blocked'.tr;
+      } else {
+        final String? fcmToken = await FirebaseMessaging.instance.getToken();
+        await instance
+            .collection('users')
+            .doc(result.user!.uid)
+            .update({'fcmToken': fcmToken});
       }
     } catch (e) {
       myResponse.message = e.toString().replaceAll(' ', '\n');
@@ -71,7 +76,7 @@ class AuthorizationRepository {
           final UserModel rUser =
               UserModel.fromJson(referalledUser.docs.first.data());
           rUser.referrals.add(user.uid);
-          rUser.card.referrals += 1;
+          // rUser.card.referrals += 1;
           await instance
               .collection('users')
               .doc(rUser.uid)
@@ -85,12 +90,16 @@ class AuthorizationRepository {
           return myResponse;
         }
       } else {
-        user.referallId = 'ADMIN2023';
+        user.referallId = 'SellerPRO';
       }
       final UserCredential result =
           await authInstance.createUserWithEmailAndPassword(
               email: user.email, password: user.password);
       user.uid = result.user!.uid;
+      final MyResponse response =
+          await getIt<DataFromAdminRepository>().getAdminData();
+      final DataFromAdminModel data = response.data;
+      user.marketNumber = data.phoneNumber;
 
       await instance
           .collection('users')
@@ -128,16 +137,15 @@ class AuthorizationRepository {
     final UserCredential authResult =
         await authInstance.signInWithCredential(credential);
     final User? gUser = authResult.user;
+    final String? fcmToken = await FirebaseMessaging.instance.getToken();
     final UserModel user = UserModel(
+        fcmToken: fcmToken ?? '',
         email: gUser?.email ?? '',
         password: '12345678',
         uid: gUser!.uid,
         token: generateToken(),
         createdAt: DateTime.now(),
-        referallId: 'ADMIN2023',
-        card: BankingCardModel(
-          cardNumber: '',
-        ));
+        referallId: 'SellerPRO');
     final DocumentSnapshot<Map<String, dynamic>> some =
         await instance.collection('users').doc(gUser.uid).get();
 
@@ -164,7 +172,7 @@ class AuthorizationRepository {
             final UserModel rUser =
                 UserModel.fromJson(referalledUser.docs.first.data());
             rUser.referrals.add(user.uid);
-            rUser.card.referrals += 1;
+            // rUser.card.referrals += 1;
             await instance
                 .collection('users')
                 .doc(rUser.uid)
@@ -178,9 +186,12 @@ class AuthorizationRepository {
             return myResponse;
           }
         } else {
-          user.referallId = 'ADMIN2023';
+          user.referallId = 'SellerPRO';
         }
-
+        final MyResponse response =
+            await getIt<DataFromAdminRepository>().getAdminData();
+        final DataFromAdminModel data = response.data;
+        user.marketNumber = data.phoneNumber;
         await instance.collection('users').doc(user.uid).set(user.toJson());
         await instance
             .collection('referalls')

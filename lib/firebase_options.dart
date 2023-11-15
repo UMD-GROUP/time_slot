@@ -24,7 +24,10 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
@@ -49,20 +52,14 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDKJP0QOYtTWaNrNaqTzrrljMmMF7D8FDk',
-    appId: '1:605235329516:android:2c8e0a05ab2a55935468c9',
-    messagingSenderId: '605235329516',
-    projectId: 'timeslot-6b4dc',
-    storageBucket: 'timeslot-6b4dc.appspot.com',
-  );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCchH5IPSFU-yE3UJtQmadie_IHX5uQ_fw',
     appId: '1:605235329516:ios:082aa2f33d1317315468c9',
     messagingSenderId: '605235329516',
     projectId: 'timeslot-6b4dc',
     storageBucket: 'timeslot-6b4dc.appspot.com',
+    androidClientId: '605235329516-fodjfnoqj9lhbc3ojft9t0uqtitu281n.apps.googleusercontent.com',
+    iosClientId: '605235329516-1sku8caf2j0ptjqdicafb0ie9c72qee0.apps.googleusercontent.com',
     iosBundleId: 'com.uzmobdev.timeSlot',
   );
 }

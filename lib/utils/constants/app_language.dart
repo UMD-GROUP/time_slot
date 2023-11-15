@@ -22,7 +22,7 @@ class AppTranslations extends Translations {
           'Already have an account?': 'Allaqachon shaxsiy hisobingiz bormi? ',
           'Login': 'Kirish',
           'product count:': 'Tovar soni',
-          'sum': "Xiz. to'lovi:",
+          'sum': "To'lov:",
           'all': 'Barchasi',
           'mine': 'Mening',
           'referals': 'Referallar',
@@ -38,7 +38,7 @@ class AppTranslations extends Translations {
           'choose_photo': 'Rasm tanlash',
           'add': "Qo'shish",
           'you_must_select_market': "Do'kon tanlanmadi!",
-          'you_must_select_data': 'Eng kamida bitta sana\ntanlanishi kerak!',
+          'you_must_select_data': 'Sanani tanlash shart!',
           'you_must_add_product':
               'Eng kamida 10 ta mahsulot\ntanlanishi kerak!',
           'you_must_select_photo': 'Rasm yuklanishi shart!',
@@ -174,7 +174,81 @@ class AppTranslations extends Translations {
               'Maqsadimiz oldindan katta miqdorni band qilib so’ngra uni boshqa yuk xatiga almashtirib olishni reja qilganlarning ishi amalga oshmasligiga harakat qilish va bu orqali soxta bandliklarni yo’qqa chiqarish!',
           'onboarding_4':
               'Ilovaning kabinet bo’limida “Qo’llanma” va “Foydalanish shartlari” bilan tanishib chiqing. Bu orqali chegirmalar va tekin limitlar haqida ma’lumot olasiz!',
-          'start': 'Boshlash'
+          'start': 'Boshlash',
+          'logistics': 'Logistika',
+          'soon_logistics':
+              'Tez orada bu yerda logistika bilan bog’liq monopoliyaga chek qo’yish uchun siz kutgan logistika bo’limi ishga tushiriladi',
+          'promo_codes': 'Promokodlar',
+          'new_promo_code': 'Yangi Promokod',
+          'discount': 'Chegirma',
+          'min_count': 'Miqdor',
+          'times': ' marta',
+          'used': 'Foydalanildi: ',
+          'promo_code': 'Promokod',
+          'done_successfully': 'Muvaffaqqiyatli bajarildi!',
+          'update_store': "Do'konni tahrirlash",
+          'max_limit': 'Maksimal miqdor',
+          'enter_max_limit': 'Maksimal miqdorni kiriting.',
+          'about_free_limit': 'Bepul limit haqida',
+          'text_about_free_limit':
+              'Bepul limit - bu siz o’z referal ID ingiz orqali dasturga taklif qilgan foydalanuvchilar hisobidan sizga bepul buyurtma berish uchun beriladigan limitdir. 1 ta yangi foydalanuvchi uchun siz 100 ta mahsulot uchun bepul limitga ega bo’lasiz.',
+          'your_token_is': 'Sizning referal: @token',
+          'copied_to_clipboard': 'Nusxalandi!',
+          'free_limits': 'Bepul limitlar: ',
+          'reserve': 'Zahira:',
+          'reserve_tab': 'Zahira',
+          'all_reserves': 'Jami zahira:',
+          'active_reserves': 'Faol zahira:',
+          'date': 'Sana:',
+          'price': 'Narx:',
+          'reserve_information': "Zahira ma'lumotlari:",
+          'change_market': "Do'konni o'zgartirish",
+          'change_date': "Sanani o'zgartirish",
+          'change_product': "Mahsulot qo'shish",
+          'next': 'Keyingisi',
+          'in_this_day_reverse_is_not_enough':
+              '@day kuni uchun zahira miqdori @max_limit ga teng. Sizning tovarlaringgiz miqdori esa shu miqdordan oshishi mumkin emas!',
+          'check': 'Tekshirish',
+          'promo_code_not_found': 'Promokod topilmadi!',
+          'min_limit_of_promo_code_is':
+              'Ushbu promokodni ishlatish uchun eng kamida @count ta mahsulot kiritish lozim!',
+          'selected_date_has_no_enough_reserve':
+              'Tanlangan kunda siz kiritgan miqdordagi tovarlar uchun zahira mavjud emas! @date kunida @count ta zahira mavjud!',
+          'update_confirmed': '@orderId raqamli buyurtmangiz tasdiqlandi!',
+          'update_is_in_progress':
+              '@orderId raqamli buyurtmangiz qabul qilindi va jarayonda!',
+          'update_cancelled': '@orderId raqamli buyurtmangiz bekor qilindi',
+          'added_new_code':
+              'Bizda yangi @discount % chegirma beruvchi promokod!',
+          'try_now': 'Imkoniyatdan hoziroq foydalaning!',
+          'news_in_order': 'Buyurtma yangilandi!',
+          'take_photo_info':
+              'To’lovni amalga oshirgandan so’ng chek rasmi yoki screenshotini quyidagi tugma orqali yuboring!',
+          'it_is_free':
+              'Ushbu buyurtmangiz Bepul limitlaringiz hisobidan bepul amalga oshiriladi!',
+          'thanks_for_partnership':
+              'Siz bilan hamkorlik qilishdan xursandmiz :)',
+          'confirm_order':
+              '@number ni xodimlar ro’yhatiga qo’shganingizga ishonchingiz komilmi? Tizimga kor’satilgan raqamni xodim sifatida qo’shmaganligingiz sababli do’konni topilmasligi va buyurtmangiz kechikishi mumkin!',
+          'card_number': 'Karta raqami',
+          'call': "Adminstratorga qo'ng'iroq qilish",
+          'by_telegram': "Telegram orqali bog'lanish",
+          'referrals': 'Referallar: ',
+          'free_limits_disclaimer':
+              "Siz foydalanayotkan Bepul limitlar bir martalik hisoblanadi. Ya'ni buyurtmangizda xatolik uchrab qaytarilsa, hisoblangan bepul limitlar qaytarilmaydi!",
+          'you_need_to_add_free_limit':
+              "Qo'shilishi kerak bo'lgan bepul limitlar soni kiritilmagan!",
+          'upload_photo_from': 'Rasm yuklash',
+          'gallery': 'Galereyadan',
+          'camera': 'Kameradan',
+          'loading': 'Iltimos, kuting...',
+          'you_can_not_remove_product':
+              "Agar ushbu tovarlarni buyurtmadan chiqarsangiz, promo koddan foydalana olmaysiz. Chunki promo koddan foydalanishning minimal miqdori @count ta tovarga teng. Tovarani o'chirishga rozimisiz?",
+          'deleted': "O'chirildi!",
+          'updated': 'Yangilandi!',
+          'make_an_order': 'Buyurtma berish',
+          'first_add_your_store':
+              "Avval Shaxsiy hisob sahifasiga o'tib do'koningizni qo'shing."
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -199,7 +273,7 @@ class AppTranslations extends Translations {
           'add': 'Добавить',
           'order': 'Формализация',
           'you_must_select_market': 'Магазин не выбран!',
-          'you_must_select_data': 'Необходимо ввести хотя\nбы одну дату!',
+          'you_must_select_data': 'Выбор даты обязателен!',
           'you_must_add_product': 'Должен быть хотя бы 10 товар!',
           'you_must_select_photo': 'Изображение должно\nбыть загружено!',
           'products': 'Продукты:',
@@ -236,7 +310,7 @@ class AppTranslations extends Translations {
               'Название магазина должно\nсостоять минимум из 3 букв!',
           'uz_sum': 'сум',
           'total_amount_withdrawn': 'Всего снято:',
-          'piece': 'штук',
+          'piece': 'шт',
           'added_successfully': 'Добавлено успешно!',
           'uzbek': 'Узбекский язык',
           'russian': 'Pусский язык',
@@ -261,7 +335,7 @@ class AppTranslations extends Translations {
           'yes': 'Да',
           'orders': 'Заказы',
           'membership': 'Сотрудничество',
-          'account': 'Персональный аккаунт',
+          'account': 'Кабинет',
           'date_must_be_after': 'Невозможно выбрать прошлую дату!',
           'date_limit_reached': 'Вы не можете выбрать более 15 дат!',
           'order_detail': 'О заказе',
@@ -292,7 +366,7 @@ class AppTranslations extends Translations {
           'decline': 'Отменить',
           'finished': 'Готово',
           'un_finished': 'Незакончено',
-          'edit': 'редактировать',
+          'edit': 'Pедактировать',
           'product_count': 'Кол. товаров:',
           'status': 'Статус:',
           'user_data': 'Пользовательские данные',
@@ -341,7 +415,79 @@ class AppTranslations extends Translations {
               'Наша цель – постараться предотвратить работу тех, кто планирует заранее забронировать крупную сумму, а затем обменять ее на другую накладную, и тем самым исключить фейковые бронирования!',
           'onboarding_4':
               'Прочтите «Руководство» и «Условия использования» в разделе кабинета приложения. Здесь вы получите информацию о скидках и бесплатных лимитах!',
-          'start': 'Начинать'
+          'start': 'Начинать',
+          'logistics': 'Логистика',
+          'soon_logistics':
+              'Здесь скоро откроется отдел логистики, которого вы так долго ждали, чтобы положить конец логистической монополии.',
+          'promo_codes': 'Промокоды',
+          'new_promo_code': 'Новый промокод',
+          'discount': 'Скидка',
+          'min_count': 'Кол.',
+          'times': ' раз',
+          'used': 'Использовал: ',
+          'promo_code': 'Промокод',
+          'done_successfully': 'Сделано успешно!',
+          'update_store': 'Редактировать магазин',
+          'max_limit': 'Максимальное количество товара',
+          'enter_max_limit': 'Введите максимальное количество товара.',
+          'about_free_limit': 'О бесплатном лимите',
+          'text_about_free_limit':
+              'Бесплатный лимит — это лимит, предоставляемый вам для бесплатных заказов с аккаунтов пользователей, которых вы пригласили в программу через свой реферальный идентификатор. За 1 нового пользователя вы получаете бесплатный лимит в 100 товаров.',
+          'your_token_is': 'Ваш реферал: @token',
+          'copied_to_clipboard': 'Скопировано!',
+          'free_limits': 'Бесплатные лимиты: ',
+          'reserve': 'Pезерв:',
+          'reserve_tab': 'Pезерв',
+          'all_reserves': 'Общий резерв:',
+          'active_reserves': 'Активный резерв:',
+          'date': 'Дата:',
+          'price': 'Цена:',
+          'reserve_information': 'Резервные данные:',
+          'change_market': 'Сменить магазин',
+          'change_date': 'Изменить дату',
+          'change_product': 'Добавить продукт',
+          'next': 'Следующий',
+          'in_this_day_reverse_is_not_enough':
+              'Сумма резерва на @day составляет @max_limit. И количество ваших товаров не может превышать эту сумму!',
+          'check': 'Проверять',
+          'promo_code_not_found': 'Промокод не найден!',
+          'min_limit_of_promo_code_is':
+              'Чтобы использовать этот промокод, вам необходимо ввести как минимум @count продуктов!',
+          'selected_date_has_no_enough_reserve':
+              'Резерва на количество товара, введенное вами в выбранный день, нет! @count доступно @date!',
+          'update_confirmed': '@orderId — Ваш заказ подтвержден!',
+          'update_is_in_progress':
+              '@orderId - Ваш заказ получен и находится в обработке!',
+          'update_cancelled': '@orderId Ваш заказ отменен!',
+          'added_new_code': 'У нас новый промокод на скидку @discount %!',
+          'try_now': 'Воспользуйтесь преимуществом сейчас!!',
+          'news_in_order': 'Заказ обновлен!',
+          'take_photo_info':
+              'После оплаты отправьте фото чека или скриншот с помощью кнопки ниже!',
+          'it_is_free':
+              'Этот заказ делается бесплатно с вашими бесплатными лимитами!',
+          'thanks_for_partnership': 'Мы рады сотрудничеству с вами :)',
+          'confirm_order':
+              'Не забудьте добавить @number в свой список сотрудников! Если вы не добавили в качестве сотрудника указанный системой номер, ваш заказ может задержаться!',
+          'card_number': 'Номер карты',
+          'call': 'Позвонить администратору',
+          'by_telegram': 'Связаться через Telegram',
+          'referrals': 'Рефералы: ',
+          'free_limits_disclaimer':
+              'Бесплатные лимиты, которые вы используете, являются единоразовыми. То есть, если ваш заказ будет возвращен по ошибке, рассчитанные бесплатные лимиты не будут возвращены!',
+          'you_need_to_add_free_limit':
+              'Количество добавляемых бесплатных лимитов не учитывается!',
+          'upload_photo_from': 'Загрузить изображение',
+          'gallery': 'Из галереи',
+          'camera': 'С камеры',
+          'loading': 'Пожалуйста, подождите...',
+          'you_can_not_remove_product':
+              'Вы не сможете использовать промокод, если закажете эти товары. Потому что минимальная сумма использования промокода равна @count товаров. Вы согласны удалить товар?',
+          'deleted': 'Удалено!',
+          'updated': 'Обновлено!',
+          'make_an_order': 'Сделать заказ',
+          'first_add_your_store':
+              'Сначала добавьте свой магазин, перейдя на страницу Личного кабинета.'
         }
       };
 }

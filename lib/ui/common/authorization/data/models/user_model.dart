@@ -1,34 +1,38 @@
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
-
 class UserModel {
   UserModel(
-      {required this.email,
-      required this.password,
+      {this.email = '',
+      this.password = '',
       this.markets = const [],
       this.orders = const [],
       this.referrals = const [],
+      this.freeLimits = 0,
       this.createdAt,
       this.sumOfOrders = 0,
-      required this.card,
       this.isBlocked = false,
-      this.willGetPercent = true,
+      this.language = 'uz',
       this.token = '',
+      this.isConfirmed = false,
+      this.marketNumber = '',
+      this.fcmToken = '',
       this.uid = '',
       this.referallId = ''});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        card: BankingCardModel.fromJson(json['card'] ?? {}),
+        fcmToken: json['fcmToken'] ?? '',
         referallId: json['referallId'] ?? '',
+        isConfirmed: json['isConfirmed'] ?? false,
+        language: json['language'] ?? 'uz',
         referrals: json['referrals'] ?? [],
         sumOfOrders: json['sumOfOrders'] ?? 10,
+        marketNumber: json['marketNumber'] ?? '',
         createdAt:
             DateTime.parse(json['createdAt'] ?? DateTime(2023).toString()),
         markets: json['markets'] ?? [],
         uid: json['uid'] ?? '',
         isBlocked: json['isBlocked'] ?? false,
-        willGetPercent: json['willGetPercent'] ?? true,
         orders: json['orders'] ?? [],
         token: json['token'] ?? '',
+        freeLimits: json['freeLimits'] ?? 0,
         email: json['email'] ?? '',
         password: json['password'] ?? '',
       );
@@ -38,27 +42,33 @@ class UserModel {
   String uid;
   String token;
   List markets;
-  BankingCardModel card;
   List referrals;
   List orders;
   bool isBlocked;
-  bool willGetPercent;
   DateTime? createdAt;
   num sumOfOrders;
+  String fcmToken;
+  int freeLimits;
+  String language;
+  bool isConfirmed;
+  String marketNumber;
 
   Map<String, Object> toJson() => {
-        'card': card.toJson(),
         'markets': markets,
+        'freeLimits': freeLimits,
         'email': email,
         'password': password,
+        'fcmToken': fcmToken,
         'sumOfOrders': sumOfOrders,
         'token': token,
         'uid': uid,
+        'isConfirmed': isConfirmed,
         'referallId': referallId,
         'orders': orders,
+        'marketNumber': marketNumber,
         'referrals': referrals,
-        'willGetPercent': willGetPercent,
         'isBlocked': isBlocked,
-        'createdAt': createdAt.toString()
+        'createdAt': createdAt.toString(),
+        'language': language
       };
 }

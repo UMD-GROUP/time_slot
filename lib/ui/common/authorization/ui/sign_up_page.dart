@@ -1,8 +1,7 @@
-// ignore_for_file: type_annotate_public_apis
+// ignore_for_file: type_annotate_public_apis, use_build_context_synchronously
 
 import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
-import 'package:time_slot/ui/user/membership/data/models/banking_card_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class SignupPage extends StatelessWidget {
@@ -30,7 +29,7 @@ class SignupPage extends StatelessWidget {
             if (state.status == ResponseStatus.inSuccess) {
               Navigator.pop(context);
 
-              context.read<UserBloc>().add(
+              context.read<UserAccountBloc>().add(
                   GetUserDataEvent(FirebaseAuth.instance.currentUser!.uid));
               if (getIt<StorageService>().getBool('isPassed')) {
                 Navigator.pushNamedAndRemoveUntil(
@@ -105,12 +104,15 @@ class SignupPage extends StatelessWidget {
                               child: MaterialButton(
                                 minWidth: double.infinity,
                                 height: 60,
-                                onPressed: () {
+                                onPressed: () async {
+                                  final String? fcmToken =
+                                      await FirebaseMessaging.instance
+                                          .getToken();
                                   context
                                       .read<AuthorizationBloc>()
                                       .add(CreateAccountEvent(UserModel(
+                                        fcmToken: fcmToken ?? '',
                                         createdAt: DateTime.now(),
-                                        card: BankingCardModel(cardNumber: ''),
                                         password: controllers[1].text.trim(),
                                         email: controllers[0].text.trim(),
                                         referallId: controllers[2].text.trim(),

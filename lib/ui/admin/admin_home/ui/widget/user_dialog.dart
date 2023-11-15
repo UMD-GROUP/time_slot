@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/user_stores_widget.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class UserInfoPopUp extends StatefulWidget {
@@ -127,16 +128,7 @@ class _UserInfoPopUpState extends State<UserInfoPopUp> {
                     ),
                   ],
                 ),
-                ...List.generate(
-                    widget.user.markets.length,
-                    (index) => Padding(
-                          padding: EdgeInsets.only(left: 24.h),
-                          child: StoreItem(
-                              user: widget.user,
-                              index: index,
-                              title: widget.user.markets[index],
-                              isAdmin: true),
-                        )),
+                UserStoresWidget(user: widget.user),
                 Row(
                   children: [
                     SvgPicture.asset(

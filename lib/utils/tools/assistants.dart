@@ -1,28 +1,26 @@
-// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations
+// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations, use_string_buffers
 
 import 'dart:async';
-import 'dart:collection';
 import 'dart:io';
 
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:time_slot/service/storage_service/storage_service.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:scrollable_clean_calendar/utils/extensions.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/create_promo_code_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/delete_banner_dialog.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/partner_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/price_input_dialog.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/purchase_dialog.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/update_store_dialog.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/user_dialog.dart';
-import 'package:time_slot/ui/user/account/ui/widgets/add_banking_card_dialog.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/logout_dialog.dart';
-import 'package:time_slot/ui/user/membership/ui/widget/add_purchase_dialog.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -32,9 +30,7 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-// ignore: type_annotate_public_apis
 double height(context) => MediaQuery.of(context).size.height;
-// ignore: type_annotate_public_apis
 double width(context) => MediaQuery.of(context).size.width;
 
 String generateToken() {
@@ -61,35 +57,35 @@ String generateToken() {
   return randomString.toUpperCase();
 }
 
-Future<void> postOrders({String? uid, String? referallId}) async {
-  final List<Map<String, dynamic>> randomOrderJsonList = [];
-
-  final Random random = Random();
-  for (int i = 1; i <= 5; i++) {
-    final OrderModel randomOrder = OrderModel(
-      finishedAt: DateTime.now(),
-      createdAt: DateTime.now(),
-      products: [],
-      referallId: 'XOGOO712',
-      ownerId: uid ?? 'DhuNGAJq6ZcZwOUEDm66XQFDFa03',
-      orderId: random.nextInt(1000),
-      sum: double.parse((random.nextDouble() * 100).toStringAsFixed(2)),
-      marketName: 'Market ${random.nextInt(5)}',
-      dates: ['2023-09-30', '2023-10-01'],
-      userPhoto: 'https://picsum.photos/200/300',
-      status: OrderStatus.values[random.nextInt(OrderStatus.values.length)],
-    );
-
-    randomOrderJsonList.add(randomOrder.toJson());
-  }
-
-  final FirebaseFirestore instance = FirebaseFirestore.instance;
-
-  for (final json in randomOrderJsonList) {
-    await instance.collection('orders').add(json);
-    print('Done');
-  }
-}
+// Future<void> postOrders({String? uid, String? referallId}) async {
+//   final List<Map<String, dynamic>> randomOrderJsonList = [];
+//
+//   final Random random = Random();
+//   for (int i = 1; i <= 5; i++) {
+//     final OrderModel randomOrder = OrderModel(
+//       finishedAt: DateTime.now(),
+//       createdAt: DateTime.now(),
+//       products: [],
+//       referallId: 'XOGOO712',
+//       ownerId: uid ?? 'DhuNGAJq6ZcZwOUEDm66XQFDFa03',
+//       orderId: random.nextInt(1000),
+//       sum: double.parse((random.nextDouble() * 100).toStringAsFixed(2)),
+//       marketName: 'Market ${random.nextInt(5)}',
+//       dates: ['2023-09-30', '2023-10-01'],
+//       userPhoto: 'https://picsum.photos/200/300',
+//       status: OrderStatus.values[random.nextInt(OrderStatus.values.length)],
+//     );
+//
+//     randomOrderJsonList.add(randomOrder.toJson());
+//   }
+//
+//   final FirebaseFirestore instance = FirebaseFirestore.instance;
+//
+//   for (final json in randomOrderJsonList) {
+//     await instance.collection('orders').add(json);
+//     print('Done');
+//   }
+// }
 
 Future<String> uploadImageToFirebaseStorage(String imagePath) async {
   late String downloadURL;
@@ -112,13 +108,13 @@ String orderValidator(OrderModel order) {
   if (order.marketName.isEmpty) {
     return 'you_must_select_market'.tr;
   }
-  if (order.dates.isEmpty) {
+  if (order.date.isSameDay(DateTime.now())) {
     return 'you_must_select_data'.tr;
   }
   if (order.products.isEmpty) {
     return 'you_must_add_product'.tr;
   }
-  if (order.userPhoto.isEmpty) {
+  if (order.totalSum != 0 && order.userPhoto.isEmpty) {
     return 'you_must_select_photo'.tr;
   }
   return '';
@@ -132,7 +128,7 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   if (user!.markets.isEmpty) {
     error = 'you_need_to_create_market'.tr;
   }
-  if (data.prices.length != 30 || data.deliveryNote.length != 6) {
+  if (data.cardNumber.isEmpty || data.deliveryNote.length != 6) {
     error = 'you_cant_create_order_now'.tr;
   }
   if (error.isNotEmpty) {
@@ -145,53 +141,9 @@ bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
   return true;
 }
 
-Future<void> postPurchases(String ownerId, String referralId) async {
-  // Initialize Firebase
-  await Firebase.initializeApp();
-
-  // Create a Firebase Firestore instance
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  // Generate and post 10 different PurchaseModel objects
-  for (int i = 0; i < 10; i++) {
-    final purchase = PurchaseModel(
-      createdAt: DateTime.now(),
-      ownerId: ownerId,
-      referralId: referralId,
-      purchaseId: i,
-      amount: 100.0 + i * 10.0,
-      status: PurchaseStatus.values[i % 4], // Cycle through the enum values
-    );
-
-    // Convert the PurchaseModel to JSON
-    final purchaseJson = purchase.toJson();
-
-    try {
-      // Post the PurchaseModel JSON data to Firestore
-      await firestore.collection('purchases').add(purchaseJson);
-
-      print('Purchase data $i posted to Firestore successfully!');
-    } catch (e) {
-      print('Error posting purchase data $i to Firestore: $e');
-    }
-  }
-}
-
 void copyToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text('Copied to clipboard: $text'),
-    ),
-  );
-}
-
-void showMoneyInputDialog(BuildContext context) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) =>
-        AddPurchaseDialog(controller: TextEditingController()),
-  );
+  getMyToast('copied_to_clipboard'.tr);
 }
 
 void showEditProductDialog(BuildContext context, ProductModel product,
@@ -204,6 +156,16 @@ void showEditProductDialog(BuildContext context, ProductModel product,
   );
 }
 
+void showReserveDialog(BuildContext context, ReserveModel reserveModel,
+    TextEditingController reserve, TextEditingController price,
+    {required VoidCallback onConfirmTap}) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) => ReserveDialog(reserveModel,
+        reserve: reserve, onConfirmTap: onConfirmTap, price: price),
+  );
+}
+
 void showEditProductsBottomSheet(BuildContext context, OrderModel order) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
@@ -212,13 +174,13 @@ void showEditProductsBottomSheet(BuildContext context, OrderModel order) {
   );
 }
 
-void showAddBankingCardDialog(BuildContext context) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) =>
-        AddBankingCardDialog(controller: TextEditingController()),
-  );
-}
+// void showAddBankingCardDialog(BuildContext context) {
+//   showCupertinoDialog(
+//     context: context,
+//     builder: (context) =>
+//         AddBankingCardDialog(controller: TextEditingController()),
+//   );
+// }
 
 void showLogOutDialog(BuildContext context) {
   showCupertinoModalPopup(
@@ -238,28 +200,6 @@ void showUserPopUp(BuildContext context, UserModel userModel) {
   );
 }
 
-void showPartnerDialog(BuildContext context, UserModel userModel) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) => Theme(
-        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
-            ? ThemeData.light()
-            : ThemeData.dark(),
-        child: PartnerDialog(user: userModel)),
-  );
-}
-
-void showPurchaseDialog(BuildContext context, PurchaseModel purchaseModel) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) => Theme(
-        data: AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
-            ? ThemeData.light()
-            : ThemeData.dark(),
-        child: PurchaseDialog(purchaseModel: purchaseModel)),
-  );
-}
-
 void showDeleteDialog(BuildContext context, String image) {
   showCupertinoDialog(
     context: context,
@@ -273,6 +213,14 @@ void showPriceInputDialog(BuildContext context, VoidCallback onDoneTap,
     context: context,
     builder: (context) =>
         PriceInputDialog(priceController: controller, onDoneTap: onDoneTap),
+  );
+}
+
+void showCreatePromoCodeDialog(BuildContext context) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (context) => CreatePromoCodeDialog(
+        amount: TextEditingController(), discount: TextEditingController()),
   );
 }
 
@@ -310,10 +258,12 @@ void showTextInputDialog(BuildContext context,
   );
 }
 
-void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap) {
+void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap,
+    {String? title}) {
   showCupertinoDialog(
     context: context,
-    builder: (context) => CancelConfirmDialog(onConfirmTap: onConfirmTap),
+    builder: (context) =>
+        CancelConfirmDialog(onConfirmTap: onConfirmTap, title: title),
   );
 }
 
@@ -324,6 +274,15 @@ void showAdminPasswordDialog(
     builder: (context) => AdminPanelPasswordDialog(
         controller: controller,
         password: context.read<DataFromAdminBloc>().state.data!.adminPassword),
+  );
+}
+
+void showUpdateStoreDialog(BuildContext context, TextEditingController id,
+    TextEditingController marketName, StoreModel store) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) =>
+        UpdateStoreDialog(id: id, marketName: marketName, store: store),
   );
 }
 
@@ -374,50 +333,6 @@ Future<void> postAdminData() async {
   // final FirebaseFirestore instance = FirebaseFirestore.instance;
   // await instance.collection('admin_data').add(data.toJson());
 }
-
-/// Example event class.
-class Event {
-  const Event(this.title);
-  final String title;
-
-  @override
-  String toString() => title;
-}
-
-/// Example events.
-///
-/// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
-
-final _kEventSource = {
-  for (var item in List.generate(50, (index) => index))
-    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-        item % 4 + 1, (index) => Event('Event $item | ${index + 1}'))
-}..addAll({
-    kToday: [
-      const Event('Today\'s Event 1'),
-      const Event('Today\'s Event 2'),
-    ],
-  });
-
-int getHashCode(DateTime key) =>
-    key.day * 1000000 + key.month * 10000 + key.year;
-
-/// Returns a list of [DateTime] objects from [first] to [last], inclusive.
-List<DateTime> daysInRange(DateTime first, DateTime last) {
-  final dayCount = last.difference(first).inDays + 1;
-  return List.generate(
-    dayCount,
-    (index) => DateTime.utc(first.year, first.month, first.day + index),
-  );
-}
-
-final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
 
 String formatStringToMoney(String inputString) {
   // Parse the input string as a double
@@ -516,14 +431,15 @@ class TextInputDialog extends StatelessWidget {
 }
 
 class CancelConfirmDialog extends StatelessWidget {
-  CancelConfirmDialog({required this.onConfirmTap, super.key});
+  CancelConfirmDialog({required this.onConfirmTap, this.title, super.key});
+  String? title;
 
   VoidCallback onConfirmTap;
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
         title: Text('confirming'.tr),
-        content: Text('are_you_sure_to_confirm_this_action'.tr),
+        content: Text(title ?? 'are_you_sure_to_confirm_this_action'.tr),
         actions: <Widget>[
           CupertinoDialogAction(
             textStyle: const TextStyle(color: Colors.red),
@@ -660,16 +576,16 @@ class _EditOderSheetState extends State<EditOderSheet> {
                                       '$note ${deliveryNote.text.trim()}'
                                   ..count = int.parse(count.text.trim());
                                 setState(() {});
-                                widget.order.sum = context
-                                        .read<DataFromAdminBloc>()
-                                        .state
-                                        .data!
-                                        .prices[widget.order.dates.length - 1] *
-                                    widget.order.products.fold(
-                                        0,
-                                        (previousValue, element) => int.parse(
-                                            (previousValue + element.count)
-                                                .toString()));
+                                // widget.order.sum = context
+                                //         .read<DataFromAdminBloc>()
+                                //         .state
+                                //         .data!
+                                //         .prices[widget.order.dates.length - 1] *
+                                //     widget.order.products.fold(
+                                //         0,
+                                //         (previousValue, element) => int.parse(
+                                //             (previousValue + element.count)
+                                //                 .toString()));
                                 Navigator.pop(context);
                               },
                             );
@@ -766,8 +682,9 @@ Future<void> launch(String url) async {
   }
 }
 
-String dateTimeToFormat(DateTime time) =>
-    '${time.day}.${time.month}.${time.year} ${time.hour >= 10 ? time.hour : '0${time.hour}'}:${time.minute >= 10 ? time.minute : '0${time.minute}'}';
+String dateTimeToFormat(DateTime time, {bool needTime = true}) => needTime
+    ? '${time.day}.${time.month}.${time.year} ${time.hour >= 10 ? time.hour : '0${time.hour}'}:${time.minute >= 10 ? time.minute : '0${time.minute}'}'
+    : '${time.day}.${time.month}.${time.year}';
 
 Future<User?> handleSignIn() async {
   try {
@@ -1302,11 +1219,12 @@ class NavigationControls extends StatelessWidget {
 }
 
 bool canTapStep(context, OrderModel order, int step) {
+  print(order.date);
   String error = '';
   if (step == 1 && order.marketName.isEmpty) {
     error = 'you_must_select_market'.tr;
   }
-  if (step == 2 && order.dates.isEmpty) {
+  if (step == 2 && order.date.isSameDay(DateTime(2021, 12, 12))) {
     error = 'you_must_select_data'.tr;
   }
   if (step == 3 && order.products.isEmpty) {
@@ -1329,4 +1247,270 @@ void changeLanguage() {
       isUzbek ? const Locale('ru', 'RU') : const Locale('uz', 'UZ'));
   print(isUzbek);
   StorageService().saveString('language', isUzbek ? 'ru' : 'uz');
+  if (!FirebaseAuth.instance.currentUser.isNull) {
+    getIt<UserRepository>().changeLanguage(
+        FirebaseAuth.instance.currentUser!.uid, isUzbek ? 'ru' : 'uz');
+  }
 }
+
+String generateUniquePromoCode(List<PromoCodeModel> existingPromoCodes) {
+  const String charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  final Random random = Random();
+  String promoCode = '';
+
+  do {
+    promoCode = '';
+    for (int i = 0; i < 7; i++) {
+      final int randomIndex = random.nextInt(charset.length);
+      promoCode += charset[randomIndex];
+    }
+  } while (existingPromoCodes.any((promo) => promo.promoCode == promoCode));
+
+  return promoCode;
+}
+
+class FreeLimitDialog extends StatelessWidget {
+  const FreeLimitDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final String token = context.read<UserAccountBloc>().state.user.token;
+    return CupertinoAlertDialog(
+      title: Text('about_free_limit'.tr,
+          style: AppTextStyles.labelLarge(context, fontSize: 16.sp)),
+      content: Column(children: [
+        Text('text_about_free_limit'.tr,
+            style: AppTextStyles.labelLarge(context)),
+        SizedBox(height: height(context) * 0.01),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('your_token_is'.trParams({'token': token}),
+                style: AppTextStyles.labelLarge(context, fontSize: 14.sp)),
+            OnTap(
+                onTap: () {
+                  copyToClipboard(context, 'token');
+                },
+                child: const Icon(Icons.copy))
+          ],
+        )
+      ]),
+      actions: [
+        CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('close'.tr,
+                style: AppTextStyles.labelLarge(context, color: Colors.red)))
+      ],
+    );
+  }
+}
+
+void showFreeLimitDialog(BuildContext context) {
+  showCupertinoDialog(
+      context: context,
+      builder: (context) => Theme(
+            data:
+                AdaptiveTheme.of(context).theme.backgroundColor == Colors.white
+                    ? ThemeData.light()
+                    : ThemeData.dark(),
+            child: const FreeLimitDialog(),
+          ));
+}
+
+class ReserveDialog extends StatefulWidget {
+  ReserveDialog(this.reserveModel,
+      {required this.onConfirmTap,
+      required this.price,
+      required this.reserve,
+      super.key});
+  TextEditingController reserve;
+  TextEditingController price;
+  ReserveModel reserveModel;
+  VoidCallback onConfirmTap;
+
+  @override
+  State<ReserveDialog> createState() => _ReserveDialogState();
+}
+
+class _ReserveDialogState extends State<ReserveDialog> {
+  @override
+  Widget build(BuildContext context) => CupertinoAlertDialog(
+        title: Text(
+            '${'date'.tr} ${widget.reserveModel.date.toString().split(' ').first}'),
+        content: Column(
+          children: [
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.4,
+              child: CupertinoTextField(
+                controller: widget.reserve,
+                keyboardType: TextInputType.number,
+                maxLength: 7, // Maximum of 7 numbers
+                placeholder:
+                    '${'reserve'.tr} (${widget.reserveModel.reserve} ${'piece'.tr})',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              width: width(context) * 0.4,
+              child: CupertinoTextField(
+                controller: widget.price,
+                keyboardType: TextInputType.number,
+                maxLength: 3, // Maximum of 3 numbers
+                placeholder: '${'price'.tr} (${widget.reserveModel.price} UZS)',
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          CupertinoDialogAction(
+            textStyle: const TextStyle(color: Colors.red),
+            child: Text('cancel'.tr),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+              onPressed: widget.onConfirmTap, child: Text('confirm'.tr)),
+        ],
+      );
+}
+
+Future<bool> sendPushNotification(
+    String deviceToken, String title, String message,
+    {bool isToAll = false}) async {
+  final dio = Dio();
+  const url = 'https://fcm.googleapis.com/fcm/send';
+  const String serverKey =
+      'AAAAjOrWOew:APA91bH0u9gHpSUtnshLDVTwbRnE3VdhScjO2dLleW0eG9r_8uP-VBxuNmPOyheW1Qftpj3ozIYe72_Pf7MsGQv33KjmSOaeBqwDqt4HoMIqABCIG97Ws22jmOgD-4731elCwz9v0dEb';
+
+  final headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'key=$serverKey',
+  };
+
+  final data = {
+    'notification': {
+      'title': title.tr,
+      'body': message.tr,
+    },
+    'to': isToAll ? '/topics/news' : deviceToken,
+    'data': {
+      'id': Random().nextInt(1000),
+      'title': title.tr,
+      'body': message.tr,
+    }
+  };
+
+  try {
+    final response = await dio.post(
+      url,
+      data: data,
+      options: Options(headers: headers),
+    );
+
+    if (response.statusCode == 200) {
+      return true; // Notification sent successfully
+    } else {
+      return false; // Failed to send notification
+    }
+  } catch (e) {
+    return false; // Failed to send notification
+  }
+}
+
+String makeNotification(String msg,
+    {PromoCodeModel? promoCode, OrderModel? order, String language = 'uz'}) {
+  if (order.isNull ? language == 'ru' : order!.language == 'ru') {
+    switch (msg) {
+      case 'update_confirmed':
+        return '${order!.orderId} — Ваш заказ подтвержден!';
+      case 'update_is_in_progress':
+        return '${order!.orderId} — Ваш заказ получен и находится в обработке!';
+      case 'update_cancelled':
+        return '${order!.orderId} — Ваш заказ отменен!';
+      case 'added_new_code':
+        return 'У нас новый промокод на скидку ${promoCode!.discount} %!';
+      case 'try_now':
+        return 'Воспользуйтесь преимуществом сейчас!';
+      case 'news_in_order':
+        return 'Заказ обновлен';
+      case 'you_have_got_free_limit':
+        return 'Вам предоставлен бесплатный лимит!';
+      case 'congrats_for_free_limit':
+        return 'Предложенный вами пользователь проверен и вам предоставлена возможность бесплатно обслужить 100 товаров!';
+    }
+  } else {
+    switch (msg) {
+      case 'update_confirmed':
+        return '${order!.orderId} — raqamli buyurtmangiz tasdiqlandi';
+      case 'update_is_in_progress':
+        return '${order!.orderId} — raqamli buyurtmangiz qabul qilindi va jarayonda!';
+      case 'update_cancelled':
+        return '${order!.orderId} — raqamli buyurtmangiz bekor qilindi';
+      case 'added_new_code':
+        return 'Bizda yangi ${promoCode!.discount} % chegirma beruvchi promokod!';
+      case 'try_now':
+        return 'Imkoniyatdan hoziroq foydalaning!';
+      case 'news_in_order':
+        return 'Buyurtma yangilandi';
+      case 'you_have_got_free_limit':
+        return 'Sizga bepul limit berildi!';
+      case 'congrats_for_free_limit':
+        return "Siz taklif qilgan foydalanuvchi tasdiqlandi va sizga 100ta tovarni bepul xizmat ko'rsatish imkoniyati taqdim etildi!";
+    }
+  }
+  return '';
+}
+
+String cardFormatter(String cardNumber) {
+  final StringBuffer res = StringBuffer();
+  int index = 0;
+  while (true) {
+    if (index % 4 == 0) {
+      res.write(' ');
+    }
+    res.write(cardNumber[index++]);
+    if (index == 16) {
+      break;
+    }
+  }
+  return res.toString();
+}
+
+String makeReport(
+  OrderModel order,
+) {
+  if (getIt<StorageService>().getString('language') == 'uz') {
+    return "Assalomu alaykum!\n Mening ${order.marketName} do'konimga biriktirilgan ${order.orderId}-raqamli buyurtmam ${dateTimeToFormat(order.finishedAt)}da xatolik sabab bekor qilinibdi. Quyida esa to'lovni tasdiqlovchi skrinshot uchun havola.\n\n${order.userPhoto}";
+  }
+  return 'Здравствуйте!\n Мой номер заказа ${order.orderId}, прикрепленный к моему магазину ${order.marketName}, был отменен из-за ошибки в ${dateTimeToFormat(order.finishedAt)}. Ниже приведена ссылка на скриншот подтверждения платежа.\n\n${order.userPhoto}';
+}
+
+Future<void> sendSMSTo(String message) async {
+  if (await Permission.sms.request().isGranted) {
+    //   await UssdPhoneCallSms()
+    //       .textSMS(recipients: '+998909319051', smsBody: message);
+    // } else {
+    //   await Permission.sms.request();
+    //   await UssdPhoneCallSms()
+    //       .textSMS(recipients: '+998909319051', smsBody: message);
+  }
+}
+
+getMyToast(String message) => Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM_RIGHT,
+      backgroundColor: const Color(0xFF1C2632),
+      textColor: Colors.white,
+      fontSize: 16,
+    );

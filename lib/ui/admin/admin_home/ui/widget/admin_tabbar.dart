@@ -1,9 +1,10 @@
 import 'package:time_slot/ui/admin/admin_home/ui/widget/admin_tabbar_item.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/all_orders_widget.dart';
-import 'package:time_slot/ui/admin/admin_home/ui/widget/all_purchases_widget.dart';
+import 'package:time_slot/ui/admin/admin_home/ui/widget/all_promo_codes_widget.dart';
 import 'package:time_slot/ui/admin/admin_home/ui/widget/all_users_widget.dart';
-import 'package:time_slot/ui/user/orders/ui/widgets/order_item.dart';
+
 import '../../../../../utils/tools/file_importers.dart';
+import 'add_reserve_widget.dart';
 
 class AdminTabBarWidget extends StatefulWidget {
   const AdminTabBarWidget({super.key});
@@ -17,6 +18,9 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
   int _currentIndex = 0;
 
   void _onTabTapped(int index) {
+    if (index == 3) {
+      context.read<ReserveBloc>().add(GetAllReservesEvent());
+    }
     setState(() {
       _currentIndex = index;
     });
@@ -51,14 +55,14 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                         _onTabTapped(1);
                       }),
                   AdminTabBarItem(
-                      text: 'partners',
+                      text: 'promo_codes'.tr,
                       isActive: _currentIndex == 2,
                       context: context,
                       onTap: () {
                         _onTabTapped(2);
                       }),
                   AdminTabBarItem(
-                      text: 'pay',
+                      text: 'reserve_tab'.tr,
                       isActive: _currentIndex == 3,
                       context: context,
                       onTap: () {
@@ -70,12 +74,13 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
           ),
           _currentIndex == 0
               ? const AllOrdersWidget()
-              : _currentIndex == 1?
-                 const AllUsersWidget(isPartner: false,)
-              : _currentIndex == 2?
-              const AllUsersWidget(isPartner: true,):
-              const AllPurchasesWidget(),
-
+              : _currentIndex == 1
+                  ? const AllUsersWidget(
+                      isPartner: false,
+                    )
+                  : _currentIndex == 2
+                      ? AllPromoCodesWidget(isAdmin: true)
+                      : const AddReserveWidget()
         ],
       );
 }

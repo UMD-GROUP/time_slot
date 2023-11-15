@@ -27,7 +27,7 @@ class OtherItem extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 height: height(context) * 0.043,
-                width: width(context) * 0.2,
+                width: width(context) * 0.22,
                 decoration: BoxDecoration(
                     color: Colors.deepPurple,
                     borderRadius: BorderRadius.circular(10.r)),

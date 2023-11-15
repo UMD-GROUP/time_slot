@@ -83,9 +83,15 @@ class AppTextStyles {
           fontSize: fontSize ?? 16.sp,
           color: color ?? AdaptiveTheme.of(context).theme.hintColor);
   static TextStyle labelLarge(context,
-          {Color? color, double? fontSize, FontWeight? fontWeight}) =>
+          {Color? color,
+          double? fontSize,
+          FontWeight? fontWeight,
+          bool isLineThrough = false}) =>
       TextStyle(
           fontFamily: 'Inter',
+          decoration: isLineThrough
+              ? TextDecoration.lineThrough
+              : TextDecoration.none,
           fontWeight: fontWeight ?? FontWeight.w500,
           fontSize: fontSize ?? 14.sp,
           color: color ?? AdaptiveTheme.of(context).theme.hintColor);

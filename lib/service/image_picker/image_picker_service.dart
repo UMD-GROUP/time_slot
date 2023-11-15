@@ -1,52 +1,62 @@
 // ignore_for_file: use_build_context_synchronously, type_annotate_public_apis
 
-import 'package:image_picker/image_picker.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 Future<XFile?> showPicker(BuildContext context) async {
   final ImagePicker picker = ImagePicker();
   late XFile? file;
   await showModalBottomSheet(
+      backgroundColor: Colors.transparent,
       context: context,
       builder: (bc) => SafeArea(
             child: Container(
-              height: 180.h,
+              height: height(context) * 0.23,
+              decoration: BoxDecoration(
+                  color: AdaptiveTheme.of(context).theme.backgroundColor,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20.h),
+                      topLeft: Radius.circular(20.h))),
               padding: EdgeInsets.all(12.r),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text('Upload photo from'),
+                  Text('upload_photo_from'.tr,
+                      style:
+                          AppTextStyles.labelMedium(context, fontSize: 16.sp)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       InkWell(
                         onTap: () async {
                           file = await _getFromGallery(picker);
-                          print('Image tanlandi');
                           Navigator.pop(context);
                         },
-                        child: const Column(
+                        child: Column(
                           children: [
                             Icon(
                               Icons.image,
                               size: 100,
+                              color: AdaptiveTheme.of(context).theme.hintColor,
                             ),
-                            Text('Gallery'),
+                            Text('gallery'.tr,
+                                style: AppTextStyles.labelLarge(context)),
                           ],
                         ),
                       ),
                       InkWell(
                         onTap: () async {
                           file = await _getFromCamera(picker);
-                          print('Image tanlandi');
                           Navigator.pop(context);
                         },
-                        child: const Column(
+                        child: Column(
                           children: [
                             Icon(
                               Icons.camera,
                               size: 100,
+                              color: AdaptiveTheme.of(context).theme.hintColor,
                             ),
-                            Text('Camera'),
+                            Text('camera'.tr,
+                                style: AppTextStyles.labelLarge(context)),
                           ],
                         ),
                       )

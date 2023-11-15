@@ -11,11 +11,8 @@ class UsersItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ZoomTapAnimation(
         onTap: () {
-          if (isPartner) {
-            showPartnerDialog(context, userModel);
-          } else {
-            showUserPopUp(context, userModel);
-          }
+          context.read<StoresBloc>().add(GetStoresEvent(userModel.uid));
+          showUserPopUp(context, userModel);
         },
         onLongTap: () {
           if (userModel.markets.length != 5) {
@@ -60,24 +57,33 @@ class UsersItemWidget extends StatelessWidget {
                 width: 10.w,
               ),
               SizedBox(
-                width: width(context) * 0.55,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PurchaseTextWidget(
+                    RowText(
                       icon: AppIcons.check,
                       text1: 'Email:',
-                      text2: userModel.email.toString().length > 15
-                          ? userModel.email.substring(0, 15)
+                      text2: userModel.email.toString().length > 20
+                          ? userModel.email.substring(0, 20)
                           : userModel.email,
                     ),
-                    PurchaseTextWidget(
+                    RowText(
                       icon: AppIcons.dollar,
                       text1: 'benefit',
                       text2: '${userModel.sumOfOrders}  UZS',
                     ),
-                    PurchaseTextWidget(
+                    // RowText(
+                    //   icon: AppIcons.check,
+                    //   text1: 'orders'.tr,
+                    //   text2: '${userModel.orders.length} ${'piece'.tr}',
+                    // ),
+                    RowText(
+                      icon: AppIcons.check,
+                      text1: 'referrals'.tr,
+                      text2: '${userModel.referrals.length} ${'piece'.tr}',
+                    ),
+                    RowText(
                       textColor: userModel.isBlocked
                           ? Colors.red
                           : Colors.lightGreenAccent,

@@ -8,15 +8,39 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       : super(CreateOrderState(OrderModel(
             finishedAt: DateTime.now(),
             createdAt: DateTime.now(),
-            dates: [],
+            date: DateTime(2021, 12, 12),
             products: [],
             orderId: generateRandomID(true)))) {
     on<UpdateFieldsOrderEvent>(updateFields);
     on<AddOrderEvent>(addOrder);
+    on<ReInitOrderEvent>(initOrder);
   }
 
   void updateFields(UpdateFieldsOrderEvent event, Emitter emit) {
+    event.order = calculateSum(event.order, event.freeLimit);
     emit(state.copyWith(newOrder: event.order, isUpdated: !state.isUpdated));
+  }
+
+  OrderModel calculateSum(OrderModel order, int? freeLimit1) {
+    int sum = 0;
+    final int price = order.reserve.isNull ? 0 : order.reserve!.price;
+    final int freeLimit = freeLimit1 ?? 0;
+    final int productCount =
+        order.products.fold(0, (i, e) => int.parse((i + e.count).toString()));
+    sum += (productCount >= freeLimit ? productCount - freeLimit : 0) * price;
+
+    order.sum = sum;
+    if (!order.promoCode.isNull && order.promoCode!.minAmount <= productCount) {
+      sum -= (sum / 100 * order.promoCode!.discount).toInt();
+    }
+    order.totalSum = sum - sum % 1000;
+    if (freeLimit >= productCount) {
+      order.freeLimit = productCount;
+    } else {
+      order.freeLimit = freeLimit;
+    }
+
+    return order;
   }
 
   Future<void> addOrder(AddOrderEvent event, Emitter emit) async {
@@ -34,7 +58,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
                 finishedAt: DateTime.now(),
                 createdAt: DateTime.now(),
                 products: [],
-                dates: [])));
+                date: DateTime.now())));
       }
     } else {
       emit(state.copyWith(
@@ -42,5 +66,13 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
           message: orderValidator(event.order)));
     }
     emit(state.copyWith(addingStatus: ResponseStatus.pure));
+  }
+
+  void initOrder(ReInitOrderEvent event, Emitter emit) {
+    emit(CreateOrderState(OrderModel(
+        products: [],
+        date: DateTime(2021, 12, 12),
+        createdAt: DateTime.now(),
+        finishedAt: DateTime.now())));
   }
 }

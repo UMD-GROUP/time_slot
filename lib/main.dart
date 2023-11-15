@@ -1,12 +1,9 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:time_slot/firebase_options.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );

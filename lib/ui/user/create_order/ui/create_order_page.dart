@@ -1,4 +1,5 @@
 // ignore_for_file: use_named_constants, cascade_invocations, inference_failure_on_function_invocation
+import 'package:time_slot/ui/user/create_order/ui/widgets/free_limit_widget.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -10,10 +11,9 @@ class CreateOrderPage extends StatefulWidget {
 }
 
 class _CreateOrderPageState extends State<CreateOrderPage> {
-  List<DateTime> dates = [];
-
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text('create_order'.tr),
@@ -48,101 +48,159 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
             },
             builder: (context, orderState) => BlocProvider(
               create: (context) => StepControllerBloc(),
-              child: BlocBuilder<StepControllerBloc, StepControllerState>(
-                builder: (context, state) => SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Stepper(
-                          margin: const EdgeInsets.only(left: 60),
-                          onStepCancel: () {
-                            context
-                                .read<StepControllerBloc>()
-                                .add(ToPreviousStepEvent());
-                          },
-                          currentStep: state.currentStep,
-                          onStepContinue: () {
-                            if (canTapStep(
-                                context,
-                                context.read<CreateOrderBloc>().state.order,
-                                state.currentStep + 1)) {
-                              context
-                                  .read<StepControllerBloc>()
-                                  .add(ToNextStepEvent());
-                            }
-                          },
-                          onStepTapped: (value) {
-                            if (canTapStep(
-                                context,
-                                context.read<CreateOrderBloc>().state.order,
-                                value)) {
-                              context
-                                  .read<StepControllerBloc>()
-                                  .add(ToStepEvent(value));
-                            }
-                          },
-                          connectorColor:
-                              MaterialStateProperty.all(Colors.deepPurple),
-                          steps: [
-                            Step(
-                              title: Text(
-                                "${'choose_market'.tr}  ${context.read<CreateOrderBloc>().state.order.marketName}",
-                                // style: AppTextStyles.labelLarge(context),
-                              ),
-                              content: const MarketOption(),
-                            ),
-                            Step(
-                              title: Text(
-                                "${'choose_dates'.tr}  ${context.read<CreateOrderBloc>().state.order.dates.length} ${'piece'.tr}",
-                                // style: AppTextStyles.labelLarge(context),
-                              ),
-                              content: const SelectDatesSection(),
-                            ),
-                            Step(
-                                title: Text(
-                                    "${'products'.tr}  ${context.read<CreateOrderBloc>().state.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}"),
-                                content: const AddProductSection()),
-                            Step(
-                                title: BlocBuilder<CreateOrderBloc,
-                                    CreateOrderState>(
-                                  builder: (context, state) => Text(
-                                      '${'payment'.tr}     ${state.order.products.isNotEmpty ? (context.read<DataFromAdminBloc>().state.data!.prices[state.order.dates.length - 1] * state.order.products.fold(0, (previousValue, element) => int.parse((previousValue + element.count).toString()))).toString() : ''}  ${state.order.products.isNotEmpty ? 'UZS' : ''}'),
-                                ),
-                                content: const ImageSection())
-                          ]),
-                      SizedBox(height: height(context) * 0.05),
-                      Visibility(
-                        visible: state.currentStep == 3,
-                        child: GlobalButton(
-                            isLoading: orderState.addingStatus ==
-                                ResponseStatus.inProgress,
-                            onTap: () {
-                              final OrderModel order = orderState.order;
-                              order.referallId = context
-                                  .read<UserBloc>()
-                                  .state
-                                  .user!
-                                  .referallId;
-                              order.ownerId =
-                                  context.read<UserBloc>().state.user!.uid;
-                              order.orderId = generateRandomID(true);
-                              order.sum = context
-                                      .read<DataFromAdminBloc>()
-                                      .state
-                                      .data!
-                                      .prices[order.dates.length - 1] *
-                                  order.products.fold(
-                                      0,
-                                      (previousValue, element) => int.parse(
-                                          (previousValue + element.count)
-                                              .toString()));
-                              context.read<CreateOrderBloc>().add(AddOrderEvent(
-                                  order, context.read<UserBloc>().state.user!));
+              child: BlocBuilder<CreateOrderBloc, CreateOrderState>(
+                builder: (context, orderState) =>
+                    BlocBuilder<StepControllerBloc, StepControllerState>(
+                  builder: (context, state) => SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const FreeLimitWidget(),
+                        Stepper(
+                            controlsBuilder: (context, details) {
+                              final List backTexts = [
+                                '',
+                                'change_market'.tr,
+                                'change_date'.tr,
+                                'change_product'.tr,
+                              ];
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  // TextButton(
+                                  //   onPressed: () {
+                                  //     context
+                                  //         .read<StepControllerBloc>()
+                                  //         .add(ToPreviousStepEvent());
+                                  //   },
+                                  //   child: Text(backTexts[details.currentStep],
+                                  //       style: AppTextStyles.labelLarge(context,
+                                  //           color: Colors.deepPurpleAccent)),
+                                  // ),
+                                  const SizedBox(width: 8),
+                                  if (details.currentStep != 3)
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        if (canTapStep(
+                                            context,
+                                            orderState.order,
+                                            state.currentStep + 1)) {
+                                          context
+                                              .read<StepControllerBloc>()
+                                              .add(ToNextStepEvent());
+                                        }
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.deepPurpleAccent),
+                                      ),
+                                      child: Text(
+                                        'next'.tr,
+                                      ),
+                                    ),
+                                ],
+                              );
                             },
-                            color: Colors.deepPurple,
-                            title: 'order'.tr,
-                            textColor: Colors.white),
-                      )
-                    ],
+                            margin: const EdgeInsets.only(left: 60),
+                            currentStep: state.currentStep,
+                            onStepTapped: (value) {
+                              if (canTapStep(
+                                  context, orderState.order, value)) {
+                                context
+                                    .read<StepControllerBloc>()
+                                    .add(ToStepEvent(value));
+                              }
+                            },
+                            connectorColor:
+                                MaterialStateProperty.all(Colors.deepPurple),
+                            steps: [
+                              Step(
+                                title: Text(
+                                  "${'choose_market'.tr}  ${orderState.order.marketName}",
+                                  style: AppTextStyles.labelLarge(context),
+                                ),
+                                content: const MarketOption(),
+                              ),
+                              Step(
+                                title: Text(
+                                  "${'date'.tr}  ${orderState.order.date.isAfter(DateTime.now()) ? dateTimeToFormat(context.read<CreateOrderBloc>().state.order.date).split(' ').first : ''}",
+                                  style: AppTextStyles.labelLarge(context),
+                                ),
+                                content: const SelectDatesSection(),
+                              ),
+                              Step(
+                                  title: Text(
+                                      "${'products'.tr}  ${orderState.order.products.fold(0, (previousValue, element) => previousValue + int.parse(element.count.toString()))} ${'piece'.tr}",
+                                      style: AppTextStyles.labelLarge(context)),
+                                  content: const AddProductSection()),
+                              Step(
+                                  title: BlocBuilder<CreateOrderBloc,
+                                      CreateOrderState>(
+                                    builder: (context, state) => Row(
+                                      children: [
+                                        Text('${'payment'.tr}    ',
+                                            style: AppTextStyles.labelLarge(
+                                                context)),
+                                        Text('${state.order.sum}  ',
+                                            style: AppTextStyles.labelLarge(
+                                                isLineThrough: !state
+                                                    .order.promoCode.isNull,
+                                                color:
+                                                    state.order.promoCode.isNull
+                                                        ? null
+                                                        : Colors.red,
+                                                context)),
+                                        if (!state.order.promoCode.isNull)
+                                          Text(
+                                            '${state.order.totalSum}',
+                                            style: AppTextStyles.labelLarge(
+                                                context,
+                                                color: Colors.lightGreenAccent),
+                                          ),
+                                        Text('  UZS',
+                                            style: AppTextStyles.labelLarge(
+                                                context,
+                                                color: state
+                                                        .order.promoCode.isNull
+                                                    ? null
+                                                    : Colors.lightGreenAccent)),
+                                      ],
+                                    ),
+                                  ),
+                                  content: const PaymentSection())
+                            ]),
+                        SizedBox(height: height(context) * 0.05),
+                        Visibility(
+                          visible: orderState.order.products.isNotEmpty,
+                          child: GlobalButton(
+                              isLoading: orderState.addingStatus ==
+                                  ResponseStatus.inProgress,
+                              onTap: () {
+                                showConfirmCancelDialog(context, () {
+                                  Navigator.pop(context);
+                                  context.read<CreateOrderBloc>().add(
+                                      AddOrderEvent(
+                                          orderState.order,
+                                          context
+                                              .read<UserAccountBloc>()
+                                              .state
+                                              .user!));
+                                },
+                                    title: 'confirm_order'.trParams({
+                                      'number': context
+                                          .read<UserAccountBloc>()
+                                          .state
+                                          .user
+                                          .marketNumber
+                                    }));
+                              },
+                              color: Colors.deepPurple,
+                              title: 'order'.tr,
+                              textColor: Colors.white),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

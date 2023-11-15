@@ -23,11 +23,6 @@ class InfoBottomSheet extends StatelessWidget {
                   fontSize: 18, color: Colors.black),
             ),
             Text(
-              '${'dates_count'.tr}${order.dates.length}',
-              style: AppTextStyles.labelLarge(context,
-                  fontSize: 18, color: Colors.black),
-            ),
-            Text(
               '${'products_count'.tr}${order.products.fold(0, (previousValue, element) => int.parse((previousValue + element.count).toString()))}',
               style: AppTextStyles.labelLarge(context,
                   fontSize: 18, color: Colors.black),
@@ -53,12 +48,12 @@ class InfoBottomSheet extends StatelessWidget {
                 Navigator.pop(context);
                 final OrderModel order =
                     context.read<CreateOrderBloc>().state.order;
-                order.referallId =
-                    context.read<UserBloc>().state.user!.referallId;
-                order.ownerId = context.read<UserBloc>().state.user!.uid;
+                order.referralId =
+                    context.read<UserAccountBloc>().state.user!.referallId;
+                order.ownerId = context.read<UserAccountBloc>().state.user!.uid;
 
-                context.read<CreateOrderBloc>().add(
-                    AddOrderEvent(order, context.read<UserBloc>().state.user!));
+                context.read<CreateOrderBloc>().add(AddOrderEvent(
+                    order, context.read<UserAccountBloc>().state.user!));
               },
               child: Text('confirm'.tr))
         ],
