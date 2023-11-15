@@ -15,8 +15,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   handleFirebaseNotificationMessages() async {
     String? fcmToken = '';
-    if(Platform.isAndroid){
-      fcmToken = await FirebaseMessaging.instance.getToken()
+    if (Platform.isAndroid) {
+      fcmToken = await FirebaseMessaging.instance.getToken();
     }
     // Clipboard.setData(ClipboardData(text: fcmToken ?? 'No token'));
     debugPrint('FCM USER TOKEN: $fcmToken');
