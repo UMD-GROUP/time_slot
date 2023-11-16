@@ -56,6 +56,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     context.read<AllUserBloc>().add(GetAllUserEvent());
                     context.read<DataFromAdminBloc>().add(GetBannersEvent());
                     context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
+                    context.read<ReserveBloc>().add(GetAllReservesEvent());
                   },
                 ),
               ],

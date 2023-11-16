@@ -1,4 +1,6 @@
+import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:feature_discovery/feature_discovery.dart';
+import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_state.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrdersPage extends StatefulWidget {
@@ -59,61 +61,86 @@ class _OrdersPageState extends State<OrdersPage> {
                 icon: const Icon(Icons.refresh))
           ],
         ),
-        body: RefreshIndicator(
-          onRefresh: () async {},
-          child: Stack(
-            children: [
-              Column(children: [
-                SizedBox(height: height(context) * 0.02),
-                BannerCard(),
-                SizedBox(height: height(context) * 0.01),
-                const Expanded(child: TabBarWidget())
-              ]),
-              Positioned(
-                bottom: height(context) * 0.035,
-                child: OnTap(
-                  onTap: () {
-                    if (canNavigate(
-                        context,
-                        context.read<UserAccountBloc>().state.user,
-                        context.read<DataFromAdminBloc>().state.data!)) {
-                      context.read<CreateOrderBloc>().add(ReInitOrderEvent());
-                      Navigator.pushNamed(context, RouteName.createOrder);
-                    } else {
-                      FeatureDiscovery.discoverFeatures(
-                        context,
-                        const <String>{
-                          // Feature ids for every feature that you want to showcase in order.
-                          'add_store3',
-                        },
-                      );
-                    }
-                  },
-                  child: SizedBox(
-                    width: width(context),
-                    child: Center(
-                      child: Container(
-                        height: height(context) * 0.055,
-                        width: width(context) * 0.6,
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: width(context) * 0.2),
-                        decoration: BoxDecoration(
+        body: Stack(
+          children: [
+            Column(children: [
+              SizedBox(height: height(context) * 0.02),
+              BlocBuilder<DataFromAdminBloc, DataFromAdminState>(
+                builder: (context, state) {
+                  if (state.status == ResponseStatus.inSuccess) {
+                    return BannerCard(
+                        context.read<DataFromAdminBloc>().state.data!.banners);
+                  }
+                  return BannerCard(const []);
+                },
+              ),
+              SizedBox(height: height(context) * 0.01),
+              const Expanded(child: TabBarWidget())
+            ]),
+            Positioned(
+              bottom: height(context) * 0.035,
+              child: OnTap(
+                onTap: () {
+                  if (canNavigate(
+                      context,
+                      context.read<UserAccountBloc>().state.user,
+                      context.read<DataFromAdminBloc>().state.data!)) {
+                    context.read<CreateOrderBloc>().add(ReInitOrderEvent());
+                    Navigator.pushNamed(context, RouteName.createOrder);
+                  } else {
+                    FeatureDiscovery.discoverFeatures(
+                      context,
+                      const <String>{
+                        // Feature ids for every feature that you want to showcase in order.
+                        'add_store3',
+                      },
+                    );
+                  }
+                },
+                child: SizedBox(
+                  width: width(context),
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 1,
+                          right: 1,
+                          child: RippleAnimation(
+                            repeat: true,
                             color: Colors.deepPurple,
-                            borderRadius: BorderRadius.circular(16.h)),
-                        child: Text('make_an_order'.tr,
-                            textAlign: TextAlign.center,
-                            style: AppTextStyles.labelLarge(context,
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w700)),
-                      ),
+                            minRadius: 60,
+                            ripplesCount: 6,
+                            size: Size(
+                                width(context) * 0.6, height(context) * 0.055),
+                            child: SizedBox(
+                              height: height(context) * 0.055,
+                              width: width(context) * 0.6,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: height(context) * 0.055,
+                          width: width(context) * 0.6,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.symmetric(
+                              horizontal: width(context) * 0.2),
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.circular(16.h)),
+                          child: Text('make_an_order'.tr,
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.labelLarge(context,
+                                  color: Colors.white,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w700)),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       );
 }

@@ -6,6 +6,7 @@ class OrderModel {
       this.ownerId = '',
       this.adminPhoto = '',
       this.orderId = 0,
+      this.userEmail = '',
       this.promoCode,
       required this.products,
       this.sum = 0,
@@ -28,6 +29,7 @@ class OrderModel {
         reserve: ReserveModel.fromJson(json['reserve'] ?? {}),
         comment: json['comment'] ?? '',
         freeLimit: json['freeLimit'] ?? 0,
+        userEmail: json['userEmail'] ?? '',
         finishedAt:
             DateTime.parse(json['finishedAt'] ?? DateTime(2023).toString()),
         referralId: json['referallId'] ?? '',
@@ -70,6 +72,7 @@ class OrderModel {
   String ownerFcm;
   String language;
   int freeLimit;
+  String userEmail;
 
   Map<String, dynamic> toJson() => {
         'referallId': referralId,
@@ -85,6 +88,7 @@ class OrderModel {
         'marketName': marketName,
         'orderDocId': orderDocId,
         'dates': date.toString(),
+        'userEmail': userEmail,
         'userPhoto': userPhoto,
         'status': status.index,
         'comment': comment,

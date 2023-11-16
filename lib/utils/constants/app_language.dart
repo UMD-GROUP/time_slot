@@ -110,7 +110,7 @@ class AppTranslations extends Translations {
           'banners': 'Bannerlar',
           'prices': 'Narxlar',
           'other': 'Boshqalar',
-          'users': 'Foydalanuvchilar',
+          'users': 'Mijozlar',
           'partners': 'Hamkor',
           'pay': "To'lov",
           'admin_panel': "Admin bo'limi",
@@ -248,7 +248,10 @@ class AppTranslations extends Translations {
           'updated': 'Yangilandi!',
           'make_an_order': 'Buyurtma berish',
           'first_add_your_store':
-              "Avval Shaxsiy hisob sahifasiga o'tib do'koningizni qo'shing."
+              "Avval Shaxsiy hisob sahifasiga o'tib do'koningizni qo'shing.",
+          'good_users': 'Foydali mijozlar',
+          'unconfirmed': 'Tasdiqlanmagan',
+          'confirmed': 'Tasdiqlangan',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -350,7 +353,7 @@ class AppTranslations extends Translations {
           'banners': 'Баннеры',
           'prices': 'Цены',
           'other': 'Другие',
-          'users': 'Пользователи',
+          'users': 'Клиенты',
           'partners': 'Партнер',
           'pay': 'Оплата',
           'admin_panel': 'Панель администратора',
@@ -487,7 +490,10 @@ class AppTranslations extends Translations {
           'updated': 'Обновлено!',
           'make_an_order': 'Сделать заказ',
           'first_add_your_store':
-              'Сначала добавьте свой магазин, перейдя на страницу Личного кабинета.'
+              'Сначала добавьте свой магазин, перейдя на страницу Личного кабинета.',
+          'good_users': 'Полезные клиенты',
+          'unconfirmed': 'Не подтверждено',
+          'confirmed': 'Подтвержденный',
         }
       };
 }

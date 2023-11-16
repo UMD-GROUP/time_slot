@@ -19,3 +19,7 @@ class DeleteStoreEvent extends StoresEvent {
   DeleteStoreEvent(this.docId);
   String docId;
 }
+
+class GetAllStoresEvent extends StoresEvent {
+  GetAllStoresEvent();
+}

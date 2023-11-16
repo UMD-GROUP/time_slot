@@ -11,4 +11,5 @@ class AppImages {
   static const logoText = '$IMAGE_PATH/logo_text.png';
   static const google = '$IMAGE_PATH/google.png';
   static const spLogo = '$IMAGE_PATH/sp_logo.png';
+  static const waiting = '$IMAGE_PATH/waiting.png';
 }

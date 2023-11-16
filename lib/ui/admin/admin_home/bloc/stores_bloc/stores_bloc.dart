@@ -9,11 +9,25 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
     on<GetStoresEvent>(getStores);
     on<UpdateStoreEvent>(updateTheStore);
     on<DeleteStoreEvent>(deleteTheStore);
+    on<GetAllStoresEvent>(getAllStores);
   }
   Future<void> getStores(GetStoresEvent event, Emitter emit) async {
     emit(state.copyWith(gettingStatus: ResponseStatus.inProgress));
     final MyResponse myResponse =
         await getIt<StoresRepository>().getStores(event.ownerId);
+    if (myResponse.statusCode == 200) {
+      emit(state.copyWith(
+          gettingStatus: ResponseStatus.inSuccess, stores: myResponse.data));
+    } else {
+      emit(state.copyWith(
+          gettingStatus: ResponseStatus.inFail, message: myResponse.message));
+    }
+  }
+
+  Future<void> getAllStores(GetAllStoresEvent event, Emitter emit) async {
+    emit(state.copyWith(gettingStatus: ResponseStatus.inProgress));
+    final MyResponse myResponse =
+        await getIt<StoresRepository>().getAllStores();
     if (myResponse.statusCode == 200) {
       emit(state.copyWith(
           gettingStatus: ResponseStatus.inSuccess, stores: myResponse.data));
