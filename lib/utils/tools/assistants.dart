@@ -1526,3 +1526,11 @@ List<UserModel> splitUsers(List<UserModel> users, bool isBlocked) {
       users.where((element) => element.isBlocked == isBlocked).toList();
   return result;
 }
+
+List<StoreModel> splitStores(List<StoreModel> stores, bool isConfirmed) {
+  final List<StoreModel> result = stores
+      .where(
+          (element) => isConfirmed ? element.id.isNotEmpty : element.id.isEmpty)
+      .toList();
+  return result;
+}

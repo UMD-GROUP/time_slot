@@ -23,6 +23,20 @@ class StoresRepository {
     return myResponse;
   }
 
+  Future<MyResponse> getAllStores() async {
+    final MyResponse myResponse = MyResponse();
+    try {
+      final promoDocs = await instance.collection('stores').get();
+      myResponse
+        ..statusCode = 200
+        ..data =
+            promoDocs.docs.map((e) => StoreModel.fromJson(e.data())).toList();
+    } catch (e) {
+      myResponse.message = e.toString();
+    }
+    return myResponse;
+  }
+
   Future<MyResponse> updateStore(
       StoreModel store, UserModel owner, int freeLimit) async {
     final MyResponse myResponse = MyResponse();

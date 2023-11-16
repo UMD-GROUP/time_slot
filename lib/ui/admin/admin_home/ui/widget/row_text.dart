@@ -39,7 +39,10 @@ class RowText extends StatelessWidget {
                 style: AppTextStyles.labelLarge(context,
                     fontSize: fontSize ?? 16.sp)),
             SizedBox(width: width(context) * 0.01),
-            Text(text2.tr,
+            Text(
+                text2.tr.length > 20
+                    ? '${text2.tr.substring(0, 20)}...'
+                    : text2.tr,
                 style: AppTextStyles.labelLarge(context,
                     color: textColor, fontSize: fontSize)),
           ],

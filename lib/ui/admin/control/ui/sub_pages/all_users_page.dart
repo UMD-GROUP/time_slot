@@ -57,6 +57,7 @@ class AllUsersPage extends StatelessWidget {
                           labelColor: AdaptiveTheme.of(context).theme.hintColor,
                           indicatorColor: Colors.deepPurple,
                           tabs: [
+                            Tab(text: 'good_users'.tr),
                             Tab(text: 'active'.tr),
                             Tab(text: 'blocked'.tr),
                           ],
@@ -64,6 +65,9 @@ class AllUsersPage extends StatelessWidget {
                         SizedBox(height: height(context) * 0.02),
                         Expanded(
                           child: TabBarView(children: [
+                            UsersView(curData
+                                .where((element) => element.sumOfOrders != 0)
+                                .toList()),
                             UsersView(splitUsers(curData, false)),
                             UsersView(splitUsers(curData, true))
                           ]),
