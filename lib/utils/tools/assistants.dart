@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations, use_string_buffers
+// ignore_for_file: avoid_catches_without_on_clauses, type_annotate_public_apis, unnecessary_null_comparison, non_constant_identifier_names, always_declare_return_types, library_private_types_in_public_api, prefer_expression_function_bodies, cascade_invocations, use_string_buffers, avoid_positional_boolean_parameters
 
 import 'dart:async';
 import 'dart:io';
@@ -1518,5 +1518,11 @@ getMyToast(String message) => Fluttertoast.showToast(
 List<OrderModel> splitOrders(List<OrderModel> orders, OrderStatus status) {
   final List<OrderModel> result =
       orders.where((element) => element.status == status).toList();
+  return result;
+}
+
+List<UserModel> splitUsers(List<UserModel> users, bool isBlocked) {
+  final List<UserModel> result =
+      users.where((element) => element.isBlocked == isBlocked).toList();
   return result;
 }
