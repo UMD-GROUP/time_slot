@@ -25,7 +25,6 @@ class PromoCodeItem extends StatelessWidget {
         },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 5.h),
-          height: height(context) * 0.11,
           width: width(context),
           decoration: BoxDecoration(
             color: AdaptiveTheme.of(context).theme.disabledColor,

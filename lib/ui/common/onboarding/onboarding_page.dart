@@ -1,4 +1,3 @@
-import 'package:time_slot/service/storage_service/storage_service.dart';
 import 'package:time_slot/ui/common/onboarding/widgets/onboarding_text.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/appearance_button.dart';
 
@@ -24,7 +23,6 @@ class OnBoardingPage extends StatelessWidget {
                   isOnBoard: true, onTap: changeLanguage, icon: Icons.language),
               SizedBox(height: height(context) * 0.02),
               Container(
-                height: height(context) * 0.65,
                 width: width(context),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.h),
