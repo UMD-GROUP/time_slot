@@ -6,8 +6,13 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrderInfoBottomSheet extends StatefulWidget {
-  OrderInfoBottomSheet({super.key, this.isAdmin = true, required this.order});
+  OrderInfoBottomSheet(
+      {super.key,
+      this.isAdmin = true,
+      this.isOwner = false,
+      required this.order});
   bool isAdmin;
+  bool isOwner;
 
   OrderModel order;
 
@@ -139,6 +144,8 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                                       .maxLimit
                                       .toInt(),
                                   lastStatus));
+                              Navigator.pop(context);
+
                               setState(() {});
                             });
                           }),
@@ -213,6 +220,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                     text2: widget.order.orderId.toString(),
                   ),
                   RowText(
+                    isVisible: widget.isOwner,
                     icon: AppIcons.basket,
                     text1: 'product_count',
                     text2:
@@ -262,7 +270,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                 widget.order.ownerId ==
                     context.read<UserAccountBloc>().state.user!.uid,
             icon: AppIcons.shop,
-            text1: '${'market_name'.tr}:',
+            text1: 'market_name'.tr,
             text2: widget.order.marketName.length > 10
                 ? widget.order.marketName.substring(0, 10)
                 : widget.order.marketName,
@@ -279,6 +287,14 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               icon: AppIcons.check,
               text1: '${'finished'.tr}:',
               text2: dateTimeToFormat(widget.order.finishedAt),
+            ),
+          ),
+          Visibility(
+            visible: widget.isAdmin,
+            child: RowText(
+              icon: AppIcons.users,
+              text1: '${'email'.tr}:',
+              text2: widget.order.userEmail,
             ),
           ),
           Row(children: [

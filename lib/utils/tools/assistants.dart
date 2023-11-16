@@ -1514,3 +1514,9 @@ getMyToast(String message) => Fluttertoast.showToast(
       textColor: Colors.white,
       fontSize: 16,
     );
+
+List<OrderModel> splitOrders(List<OrderModel> orders, OrderStatus status) {
+  final List<OrderModel> result =
+      orders.where((element) => element.status == status).toList();
+  return result;
+}

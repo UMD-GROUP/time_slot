@@ -15,7 +15,7 @@ class TabBarWidget extends StatefulWidget {
 }
 
 class _TabBarWidgetState extends State<TabBarWidget> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   void _onTabTapped(int index) {
     setState(() {

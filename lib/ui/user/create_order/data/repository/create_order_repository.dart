@@ -12,6 +12,7 @@ class CreateOrderRepository {
         ..ownerId = user.uid
         ..orderId = generateRandomID(true)
         ..ownerFcm = user.fcmToken
+        ..userEmail = user.email
         ..language = user.language;
       if (order.totalSum != 0) {
         order.userPhoto = await uploadImageToFirebaseStorage(order.userPhoto);

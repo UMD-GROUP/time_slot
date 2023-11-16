@@ -12,4 +12,5 @@ class AppIcons {
   static const calendar = '$iconPath/calendar.svg';
   static const shop = '$iconPath/shop.svg';
   static const spLogo = '$iconPath/sp_logo.svg';
+  static const waiting = '$iconPath/waiting.svg';
 }
