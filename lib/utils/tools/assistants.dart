@@ -220,7 +220,9 @@ void showCreatePromoCodeDialog(BuildContext context) {
   showCupertinoModalPopup<void>(
     context: context,
     builder: (context) => CreatePromoCodeDialog(
-        amount: TextEditingController(), discount: TextEditingController()),
+        amount: TextEditingController(),
+        discount: TextEditingController(),
+        restriction: TextEditingController()),
   );
 }
 

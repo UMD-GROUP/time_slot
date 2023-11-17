@@ -7,6 +7,7 @@ class UserModel {
       this.referrals = const [],
       this.freeLimits = 0,
       this.createdAt,
+      this.isAdmin = false,
       this.sumOfOrders = 0,
       this.isBlocked = false,
       this.language = 'uz',
@@ -19,6 +20,7 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         fcmToken: json['fcmToken'] ?? '',
+        isAdmin: json['isAdmin'] ?? false,
         referallId: json['referallId'] ?? '',
         isConfirmed: json['isConfirmed'] ?? false,
         language: json['language'] ?? 'uz',
@@ -52,6 +54,7 @@ class UserModel {
   String language;
   bool isConfirmed;
   String marketNumber;
+  bool isAdmin;
 
   Map<String, Object> toJson() => {
         'markets': markets,
@@ -60,6 +63,7 @@ class UserModel {
         'password': password,
         'fcmToken': fcmToken,
         'sumOfOrders': sumOfOrders,
+        'isAdmin': isAdmin,
         'token': token,
         'uid': uid,
         'isConfirmed': isConfirmed,

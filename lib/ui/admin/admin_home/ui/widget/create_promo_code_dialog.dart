@@ -1,13 +1,23 @@
 import 'package:flutter/cupertino.dart';
-import 'package:time_slot/ui/admin/admin_home/bloc/promo_codes_bloc/promo_code_bloc.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
-class CreatePromoCodeDialog extends StatelessWidget {
+class CreatePromoCodeDialog extends StatefulWidget {
   CreatePromoCodeDialog(
-      {required this.amount, required this.discount, super.key});
+      {required this.amount,
+      required this.discount,
+      required this.restriction,
+      super.key});
 
   TextEditingController discount;
+  TextEditingController restriction;
   TextEditingController amount;
+
+  @override
+  State<CreatePromoCodeDialog> createState() => _CreatePromoCodeDialogState();
+}
+
+class _CreatePromoCodeDialogState extends State<CreatePromoCodeDialog> {
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
@@ -22,7 +32,7 @@ class CreatePromoCodeDialog extends StatelessWidget {
                   width: width(context) * 0.23,
                   child: CupertinoTextField(
                     inputFormatters: [ThreeDigitInputFormatter()],
-                    controller: discount,
+                    controller: widget.discount,
                     maxLength: 3,
                     keyboardType: TextInputType.number,
                     placeholder: 'discount'.tr,
@@ -31,13 +41,44 @@ class CreatePromoCodeDialog extends StatelessWidget {
                 SizedBox(
                   width: width(context) * 0.23,
                   child: CupertinoTextField(
-                    controller: amount,
+                    controller: widget.amount,
                     inputFormatters: [SevenDigitInputFormatter()],
                     maxLength: 5,
                     keyboardType: TextInputType.number,
                     placeholder: 'min_count'.tr,
                   ),
                 ),
+              ],
+            ),
+            SizedBox(height: height(context) * 0.01),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: width(context) * 0.23,
+                  child: CupertinoTextField(
+                    inputFormatters: [ThreeDigitInputFormatter()],
+                    controller: widget.restriction,
+                    maxLength: 3,
+                    keyboardType: TextInputType.number,
+                    placeholder: 'restriction'.tr,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${'active'.tr}:',
+                        style: AppTextStyles.labelLarge(context,
+                            color: Colors.black)),
+                    CupertinoCheckbox(
+                      value: isVisible,
+                      onChanged: (value) {
+                        isVisible = value!;
+                        setState(() {});
+                      },
+                    )
+                  ],
+                )
               ],
             )
           ],
@@ -52,22 +93,27 @@ class CreatePromoCodeDialog extends StatelessWidget {
           ),
           CupertinoDialogAction(
             onPressed: () {
-              if (discount.text.isEmpty || amount.text.isEmpty) {
-                print(discount.text);
-                print(amount.text);
+              if (widget.discount.text.isEmpty || widget.amount.text.isEmpty) {
+                print(widget.discount.text);
+                print(widget.amount.text);
               } else {
                 Navigator.pop(context);
-                context.read<PromoCodeBloc>().add(CreateNewCodeEvent(
-                    PromoCodeModel(
-                        promoCode: generateUniquePromoCode(context
-                            .read<PromoCodeBloc>()
-                            .state
-                            .promoCodes
-                            .cast()),
-                        docId: '',
-                        discount: int.parse(discount.text.trim()),
-                        minAmount: int.parse(amount.text.trim()),
-                        usedOrders: [])));
+                context.read<PromoCodeBloc>().add(
+                    CreateNewCodeEvent(
+                        PromoCodeModel(
+                            maxUsingLimit: widget.restriction.text.isEmpty
+                                ? -8
+                                : int.parse(widget.restriction.text),
+                            isVisible: isVisible,
+                            promoCode: generateUniquePromoCode(context
+                                .read<PromoCodeBloc>()
+                                .state
+                                .promoCodes
+                                .cast()),
+                            docId: '',
+                            discount: int.parse(widget.discount.text.trim()),
+                            minAmount: int.parse(widget.amount.text.trim()),
+                            usedOrders: [])));
               }
             },
             child: Text('confirm'.tr),

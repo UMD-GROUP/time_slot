@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key, required this.onTap, required this.controllers});
@@ -87,6 +88,25 @@ class LoginPage extends StatelessWidget {
                                         controller: controllers[1])
                                   ],
                                 ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('forgot_your_password'.tr),
+                                  OnTap(
+                                    onTap: () {
+                                      launchUrlString(
+                                          'https://t.me/Timeslot_Admin');
+                                    },
+                                    child: Text(
+                                      'reset_your_password'.tr,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: Colors.deepPurple),
+                                    ),
+                                  )
+                                ],
                               ),
                               Padding(
                                 padding:

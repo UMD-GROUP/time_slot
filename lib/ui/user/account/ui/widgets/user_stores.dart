@@ -16,7 +16,7 @@ class _UserStoresState extends State<UserStores> {
       BlocConsumer<UserAccountBloc, UserAccountState>(
         listener: (context, state) {
           if (state.addStoreStatus == ResponseStatus.inProgress) {
-            showLoadingDialog(context);
+            // showLoadingDialog(context);
           }
           if (state.addStoreStatus == ResponseStatus.inFail) {
             Navigator.pop(context);
@@ -27,7 +27,8 @@ class _UserStoresState extends State<UserStores> {
               ),
             ).show(context);
           } else if (state.addStoreStatus == ResponseStatus.inSuccess) {
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            // Navigator.pop(context);
             AnimatedSnackBar(
               snackBarStrategy: RemoveSnackBarStrategy(),
               builder: (context) => AppSnackBar(

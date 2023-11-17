@@ -25,7 +25,13 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
-          title: Text('Seller PRO'.tr),
+          title: OnTap(
+              onTap: () {
+                if (context.read<UserAccountBloc>().state.user.isAdmin) {
+                  showAdminPasswordDialog(context, TextEditingController());
+                }
+              },
+              child: Text('Seller PRO'.tr)),
           leading: DescribedFeatureOverlay(
             featureId: 'add_store3', // Unique id that identifies this overlay.
             tapTarget: const Icon(Icons

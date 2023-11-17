@@ -10,6 +10,13 @@ class AllMarketsPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<StoresBloc>().add(GetAllStoresEvent());
+                },
+                icon: const Icon(Icons.refresh))
+          ],
           elevation: 0,
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           title: Text('markets'.tr, style: AppTextStyles.labelLarge(context)),

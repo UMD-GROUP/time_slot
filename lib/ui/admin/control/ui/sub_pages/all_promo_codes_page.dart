@@ -1,4 +1,6 @@
-import 'package:time_slot/ui/admin/admin_home/ui/widget/promo_code_item.dart';
+// ignore_for_file: cascade_invocations
+
+import 'package:time_slot/ui/admin/control/ui/sub_pages/widgets/promo_codes_view.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AllPromoCodesPage extends StatelessWidget {
@@ -7,6 +9,13 @@ class AllPromoCodesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
+                },
+                icon: const Icon(Icons.refresh))
+          ],
           elevation: 0,
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           title:
@@ -19,11 +28,13 @@ class AllPromoCodesPage extends StatelessWidget {
               context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
             }
             if (state.deletingStatus == ResponseStatus.inProgress ||
-                state.creatingStatus == ResponseStatus.inProgress) {
+                state.creatingStatus == ResponseStatus.inProgress ||
+                state.updatingStatus == ResponseStatus.inProgress) {
               showLoadingDialog(context);
             }
             if (state.deletingStatus == ResponseStatus.inSuccess ||
-                state.creatingStatus == ResponseStatus.inSuccess) {
+                state.creatingStatus == ResponseStatus.inSuccess ||
+                state.updatingStatus == ResponseStatus.inSuccess) {
               context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
               Navigator.pop(context);
               AnimatedSnackBar(
@@ -36,7 +47,8 @@ class AllPromoCodesPage extends StatelessWidget {
               ).show(context);
             }
             if (state.deletingStatus == ResponseStatus.inFail ||
-                state.creatingStatus == ResponseStatus.inFail) {
+                state.creatingStatus == ResponseStatus.inFail ||
+                state.updatingStatus == ResponseStatus.inFail) {
               Navigator.pop(context);
               AnimatedSnackBar(
                   duration: const Duration(seconds: 4),
@@ -45,20 +57,56 @@ class AllPromoCodesPage extends StatelessWidget {
                       AppErrorSnackBar(text: state.message)).show(context);
             }
           },
-          builder: (context, state) => ListView(
-            shrinkWrap: true,
-            children: [
-              state.promoCodes.isEmpty
-                  ? Lottie.asset(AppLotties.empty)
-                  : const SizedBox(),
-              ...List.generate(
-                  state.promoCodes.length,
-                  (index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.h),
-                        child: PromoCodeItem(
-                            promoCode: state.promoCodes[index], isAdmin: true),
-                      ))
-            ],
+          builder: (context, state) => DefaultTabController(
+            length: 3,
+            child: Column(
+              children: [
+                TabBar(
+                  labelColor: AdaptiveTheme.of(context).theme.hintColor,
+                  indicatorColor: Colors.deepPurple,
+                  tabs: [
+                    Tab(text: 'active'.tr),
+                    Tab(text: 'inactive'.tr),
+                    Tab(text: 'restricted'.tr),
+                  ],
+                ),
+                SizedBox(height: height(context) * 0.02),
+                BlocBuilder<PromoCodeBloc, PromoCodeState>(
+                  builder: (context, state) {
+                    if (state.gettingStatus == ResponseStatus.pure) {
+                      context.read<AllUserBloc>().add(GetAllUserEvent());
+                    } else if (state.gettingStatus ==
+                        ResponseStatus.inSuccess) {
+                      final List<PromoCodeModel> curData =
+                          state.promoCodes.cast();
+                      curData.sort((a, b) =>
+                          b.usedOrders.length!.compareTo(a.usedOrders.length));
+                      return Expanded(
+                        child: TabBarView(children: [
+                          PromoCodesView(curData
+                              .where((element) => element.isVisible)
+                              .toList()),
+                          PromoCodesView(curData
+                              .where((element) => !element.isVisible)
+                              .toList()),
+                          PromoCodesView(curData
+                              .where((element) => element.maxUsingLimit > 0)
+                              .toList()),
+
+                          //
+                          // PromoCodesView(curData
+                          //     .where((element) => element.)
+                          //     .toList()),
+                        ]),
+                      );
+                    }
+                    return const Center(
+                      child: Text('error'),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         floatingActionButton: FloatingActionButton(

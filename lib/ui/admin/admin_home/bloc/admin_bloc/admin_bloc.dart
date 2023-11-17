@@ -84,7 +84,6 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   }
 
   Future<void> updateUser(UpdateUserBEvent event, Emitter emit) async {
-    print(event.user.isBlocked);
     emit(state.copyWith(userUpdatingStatus: ResponseStatus.inProgress));
     final MyResponse myResponse =
         await getIt<AdminRepository>().updateUser(event.user);

@@ -38,29 +38,37 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   AdminTabBarItem(
+                      count: context.read<OrderBloc>().state.orders?.length,
                       text: 'orders',
                       context: context,
                       onTap: () {
                         _onTabTapped(0);
                       }),
                   AdminTabBarItem(
+                      count: context.read<AllUserBloc>().state.users?.length,
                       text: 'users',
                       context: context,
                       onTap: () {
                         _onTabTapped(1);
                       }),
-                  AdminTabBarItem(
-                      text: 'markets'.tr,
-                      context: context,
-                      onTap: () {
-                        _onTabTapped(2);
-                      }),
-                  AdminTabBarItem(
-                      text: 'promo_codes'.tr,
-                      context: context,
-                      onTap: () {
-                        _onTabTapped(3);
-                      }),
+                  BlocBuilder<StoresBloc, StoresState>(
+                    builder: (context, state) => AdminTabBarItem(
+                        count: state.stores.length,
+                        text: 'markets'.tr,
+                        context: context,
+                        onTap: () {
+                          _onTabTapped(2);
+                        }),
+                  ),
+                  BlocBuilder<PromoCodeBloc, PromoCodeState>(
+                    builder: (context, state) => AdminTabBarItem(
+                        count: state.promoCodes.length,
+                        text: 'promo_codes'.tr,
+                        context: context,
+                        onTap: () {
+                          _onTabTapped(3);
+                        }),
+                  ),
                 ],
               ),
             ),

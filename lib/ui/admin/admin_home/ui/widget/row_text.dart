@@ -32,7 +32,7 @@ class RowText extends StatelessWidget {
                 : Icon(
                     iconData,
                     color: AdaptiveTheme.of(context).theme.hintColor,
-                    size: 16.h,
+                    size: 20.h,
                   ),
             SizedBox(width: width(context) * 0.01),
             Text(text1.tr,

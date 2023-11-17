@@ -1,4 +1,7 @@
-import 'package:time_slot/ui/user/account/data/models/store_model.dart';
+// ignore_for_file: avoid_catches_without_on_clauses
+
+import 'dart:async';
+
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 part 'user_account_event.dart';
@@ -12,21 +15,33 @@ class UserAccountBloc extends Bloc<UserAccountEvent, UserAccountState> {
     on<GetUserDataEvent>(getUserData);
     on<GetUserStoresEvent>(getUserStores);
   }
-
   Future<void> getUserData(GetUserDataEvent event, Emitter emit) async {
-    print(event.uid);
     emit(state.copyWith(getUserStatus: ResponseStatus.inProgress));
-    final MyResponse myResponse =
-        await getIt<UserRepository>().getUserData(event.uid);
-    if (myResponse.message.isNull) {
-      emit(state.copyWith(
-          user: myResponse.data, getUserStatus: ResponseStatus.inSuccess));
-      add(GetUserStoresEvent(state.user.uid));
-    } else {
-      emit(state.copyWith(
-          getUserStatus: ResponseStatus.inFail, message: myResponse.message));
+    try {
+      await for (final user in getIt<UserRepository>().getUserData(event.uid)) {
+        emit(state.copyWith(
+            user: user, getUserStatus: ResponseStatus.inSuccess));
+        add(GetUserStoresEvent(state.user.uid));
+      }
+    } catch (e) {
+      emit(state.copyWith(getUserStatus: ResponseStatus.inFail));
     }
   }
+
+  // Future<void> getUserData(GetUserDataEvent event, Emitter emit) async {
+  //   print(event.uid);
+  //   emit(state.copyWith(getUserStatus: ResponseStatus.inProgress));
+  //   final MyResponse myResponse =
+  //       await getIt<UserRepository>().getUserData(event.uid);
+  //   if (myResponse.message.isNull) {
+  //     emit(state.copyWith(
+  //         user: myResponse.data, getUserStatus: ResponseStatus.inSuccess));
+  //
+  //   } else {
+  //     emit(state.copyWith(
+  //         getUserStatus: ResponseStatus.inFail, message: myResponse.message));
+  //   }
+  // }
 
   Future<void> addMarket(AddMarketEvent event, Emitter emit) async {
     emit(state.copyWith(addStoreStatus: ResponseStatus.inProgress));
