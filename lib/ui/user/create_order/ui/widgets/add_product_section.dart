@@ -1,4 +1,5 @@
 // ignore_for_file: type_annotate_public_apis
+import 'package:time_slot/ui/user/create_order/ui/widgets/discount_section.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AddProductSection extends StatefulWidget {
@@ -16,7 +17,14 @@ class _AddProductSectionState extends State<AddProductSection> {
   void changeStatus() {
     final int countOfProduct =
         int.parse(count.text.trim().toString().isEmpty ? '0' : count.text);
-    canAdd = deliveryNote.text.length == 7 &&
+    canAdd = deliveryNote.text.length +
+                context
+                    .read<DataFromAdminBloc>()
+                    .state
+                    .data!
+                    .deliveryNote
+                    .length ==
+            13 &&
         countOfProduct >= 10 &&
         countOfProduct <=
             context.read<DataFromAdminBloc>().state.data!.maxLimit;
@@ -41,10 +49,12 @@ class _AddProductSectionState extends State<AddProductSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '${'max_limit'.tr}:   ${context.read<DataFromAdminBloc>().state.data!.maxLimit} ${'piece'.tr}',
-                  style: AppTextStyles.labelLarge(context, color: Colors.red),
-                ),
+                // Text(
+                //   '${'max_limit'.tr}:   ${context.read<DataFromAdminBloc>().state.data!.maxLimit} ${'piece'.tr}',
+                //   style: AppTextStyles.labelLarge(context, color: Colors.red),
+                // ),
+                const DiscountSection(),
+
                 SizedBox(height: height(context) * 0.01),
                 Visibility(
                   visible: state.order.products.length != 10,

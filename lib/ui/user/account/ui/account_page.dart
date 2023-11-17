@@ -18,12 +18,6 @@ class _AccountPageState extends State<AccountPage> {
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.admin_panel_settings_outlined),
-            onPressed: () {
-              showAdminPasswordDialog(context, TextEditingController());
-            },
-          ),
           backgroundColor: Colors.deepPurple,
           title: Text('account'.tr),
           actions: [
@@ -56,6 +50,14 @@ class _AccountPageState extends State<AccountPage> {
                             },
                             icon: Icons.token,
                             subtitle: state.user!.token,
+                          ),
+                          InfoActionButton(
+                            title: 'Email:'.tr,
+                            onTap: () {
+                              copyToClipboard(context, state.user!.email);
+                            },
+                            icon: Icons.email,
+                            subtitle: state.user!.email,
                           ),
                           SizedBox(height: height(context) * 0.02),
                           const UserStores(),
@@ -110,7 +112,10 @@ class _AccountPageState extends State<AccountPage> {
                           }, icon: Icons.share),
                           AccountActionButton('logging_out'.tr, onTap: () {
                             showLogOutDialog(context);
-                          }, icon: Icons.logout)
+                          }, icon: Icons.logout),
+                          AccountActionButton('delete_account'.tr, onTap: () {
+                            showDeleteAccountDialog(context);
+                          }, icon: Icons.delete)
                         ],
                       );
                     }

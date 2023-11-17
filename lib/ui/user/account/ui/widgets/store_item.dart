@@ -1,5 +1,3 @@
-import 'package:time_slot/ui/admin/admin_home/bloc/stores_bloc/stores_bloc.dart';
-
 import '../../../../../utils/tools/file_importers.dart';
 
 class StoreItem extends StatelessWidget {
@@ -36,7 +34,7 @@ class StoreItem extends StatelessWidget {
                     : store.name,
                 textAlign: TextAlign.start,
                 style: AppTextStyles.labelLarge(context,
-                    fontSize: 18, fontWeight: FontWeight.w600),
+                    fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             if (isAdmin)

@@ -32,68 +32,93 @@ class UsersItemWidget extends StatelessWidget {
             border: Border.all(color: Colors.deepPurple),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                width: 4.w,
+              Row(
+                children: [
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  Container(
+                      height: height(context) * 0.1,
+                      width: width(context) * 0.25,
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                          child: isPartner
+                              ? SvgPicture.asset(
+                                  AppIcons.users,
+                                  color: AdaptiveTheme.of(context)
+                                      .theme
+                                      .canvasColor,
+                                )
+                              : const Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ))),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  SizedBox(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RowText(
+                          icon: AppIcons.check,
+                          text1: 'Email:',
+                          text2: userModel.email.toString().length > 20
+                              ? userModel.email.substring(0, 20)
+                              : userModel.email,
+                        ),
+                        RowText(
+                          icon: AppIcons.dollar,
+                          text1: 'benefit',
+                          text2: '${userModel.sumOfOrders}  UZS',
+                        ),
+                        // RowText(
+                        //   icon: AppIcons.check,
+                        //   text1: 'orders'.tr,
+                        //   text2: '${userModel.orders.length} ${'piece'.tr}',
+                        // ),
+                        RowText(
+                          icon: AppIcons.check,
+                          text1: 'referrals'.tr,
+                          text2: '${userModel.referrals.length} ${'piece'.tr}',
+                        ),
+                        RowText(
+                          textColor: userModel.isBlocked
+                              ? Colors.red
+                              : Colors.lightGreenAccent,
+                          icon: AppIcons.check,
+                          text1: 'status'.tr,
+                          text2:
+                              userModel.isBlocked ? 'blocked'.tr : 'active'.tr,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                  height: height(context) * 0.1,
-                  width: width(context) * 0.25,
-                  decoration: BoxDecoration(
-                      color: Colors.deepPurple,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: isPartner
-                          ? SvgPicture.asset(
-                              AppIcons.users,
-                              color:
-                                  AdaptiveTheme.of(context).theme.canvasColor,
-                            )
-                          : const Icon(
-                              Icons.person,
-                              color: Colors.white,
-                            ))),
-              SizedBox(
-                width: 10.w,
-              ),
-              SizedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RowText(
-                      icon: AppIcons.check,
-                      text1: 'Email:',
-                      text2: userModel.email.toString().length > 20
-                          ? userModel.email.substring(0, 20)
-                          : userModel.email,
-                    ),
-                    RowText(
-                      icon: AppIcons.dollar,
-                      text1: 'benefit',
-                      text2: '${userModel.sumOfOrders}  UZS',
-                    ),
-                    // RowText(
-                    //   icon: AppIcons.check,
-                    //   text1: 'orders'.tr,
-                    //   text2: '${userModel.orders.length} ${'piece'.tr}',
-                    // ),
-                    RowText(
-                      icon: AppIcons.check,
-                      text1: 'referrals'.tr,
-                      text2: '${userModel.referrals.length} ${'piece'.tr}',
-                    ),
-                    RowText(
-                      textColor: userModel.isBlocked
-                          ? Colors.red
-                          : Colors.lightGreenAccent,
-                      icon: AppIcons.check,
-                      text1: 'status'.tr,
-                      text2: userModel.isBlocked ? 'blocked'.tr : 'active'.tr,
-                    ),
-                  ],
-                ),
-              ),
+              Row(
+                children: [
+                  OnTap(
+                      onTap: () {
+                        showConfirmCancelDialog(context, () {
+                          userModel.isAdmin = !userModel.isAdmin;
+                          context
+                              .read<AdminBloc>()
+                              .add(UpdateUserBEvent(userModel));
+                        });
+                      },
+                      child: Icon(Icons.admin_panel_settings_outlined,
+                          color: userModel.isAdmin
+                              ? Colors.lightGreenAccent
+                              : Colors.red)),
+                  SizedBox(width: 24.w)
+                ],
+              )
             ],
           ),
         ),

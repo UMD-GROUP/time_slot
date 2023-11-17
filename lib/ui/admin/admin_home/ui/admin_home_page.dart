@@ -9,6 +9,15 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePageState extends State<AdminHomePage> {
   @override
+  void initState() {
+    context.read<StoresBloc>().add(GetAllStoresEvent());
+    context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
+    context.read<AllUserBloc>().add(GetAllUserEvent());
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) => BlocListener<AdminBloc, AdminState>(
         listener: (context, state) {
           if (state.updateOrderState == ResponseStatus.inSuccess) {

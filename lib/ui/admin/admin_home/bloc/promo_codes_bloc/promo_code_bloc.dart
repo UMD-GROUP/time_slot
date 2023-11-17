@@ -8,6 +8,7 @@ class PromoCodeBloc extends Bloc<PromoCodeEvent, PromoCodeState> {
     on<GetPromoCodesEvent>(getPromoCodes);
     on<CreateNewCodeEvent>(createPromoCode);
     on<DeleteCodeEvent>(deletePromoCode);
+    on<UpdatePromoCodeEvent>(updatePromoCode);
   }
 
   Future<void> getPromoCodes(GetPromoCodesEvent event, Emitter emit) async {
@@ -39,6 +40,20 @@ class PromoCodeBloc extends Bloc<PromoCodeEvent, PromoCodeState> {
           creatingStatus: ResponseStatus.inFail, message: myResponse.message));
     }
     emit(state.copyWith(creatingStatus: ResponseStatus.pure));
+  }
+
+  Future<void> updatePromoCode(UpdatePromoCodeEvent event, Emitter emit) async {
+    emit(state.copyWith(updatingStatus: ResponseStatus.inProgress));
+    final MyResponse myResponse =
+        await getIt<PromoCodesRepository>().updatePromoCode(event.promoCode);
+    if (myResponse.statusCode == 200) {
+      emit(state.copyWith(updatingStatus: ResponseStatus.inSuccess));
+      add(GetPromoCodesEvent());
+    } else {
+      emit(state.copyWith(
+          updatingStatus: ResponseStatus.inFail, message: myResponse.message));
+    }
+    emit(state.copyWith(updatingStatus: ResponseStatus.pure));
   }
 
   Future<void> deletePromoCode(DeleteCodeEvent event, Emitter emit) async {

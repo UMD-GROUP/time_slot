@@ -8,6 +8,7 @@ class OrderModel {
       this.orderId = 0,
       this.userEmail = '',
       this.promoCode,
+      this.discountUsed = false,
       required this.products,
       this.sum = 0,
       this.marketName = '',
@@ -73,6 +74,7 @@ class OrderModel {
   String language;
   int freeLimit;
   String userEmail;
+  bool discountUsed;
 
   Map<String, dynamic> toJson() => {
         'referallId': referralId,

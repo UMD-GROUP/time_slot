@@ -14,3 +14,8 @@ class DeleteCodeEvent extends PromoCodeEvent {
   DeleteCodeEvent(this.docId);
   String docId;
 }
+
+class UpdatePromoCodeEvent extends PromoCodeEvent {
+  UpdatePromoCodeEvent(this.promoCode);
+  PromoCodeModel promoCode;
+}

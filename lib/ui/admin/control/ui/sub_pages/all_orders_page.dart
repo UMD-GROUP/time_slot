@@ -9,6 +9,13 @@ class AllOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<OrderBloc>().add(GetOrderEvent());
+                },
+                icon: const Icon(Icons.refresh))
+          ],
           elevation: 0,
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           title: Text('orders'.tr, style: AppTextStyles.labelLarge(context)),

@@ -252,6 +252,18 @@ class AppTranslations extends Translations {
           'good_users': 'Foydali mijozlar',
           'unconfirmed': 'Tasdiqlanmagan',
           'confirmed': 'Tasdiqlangan',
+          'admins': 'Adminlar',
+          'inactive': 'Nofaol',
+          'restricted': 'Cheklangan',
+          'forgot_your_password': 'Parolni unutdingizmi? ',
+          'reset_your_password': 'Adminga murojaat qiling.',
+          'owner': 'Tegishli:',
+          'chance': 'Imkoniyat: ',
+          'promo_code_expired':
+              "Promo kod maksimal miqdorda foydalanib bo'lingan",
+          'delete_account': "Shaxsiy hisobni o'chirish",
+          'are_you_sure_you_want_to_delete_your_account':
+              "Rostdan ham shaxsiy hisobingizni o'chirishni istaysizmi?"
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -494,6 +506,18 @@ class AppTranslations extends Translations {
           'good_users': 'Полезные клиенты',
           'unconfirmed': 'Не подтверждено',
           'confirmed': 'Подтвержденный',
+          'admins': 'Админы',
+          'inactive': 'Неактивный',
+          'restricted': 'Ограниченное',
+          'forgot_your_password': 'Забыли пароль? ',
+          'reset_your_password': 'Свяжитесь с администратором. ',
+          'owner': 'Соответствующий:',
+          'chance': 'Возможность: ',
+          'promo_code_expired':
+              'Промокод был использован максимальное количество раз.',
+          'delete_account': 'Удалить личный аккаунт',
+          'are_you_sure_you_want_to_delete_your_account':
+              'Вы уверены, что хотите удалить свой личный аккаунт?'
         }
       };
 }

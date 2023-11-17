@@ -189,6 +189,13 @@ void showLogOutDialog(BuildContext context) {
   );
 }
 
+void showDeleteAccountDialog(BuildContext context) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (context) => const DeleteAccountDialog(),
+  );
+}
+
 void showUserPopUp(BuildContext context, UserModel userModel) {
   showCupertinoModalPopup(
     context: context,
@@ -220,7 +227,9 @@ void showCreatePromoCodeDialog(BuildContext context) {
   showCupertinoModalPopup<void>(
     context: context,
     builder: (context) => CreatePromoCodeDialog(
-        amount: TextEditingController(), discount: TextEditingController()),
+        amount: TextEditingController(),
+        discount: TextEditingController(),
+        restriction: TextEditingController()),
   );
 }
 
@@ -1384,6 +1393,25 @@ class _ReserveDialogState extends State<ReserveDialog> {
       );
 }
 
+Future<void> sendNotificationsToAdmins(bool isOrder) async {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final data = await firestore
+      .collection('users')
+      .where('isAdmin', isEqualTo: true)
+      .get();
+  final List<UserModel> result =
+      data.docs.map((e) => UserModel.fromJson(e.data())).toList();
+
+  for (final UserModel user in result) {
+    if (user.fcmToken.isNotEmpty) {
+      final List notificationText = newNotificationText(
+          isOrder: isOrder, isUzbek: user.language.toLowerCase() == 'uz');
+      await sendPushNotification(
+          user.fcmToken, notificationText[0], notificationText[1]);
+    }
+  }
+}
+
 Future<bool> sendPushNotification(
     String deviceToken, String title, String message,
     {bool isToAll = false}) async {
@@ -1533,4 +1561,46 @@ List<StoreModel> splitStores(List<StoreModel> stores, bool isConfirmed) {
           (element) => isConfirmed ? element.id.isNotEmpty : element.id.isEmpty)
       .toList();
   return result;
+}
+
+List<String> newNotificationText({bool isUzbek = true, bool isOrder = false}) {
+  if (isOrder) {
+    if (isUzbek) {
+      return [
+        'Diqqat! Yangi buyurtma rasmiylashtirildi!',
+        'Mijozlarni kuttirish yaramaydi! Tezda ishni bitiring.'
+      ];
+    } else {
+      return [
+        'Внимание! Оформлен новый заказ!',
+        'Нехорошо заставлять клиентов ждать! Завершите работу быстро.'
+      ];
+    }
+  } else {
+    if (isUzbek) {
+      return [
+        "Diqqat! Yangi do'kon qo'shildi!",
+        'Mijozlarni kuttirish yaramaydi! Tezda ishni bitiring.'
+      ];
+    } else {
+      return [
+        'Внимание! Добавлен новый магазин!',
+        'Нехорошо заставлять клиентов ждать! Завершите работу быстро.'
+      ];
+    }
+  }
+}
+
+List<String> registeredWithReferral({bool isUzbek = true}) {
+  if (isUzbek) {
+    return [
+      'Siz yangi mijoz taklif qildingiz!',
+      'Agar mijoz admin tomonidan tasdiqlansa, sizga 100ta bepul limit taqdim etiladi!'
+    ];
+  } else {
+    return [
+      'Вы пригласили нового клиента!',
+      'Если клиент одобрен администратором, вам будет предоставлено 100 бесплатных лимитов!'
+    ];
+  }
 }

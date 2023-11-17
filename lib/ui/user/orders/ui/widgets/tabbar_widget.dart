@@ -24,7 +24,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => ListView(
+        shrinkWrap: true,
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -101,15 +102,14 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                 height: height(context) * 0.35,
                                 child: Lottie.asset(AppLotties.empty)),
                           )
-                        : Expanded(
-                            child: ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: curData.length,
-                                itemBuilder: (context, index) => OrderItem(
-                                      order: curData[index],
-                                      isAdmin: false,
-                                    )),
-                          );
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: curData.length,
+                            itemBuilder: (context, index) => OrderItem(
+                                  order: curData[index],
+                                  isAdmin: false,
+                                ));
               } else {
                 return const Center(
                   child: Text('error'),

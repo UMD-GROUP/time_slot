@@ -137,36 +137,40 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                               Step(
                                   title: BlocBuilder<CreateOrderBloc,
                                       CreateOrderState>(
-                                    builder: (context, state) => Row(
-                                      children: [
-                                        Text('${'payment'.tr}    ',
-                                            style: AppTextStyles.labelLarge(
-                                                context)),
-                                        Text('${state.order.sum}  ',
-                                            style: AppTextStyles.labelLarge(
-                                                isLineThrough: !state
-                                                    .order.promoCode.isNull,
-                                                color:
-                                                    state.order.promoCode.isNull
-                                                        ? null
-                                                        : Colors.red,
-                                                context)),
-                                        if (!state.order.promoCode.isNull)
-                                          Text(
-                                            '${state.order.totalSum}',
-                                            style: AppTextStyles.labelLarge(
-                                                context,
-                                                color: Colors.lightGreenAccent),
-                                          ),
-                                        Text('  UZS',
-                                            style: AppTextStyles.labelLarge(
-                                                context,
-                                                color: state
-                                                        .order.promoCode.isNull
-                                                    ? null
-                                                    : Colors.lightGreenAccent)),
-                                      ],
-                                    ),
+                                    builder: (context, state) {
+                                      final bool isDiscountUsed =
+                                          !state.order.promoCode.isNull ||
+                                              state.order.discountUsed;
+
+                                      return Row(
+                                        children: [
+                                          Text('${'payment'.tr}    ',
+                                              style: AppTextStyles.labelLarge(
+                                                  context)),
+                                          Text('${state.order.sum}  ',
+                                              style: AppTextStyles.labelLarge(
+                                                  isLineThrough: isDiscountUsed,
+                                                  color: isDiscountUsed
+                                                      ? Colors.red
+                                                      : null,
+                                                  context)),
+                                          if (isDiscountUsed)
+                                            Text(
+                                              '${state.order.totalSum}',
+                                              style: AppTextStyles.labelLarge(
+                                                  context,
+                                                  color:
+                                                      Colors.lightGreenAccent),
+                                            ),
+                                          Text('  UZS',
+                                              style: AppTextStyles.labelLarge(
+                                                  context,
+                                                  color: isDiscountUsed
+                                                      ? Colors.lightGreenAccent
+                                                      : null)),
+                                        ],
+                                      );
+                                    },
                                   ),
                                   content: const PaymentSection())
                             ]),

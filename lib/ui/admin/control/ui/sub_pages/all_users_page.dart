@@ -9,6 +9,13 @@ class AllUsersPage extends StatelessWidget {
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<AllUserBloc>().add(GetAllUserEvent());
+                },
+                icon: const Icon(Icons.refresh))
+          ],
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           title: Text('users'.tr, style: AppTextStyles.labelLarge(context)),
         ),
@@ -35,52 +42,52 @@ class AllUsersPage extends StatelessWidget {
               showLoadingDialog(context);
             }
           },
-          child: BlocBuilder<AllUserBloc, AllUserState>(
-            builder: (context, state) {
-              if (state.status == ResponseStatus.pure) {
-                context.read<AllUserBloc>().add(GetAllUserEvent());
-              } else if (state.status == ResponseStatus.inSuccess) {
-                final List<UserModel> curData = state.users!.cast();
-                final List<UserModel> data = curData
-                    .where((element) => element.referrals.isNotEmpty)
-                    .toList();
-                curData
-                    .sort((a, b) => b.sumOfOrders!.compareTo(a.sumOfOrders!));
-                return SizedBox(
-                  height: height(context),
-                  width: width(context),
-                  child: DefaultTabController(
-                    length: 2,
-                    child: Column(
-                      children: [
-                        TabBar(
-                          labelColor: AdaptiveTheme.of(context).theme.hintColor,
-                          indicatorColor: Colors.deepPurple,
-                          tabs: [
-                            Tab(text: 'good_users'.tr),
-                            Tab(text: 'active'.tr),
-                            Tab(text: 'blocked'.tr),
-                          ],
-                        ),
-                        SizedBox(height: height(context) * 0.02),
-                        Expanded(
-                          child: TabBarView(children: [
-                            UsersView(curData
-                                .where((element) => element.sumOfOrders != 0)
-                                .toList()),
-                            UsersView(splitUsers(curData, false)),
-                            UsersView(splitUsers(curData, true))
-                          ]),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              }
-              return const Center(
-                child: Text('error'),
-              );
-            },
+          child: DefaultTabController(
+            length: 4,
+            child: Column(
+              children: [
+                TabBar(
+                  labelColor: AdaptiveTheme.of(context).theme.hintColor,
+                  indicatorColor: Colors.deepPurple,
+                  tabs: [
+                    Tab(text: 'good_users'.tr),
+                    Tab(text: 'active'.tr),
+                    Tab(text: 'blocked'.tr),
+                    Tab(text: 'admins'.tr),
+                  ],
+                ),
+                SizedBox(height: height(context) * 0.02),
+                BlocBuilder<AllUserBloc, AllUserState>(
+                  builder: (context, state) {
+                    if (state.status == ResponseStatus.pure) {
+                      context.read<AllUserBloc>().add(GetAllUserEvent());
+                    } else if (state.status == ResponseStatus.inSuccess) {
+                      final List<UserModel> curData = state.users!.cast();
+                      final List<UserModel> data = curData
+                          .where((element) => element.referrals.isNotEmpty)
+                          .toList();
+                      curData.sort(
+                          (a, b) => b.sumOfOrders!.compareTo(a.sumOfOrders!));
+                      return Expanded(
+                        child: TabBarView(children: [
+                          UsersView(curData
+                              .where((element) => element.sumOfOrders != 0)
+                              .toList()),
+                          UsersView(splitUsers(curData, false)),
+                          UsersView(splitUsers(curData, true)),
+                          UsersView(curData
+                              .where((element) => element.isAdmin)
+                              .toList()),
+                        ]),
+                      );
+                    }
+                    return const Center(
+                      child: Text('error'),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       );

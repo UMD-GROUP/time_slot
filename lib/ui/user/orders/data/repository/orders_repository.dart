@@ -4,10 +4,7 @@ class OrdersRepository {
   OrdersRepository(this.firestore);
   final FirebaseFirestore firestore;
 
-  Future<MyResponse> getOrders() async {
-    final data = await firestore.collection('orders').get();
-    final List<OrderModel> result =
-        data.docs.map((e) => OrderModel.fromJson(e.data())).toList();
-    return MyResponse(data: result, statusCode: 200);
-  }
+  Stream<List<OrderModel>> getOrdersStream() =>
+      firestore.collection('orders').snapshots().map((snapshot) =>
+          snapshot.docs.map((doc) => OrderModel.fromJson(doc.data())).toList());
 }

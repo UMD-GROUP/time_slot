@@ -203,6 +203,32 @@ class _UserInfoPopUpState extends State<UserInfoPopUp> {
                     ),
                   ],
                 ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.password,
+                      size: height(context) * 0.03,
+                    ),
+                    SizedBox(
+                      width: 4.w,
+                    ),
+                    Text(
+                      "${'password'.tr}: ",
+                      style: AppTextStyles.bodyMedium(context,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      widget.user.password,
+                      style: AppTextStyles.bodyMedium(context,
+                          color:
+                              widget.user.isBlocked ? Colors.red : Colors.green,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: height(context) * 0.01,
                 ),
