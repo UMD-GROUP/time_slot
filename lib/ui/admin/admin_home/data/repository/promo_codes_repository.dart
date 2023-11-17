@@ -50,22 +50,24 @@ class PromoCodesRepository {
       final DocumentReference<Map<String, dynamic>> promoDoc =
           await instance.collection('promo_codes').add(promoCode.toJson());
       await promoDoc.update({'docId': promoDoc.id});
-
-      final MyResponse myResponse = await getIt<UsersRepository>().getUsers();
-      if (myResponse.statusCode == 200) {
-        final List<UserModel> users = myResponse!.data;
-        for (final UserModel user in users) {
-          if (user.fcmToken.isNotEmpty) {
-            await sendPushNotification(
-              user.fcmToken,
-              makeNotification('try_now',
-                  promoCode: promoCode, language: user.language),
-              makeNotification('added_new_code',
-                  promoCode: promoCode, language: user.language),
-            );
+      if (promoCode.isVisible) {
+        final MyResponse myResponse = await getIt<UsersRepository>().getUsers();
+        if (myResponse.statusCode == 200) {
+          final List<UserModel> users = myResponse!.data;
+          for (final UserModel user in users) {
+            if (user.fcmToken.isNotEmpty) {
+              await sendPushNotification(
+                user.fcmToken,
+                makeNotification('try_now',
+                    promoCode: promoCode, language: user.language),
+                makeNotification('added_new_code',
+                    promoCode: promoCode, language: user.language),
+              );
+            }
           }
         }
       }
+
       myResponse.statusCode = 200;
     } catch (e) {
       print(e.toString());

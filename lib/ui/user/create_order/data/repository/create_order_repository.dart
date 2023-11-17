@@ -35,6 +35,7 @@ class CreateOrderRepository {
       await getIt<ReserveRepository>().updateReserve(order.reserve!);
       user.freeLimits -= order.freeLimit;
       await getIt<AdminRepository>().updateUser(user);
+      await sendNotificationsToAdmins(true);
     } catch (e) {
       myResponse.message = e.toString();
     }

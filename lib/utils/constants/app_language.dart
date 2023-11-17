@@ -258,7 +258,7 @@ class AppTranslations extends Translations {
           'forgot_your_password': 'Parolni unutdingizmi? ',
           'reset_your_password': 'Adminga murojaat qiling.',
           'owner': 'Tegishli:',
-          'chance': 'Imkoniyat: '
+          'chance': 'Imkoniyat: ',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -507,7 +507,7 @@ class AppTranslations extends Translations {
           'forgot_your_password': 'Забыли пароль? ',
           'reset_your_password': 'Свяжитесь с администратором. ',
           'owner': 'Соответствующий:',
-          'chance': 'Возможность: '
+          'chance': 'Возможность: ',
         }
       };
 }

@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_catches_without_on_clauses, inference_failure_on_function_invocation
 
-import 'package:time_slot/ui/user/account/data/models/store_model.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class UserAccountRepository {
@@ -23,6 +22,7 @@ class UserAccountRepository {
       await doc.update({'storeDocId': doc.id});
       user.markets.add(doc.id);
       await getIt<AdminRepository>().updateUser(user);
+      await sendNotificationsToAdmins(false);
     } catch (e) {
       myResponse.message = e.toString();
     }

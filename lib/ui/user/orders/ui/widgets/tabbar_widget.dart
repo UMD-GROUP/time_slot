@@ -24,7 +24,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => ListView(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w),
