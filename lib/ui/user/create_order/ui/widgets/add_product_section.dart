@@ -1,4 +1,5 @@
 // ignore_for_file: type_annotate_public_apis
+import 'package:time_slot/ui/user/create_order/ui/widgets/discount_section.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AddProductSection extends StatefulWidget {
@@ -52,11 +53,7 @@ class _AddProductSectionState extends State<AddProductSection> {
                 //   '${'max_limit'.tr}:   ${context.read<DataFromAdminBloc>().state.data!.maxLimit} ${'piece'.tr}',
                 //   style: AppTextStyles.labelLarge(context, color: Colors.red),
                 // ),
-                // LinearProgressIndicator(
-                //   color: AlwaysStoppedAnimation<Color>(Colors.white),
-                //   backgroundColor: Colors.deepPurple,
-                //   value: 12,
-                // ),
+                const DiscountSection(),
 
                 SizedBox(height: height(context) * 0.01),
                 Visibility(
