@@ -189,6 +189,13 @@ void showLogOutDialog(BuildContext context) {
   );
 }
 
+void showDeleteAccountDialog(BuildContext context) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (context) => const DeleteAccountDialog(),
+  );
+}
+
 void showUserPopUp(BuildContext context, UserModel userModel) {
   showCupertinoModalPopup(
     context: context,

@@ -261,6 +261,9 @@ class AppTranslations extends Translations {
           'chance': 'Imkoniyat: ',
           'promo_code_expired':
               "Promo kod maksimal miqdorda foydalanib bo'lingan",
+          'delete_account': "Shaxsiy hisobni o'chirish",
+          'are_you_sure_you_want_to_delete_your_account':
+              "Rostdan ham shaxsiy hisobingizni o'chirishni istaysizmi?"
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -512,6 +515,9 @@ class AppTranslations extends Translations {
           'chance': 'Возможность: ',
           'promo_code_expired':
               'Промокод был использован максимальное количество раз.',
+          'delete_account': 'Удалить личный аккаунт',
+          'are_you_sure_you_want_to_delete_your_account':
+              'Вы уверены, что хотите удалить свой личный аккаунт?'
         }
       };
 }

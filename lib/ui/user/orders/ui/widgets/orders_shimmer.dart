@@ -6,6 +6,7 @@ class OrderShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Expanded(
         child: ListView.builder(
+            shrinkWrap: true,
             itemCount: 10,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => Padding(

@@ -112,7 +112,10 @@ class _AccountPageState extends State<AccountPage> {
                           }, icon: Icons.share),
                           AccountActionButton('logging_out'.tr, onTap: () {
                             showLogOutDialog(context);
-                          }, icon: Icons.logout)
+                          }, icon: Icons.logout),
+                          AccountActionButton('delete_account'.tr, onTap: () {
+                            showDeleteAccountDialog(context);
+                          }, icon: Icons.delete)
                         ],
                       );
                     }
