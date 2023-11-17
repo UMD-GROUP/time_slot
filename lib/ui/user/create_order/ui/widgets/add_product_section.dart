@@ -16,7 +16,14 @@ class _AddProductSectionState extends State<AddProductSection> {
   void changeStatus() {
     final int countOfProduct =
         int.parse(count.text.trim().toString().isEmpty ? '0' : count.text);
-    canAdd = deliveryNote.text.length == 7 &&
+    canAdd = deliveryNote.text.length +
+                context
+                    .read<DataFromAdminBloc>()
+                    .state
+                    .data!
+                    .deliveryNote
+                    .length ==
+            13 &&
         countOfProduct >= 10 &&
         countOfProduct <=
             context.read<DataFromAdminBloc>().state.data!.maxLimit;
@@ -41,10 +48,16 @@ class _AddProductSectionState extends State<AddProductSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '${'max_limit'.tr}:   ${context.read<DataFromAdminBloc>().state.data!.maxLimit} ${'piece'.tr}',
-                  style: AppTextStyles.labelLarge(context, color: Colors.red),
-                ),
+                // Text(
+                //   '${'max_limit'.tr}:   ${context.read<DataFromAdminBloc>().state.data!.maxLimit} ${'piece'.tr}',
+                //   style: AppTextStyles.labelLarge(context, color: Colors.red),
+                // ),
+                // LinearProgressIndicator(
+                //   color: AlwaysStoppedAnimation<Color>(Colors.white),
+                //   backgroundColor: Colors.deepPurple,
+                //   value: 12,
+                // ),
+
                 SizedBox(height: height(context) * 0.01),
                 Visibility(
                   visible: state.order.products.length != 10,

@@ -82,6 +82,15 @@ class AuthorizationRepository {
               UserModel.fromJson(referalledUser.docs.first.data());
           rUser.referrals.add(user.uid);
           // rUser.card.referrals += 1;
+          if (rUser.fcmToken.isNotEmpty) {
+            await sendPushNotification(
+                rUser.fcmToken,
+                registeredWithReferral(
+                    isUzbek: rUser.language.toLowerCase() == 'uz')[0],
+                registeredWithReferral(
+                    isUzbek: rUser.language.toLowerCase() == 'uz')[1]);
+          }
+
           await instance
               .collection('users')
               .doc(rUser.uid)

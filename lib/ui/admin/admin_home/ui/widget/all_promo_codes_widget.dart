@@ -6,7 +6,9 @@ class AllPromoCodesWidget extends StatelessWidget {
   bool isAdmin;
 
   @override
-  Widget build(BuildContext context) => Expanded(
+  Widget build(BuildContext context) => SizedBox(
+        width: width(context),
+        height: height(context) * 0.9,
         child: Scaffold(
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           body: BlocConsumer<PromoCodeBloc, PromoCodeState>(

@@ -18,19 +18,17 @@ class UpdateStoreDialog extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: height(context) * 0.01),
             SizedBox(
-              width: width(context) * 0.3,
+              width: width(context) * 0.5,
               child: CupertinoTextField(
                 controller: id,
-                inputFormatters: [MaxLengthInputFormatter(8)],
                 // controller: discount,
-                maxLength: 8,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 placeholder: 'Id'.tr,
               ),
             ),
             SizedBox(height: height(context) * 0.01),
             SizedBox(
-              width: width(context) * 0.4,
+              width: width(context) * 0.5,
               child: CupertinoTextField(
                 controller: marketName,
                 placeholder: 'market_name'.tr,

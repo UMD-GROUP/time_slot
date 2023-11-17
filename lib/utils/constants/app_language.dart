@@ -259,6 +259,8 @@ class AppTranslations extends Translations {
           'reset_your_password': 'Adminga murojaat qiling.',
           'owner': 'Tegishli:',
           'chance': 'Imkoniyat: ',
+          'promo_code_expired':
+              "Promo kod maksimal miqdorda foydalanib bo'lingan",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -508,6 +510,8 @@ class AppTranslations extends Translations {
           'reset_your_password': 'Свяжитесь с администратором. ',
           'owner': 'Соответствующий:',
           'chance': 'Возможность: ',
+          'promo_code_expired':
+              'Промокод был использован максимальное количество раз.',
         }
       };
 }

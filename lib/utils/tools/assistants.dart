@@ -1583,3 +1583,17 @@ List<String> newNotificationText({bool isUzbek = true, bool isOrder = false}) {
     }
   }
 }
+
+List<String> registeredWithReferral({bool isUzbek = true}) {
+  if (isUzbek) {
+    return [
+      'Siz yangi mijoz taklif qildingiz!',
+      'Agar mijoz admin tomonidan tasdiqlansa, sizga 100ta bepul limit taqdim etiladi!'
+    ];
+  } else {
+    return [
+      'Вы пригласили нового клиента!',
+      'Если клиент одобрен администратором, вам будет предоставлено 100 бесплатных лимитов!'
+    ];
+  }
+}
