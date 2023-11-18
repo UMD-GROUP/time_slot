@@ -130,7 +130,7 @@ class _AddProductSectionState extends State<AddProductSection> {
                                     changeStatus();
                                   },
                                   inputFormatters: [
-                                    ThreeDigitInputFormatter(),
+                                    MaxLengthInputFormatter(4),
                                   ],
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
