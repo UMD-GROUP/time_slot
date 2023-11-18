@@ -16,8 +16,21 @@ class AllUsersPage extends StatelessWidget {
                 },
                 icon: const Icon(Icons.refresh))
           ],
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+          ),
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-          title: Text('users'.tr, style: AppTextStyles.labelLarge(context)),
+          title: Text('users'.tr,
+              style: AppTextStyles.labelLarge(context,
+                  fontSize: 20.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700)),
         ),
         body: BlocListener<AdminBloc, AdminState>(
           listener: (context, state) {
@@ -49,6 +62,7 @@ class AllUsersPage extends StatelessWidget {
                 TabBar(
                   labelColor: AdaptiveTheme.of(context).theme.hintColor,
                   indicatorColor: Colors.deepPurple,
+                  dividerColor: Colors.transparent,
                   tabs: [
                     Tab(text: 'good_users'.tr),
                     Tab(text: 'active'.tr),

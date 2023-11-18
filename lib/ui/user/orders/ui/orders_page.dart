@@ -31,7 +31,11 @@ class _OrdersPageState extends State<OrdersPage> {
                   showAdminPasswordDialog(context, TextEditingController());
                 }
               },
-              child: Text('Seller PRO'.tr)),
+              child: Text('Seller PRO'.tr,
+                  style: AppTextStyles.labelLarge(context,
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w800))),
           leading: DescribedFeatureOverlay(
             featureId: 'add_store3', // Unique id that identifies this overlay.
             tapTarget: const Icon(Icons
@@ -64,7 +68,10 @@ class _OrdersPageState extends State<OrdersPage> {
                   context.read<PromoCodeBloc>().add(GetPromoCodesEvent());
                   getMyToast('updated'.tr);
                 },
-                icon: const Icon(Icons.refresh))
+                icon: const Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ))
           ],
         ),
         body: Stack(

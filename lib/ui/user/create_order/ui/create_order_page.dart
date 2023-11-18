@@ -15,8 +15,17 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
           backgroundColor: Colors.deepPurple,
-          title: Text('create_order'.tr),
+          title: Text(
+            'create_order'.tr,
+            style: AppTextStyles.labelLarge(context,
+                fontWeight: FontWeight.w700,
+                fontSize: 20.sp,
+                color: Colors.white),
+          ),
         ),
         body: SafeArea(
             child: Container(
@@ -97,6 +106,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                       ),
                                       child: Text(
                                         'next'.tr,
+                                        style: AppTextStyles.labelLarge(context,
+                                            color: Colors.white),
                                       ),
                                     ),
                                 ],

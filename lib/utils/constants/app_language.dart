@@ -14,7 +14,7 @@ class AppTranslations extends Translations {
           '': 'Login to your account',
           'do_not_have_an_account': "Shaxsiy hisobingiz yo'qmi?",
           'email': 'Elektron pochta',
-          'password': "Maxfiy so'z",
+          'password': 'Parol',
           'create_account': 'Shaxsiy hisob oching, bu tekin ;) ',
           'login_to_your_account': 'Shaxsiy hisobga kirish',
           'name': 'Ism',

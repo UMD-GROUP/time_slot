@@ -15,11 +15,27 @@ class AllMarketsPage extends StatelessWidget {
                 onPressed: () {
                   context.read<StoresBloc>().add(GetAllStoresEvent());
                 },
-                icon: const Icon(Icons.refresh))
+                icon: const Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ))
           ],
           elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+          ),
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-          title: Text('markets'.tr, style: AppTextStyles.labelLarge(context)),
+          title: Text('markets'.tr,
+              style: AppTextStyles.labelLarge(context,
+                  fontSize: 20.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700)),
         ),
         body: BlocBuilder<StoresBloc, StoresState>(
           builder: (context, state) {
@@ -38,6 +54,7 @@ class AllMarketsPage extends StatelessWidget {
                       TabBar(
                         labelColor: AdaptiveTheme.of(context).theme.hintColor,
                         indicatorColor: Colors.deepPurple,
+                        dividerColor: Colors.transparent,
                         tabs: [
                           Tab(text: 'unconfirmed'.tr),
                           Tab(text: 'confirmed'.tr),

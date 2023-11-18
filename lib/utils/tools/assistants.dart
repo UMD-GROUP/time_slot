@@ -1604,3 +1604,19 @@ List<String> registeredWithReferral({bool isUzbek = true}) {
     ];
   }
 }
+
+int discountGenerator(int productsCount) {
+  int percent = 0;
+  if (productsCount >= 100 && productsCount <= 199) {
+    percent = 10;
+  } else if (productsCount >= 200 && productsCount <= 499) {
+    percent = 15;
+  } else if (productsCount >= 500 && productsCount <= 999) {
+    percent = 20;
+  } else if (productsCount >= 1000 && productsCount <= 1999) {
+    percent = 25;
+  } else if (productsCount >= 2000) {
+    percent = 30;
+  }
+  return percent;
+}

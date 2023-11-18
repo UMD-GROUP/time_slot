@@ -74,7 +74,8 @@ class _UserStoresState extends State<UserStores> {
                         },
                         child: Text(
                           'add'.tr,
-                          style: TextStyle(fontSize: 12.sp),
+                          style:
+                              TextStyle(fontSize: 12.sp, color: Colors.white),
                         )),
                 ],
               ),

@@ -4,6 +4,8 @@ import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AppTheme {
   static ThemeData light = ThemeData(
+      appBarTheme:
+          const AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.black),
         bodyLarge: TextStyle(color: Colors.black),
@@ -35,6 +37,8 @@ class AppTheme {
       primarySwatch: Colors.deepPurple,
       canvasColor: Colors.black45);
   static ThemeData dark = ThemeData(
+      appBarTheme:
+          const AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.white),
         bodyLarge: TextStyle(color: Colors.white),

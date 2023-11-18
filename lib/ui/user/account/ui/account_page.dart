@@ -18,8 +18,18 @@ class _AccountPageState extends State<AccountPage> {
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           backgroundColor: Colors.deepPurple,
-          title: Text('account'.tr),
+          title: Text('account'.tr,
+              style: AppTextStyles.labelLarge(context,
+                  fontSize: 20.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700)),
           actions: [
             IconButton(
                 onPressed: () {
@@ -29,100 +39,99 @@ class _AccountPageState extends State<AccountPage> {
                       FirebaseAuth.instance.currentUser!.uid));
                   context.read<DataFromAdminBloc>().add(GetBannersEvent());
                 },
-                icon: const Icon(Icons.refresh))
+                icon: const Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ))
           ],
         ),
-        body: RefreshIndicator(
-          onRefresh: () async {},
-          child: SingleChildScrollView(
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.h),
-                child: BlocBuilder<UserAccountBloc, UserAccountState>(
-                  builder: (context, state) {
-                    if (state.getUserStatus == ResponseStatus.inSuccess) {
-                      return Column(
-                        children: [
-                          InfoActionButton(
-                            title: 'referral',
-                            onTap: () {
-                              copyToClipboard(context, state.user!.token);
-                            },
-                            icon: Icons.token,
-                            subtitle: state.user!.token,
-                          ),
-                          InfoActionButton(
-                            title: 'Email:'.tr,
-                            onTap: () {
-                              copyToClipboard(context, state.user!.email);
-                            },
-                            icon: Icons.email,
-                            subtitle: state.user!.email,
-                          ),
-                          SizedBox(height: height(context) * 0.02),
-                          const UserStores(),
-                          SizedBox(height: height(context) * 0.02),
-                          const Appearance(),
-                          Visibility(
-                            visible: Uri.parse(context
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.h),
+              child: BlocBuilder<UserAccountBloc, UserAccountState>(
+                builder: (context, state) {
+                  if (state.getUserStatus == ResponseStatus.inSuccess) {
+                    return Column(
+                      children: [
+                        InfoActionButton(
+                          title: 'referral',
+                          onTap: () {
+                            copyToClipboard(context, state.user!.token);
+                          },
+                          icon: Icons.token,
+                          subtitle: state.user!.token,
+                        ),
+                        InfoActionButton(
+                          title: 'Email:'.tr,
+                          onTap: () {
+                            copyToClipboard(context, state.user!.email);
+                          },
+                          icon: Icons.email,
+                          subtitle: state.user!.email,
+                        ),
+                        SizedBox(height: height(context) * 0.02),
+                        const UserStores(),
+                        SizedBox(height: height(context) * 0.02),
+                        const Appearance(),
+                        Visibility(
+                          visible: Uri.parse(context
+                                  .read<DataFromAdminBloc>()
+                                  .state
+                                  .data!
+                                  .termsOfUsing)
+                              .isAbsolute,
+                          child: AccountActionButton('terms_of_using'.tr,
+                              onTap: () async {
+                            unawaited(Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WebViewExample(),
+                                )));
+                            // await launch(context
+                            //     .read<DataFromAdminBloc>()
+                            //     .state
+                            //     .data!
+                            //     .termsOfUsing);
+                          }, icon: Icons.published_with_changes_outlined),
+                        ),
+                        Visibility(
+                          visible: Uri.parse(context
+                                  .read<DataFromAdminBloc>()
+                                  .state
+                                  .data!
+                                  .instruction)
+                              .isAbsolute,
+                          child: AccountActionButton('instruction'.tr,
+                              onTap: () async {
+                            showVideoPlayer(
+                                context,
+                                context
                                     .read<DataFromAdminBloc>()
                                     .state
                                     .data!
-                                    .termsOfUsing)
-                                .isAbsolute,
-                            child: AccountActionButton('terms_of_using'.tr,
-                                onTap: () async {
-                              unawaited(Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const WebViewExample(),
-                                  )));
-                              // await launch(context
-                              //     .read<DataFromAdminBloc>()
-                              //     .state
-                              //     .data!
-                              //     .termsOfUsing);
-                            }, icon: Icons.published_with_changes_outlined),
-                          ),
-                          Visibility(
-                            visible: Uri.parse(context
-                                    .read<DataFromAdminBloc>()
-                                    .state
-                                    .data!
-                                    .instruction)
-                                .isAbsolute,
-                            child: AccountActionButton('instruction'.tr,
-                                onTap: () async {
-                              showVideoPlayer(
-                                  context,
-                                  context
-                                      .read<DataFromAdminBloc>()
-                                      .state
-                                      .data!
-                                      .instruction);
-                            }, icon: Icons.integration_instructions_outlined),
-                          ),
-                          AccountActionButton('support'.tr, onTap: () async {
-                            await launch('https://t.me/Timeslot_Admin');
-                          }, icon: Icons.telegram),
-                          AccountActionButton('share'.tr, onTap: () async {
-                            await Share.share(
-                                'https://play.google.com/store/apps/details?id=com.uzmobdev.time_slot');
-                          }, icon: Icons.share),
-                          AccountActionButton('logging_out'.tr, onTap: () {
-                            showLogOutDialog(context);
-                          }, icon: Icons.logout),
-                          AccountActionButton('delete_account'.tr, onTap: () {
-                            showDeleteAccountDialog(context);
-                          }, icon: Icons.delete)
-                        ],
-                      );
-                    }
-                    return CupertinoActivityIndicator(
-                        color: AdaptiveTheme.of(context).theme.hintColor);
-                  },
-                ),
+                                    .instruction);
+                          }, icon: Icons.integration_instructions_outlined),
+                        ),
+                        AccountActionButton('support'.tr, onTap: () async {
+                          await launch('https://t.me/Timeslot_Admin');
+                        }, icon: Icons.telegram),
+                        AccountActionButton('share'.tr, onTap: () async {
+                          await Share.share(
+                              'https://play.google.com/store/apps/details?id=com.uzmobdev.time_slot');
+                        }, icon: Icons.share),
+                        AccountActionButton('logging_out'.tr, onTap: () {
+                          showLogOutDialog(context);
+                        }, icon: Icons.logout),
+                        AccountActionButton('delete_account'.tr, onTap: () {
+                          showDeleteAccountDialog(context);
+                        }, icon: Icons.delete)
+                      ],
+                    );
+                  }
+                  return CupertinoActivityIndicator(
+                      color: AdaptiveTheme.of(context).theme.hintColor);
+                },
               ),
             ),
           ),

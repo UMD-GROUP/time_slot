@@ -17,9 +17,21 @@ class AllPromoCodesPage extends StatelessWidget {
                 icon: const Icon(Icons.refresh))
           ],
           elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+          ),
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-          title:
-              Text('promo_codes'.tr, style: AppTextStyles.labelLarge(context)),
+          title: Text('promo_codes'.tr,
+              style: AppTextStyles.labelLarge(context,
+                  fontSize: 20.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700)),
         ),
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         body: BlocConsumer<PromoCodeBloc, PromoCodeState>(
@@ -64,6 +76,7 @@ class AllPromoCodesPage extends StatelessWidget {
                 TabBar(
                   labelColor: AdaptiveTheme.of(context).theme.hintColor,
                   indicatorColor: Colors.deepPurple,
+                  dividerColor: Colors.transparent,
                   tabs: [
                     Tab(text: 'active'.tr),
                     Tab(text: 'inactive'.tr),
