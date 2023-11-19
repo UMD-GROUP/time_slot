@@ -36,7 +36,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       order.freeLimit = productCount;
     } else {
       order.freeLimit = freeLimit;
-      if (order.totalSum < 10000) {
+      if (order.sum < 10000) {
         order
           ..totalSum = 10000
           ..sum = 10000;
