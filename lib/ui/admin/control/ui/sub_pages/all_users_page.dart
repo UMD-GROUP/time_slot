@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:time_slot/ui/admin/control/ui/sub_pages/widgets/users_view.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -77,11 +79,10 @@ class AllUsersPage extends StatelessWidget {
                       context.read<AllUserBloc>().add(GetAllUserEvent());
                     } else if (state.status == ResponseStatus.inSuccess) {
                       final List<UserModel> curData = state.users!.cast();
-                      final List<UserModel> data = curData
-                          .where((element) => element.referrals.isNotEmpty)
-                          .toList();
                       curData.sort(
-                          (a, b) => b.sumOfOrders!.compareTo(a.sumOfOrders!));
+                          (a, b) => b.sumOfOrders.compareTo(a.sumOfOrders));
+                      curData
+                          .sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
                       return Expanded(
                         child: TabBarView(children: [
                           UsersView(curData
