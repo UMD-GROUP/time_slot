@@ -44,7 +44,8 @@ class _AddProductSectionState extends State<AddProductSection> {
       BlocBuilder<CreateOrderBloc, CreateOrderState>(
         builder: (context, state) {
           final int productsCount = state.order.products
-              .fold(0, (p, e) => int.parse((p + e.count).toString()));
+                  .fold(0, (p, e) => int.parse((p + e.count).toString())) -
+              state.order.freeLimit;
           return SizedBox(
             width: width(context),
             child: Padding(
@@ -99,7 +100,13 @@ class _AddProductSectionState extends State<AddProductSection> {
                                             fontSize: 16.sp),
                                         controller: deliveryNote,
                                         inputFormatters: [
-                                          SevenDigitInputFormatter()
+                                          MaxLengthInputFormatter(13 -
+                                              context
+                                                  .read<DataFromAdminBloc>()
+                                                  .state
+                                                  .data!
+                                                  .deliveryNote
+                                                  .length)
                                         ],
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(

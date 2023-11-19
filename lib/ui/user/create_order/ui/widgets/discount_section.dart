@@ -8,7 +8,8 @@ class DiscountSection extends StatelessWidget {
       BlocBuilder<CreateOrderBloc, CreateOrderState>(
         builder: (context, state) {
           final int productsCount = state.order.products
-              .fold(0, (p, e) => int.parse((p + e.count).toString()));
+                  .fold(0, (p, e) => int.parse((p + e.count).toString())) -
+              state.order.freeLimit;
           num percent = 0;
           if (productsCount >= 100 && productsCount <= 199) {
             percent = 0.2;

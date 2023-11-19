@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:time_slot/ui/user/account/ui/widgets/account_action_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -106,13 +107,18 @@ class _AccountPageState extends State<AccountPage> {
                               .isAbsolute,
                           child: AccountActionButton('instruction'.tr,
                               onTap: () async {
-                            showVideoPlayer(
-                                context,
-                                context
-                                    .read<DataFromAdminBloc>()
-                                    .state
-                                    .data!
-                                    .instruction);
+                            await launchUrlString(context
+                                .read<DataFromAdminBloc>()
+                                .state
+                                .data!
+                                .instruction);
+                            // showVideoPlayer(
+                            //     context,
+                            //     context
+                            //         .read<DataFromAdminBloc>()
+                            //         .state
+                            //         .data!
+                            //         .instruction);
                           }, icon: Icons.integration_instructions_outlined),
                         ),
                         AccountActionButton('support'.tr, onTap: () async {
