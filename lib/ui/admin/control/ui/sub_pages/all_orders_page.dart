@@ -9,6 +9,7 @@ class AllOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           actions: [
             IconButton(
                 onPressed: () {
@@ -26,7 +27,6 @@ class AllOrdersPage extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           title: Text('orders'.tr,
               style: AppTextStyles.labelLarge(context,
                   fontSize: 20.sp,

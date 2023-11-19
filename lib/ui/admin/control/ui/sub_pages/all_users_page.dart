@@ -8,13 +8,14 @@ class AllUsersPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           elevation: 0,
           actions: [
             IconButton(
                 onPressed: () {
                   context.read<AllUserBloc>().add(GetAllUserEvent());
                 },
-                icon: const Icon(Icons.refresh))
+                icon: const Icon(Icons.refresh, color: Colors.white))
           ],
           leading: IconButton(
             onPressed: () {
@@ -25,7 +26,6 @@ class AllUsersPage extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           title: Text('users'.tr,
               style: AppTextStyles.labelLarge(context,
                   fontSize: 20.sp,

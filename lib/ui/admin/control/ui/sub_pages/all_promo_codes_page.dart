@@ -9,6 +9,7 @@ class AllPromoCodesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           actions: [
             IconButton(
                 onPressed: () {
@@ -26,7 +27,6 @@ class AllPromoCodesPage extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           title: Text('promo_codes'.tr,
               style: AppTextStyles.labelLarge(context,
                   fontSize: 20.sp,

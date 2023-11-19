@@ -120,15 +120,17 @@ String orderValidator(OrderModel order) {
   return '';
 }
 
-bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
+bool canNavigate(
+    context, UserModel? user, DataFromAdminModel data, List stores) {
   String error = '';
   if (user == null) {
     error = 'try_again'.tr;
   }
-  if (user!.markets.isEmpty) {
+  print(user!.markets);
+  if (stores.isEmpty) {
     error = 'you_need_to_create_market'.tr;
   }
-  if (data.cardNumber.isEmpty || data.deliveryNote.length != 6) {
+  if (data.cardNumber.isEmpty || data.deliveryNote.isEmpty) {
     error = 'you_cant_create_order_now'.tr;
   }
   if (error.isNotEmpty) {

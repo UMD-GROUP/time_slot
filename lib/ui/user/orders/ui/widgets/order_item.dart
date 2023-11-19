@@ -36,7 +36,9 @@ class OrderItem extends StatelessWidget {
             width: width(context),
             decoration: BoxDecoration(
                 color: AdaptiveTheme.of(context).theme.disabledColor,
-                border: Border.all(width: 0.3, color: Colors.grey),
+                border: Border.all(
+                    width: 1.3,
+                    color: AdaptiveTheme.of(context).theme.focusColor),
                 borderRadius: BorderRadius.circular(10)),
             child: Row(
               children: [
@@ -88,9 +90,12 @@ class OrderItem extends StatelessWidget {
                           width: width(context),
                           margin: EdgeInsets.symmetric(horizontal: 5.h),
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.deepPurple),
-                              color:
-                                  AdaptiveTheme.of(context).theme.disabledColor,
+                              border: Border.all(
+                                  color: Colors.deepPurple, width: 2),
+                              color: AdaptiveTheme.of(context)
+                                  .theme
+                                  .disabledColor
+                                  .withOpacity(0.4),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.h))),
                           child: Center(

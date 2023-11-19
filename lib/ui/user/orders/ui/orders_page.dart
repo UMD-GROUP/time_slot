@@ -37,16 +37,25 @@ class _OrdersPageState extends State<OrdersPage> {
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w800))),
           leading: DescribedFeatureOverlay(
-            featureId: 'add_store3', // Unique id that identifies this overlay.
-            tapTarget: const Icon(Icons
-                .account_circle_outlined), // The widget that will be displayed as the tap target.
+            allowShowingDuplicate: true,
+            backgroundDismissible: true,
+
+            featureId: 'add_store', // Unique id that identifies this overlay.
+            tapTarget: IconButton(
+                onPressed: () {
+                  FeatureDiscovery.completeCurrentStep(context);
+
+                  Navigator.pushNamed(context, RouteName.account);
+                },
+                icon: const Icon(Icons
+                    .account_circle_outlined)), // The widget that will be displayed as the tap target.
             title: Text('account'.tr),
             description: Text('first_add_your_store'.tr),
             backgroundColor: Theme.of(context).primaryColor,
-            onBackgroundTap: () async {
-              await Navigator.pushNamed(context, RouteName.account);
-              return true;
-            },
+            // onBackgroundTap: () async {
+            //   await Navigator.pushNamed(context, RouteName.account);
+            //   return true;
+            // },
             child: IconButton(
               icon: const Icon(
                 Icons.account_circle_outlined,
@@ -97,16 +106,15 @@ class _OrdersPageState extends State<OrdersPage> {
                   if (canNavigate(
                       context,
                       context.read<UserAccountBloc>().state.user,
-                      context.read<DataFromAdminBloc>().state.data!)) {
+                      context.read<DataFromAdminBloc>().state.data!,
+                      context.read<UserAccountBloc>().state.stores)) {
                     context.read<CreateOrderBloc>().add(ReInitOrderEvent());
                     Navigator.pushNamed(context, RouteName.createOrder);
                   } else {
+                    FeatureDiscovery.clearPreferences(context, ['add_store']);
                     FeatureDiscovery.discoverFeatures(
                       context,
-                      const <String>{
-                        // Feature ids for every feature that you want to showcase in order.
-                        'add_store3',
-                      },
+                      const <String>{'add_store', 'add_store_1'},
                     );
                   }
                 },

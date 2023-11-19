@@ -44,13 +44,15 @@ class _AdminTabBarWidgetState extends State<AdminTabBarWidget> {
                       onTap: () {
                         _onTabTapped(0);
                       }),
-                  AdminTabBarItem(
-                      count: context.read<AllUserBloc>().state.users?.length,
-                      text: 'users',
-                      context: context,
-                      onTap: () {
-                        _onTabTapped(1);
-                      }),
+                  BlocBuilder<AllUserBloc, AllUserState>(
+                    builder: (context, state) => AdminTabBarItem(
+                        count: state.users?.length,
+                        text: 'users',
+                        context: context,
+                        onTap: () {
+                          _onTabTapped(1);
+                        }),
+                  ),
                   BlocBuilder<StoresBloc, StoresState>(
                     builder: (context, state) => AdminTabBarItem(
                         count: state.stores.length,

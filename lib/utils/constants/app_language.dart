@@ -263,7 +263,10 @@ class AppTranslations extends Translations {
               "Promo kod maksimal miqdorda foydalanib bo'lingan",
           'delete_account': "Shaxsiy hisobni o'chirish",
           'are_you_sure_you_want_to_delete_your_account':
-              "Rostdan ham shaxsiy hisobingizni o'chirishni istaysizmi?"
+              "Rostdan ham shaxsiy hisobingizni o'chirishni istaysizmi?",
+          'add_store': "Do'kon qo'shish",
+          'free_limit_bonus':
+              "Qo'shgan do'koningiz tasdiqlanganidan so'ng, sizga buyurtma uchun bepul limit beriladi!"
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -517,7 +520,10 @@ class AppTranslations extends Translations {
               'Промокод был использован максимальное количество раз.',
           'delete_account': 'Удалить личный аккаунт',
           'are_you_sure_you_want_to_delete_your_account':
-              'Вы уверены, что хотите удалить свой личный аккаунт?'
+              'Вы уверены, что хотите удалить свой личный аккаунт?',
+          'add_store': 'Добавить магазин',
+          'free_limit_bonus':
+              'Как только ваш добавленный магазин будет подтвержден, вам будет предоставлен бесплатный лимит заказов!'
         }
       };
 }

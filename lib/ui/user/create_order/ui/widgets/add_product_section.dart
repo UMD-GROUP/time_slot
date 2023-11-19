@@ -25,7 +25,7 @@ class _AddProductSectionState extends State<AddProductSection> {
                     .deliveryNote
                     .length ==
             13 &&
-        countOfProduct >= 10 &&
+        countOfProduct >= 1 &&
         countOfProduct <=
             context.read<DataFromAdminBloc>().state.data!.maxLimit;
     setState(() {});
@@ -89,14 +89,14 @@ class _AddProductSectionState extends State<AddProductSection> {
                                     Text(
                                         '${context.read<DataFromAdminBloc>().state.data!.deliveryNote} -',
                                         style: AppTextStyles.labelLarge(context,
-                                            fontSize: 16)),
+                                            fontSize: 16.sp)),
                                     Expanded(
                                       child: TextField(
                                         onChanged: (value) {
                                           changeStatus();
                                         },
-                                        style:
-                                            AppTextStyles.labelLarge(context),
+                                        style: AppTextStyles.labelLarge(context,
+                                            fontSize: 16.sp),
                                         controller: deliveryNote,
                                         inputFormatters: [
                                           SevenDigitInputFormatter()
@@ -223,7 +223,9 @@ class _AddProductSectionState extends State<AddProductSection> {
                                       ).show(context);
                                     }
                                   },
-                                  child: Text('add'.tr)),
+                                  child: Text('add'.tr,
+                                      style: AppTextStyles.labelLarge(context,
+                                          color: Colors.white))),
                             ),
                           ],
                         ),

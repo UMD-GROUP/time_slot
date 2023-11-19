@@ -31,6 +31,7 @@ class AppTheme {
       hintColor: Colors.black,
       bottomAppBarColor: Colors.black,
       disabledColor: Colors.white,
+      focusColor: Colors.deepPurple,
       hoverColor: Colors.grey,
       fontFamily: 'Inter',
       primaryColor: Colors.deepPurple,
@@ -68,5 +69,6 @@ class AppTheme {
       fontFamily: 'Inter',
       primaryColor: Colors.deepPurple,
       primarySwatch: Colors.deepPurple,
+      focusColor: AppColors.c1C2632,
       canvasColor: Colors.white);
 }
