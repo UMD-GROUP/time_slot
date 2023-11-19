@@ -32,36 +32,47 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     order.sum = sum;
     double discount = 0;
 
-    if (!order.promoCode.isNull && order.promoCode!.minAmount <= productCount) {
-      sum -= (sum / 100 * order.promoCode!.discount).toInt();
-    } else if (productCount >= 100 && productCount <= 199) {
-      discount = 0.1;
-    } else if (productCount >= 200 && productCount <= 499) {
-      discount = 0.15;
-    } else if (productCount >= 500 && productCount <= 999) {
-      discount = 0.2;
-    } else if (productCount >= 1000 && productCount <= 1999) {
-      discount = 0.25;
-    } else if (productCount >= 2000) {
-      discount = 0.3;
-    }
-    if (discount != 0 && sum > 0) {
-      sum = sum - (sum * discount).toInt();
-      order.discountUsed = true;
-    }
-
-    order.totalSum = sum - sum % 1000;
     if (freeLimit >= productCount) {
       order.freeLimit = productCount;
     } else {
       order.freeLimit = freeLimit;
+      if (order.totalSum < 10000) {
+        order
+          ..totalSum = 10000
+          ..sum = 10000;
+      }
     }
 
-    if (order.totalSum < 10000) {
-      order
-        ..totalSum = 10000
-        ..sum = 10000;
+    final int discountProductsCount = productCount - freeLimit;
+
+    if (!order.promoCode.isNull && order.promoCode!.minAmount <= productCount) {
+      sum -= (sum / 100 * order.promoCode!.discount).toInt();
+    } else if (order.totalSum >= 10000) {
+      if (discountProductsCount >= 100 && discountProductsCount <= 199) {
+        discount = 0.1;
+      } else if (discountProductsCount >= 200 && discountProductsCount <= 499) {
+        discount = 0.15;
+      } else if (discountProductsCount >= 500 && discountProductsCount <= 999) {
+        discount = 0.2;
+      } else if (discountProductsCount >= 1000 &&
+          discountProductsCount <= 1999) {
+        discount = 0.25;
+      } else if (discountProductsCount >= 2000) {
+        discount = 0.3;
+      }
     }
+    if (discount != 0 && sum > 10000) {
+      order.sum = sum;
+      sum = sum - (sum * discount).toInt();
+      order.discountUsed = true;
+      if (sum == 0) {
+        order.totalSum = 10000;
+      }
+    } else {
+      order.discountUsed = false;
+    }
+
+    order.totalSum = sum - sum % 1000;
 
     return order;
   }

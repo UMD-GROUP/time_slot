@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -270,11 +269,15 @@ void showTextInputDialog(BuildContext context,
 }
 
 void showConfirmCancelDialog(BuildContext context, VoidCallback onConfirmTap,
-    {String? title}) {
+    {String? title, Widget? button, Widget? bottomButton, Text? topTitle}) {
   showCupertinoDialog(
     context: context,
-    builder: (context) =>
-        CancelConfirmDialog(onConfirmTap: onConfirmTap, title: title),
+    builder: (context) => CancelConfirmDialog(
+        bottomButton: bottomButton,
+        topTitle: topTitle,
+        onConfirmTap: onConfirmTap,
+        title: title,
+        button: button),
   );
 }
 
@@ -442,15 +445,30 @@ class TextInputDialog extends StatelessWidget {
 }
 
 class CancelConfirmDialog extends StatelessWidget {
-  CancelConfirmDialog({required this.onConfirmTap, this.title, super.key});
+  CancelConfirmDialog(
+      {required this.onConfirmTap,
+      this.button,
+      this.bottomButton,
+      this.topTitle,
+      this.title,
+      super.key});
   String? title;
 
   VoidCallback onConfirmTap;
+  Widget? button;
+  Widget? bottomButton;
+  Text? topTitle;
 
   @override
   Widget build(BuildContext context) => CupertinoAlertDialog(
-        title: Text('confirming'.tr),
-        content: Text(title ?? 'are_you_sure_to_confirm_this_action'.tr),
+        title: topTitle ?? Text('confirming'.tr),
+        content: Column(
+          children: [
+            Text(title ?? 'are_you_sure_to_confirm_this_action'.tr),
+            SizedBox(height: height(context) * 0.01),
+            bottomButton ?? const SizedBox()
+          ],
+        ),
         actions: <Widget>[
           CupertinoDialogAction(
             textStyle: const TextStyle(color: Colors.red),
@@ -459,10 +477,11 @@ class CancelConfirmDialog extends StatelessWidget {
               Navigator.of(context).pop(); // Close the dialog
             },
           ),
-          CupertinoDialogAction(
-            onPressed: onConfirmTap,
-            child: Text('confirm'.tr),
-          ),
+          button ??
+              CupertinoDialogAction(
+                onPressed: onConfirmTap,
+                child: Text('confirm'.tr),
+              ),
         ],
       );
 }
@@ -729,64 +748,37 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  late VideoPlayerController _videoPlayerController,
-      _videoPlayerController2,
-      _videoPlayerController3;
-
-  late CustomVideoPlayerController _customVideoPlayerController;
-  late CustomVideoPlayerWebController _customVideoPlayerWebController;
-
-  final CustomVideoPlayerSettings _customVideoPlayerSettings =
-      CustomVideoPlayerSettings(
-          durationAfterControlsFadeOut: const Duration(seconds: 1),
-          alwaysShowThumbnailOnVideoPaused: true,
-          thumbnailWidget: Image.network(
-            'https://www.spot.uz/media/img/2022/08/85brvW16603795118030_b.jpg',
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ));
-
-  @override
-  void initState() {
-    super.initState();
-
-    _videoPlayerController = VideoPlayerController.network(
-      widget.videoUrl,
-    )..initialize().then((value) => setState(() {}));
-    _videoPlayerController2 = VideoPlayerController.network(widget.videoUrl);
-    _videoPlayerController3 = VideoPlayerController.network(widget.videoUrl);
-    _customVideoPlayerController = CustomVideoPlayerController(
-      context: context,
-      videoPlayerController: _videoPlayerController,
-      customVideoPlayerSettings: _customVideoPlayerSettings,
-      additionalVideoSources: {
-        '240p': _videoPlayerController2,
-        '480p': _videoPlayerController3,
-        '720p': _videoPlayerController,
-      },
-    );
-
-    // _customVideoPlayerWebController = CustomVideoPlayerWebController(
-    //   webVideoPlayerSettings: _customVideoPlayerWebSettings,
-    // );
-  }
-
-  @override
-  void dispose() {
-    _customVideoPlayerController.dispose();
-    super.dispose();
-  }
+  // late CachedVideoPlayerController controller;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   controller = CachedVideoPlayerController.network(
+  //       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+  //   controller.initialize().then((value) {
+  //     controller.play();
+  //     setState(() {});
+  //   });
+  //   super.initState();
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   _customVideoPlayerController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('instruction'.tr),
         ),
-        child: Center(
-          child: CustomVideoPlayer(
-            customVideoPlayerController: _customVideoPlayerController,
-          ),
-        ),
+        child: Container(),
+        // child: Center(
+        //   child: AspectRatio(
+        //       aspectRatio: controller.value.aspectRatio,
+        //       child: CachedVideoPlayer(controller)),
+        // ),
       );
 }
 
