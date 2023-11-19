@@ -81,14 +81,14 @@ class AllUsersPage extends StatelessWidget {
                       final List<UserModel> curData = state.users!.cast();
                       curData.sort(
                           (a, b) => b.sumOfOrders.compareTo(a.sumOfOrders));
-                      curData
-                          .sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
                       return Expanded(
                         child: TabBarView(children: [
                           UsersView(curData
                               .where((element) => element.sumOfOrders != 0)
                               .toList()),
-                          UsersView(splitUsers(curData, false)),
+                          UsersView(splitUsers(curData, false)
+                            ..sort((a, b) =>
+                                b.createdAt!.compareTo(a.createdAt!))),
                           UsersView(splitUsers(curData, true)),
                           UsersView(curData
                               .where((element) => element.isAdmin)

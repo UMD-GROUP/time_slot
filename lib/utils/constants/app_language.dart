@@ -191,7 +191,7 @@ class AppTranslations extends Translations {
           'enter_max_limit': 'Maksimal miqdorni kiriting.',
           'about_free_limit': 'Bepul limit haqida',
           'text_about_free_limit':
-              'Bepul limit - bu siz o’z referal ID ingiz orqali dasturga taklif qilgan foydalanuvchilar hisobidan sizga bepul buyurtma berish uchun beriladigan limitdir. 1 ta yangi foydalanuvchi uchun siz 100 ta mahsulot uchun bepul limitga ega bo’lasiz.',
+              'Bepul limit - bu siz o’z referal ID ingiz orqali dasturga taklif qilgan foydalanuvchilar hisobidan sizga bepul buyurtma berish uchun beriladigan limitdir. 1 ta yangi foydalanuvchi uchun siz 100tadan -300 tagacha mahsulot uchun bepul limitga ega bo’lasiz.',
           'your_token_is': 'Sizning referal: @token',
           'copied_to_clipboard': 'Nusxalandi!',
           'free_limits': 'Bepul limitlar: ',
@@ -229,7 +229,7 @@ class AppTranslations extends Translations {
           'thanks_for_partnership':
               'Siz bilan hamkorlik qilishdan xursandmiz :)',
           'confirm_order':
-              '@number ni xodimlar ro’yhatiga qo’shganingizga ishonchingiz komilmi? Tizimga kor’satilgan raqamni xodim sifatida qo’shmaganligingiz sababli do’konni topilmasligi va buyurtmangiz kechikishi mumkin!',
+              '@number ni xodimlar ro’yhatiga qo’shganingizga ishonchingiz komilmi? Tizimga ko`rsatilgan raqamni xodim sifatida qo’shmaganligingiz sababli do’konni topilmasligi va buyurtmangiz kechikishi mumkin!',
           'card_number': 'Karta raqami',
           'call': "Adminstratorga qo'ng'iroq qilish",
           'by_telegram': "Telegram orqali bog'lanish",
@@ -266,7 +266,10 @@ class AppTranslations extends Translations {
               "Rostdan ham shaxsiy hisobingizni o'chirishni istaysizmi?",
           'add_store': "Do'kon qo'shish",
           'free_limit_bonus':
-              "Qo'shgan do'koningiz tasdiqlanganidan so'ng, sizga buyurtma uchun bepul limit beriladi!"
+              "Qo'shgan do'koningiz tasdiqlanganidan so'ng, sizga buyurtma uchun bepul limit beriladi!",
+          'add_staff': "Xodim biriktirish qo'llanmasini ko'rish",
+          'attention': 'Diqqat!',
+          'staff_video': "Xodim qo'shish",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -450,7 +453,7 @@ class AppTranslations extends Translations {
           'enter_max_limit': 'Введите максимальное количество товара.',
           'about_free_limit': 'О бесплатном лимите',
           'text_about_free_limit':
-              'Бесплатный лимит — это лимит, предоставляемый вам для бесплатных заказов с аккаунтов пользователей, которых вы пригласили в программу через свой реферальный идентификатор. За 1 нового пользователя вы получаете бесплатный лимит в 100 товаров.',
+              'Бесплатный лимит — это лимит, предоставляемый вам для бесплатных заказов с аккаунтов пользователей, которых вы пригласили в программу через свой реферальный идентификатор. За 1 нового пользователя вы получаете бесплатный лимит в 100-300 товаров.',
           'your_token_is': 'Ваш реферал: @token',
           'copied_to_clipboard': 'Скопировано!',
           'free_limits': 'Бесплатные лимиты: ',
@@ -523,7 +526,10 @@ class AppTranslations extends Translations {
               'Вы уверены, что хотите удалить свой личный аккаунт?',
           'add_store': 'Добавить магазин',
           'free_limit_bonus':
-              'Как только ваш добавленный магазин будет подтвержден, вам будет предоставлен бесплатный лимит заказов!'
+              'Как только ваш добавленный магазин будет подтвержден, вам будет предоставлен бесплатный лимит заказов!',
+          'add_staff': 'Посмотреть руководство по прикреплению сотрудников',
+          'attention': 'Внимание!',
+          'staff_video': 'Добавить сотрудника',
         }
       };
 }

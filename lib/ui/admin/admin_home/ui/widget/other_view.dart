@@ -176,6 +176,28 @@ class _OtherViewState extends State<OtherView> {
                     },
                     subtitle: state.data!.instruction.isNotEmpty ? '+' : '-'),
                 OtherItem(
+                    title: 'staff_video'.tr,
+                    onTap: () {
+                      controller.text = context
+                          .read<DataFromAdminBloc>()
+                          .state
+                          .data!
+                          .addStaffVideo;
+                      showTextInputDialog(
+                        context,
+                        controller: controller,
+                        hintText: ' '.tr,
+                        title: 'staff_video'.tr,
+                        onConfirmTapped: () {
+                          final DataFromAdminModel data =
+                              context.read<DataFromAdminBloc>().state.data!;
+                          data.addStaffVideo = controller.text.trim();
+                          updateData(data);
+                        },
+                      );
+                    },
+                    subtitle: state.data!.instruction.isNotEmpty ? '+' : '-'),
+                OtherItem(
                     title: 'terms_of_using'.tr,
                     onTap: () {
                       controller.text = context

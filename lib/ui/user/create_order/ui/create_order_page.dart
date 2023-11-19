@@ -1,5 +1,6 @@
 // ignore_for_file: use_named_constants, cascade_invocations, inference_failure_on_function_invocation
 import 'package:time_slot/ui/user/create_order/ui/widgets/free_limit_widget.dart';
+import 'package:time_slot/ui/user/create_order/ui/widgets/payment_button.dart';
 import 'package:time_slot/ui/user/create_order/ui/widgets/select_dates_section.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -186,34 +187,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                   content: const PaymentSection())
                             ]),
                         SizedBox(height: height(context) * 0.05),
-                        Visibility(
-                          visible: orderState.order.products.isNotEmpty,
-                          child: GlobalButton(
-                              isLoading: orderState.addingStatus ==
-                                  ResponseStatus.inProgress,
-                              onTap: () {
-                                showConfirmCancelDialog(context, () {
-                                  Navigator.pop(context);
-                                  context.read<CreateOrderBloc>().add(
-                                      AddOrderEvent(
-                                          orderState.order,
-                                          context
-                                              .read<UserAccountBloc>()
-                                              .state
-                                              .user!));
-                                },
-                                    title: 'confirm_order'.trParams({
-                                      'number': context
-                                          .read<UserAccountBloc>()
-                                          .state
-                                          .user
-                                          .marketNumber
-                                    }));
-                              },
-                              color: Colors.deepPurple,
-                              title: 'order'.tr,
-                              textColor: Colors.white),
-                        )
+                        const PaymentButton()
                       ],
                     ),
                   ),
