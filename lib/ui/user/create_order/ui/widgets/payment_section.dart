@@ -71,7 +71,6 @@ class PaymentSection extends StatelessWidget {
                               border: Border.all(color: Colors.deepPurple)),
                         ),
                         SizedBox(
-                          height: height(context) * 0.14,
                           width: width(context) * 0.45,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

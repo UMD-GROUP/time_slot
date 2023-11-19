@@ -51,7 +51,13 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   Navigator.pop(context);
                 },
               ),
-              title: Text('admin_panel'.tr),
+              title: Text(
+                'admin_panel'.tr,
+                style: AppTextStyles.labelLarge(context,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 20.sp),
+              ),
               backgroundColor: Colors.deepPurple,
               actions: [
                 IconButton(

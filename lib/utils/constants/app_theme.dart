@@ -4,6 +4,8 @@ import 'package:time_slot/utils/tools/file_importers.dart';
 
 class AppTheme {
   static ThemeData light = ThemeData(
+      appBarTheme:
+          const AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.black),
         bodyLarge: TextStyle(color: Colors.black),
@@ -29,12 +31,15 @@ class AppTheme {
       hintColor: Colors.black,
       bottomAppBarColor: Colors.black,
       disabledColor: Colors.white,
+      focusColor: Colors.deepPurple,
       hoverColor: Colors.grey,
       fontFamily: 'Inter',
       primaryColor: Colors.deepPurple,
       primarySwatch: Colors.deepPurple,
       canvasColor: Colors.black45);
   static ThemeData dark = ThemeData(
+      appBarTheme:
+          const AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.white),
         bodyLarge: TextStyle(color: Colors.white),
@@ -64,5 +69,6 @@ class AppTheme {
       fontFamily: 'Inter',
       primaryColor: Colors.deepPurple,
       primarySwatch: Colors.deepPurple,
+      focusColor: AppColors.c1C2632,
       canvasColor: Colors.white);
 }

@@ -101,6 +101,7 @@ class DiscountSection extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: height(context) * 0.01),
               SizedBox(
                 height: 24.h,
                 child: Padding(

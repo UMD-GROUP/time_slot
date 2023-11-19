@@ -1,5 +1,6 @@
 // ignore_for_file: inference_failure_on_function_invocation
 
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -59,23 +60,49 @@ class _UserStoresState extends State<UserStores> {
                           AppTextStyles.labelLarge(context, fontSize: 16.sp)),
                   const Spacer(),
                   if (state.stores.length != 5)
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple, // Background color
-                        ),
-                        onPressed: () {
-                          showCupertinoDialog(
-                              context: context,
-                              builder: (context) => AddStoreDialog(
-                                  user: context
-                                      .read<UserAccountBloc>()
-                                      .state
-                                      .user!));
-                        },
-                        child: Text(
-                          'add'.tr,
-                          style: TextStyle(fontSize: 12.sp),
-                        )),
+                    DescribedFeatureOverlay(
+                      featureId: 'add_store_1',
+                      title: Text('add_store'.tr),
+                      description: Text('free_limit_bonus'.tr),
+                      tapTarget: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple, // Background color
+                          ),
+                          onPressed: () {
+                            FeatureDiscovery.completeCurrentStep(context);
+
+                            showCupertinoDialog(
+                                context: context,
+                                builder: (context) => AddStoreDialog(
+                                    user: context
+                                        .read<UserAccountBloc>()
+                                        .state
+                                        .user!));
+                          },
+                          child: Text(
+                            'add'.tr,
+                            style:
+                                TextStyle(fontSize: 11.sp, color: Colors.white),
+                          )),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple, // Background color
+                          ),
+                          onPressed: () {
+                            showCupertinoDialog(
+                                context: context,
+                                builder: (context) => AddStoreDialog(
+                                    user: context
+                                        .read<UserAccountBloc>()
+                                        .state
+                                        .user!));
+                          },
+                          child: Text(
+                            'add'.tr,
+                            style:
+                                TextStyle(fontSize: 12.sp, color: Colors.white),
+                          )),
+                    ),
                 ],
               ),
               Visibility(

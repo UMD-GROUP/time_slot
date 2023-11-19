@@ -50,6 +50,8 @@ class StoresRepository {
           .collection('stores')
           .doc(store.storeDocId)
           .update(store.toJson());
+      myResponse.statusCode = 200;
+
       if (!owner.isConfirmed) {
         if (freeLimit != 0) {
           final QuerySnapshot<Map<String, dynamic>> partnerDoc = await instance
@@ -63,22 +65,28 @@ class StoresRepository {
               .collection('users')
               .doc(partner.uid)
               .update(partner.toJson());
+
           await sendPushNotification(
               partner.fcmToken,
               makeNotification('you_have_got_free_limit',
                   language: partner.language),
               makeNotification('congrats_for_free_limit',
                   language: partner.language));
-          await instance
-              .collection('users')
-              .doc(owner.uid)
-              .update({'isConfirmed': true});
 
+          owner.isConfirmed = true;
           owner.freeLimits += freeLimit;
           await instance
               .collection('users')
               .doc(owner.uid)
               .update(owner.toJson());
+
+          await sendPushNotification(
+              partner.fcmToken,
+              makeNotification('you_have_got_free_limit',
+                  language: owner.language),
+              makeNotification('congrats_for_free_limit',
+                  language: owner.language));
+
           myResponse.statusCode = 200;
         } else {
           myResponse.message = 'you_need_to_add_free_limit'.tr;

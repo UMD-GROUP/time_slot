@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:time_slot/ui/admin/control/ui/sub_pages/widgets/users_view.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
@@ -8,16 +10,29 @@ class AllUsersPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           elevation: 0,
           actions: [
             IconButton(
                 onPressed: () {
                   context.read<AllUserBloc>().add(GetAllUserEvent());
                 },
-                icon: const Icon(Icons.refresh))
+                icon: const Icon(Icons.refresh, color: Colors.white))
           ],
-          backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
-          title: Text('users'.tr, style: AppTextStyles.labelLarge(context)),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+          ),
+          title: Text('users'.tr,
+              style: AppTextStyles.labelLarge(context,
+                  fontSize: 20.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700)),
         ),
         body: BlocListener<AdminBloc, AdminState>(
           listener: (context, state) {
@@ -49,6 +64,7 @@ class AllUsersPage extends StatelessWidget {
                 TabBar(
                   labelColor: AdaptiveTheme.of(context).theme.hintColor,
                   indicatorColor: Colors.deepPurple,
+                  dividerColor: Colors.transparent,
                   tabs: [
                     Tab(text: 'good_users'.tr),
                     Tab(text: 'active'.tr),
@@ -63,11 +79,10 @@ class AllUsersPage extends StatelessWidget {
                       context.read<AllUserBloc>().add(GetAllUserEvent());
                     } else if (state.status == ResponseStatus.inSuccess) {
                       final List<UserModel> curData = state.users!.cast();
-                      final List<UserModel> data = curData
-                          .where((element) => element.referrals.isNotEmpty)
-                          .toList();
                       curData.sort(
-                          (a, b) => b.sumOfOrders!.compareTo(a.sumOfOrders!));
+                          (a, b) => b.sumOfOrders.compareTo(a.sumOfOrders));
+                      curData
+                          .sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
                       return Expanded(
                         child: TabBarView(children: [
                           UsersView(curData

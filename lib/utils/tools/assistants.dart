@@ -120,15 +120,17 @@ String orderValidator(OrderModel order) {
   return '';
 }
 
-bool canNavigate(context, UserModel? user, DataFromAdminModel data) {
+bool canNavigate(
+    context, UserModel? user, DataFromAdminModel data, List stores) {
   String error = '';
   if (user == null) {
     error = 'try_again'.tr;
   }
-  if (user!.markets.isEmpty) {
+  print(user!.markets);
+  if (stores.isEmpty) {
     error = 'you_need_to_create_market'.tr;
   }
-  if (data.cardNumber.isEmpty || data.deliveryNote.length != 6) {
+  if (data.cardNumber.isEmpty || data.deliveryNote.isEmpty) {
     error = 'you_cant_create_order_now'.tr;
   }
   if (error.isNotEmpty) {
@@ -1603,4 +1605,20 @@ List<String> registeredWithReferral({bool isUzbek = true}) {
       'Если клиент одобрен администратором, вам будет предоставлено 100 бесплатных лимитов!'
     ];
   }
+}
+
+int discountGenerator(int productsCount) {
+  int percent = 0;
+  if (productsCount >= 100 && productsCount <= 199) {
+    percent = 10;
+  } else if (productsCount >= 200 && productsCount <= 499) {
+    percent = 15;
+  } else if (productsCount >= 500 && productsCount <= 999) {
+    percent = 20;
+  } else if (productsCount >= 1000 && productsCount <= 1999) {
+    percent = 25;
+  } else if (productsCount >= 2000) {
+    percent = 30;
+  }
+  return percent;
 }
