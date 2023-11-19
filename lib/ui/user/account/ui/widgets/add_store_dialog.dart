@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AddStoreDialog extends StatelessWidget {
   AddStoreDialog({required this.user, super.key});
@@ -17,6 +18,19 @@ class AddStoreDialog extends StatelessWidget {
               if (!context.read<DataFromAdminBloc>().state.data.isNull)
                 Text('don_not_forget_to_add_number'
                     .trParams({'number': user.marketNumber})),
+              TextButton(
+                  onPressed: () {
+                    launchUrlString(context
+                        .read<DataFromAdminBloc>()
+                        .state
+                        .data!
+                        .addStaffVideo);
+                  },
+                  child: Text(
+                    'add_staff'.tr,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.labelLarge(context, color: Colors.red),
+                  )),
               const SizedBox(height: 16),
               CupertinoTextField(
                 controller: controller,
