@@ -39,6 +39,7 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
               order.reserve = state.reserve;
               order.date = state.reserve!.date;
               context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(order,
+                  context.read<DataFromAdminBloc>().state.data!.orderMinAmount,
                   freeLimit:
                       context.read<UserAccountBloc>().state.user.freeLimits));
             } else {

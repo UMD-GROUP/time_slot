@@ -17,17 +17,19 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
   }
 
   void updateFields(UpdateFieldsOrderEvent event, Emitter emit) {
-    event.order = calculateSum(event.order, event.freeLimit);
+    event.order = calculateSum(event.order, event.freeLimit, event.minAmount);
     emit(state.copyWith(newOrder: event.order, isUpdated: !state.isUpdated));
   }
 
-  OrderModel calculateSum(OrderModel order, int? freeLimit1) {
+  OrderModel calculateSum(OrderModel order, int? freeLimit1, int minAmount) {
     int sum = 0;
     final int price = order.reserve.isNull ? 0 : order.reserve!.price;
     final int freeLimit = freeLimit1 ?? 0;
     final int productCount =
         order.products.fold(0, (i, e) => int.parse((i + e.count).toString()));
     sum += (productCount >= freeLimit ? productCount - freeLimit : 0) * price;
+    print(
+        'Sum -> $sum , freeLimit -> $freeLimit1, productsCount -> $productCount');
 
     order.sum = sum;
     double discount = 0;
@@ -36,11 +38,6 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       order.freeLimit = productCount;
     } else {
       order.freeLimit = freeLimit;
-      if (order.totalSum < 10000) {
-        order
-          ..totalSum = 10000
-          ..sum = 10000;
-      }
     }
 
     final int discountProductsCount = productCount - freeLimit;
@@ -72,7 +69,15 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       order.discountUsed = false;
     }
 
+    if (order.sum < minAmount || order.totalSum < minAmount) {
+      sum = minAmount;
+      order
+        ..totalSum = minAmount
+        ..sum = minAmount;
+    }
+
     order.totalSum = sum - sum % 1000;
+    print('MANA SUM -> ${order.sum} -> ${order.totalSum}');
 
     return order;
   }

@@ -39,46 +39,63 @@ class _AdminBannerWidgetState extends State<AdminBannerWidget> {
             showLoadingDialog(context);
           }
         },
-        child: SizedBox(
-          height: height(context) * 0.06,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount:
-                  context.read<DataFromAdminBloc>().state.data!.banners.length +
-                      1,
-              itemBuilder: (context, index) => index ==
-                      context
+        child: ExpansionTile(
+          iconColor: Colors.deepPurple,
+          collapsedBackgroundColor: Colors.transparent,
+          title: Text('banners'.tr, style: AppTextStyles.labelLarge(context)),
+          children: [
+            SizedBox(height: height(context) * 0.02),
+            SizedBox(
+              height: height(context) * 0.06,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: context
                           .read<DataFromAdminBloc>()
                           .state
                           .data!
                           .banners
-                          .length
-                  ? OnTap(
-                      onTap: () async {
-                        final XFile? pickedImage = await showPicker(context);
-                        context.read<AdminBloc>().add(AddBannerEvent(
-                            pickedImage!.path,
-                            context.read<DataFromAdminBloc>().state.data!));
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: Container(
-                          height: height(context) * 0.06,
-                          width: width(context) * 0.25,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.deepPurple),
-                              borderRadius: BorderRadius.circular(4.r)),
-                          child: Icon(Icons.add,
-                              color: AdaptiveTheme.of(context).theme.hintColor),
-                        ),
-                      ),
-                    )
-                  : BannerItemAdmin(
-                      image: context
-                          .read<DataFromAdminBloc>()
-                          .state
-                          .data!
-                          .banners[index])),
+                          .length +
+                      1,
+                  itemBuilder: (context, index) => index ==
+                          context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .banners
+                              .length
+                      ? OnTap(
+                          onTap: () async {
+                            final XFile? pickedImage =
+                                await showPicker(context);
+                            context.read<AdminBloc>().add(AddBannerEvent(
+                                pickedImage!.path,
+                                context.read<DataFromAdminBloc>().state.data!));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: Container(
+                              height: height(context) * 0.06,
+                              width: width(context) * 0.25,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.deepPurple),
+                                  borderRadius: BorderRadius.circular(4.r)),
+                              child: Icon(Icons.add,
+                                  color: AdaptiveTheme.of(context)
+                                      .theme
+                                      .hintColor),
+                            ),
+                          ),
+                        )
+                      : BannerItemAdmin(
+                          image: context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .banners[index])),
+            ),
+            SizedBox(height: height(context) * 0.03)
+          ],
         ),
       );
 }

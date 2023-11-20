@@ -10,6 +10,7 @@ class CreateOrderRepository {
       order
         ..referralId = user.referallId
         ..ownerId = user.uid
+        ..ownerToken = user.token
         ..orderId = generateRandomID(true)
         ..ownerFcm = user.fcmToken
         ..userEmail = user.email
@@ -28,7 +29,7 @@ class CreateOrderRepository {
           .collection('users')
           .doc(user.uid)
           .update({'orders': user.orders});
-      user.freeLimits -= order.freeLimit;
+      // user.freeLimits -= order.freeLimit;
       await getIt<AdminRepository>().updateUser(user);
       order.reserve!.reserve -=
           order.products.fold(0, (p, e) => int.parse((p + e.count).toString()));
