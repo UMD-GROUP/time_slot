@@ -47,7 +47,14 @@ class ListOfProducts extends StatelessWidget {
                           order.promoCode = null;
                           context
                               .read<CreateOrderBloc>()
-                              .add(UpdateFieldsOrderEvent(order));
+                              .add(UpdateFieldsOrderEvent(
+                                order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .orderMinAmount,
+                              ));
                         },
                             title: 'you_can_not_remove_product'.trParams({
                               'count':
@@ -58,14 +65,26 @@ class ListOfProducts extends StatelessWidget {
                         order.products.removeAt(index);
                         context
                             .read<CreateOrderBloc>()
-                            .add(UpdateFieldsOrderEvent(order));
+                            .add(UpdateFieldsOrderEvent(
+                              order,
+                              context
+                                  .read<DataFromAdminBloc>()
+                                  .state
+                                  .data!
+                                  .orderMinAmount,
+                            ));
                       }
                     } else {
                       final OrderModel order = state.order;
                       order.products.removeAt(index);
-                      context
-                          .read<CreateOrderBloc>()
-                          .add(UpdateFieldsOrderEvent(order));
+                      context.read<CreateOrderBloc>().add(
+                          UpdateFieldsOrderEvent(
+                              order,
+                              context
+                                  .read<DataFromAdminBloc>()
+                                  .state
+                                  .data!
+                                  .orderMinAmount));
                     }
                     getMyToast('deleted'.tr);
                   },

@@ -31,6 +31,7 @@ class _UsePromoCodeState extends State<UsePromoCode> {
               orderModel.promoCode = state.promoCode;
               context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(
                   orderModel,
+                  context.read<DataFromAdminBloc>().state.data!.orderMinAmount,
                   freeLimit:
                       context.read<UserAccountBloc>().state.user.freeLimits));
             } else {
@@ -51,57 +52,62 @@ class _UsePromoCodeState extends State<UsePromoCode> {
             ).show(context);
           }
         },
-        builder: (context, state) => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.deepPurple),
-                    borderRadius: BorderRadius.circular(6)),
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                width: width(context) * 0.35,
-                alignment: Alignment.center,
-                height: height(context) * 0.05,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  textCapitalization: TextCapitalization.characters,
-                  style: AppTextStyles.labelLarge(context, fontSize: 16.sp),
-                  controller: promoCtrl,
-                  inputFormatters: [
-                    MaxLengthInputFormatter(7),
-                  ],
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {
-                    checkStatus();
-                  },
-                  decoration: InputDecoration(
-                      hintStyle: AppTextStyles.labelLarge(context,
-                          color: Colors.grey, fontSize: 20.sp),
-                      border: InputBorder.none,
-                      hintText: 'promo_code'.tr,
-                      iconColor: Colors.deepPurple),
-                )),
-            SizedBox(width: width(context) * 0.05),
-            state.promoCodeStatus == ResponseStatus.inProgress
-                ? Container(
-                    margin: EdgeInsets.only(right: height(context) * 0.06),
-                    child: const CustomCircularProgressIndicator(
-                        color: Colors.deepPurpleAccent),
-                  )
-                : TextButton(
-                    onPressed: () {
-                      if (isValid) {
-                        context
-                            .read<PrivilegeBloc>()
-                            .add(GetThePromoCodeEvent(promoCtrl.text.trim()));
-                      }
-                    },
-                    child: Text('check'.tr,
-                        style: AppTextStyles.labelLarge(context,
-                            color: isValid
-                                ? Colors.deepPurpleAccent
-                                : Colors.grey)))
-          ],
+        builder: (context, state) =>
+            BlocBuilder<CreateOrderBloc, CreateOrderState>(
+          builder: (context, orderState) => Visibility(
+            visible: orderState.order.userPhoto.isEmpty,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.deepPurple),
+                        borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    width: width(context) * 0.35,
+                    alignment: Alignment.center,
+                    height: height(context) * 0.05,
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      textCapitalization: TextCapitalization.characters,
+                      style: AppTextStyles.labelLarge(context, fontSize: 16.sp),
+                      controller: promoCtrl,
+                      inputFormatters: [
+                        MaxLengthInputFormatter(7),
+                      ],
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {
+                        checkStatus();
+                      },
+                      decoration: InputDecoration(
+                          hintStyle: AppTextStyles.labelLarge(context,
+                              color: Colors.grey, fontSize: 20.sp),
+                          border: InputBorder.none,
+                          hintText: 'promo_code'.tr,
+                          iconColor: Colors.deepPurple),
+                    )),
+                SizedBox(width: width(context) * 0.05),
+                state.promoCodeStatus == ResponseStatus.inProgress
+                    ? Container(
+                        margin: EdgeInsets.only(right: height(context) * 0.06),
+                        child: const CustomCircularProgressIndicator(
+                            color: Colors.deepPurpleAccent),
+                      )
+                    : TextButton(
+                        onPressed: () {
+                          if (isValid) {
+                            context.read<PrivilegeBloc>().add(
+                                GetThePromoCodeEvent(promoCtrl.text.trim()));
+                          }
+                        },
+                        child: Text('check'.tr,
+                            style: AppTextStyles.labelLarge(context,
+                                color: isValid
+                                    ? Colors.deepPurpleAccent
+                                    : Colors.grey)))
+              ],
+            ),
+          ),
         ),
       );
 }

@@ -14,7 +14,8 @@ class PaymentSection extends StatelessWidget {
           builder: (context, state) => Column(
             children: [
               Visibility(
-                visible: state.order.freeLimit != 0,
+                visible:
+                    state.order.freeLimit != 0 && state.order.totalSum != 0,
                 child: Text('free_limits_disclaimer'.tr,
                     style: AppTextStyles.labelLarge(context,
                         color: Colors.deepPurpleAccent, fontSize: 12.sp)),
@@ -103,9 +104,19 @@ class PaymentSection extends StatelessWidget {
                                     final photo = await showPicker(context);
                                     final OrderModel order = state.order;
                                     order.userPhoto = photo!.path;
-                                    context
-                                        .read<CreateOrderBloc>()
-                                        .add(UpdateFieldsOrderEvent(order));
+                                    context.read<CreateOrderBloc>().add(
+                                        UpdateFieldsOrderEvent(
+                                            order,
+                                            context
+                                                .read<DataFromAdminBloc>()
+                                                .state
+                                                .data!
+                                                .orderMinAmount,
+                                            freeLimit: context
+                                                .read<UserAccountBloc>()
+                                                .state
+                                                .user
+                                                .freeLimits));
                                   },
                                   child: Text(
                                     'take_photo'.tr,

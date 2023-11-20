@@ -23,9 +23,13 @@ class MarketOption extends StatelessWidget {
                   onChanged: (value) {
                     final OrderModel order = state.order;
                     order.marketName = value.toString();
-                    context
-                        .read<CreateOrderBloc>()
-                        .add(UpdateFieldsOrderEvent(order));
+                    context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(
+                        order,
+                        context
+                            .read<DataFromAdminBloc>()
+                            .state
+                            .data!
+                            .orderMinAmount));
                   },
                 )
             ],

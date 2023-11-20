@@ -6,6 +6,7 @@ class DataFromAdminModel {
       required this.termsOfUsing,
       required this.maxLimit,
       required this.addStaffVideo,
+      required this.orderMinAmount,
       required this.adminPassword,
       this.freeLimit = 0,
       this.cardNumber = '',
@@ -13,6 +14,7 @@ class DataFromAdminModel {
 
   factory DataFromAdminModel.fromJson(Map<String, dynamic> json) =>
       DataFromAdminModel(
+          orderMinAmount: json['orderMinAmount'] ?? 10000,
           addStaffVideo: json['addStaffVideo'] ?? '',
           phoneNumber: json['phoneNumber'] ?? '',
           banners: json['banners'] ?? [],
@@ -33,12 +35,14 @@ class DataFromAdminModel {
   String cardNumber;
   int freeLimit;
   String addStaffVideo;
+  int orderMinAmount;
 
   Map<String, dynamic> toJson() => {
         'banners': banners,
         'addStaffVideo': addStaffVideo,
         'deliveryNote': deliveryNote,
         'instruction': instruction,
+        'orderMinAmount': orderMinAmount,
         'termsOfUsing': termsOfUsing,
         'adminPassword': adminPassword,
         'maxLimit': maxLimit,

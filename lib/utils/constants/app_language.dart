@@ -270,6 +270,12 @@ class AppTranslations extends Translations {
           'add_staff': "Xodim biriktirish qo'llanmasini ko'rish",
           'attention': 'Diqqat!',
           'staff_video': "Xodim qo'shish",
+          'order_min_amount': 'Minimal summa',
+          'special_settings': 'Maxsus sozlamalar',
+          'not_available': 'Mavjud emas',
+          'customer': 'Mijoz:',
+          'share_token':
+              'Assalomu alaykum!\nSellerPRO dasturidan tekinga istalgan sanaga timeslot olmoqchi boʻlsangiz dasturda roʻyhatdan oʻtishning `referal` qismiga quyidagi Referal ID ni kiriting. Shunda sizga va menga 100 tadan 300 tagacha bepul limit beriladi:) \nDasturni yuklab oling:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token'
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -530,6 +536,13 @@ class AppTranslations extends Translations {
           'add_staff': 'Посмотреть руководство по прикреплению сотрудников',
           'attention': 'Внимание!',
           'staff_video': 'Добавить сотрудника',
+          'order_min_amount': 'Минимальная сумма',
+          'special_settings': 'Cпециальные настройки',
+          'not_available': 'Hедоступен',
+          'customer': 'Клиент:',
+          'share_token':
+              'Приветствую!\nЕсли вы хотите получить бесплатный временной интервал на любую дату от программы SellerPRO, введите следующий реферальный идентификатор в разделе ``реферал'
+                  ' регистрации программы. Тогда нам с вами будет предоставлен бесплатный лимит от 100 до 300 :) \nСкачать приложение:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token'
         }
       };
 }

@@ -202,7 +202,13 @@ class _AddProductSectionState extends State<AddProductSection> {
                                       deliveryNote.clear();
                                       changeStatus();
                                       context.read<CreateOrderBloc>().add(
-                                          UpdateFieldsOrderEvent(order,
+                                          UpdateFieldsOrderEvent(
+                                              order,
+                                              context
+                                                  .read<DataFromAdminBloc>()
+                                                  .state
+                                                  .data!
+                                                  .orderMinAmount,
                                               freeLimit: context
                                                   .read<UserAccountBloc>()
                                                   .state

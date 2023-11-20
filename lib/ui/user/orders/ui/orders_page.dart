@@ -1,6 +1,6 @@
-import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:time_slot/ui/user/orders/bloc/bloc/data_from_admin/data_from_admin_state.dart';
+import 'package:time_slot/ui/user/orders/ui/widgets/make_an_order_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
 
 class OrdersPage extends StatefulWidget {
@@ -36,34 +36,40 @@ class _OrdersPageState extends State<OrdersPage> {
                       color: Colors.white,
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w800))),
-          leading: DescribedFeatureOverlay(
-            allowShowingDuplicate: true,
-            backgroundDismissible: true,
+          leading: BlocBuilder<UserAccountBloc, UserAccountState>(
+            builder: (context, userState) => Visibility(
+              visible: !userState.user.isNull,
+              child: DescribedFeatureOverlay(
+                allowShowingDuplicate: true,
+                backgroundDismissible: true,
 
-            featureId: 'add_store', // Unique id that identifies this overlay.
-            tapTarget: IconButton(
-                onPressed: () {
-                  FeatureDiscovery.completeCurrentStep(context);
+                featureId:
+                    'add_store', // Unique id that identifies this overlay.
+                tapTarget: IconButton(
+                    onPressed: () {
+                      FeatureDiscovery.completeCurrentStep(context);
 
-                  Navigator.pushNamed(context, RouteName.account);
-                },
-                icon: const Icon(Icons
-                    .account_circle_outlined)), // The widget that will be displayed as the tap target.
-            title: Text('account'.tr),
-            description: Text('first_add_your_store'.tr),
-            backgroundColor: Theme.of(context).primaryColor,
-            // onBackgroundTap: () async {
-            //   await Navigator.pushNamed(context, RouteName.account);
-            //   return true;
-            // },
-            child: IconButton(
-              icon: const Icon(
-                Icons.account_circle_outlined,
-                color: Colors.white,
+                      Navigator.pushNamed(context, RouteName.account);
+                    },
+                    icon: const Icon(Icons
+                        .account_circle_outlined)), // The widget that will be displayed as the tap target.
+                title: Text('account'.tr),
+                description: Text('first_add_your_store'.tr),
+                backgroundColor: Theme.of(context).primaryColor,
+                // onBackgroundTap: () async {
+                //   await Navigator.pushNamed(context, RouteName.account);
+                //   return true;
+                // },
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.account_circle_outlined,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteName.account);
+                  },
+                ),
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, RouteName.account);
-              },
             ),
           ),
           backgroundColor: Colors.deepPurple,
@@ -97,70 +103,9 @@ class _OrdersPageState extends State<OrdersPage> {
                 },
               ),
               SizedBox(height: height(context) * 0.01),
-              const Expanded(child: TabBarWidget())
+              const TabBarWidget()
             ]),
-            Positioned(
-              bottom: height(context) * 0.035,
-              child: OnTap(
-                onTap: () {
-                  if (canNavigate(
-                      context,
-                      context.read<UserAccountBloc>().state.user,
-                      context.read<DataFromAdminBloc>().state.data!,
-                      context.read<UserAccountBloc>().state.stores)) {
-                    context.read<CreateOrderBloc>().add(ReInitOrderEvent());
-                    Navigator.pushNamed(context, RouteName.createOrder);
-                  } else {
-                    FeatureDiscovery.clearPreferences(context, ['add_store']);
-                    FeatureDiscovery.discoverFeatures(
-                      context,
-                      const <String>{'add_store', 'add_store_1'},
-                    );
-                  }
-                },
-                child: SizedBox(
-                  width: width(context),
-                  child: Center(
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: 1,
-                          right: 1,
-                          child: RippleAnimation(
-                            repeat: true,
-                            color: Colors.deepPurple,
-                            minRadius: 60,
-                            ripplesCount: 6,
-                            size: Size(
-                                width(context) * 0.6, height(context) * 0.055),
-                            child: SizedBox(
-                              height: height(context) * 0.055,
-                              width: width(context) * 0.6,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: height(context) * 0.055,
-                          width: width(context) * 0.6,
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: width(context) * 0.2),
-                          decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(16.h)),
-                          child: Text('make_an_order'.tr,
-                              textAlign: TextAlign.center,
-                              style: AppTextStyles.labelLarge(context,
-                                  color: Colors.white,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
+            const MakeAnOrderButton()
           ],
         ),
       );

@@ -4,9 +4,10 @@ part of 'create_order_bloc.dart';
 abstract class CreateOrderEvent {}
 
 class UpdateFieldsOrderEvent extends CreateOrderEvent {
-  UpdateFieldsOrderEvent(this.order, {this.freeLimit});
+  UpdateFieldsOrderEvent(this.order, this.minAmount, {this.freeLimit});
   OrderModel order;
   int? freeLimit;
+  int minAmount;
 }
 
 class AddOrderEvent extends CreateOrderEvent {
