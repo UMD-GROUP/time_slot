@@ -77,6 +77,8 @@ class OrderItem extends StatelessWidget {
                               margin: EdgeInsets.symmetric(horizontal: 5.h),
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.deepPurple, width: 2),
                                     borderRadius: BorderRadius.circular(10.h),
                                     image: DecorationImage(
                                         image: imageProvider,
