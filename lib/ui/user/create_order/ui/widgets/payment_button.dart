@@ -8,54 +8,57 @@ class PaymentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<CreateOrderBloc, CreateOrderState>(
-        builder: (context, orderState) => Visibility(
-          visible: orderState.order.products.isNotEmpty,
-          child: GlobalButton(
-              isLoading: orderState.addingStatus == ResponseStatus.inProgress,
-              onTap: () {
-                showConfirmCancelDialog(context, () {},
-                    topTitle: Text(
-                      'attention'.tr,
-                      style: AppTextStyles.labelLarge(context,
-                          color: Colors.red, fontSize: 18.sp),
-                    ),
-                    bottomButton: context
-                            .read<DataFromAdminBloc>()
+        builder: (context, orderState) =>
+            BlocBuilder<StepControllerBloc, StepControllerState>(
+          builder: (context, stepState) => Visibility(
+            visible: stepState.currentStep == 3,
+            child: GlobalButton(
+                isLoading: orderState.addingStatus == ResponseStatus.inProgress,
+                onTap: () {
+                  showConfirmCancelDialog(context, () {},
+                      topTitle: Text(
+                        'attention'.tr,
+                        style: AppTextStyles.labelLarge(context,
+                            color: Colors.red, fontSize: 18.sp),
+                      ),
+                      bottomButton: context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .addStaffVideo
+                              .isNotEmpty
+                          ? TextButton(
+                              onPressed: () {
+                                launchUrlString(context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .addStaffVideo);
+                              },
+                              child: Text(
+                                'add_staff'.tr,
+                                textAlign: TextAlign.center,
+                                style: AppTextStyles.labelLarge(context,
+                                    color: Colors.red),
+                              ))
+                          : null, button: TimerButton(() {
+                    Navigator.pop(context);
+                    context.read<CreateOrderBloc>().add(AddOrderEvent(
+                        orderState.order,
+                        context.read<UserAccountBloc>().state.user!));
+                  }),
+                      title: 'confirm_order'.trParams({
+                        'number': context
+                            .read<UserAccountBloc>()
                             .state
-                            .data!
-                            .addStaffVideo
-                            .isNotEmpty
-                        ? TextButton(
-                            onPressed: () {
-                              launchUrlString(context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .addStaffVideo);
-                            },
-                            child: Text(
-                              'add_staff'.tr,
-                              textAlign: TextAlign.center,
-                              style: AppTextStyles.labelLarge(context,
-                                  color: Colors.red),
-                            ))
-                        : null, button: TimerButton(() {
-                  Navigator.pop(context);
-                  context.read<CreateOrderBloc>().add(AddOrderEvent(
-                      orderState.order,
-                      context.read<UserAccountBloc>().state.user!));
-                }),
-                    title: 'confirm_order'.trParams({
-                      'number': context
-                          .read<UserAccountBloc>()
-                          .state
-                          .user
-                          .marketNumber
-                    }));
-              },
-              color: Colors.deepPurple,
-              title: 'order'.tr,
-              textColor: Colors.white),
+                            .user
+                            .marketNumber
+                      }));
+                },
+                color: Colors.deepPurple,
+                title: 'order'.tr,
+                textColor: Colors.white),
+          ),
         ),
       );
 }

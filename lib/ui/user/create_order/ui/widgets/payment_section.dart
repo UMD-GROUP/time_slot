@@ -14,7 +14,8 @@ class PaymentSection extends StatelessWidget {
           builder: (context, state) => Column(
             children: [
               Visibility(
-                visible: state.order.freeLimit != 0,
+                visible:
+                    state.order.freeLimit != 0 && state.order.totalSum != 0,
                 child: Text('free_limits_disclaimer'.tr,
                     style: AppTextStyles.labelLarge(context,
                         color: Colors.deepPurpleAccent, fontSize: 12.sp)),
@@ -110,7 +111,12 @@ class PaymentSection extends StatelessWidget {
                                                 .read<DataFromAdminBloc>()
                                                 .state
                                                 .data!
-                                                .orderMinAmount));
+                                                .orderMinAmount,
+                                            freeLimit: context
+                                                .read<UserAccountBloc>()
+                                                .state
+                                                .user
+                                                .freeLimits));
                                   },
                                   child: Text(
                                     'take_photo'.tr,

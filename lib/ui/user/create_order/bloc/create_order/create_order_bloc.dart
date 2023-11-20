@@ -28,6 +28,8 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     final int productCount =
         order.products.fold(0, (i, e) => int.parse((i + e.count).toString()));
     sum += (productCount >= freeLimit ? productCount - freeLimit : 0) * price;
+    print(
+        'Sum -> $sum , freeLimit -> $freeLimit1, productsCount -> $productCount');
 
     order.sum = sum;
     double discount = 0;
@@ -36,11 +38,6 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       order.freeLimit = productCount;
     } else {
       order.freeLimit = freeLimit;
-      if (order.sum < 10000) {
-        order
-          ..totalSum = minAmount
-          ..sum = minAmount;
-      }
     }
 
     final int discountProductsCount = productCount - freeLimit;
@@ -72,7 +69,15 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       order.discountUsed = false;
     }
 
+    if (order.sum < minAmount || order.totalSum < minAmount) {
+      sum = minAmount;
+      order
+        ..totalSum = minAmount
+        ..sum = minAmount;
+    }
+
     order.totalSum = sum - sum % 1000;
+    print('MANA SUM -> ${order.sum} -> ${order.totalSum}');
 
     return order;
   }

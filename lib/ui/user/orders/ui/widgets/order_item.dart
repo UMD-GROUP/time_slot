@@ -122,8 +122,8 @@ class OrderItem extends StatelessWidget {
                           isVisible: !isOwner,
                           icon: Icons.group,
                           context: context,
-                          type: 'partners',
-                          value: order.referralId.toString()),
+                          type: 'customer',
+                          value: order.ownerToken),
                       OrderTextWidget(
                           isVisible: isOwner,
                           icon: Icons.production_quantity_limits_sharp,

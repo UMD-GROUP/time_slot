@@ -12,6 +12,7 @@ class OrderModel {
       required this.products,
       this.sum = 0,
       this.marketName = '',
+      this.ownerToken = '',
       required this.date,
       this.userPhoto = '',
       required this.createdAt,
@@ -27,6 +28,7 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         ownerFcm: json['ownerFcm'] ?? '',
+        ownerToken: json['ownerToken'] ?? 'not_available'.tr,
         reserve: ReserveModel.fromJson(json['reserve'] ?? {}),
         comment: json['comment'] ?? '',
         freeLimit: json['freeLimit'] ?? 0,
@@ -75,6 +77,7 @@ class OrderModel {
   int freeLimit;
   String userEmail;
   bool discountUsed;
+  String ownerToken;
 
   Map<String, dynamic> toJson() => {
         'referallId': referralId,
@@ -97,6 +100,7 @@ class OrderModel {
         'freeLimit': freeLimit,
         'language': language,
         'products': products.map((e) => e.toJson()),
-        'ownerFcm': ownerFcm
+        'ownerFcm': ownerFcm,
+        'ownerToken': ownerToken
       };
 }

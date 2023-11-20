@@ -8,7 +8,6 @@ class AllPromoCodesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox(
         width: width(context),
-        height: height(context) * 0.9,
         child: Scaffold(
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           body: BlocConsumer<PromoCodeBloc, PromoCodeState>(

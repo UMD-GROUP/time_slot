@@ -57,8 +57,15 @@ class _AccountPageState extends State<AccountPage> {
                       children: [
                         InfoActionButton(
                           title: 'referral',
-                          onTap: () {
-                            copyToClipboard(context, state.user!.token);
+                          onTap: () async {
+                            await Share.share('share_token'.trParams({
+                              'android':
+                                  'https://play.google.com/store/apps/details?id=com.uzmobdev.time_slot&hl=ru&gl=US',
+                              'ios':
+                                  'https://apps.apple.com/uz/app/seller-pro/id6472054702',
+                              'token': state.user.token
+                            }));
+                            // copyToClipboard(context, state.user!.token);
                           },
                           icon: Icons.token,
                           subtitle: state.user!.token,
