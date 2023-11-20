@@ -31,6 +31,7 @@ class _UsePromoCodeState extends State<UsePromoCode> {
               orderModel.promoCode = state.promoCode;
               context.read<CreateOrderBloc>().add(UpdateFieldsOrderEvent(
                   orderModel,
+                  context.read<DataFromAdminBloc>().state.data!.orderMinAmount,
                   freeLimit:
                       context.read<UserAccountBloc>().state.user.freeLimits));
             } else {

@@ -79,22 +79,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: height(context) * 0.01,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text('banners'.tr,
-                    style: AppTextStyles.bodyMedium(context)),
-              ),
-              SizedBox(
-                height: height(context) * 0.01,
-              ),
               const AdminBannerWidget(),
-              SizedBox(
-                height: height(context) * 0.03,
-              ),
               const OtherView(),
+              SizedBox(height: height(context) * 0.03),
               const Expanded(child: AdminTabBarWidget()),
             ],
           ),

@@ -103,9 +103,14 @@ class PaymentSection extends StatelessWidget {
                                     final photo = await showPicker(context);
                                     final OrderModel order = state.order;
                                     order.userPhoto = photo!.path;
-                                    context
-                                        .read<CreateOrderBloc>()
-                                        .add(UpdateFieldsOrderEvent(order));
+                                    context.read<CreateOrderBloc>().add(
+                                        UpdateFieldsOrderEvent(
+                                            order,
+                                            context
+                                                .read<DataFromAdminBloc>()
+                                                .state
+                                                .data!
+                                                .orderMinAmount));
                                   },
                                   child: Text(
                                     'take_photo'.tr,

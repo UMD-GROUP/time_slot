@@ -2,14 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Microphone Access Required</string>
-    <key>NSMotionUsageDescription</key>
-    <string>Motion Usage Required</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Please allow access to photo library so you can easily upload your photos.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Please allow access to photo library so you can easily upload your photos.</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -32,6 +28,21 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone Access Required</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Motion Usage Required</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow access to photo library so you can easily upload your photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow access to photo library so you can easily upload your photos.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -49,9 +60,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
 </dict>
 </plist>

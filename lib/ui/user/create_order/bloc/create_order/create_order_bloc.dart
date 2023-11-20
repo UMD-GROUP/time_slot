@@ -17,11 +17,11 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
   }
 
   void updateFields(UpdateFieldsOrderEvent event, Emitter emit) {
-    event.order = calculateSum(event.order, event.freeLimit);
+    event.order = calculateSum(event.order, event.freeLimit, event.minAmount);
     emit(state.copyWith(newOrder: event.order, isUpdated: !state.isUpdated));
   }
 
-  OrderModel calculateSum(OrderModel order, int? freeLimit1) {
+  OrderModel calculateSum(OrderModel order, int? freeLimit1, int minAmount) {
     int sum = 0;
     final int price = order.reserve.isNull ? 0 : order.reserve!.price;
     final int freeLimit = freeLimit1 ?? 0;
@@ -38,8 +38,8 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       order.freeLimit = freeLimit;
       if (order.sum < 10000) {
         order
-          ..totalSum = 10000
-          ..sum = 10000;
+          ..totalSum = minAmount
+          ..sum = minAmount;
       }
     }
 

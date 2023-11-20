@@ -270,6 +270,8 @@ class AppTranslations extends Translations {
           'add_staff': "Xodim biriktirish qo'llanmasini ko'rish",
           'attention': 'Diqqat!',
           'staff_video': "Xodim qo'shish",
+          'order_min_amount': 'Minimal summa',
+          'special_settings': 'Maxsus sozlamalar',
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -530,6 +532,8 @@ class AppTranslations extends Translations {
           'add_staff': 'Посмотреть руководство по прикреплению сотрудников',
           'attention': 'Внимание!',
           'staff_video': 'Добавить сотрудника',
+          'order_min_amount': 'Минимальная сумма',
+          'special_settings': 'Cпециальные настройки',
         }
       };
 }
