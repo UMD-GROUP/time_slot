@@ -191,7 +191,7 @@ class AppTranslations extends Translations {
           'enter_max_limit': 'Maksimal miqdorni kiriting.',
           'about_free_limit': 'Bepul limit haqida',
           'text_about_free_limit':
-              'Bepul limit - bu siz o’z referal ID ingiz orqali dasturga taklif qilgan foydalanuvchilar hisobidan sizga bepul buyurtma berish uchun beriladigan limitdir. 1 ta yangi foydalanuvchi uchun siz 100tadan -300 tagacha mahsulot uchun bepul limitga ega bo’lasiz.',
+              'Bepul limit - bu siz o’z referal ID ingiz orqali dasturga taklif qilgan foydalanuvchilar hisobidan sizga bepul buyurtma berish uchun beriladigan limitdir. 1 ta yangi foydalanuvchi uchun siz 100tadan 300 tagacha mahsulot uchun bepul limitga ega bo’lasiz.',
           'your_token_is': 'Sizning referal: @token',
           'copied_to_clipboard': 'Nusxalandi!',
           'free_limits': 'Bepul limitlar: ',

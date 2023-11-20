@@ -76,9 +76,7 @@ class _AccountPageState extends State<AccountPage> {
                             copyToClipboard(context, state.user!.email);
                           },
                           icon: Icons.email,
-                          subtitle: state.user.email.length > 20
-                              ? state.user.email.substring(0, 20)
-                              : state.user.email,
+                          subtitle: substringTheEmail(state.user.email),
                         ),
                         SizedBox(height: height(context) * 0.02),
                         const UserStores(),
