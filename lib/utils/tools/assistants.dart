@@ -1614,3 +1614,7 @@ int discountGenerator(int productsCount) {
   }
   return percent;
 }
+
+String substringTheEmail(String e) {
+  return "${e[0]}${e[1]}***${e.split('@').first[e.split('@').first.length - 2]}${e.split('@').first[e.split('@').first.length - 1]}@gmail.com";
+}
