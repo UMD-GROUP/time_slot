@@ -28,9 +28,6 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     final int productCount =
         order.products.fold(0, (i, e) => int.parse((i + e.count).toString()));
     sum += (productCount >= freeLimit ? productCount - freeLimit : 0) * price;
-    print(
-        'Sum -> $sum , freeLimit -> $freeLimit1, productsCount -> $productCount');
-
     order.sum = sum;
     double discount = 0;
 
@@ -44,19 +41,16 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
 
     if (!order.promoCode.isNull && order.promoCode!.minAmount <= productCount) {
       sum -= (sum / 100 * order.promoCode!.discount).toInt();
-    } else if (order.totalSum >= 10000) {
-      if (discountProductsCount >= 100 && discountProductsCount <= 199) {
-        discount = 0.1;
-      } else if (discountProductsCount >= 200 && discountProductsCount <= 499) {
-        discount = 0.15;
-      } else if (discountProductsCount >= 500 && discountProductsCount <= 999) {
-        discount = 0.2;
-      } else if (discountProductsCount >= 1000 &&
-          discountProductsCount <= 1999) {
-        discount = 0.25;
-      } else if (discountProductsCount >= 2000) {
-        discount = 0.3;
-      }
+    } else if (discountProductsCount >= 100 && discountProductsCount <= 199) {
+      discount = 0.1;
+    } else if (discountProductsCount > 199 && discountProductsCount <= 499) {
+      discount = 0.15;
+    } else if (discountProductsCount >= 500 && discountProductsCount <= 999) {
+      discount = 0.2;
+    } else if (discountProductsCount >= 1000 && discountProductsCount <= 1999) {
+      discount = 0.25;
+    } else if (discountProductsCount >= 2000) {
+      discount = 0.3;
     }
     if (discount != 0 && sum > 10000) {
       order.sum = sum;
@@ -77,7 +71,8 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     }
 
     order.totalSum = sum - sum % 1000;
-    print('MANA SUM -> ${order.sum} -> ${order.totalSum}');
+    print(
+        'MANA SUM -> ${order.sum} -> ${order.totalSum}  Discount->  $discount, ProductsCount -> $discountProductsCount');
 
     return order;
   }
