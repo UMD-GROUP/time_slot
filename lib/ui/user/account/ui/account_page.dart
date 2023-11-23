@@ -19,6 +19,7 @@ class _AccountPageState extends State<AccountPage> {
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
             onPressed: () {

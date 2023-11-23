@@ -9,6 +9,7 @@ class AllOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.deepPurple,
           actions: [
             IconButton(

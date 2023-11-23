@@ -25,6 +25,7 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
+          centerTitle: true,
           title: OnTap(
               onTap: () {
                 if (context.read<UserAccountBloc>().state.user.isAdmin) {

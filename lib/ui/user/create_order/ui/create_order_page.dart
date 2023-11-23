@@ -16,6 +16,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
+          centerTitle: true,
           iconTheme: const IconThemeData(
             color: Colors.white,
           ),

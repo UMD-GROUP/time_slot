@@ -1424,7 +1424,7 @@ Future<bool> sendPushNotification(
       'title': title.tr,
       'body': message.tr,
     },
-    'to': isToAll ? '/topics/news' : deviceToken,
+    'token': deviceToken,
     'data': {
       'id': Random().nextInt(1000),
       'title': title.tr,
