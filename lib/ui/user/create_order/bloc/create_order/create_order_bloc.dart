@@ -63,7 +63,8 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       order.discountUsed = false;
     }
 
-    if (order.sum < minAmount || order.totalSum < minAmount) {
+    if (discountProductsCount > 0 &&
+        (order.sum < minAmount || order.totalSum < minAmount)) {
       sum = minAmount;
       order
         ..totalSum = minAmount

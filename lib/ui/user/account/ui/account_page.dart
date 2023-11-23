@@ -58,14 +58,7 @@ class _AccountPageState extends State<AccountPage> {
                         InfoActionButton(
                           title: 'referral',
                           onTap: () async {
-                            await Share.share('share_token'.trParams({
-                              'android':
-                                  'https://play.google.com/store/apps/details?id=com.uzmobdev.time_slot&hl=ru&gl=US',
-                              'ios':
-                                  'https://apps.apple.com/uz/app/seller-pro/id6472054702',
-                              'token': state.user.token
-                            }));
-                            // copyToClipboard(context, state.user!.token);
+                            copyToClipboard(context, state.user!.token);
                           },
                           icon: Icons.token,
                           subtitle: state.user!.token,
@@ -130,8 +123,13 @@ class _AccountPageState extends State<AccountPage> {
                           await launch('https://t.me/Timeslot_Admin');
                         }, icon: Icons.telegram),
                         AccountActionButton('share'.tr, onTap: () async {
-                          await Share.share(
-                              'https://play.google.com/store/apps/details?id=com.uzmobdev.time_slot');
+                          await Share.share('share_token'.trParams({
+                            'android':
+                                'https://play.google.com/store/apps/details?id=com.uzmobdev.time_slot&hl=ru&gl=US',
+                            'ios':
+                                'https://apps.apple.com/uz/app/seller-pro/id6472054702',
+                            'token': state.user.token
+                          }));
                         }, icon: Icons.share),
                         AccountActionButton('logging_out'.tr, onTap: () {
                           showLogOutDialog(context);
