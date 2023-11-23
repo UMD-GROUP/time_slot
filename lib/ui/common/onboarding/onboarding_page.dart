@@ -38,8 +38,8 @@ class OnBoardingPage extends StatelessWidget {
                           color: Colors.red,
                         ),
                         Text('onboarding_title'.tr,
-                            style: AppTextStyles.labelSBold(context,
-                                fontSize: 18.sp))
+                            style:
+                                AppTextStyles.labelSBold(context, fontSize: 18))
                       ],
                     ),
                     SizedBox(height: height(context) * 0.04),
