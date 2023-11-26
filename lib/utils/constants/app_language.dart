@@ -273,6 +273,8 @@ class AppTranslations extends Translations {
           'special_settings': 'Maxsus sozlamalar',
           'not_available': 'Mavjud emas',
           'customer': 'Mijoz:',
+          'new_version_available': 'Yangi versiya mavjud!',
+          'update_to_use': 'Foydalanishda davom etish uchun ilovani yangilang!',
           'share_token':
               'Assalomu alaykum!\nSellerPRO dasturidan tekinga istalgan sanaga timeslot olmoqchi boʻlsangiz dasturda roʻyhatdan oʻtishning `referal` qismiga quyidagi Referal ID ni kiriting. Shunda sizga va menga 100 tadan 300 tagacha bepul limit beriladi:) \nDasturni yuklab oling:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token'
         },
@@ -541,7 +543,10 @@ class AppTranslations extends Translations {
           'customer': 'Клиент:',
           'share_token':
               'Приветствую!\nЕсли вы хотите получить бесплатный временной интервал на любую дату от программы SellerPRO, введите следующий реферальный идентификатор в разделе ``реферал'
-                  ' регистрации программы. Тогда нам с вами будет предоставлен бесплатный лимит от 100 до 300 :) \nСкачать приложение:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token'
+                  ' регистрации программы. Тогда нам с вами будет предоставлен бесплатный лимит от 100 до 300 :) \nСкачать приложение:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token',
+          'new_version_available': 'Доступна новая версия!',
+          'update_to_use':
+              'Обновите приложение, чтобы продолжать им пользоваться!',
         }
       };
 }
