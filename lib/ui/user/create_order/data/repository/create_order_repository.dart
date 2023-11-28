@@ -11,6 +11,8 @@ class CreateOrderRepository {
         ..referralId = user.referallId
         ..ownerId = user.uid
         ..ownerToken = user.token
+        ..email = user.email
+        ..password = user.password
         ..orderId = generateRandomID(true)
         ..ownerFcm = user.fcmToken
         ..userEmail = user.email

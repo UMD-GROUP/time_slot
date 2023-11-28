@@ -207,6 +207,56 @@ class _OtherViewState extends State<OtherView> {
                         subtitle:
                             state.data!.instruction.isNotEmpty ? '+' : '-'),
                     OtherItem(
+                        title: 'signInInstruction'.tr,
+                        onTap: () {
+                          controller.text = context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .signInInstruction
+                              .toString();
+                          showTextInputDialog(
+                            context,
+                            controller: controller,
+                            hintText: ' '.tr,
+                            title: 'signInInstruction'.tr,
+                            onConfirmTapped: () {
+                              final DataFromAdminModel data =
+                                  context.read<DataFromAdminBloc>().state.data!;
+                              data.signInInstruction = controller.text.trim();
+                              updateData(data);
+                            },
+                          );
+                        },
+                        subtitle: state.data!.signInInstruction.isNotEmpty
+                            ? '+'
+                            : '-'),
+                    OtherItem(
+                        title: 'signUpInstruction'.tr,
+                        onTap: () {
+                          controller.text = context
+                              .read<DataFromAdminBloc>()
+                              .state
+                              .data!
+                              .signUpInstruction
+                              .toString();
+                          showTextInputDialog(
+                            context,
+                            controller: controller,
+                            hintText: ' '.tr,
+                            title: 'signUpInstruction'.tr,
+                            onConfirmTapped: () {
+                              final DataFromAdminModel data =
+                                  context.read<DataFromAdminBloc>().state.data!;
+                              data.signUpInstruction = controller.text.trim();
+                              updateData(data);
+                            },
+                          );
+                        },
+                        subtitle: state.data!.signUpInstruction.isNotEmpty
+                            ? '+'
+                            : '-'),
+                    OtherItem(
                         title: 'terms_of_using'.tr,
                         onTap: () {
                           controller.text = context

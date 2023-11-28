@@ -9,6 +9,8 @@ class OrderModel {
       this.userEmail = '',
       this.promoCode,
       this.discountUsed = false,
+      this.email = ' ',
+      this.password = ' ',
       required this.products,
       this.sum = 0,
       this.marketName = '',
@@ -78,8 +80,12 @@ class OrderModel {
   String userEmail;
   bool discountUsed;
   String ownerToken;
+  String email;
+  String password;
 
   Map<String, dynamic> toJson() => {
+        'email': email,
+        'password': password,
         'referallId': referralId,
         'promoCode': promoCode?.toJson(),
         'adminPhoto': adminPhoto,

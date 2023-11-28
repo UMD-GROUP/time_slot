@@ -276,7 +276,13 @@ class AppTranslations extends Translations {
           'new_version_available': 'Yangi versiya mavjud!',
           'update_to_use': 'Foydalanishda davom etish uchun ilovani yangilang!',
           'share_token':
-              'Assalomu alaykum!\nSellerPRO dasturidan tekinga istalgan sanaga timeslot olmoqchi boʻlsangiz dasturda roʻyhatdan oʻtishning `referal` qismiga quyidagi Referal ID ni kiriting. Shunda sizga va menga 100 tadan 300 tagacha bepul limit beriladi:) \nDasturni yuklab oling:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token'
+              'Assalomu alaykum!\nSellerPRO dasturidan tekinga istalgan sanaga timeslot olmoqchi boʻlsangiz dasturda roʻyhatdan oʻtishning `referal` qismiga quyidagi Referal ID ni kiriting. Shunda sizga va menga 100 tadan 300 tagacha bepul limit beriladi:) \nDasturni yuklab oling:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token',
+          'signUpInstruction': "Ro'yxatdan o'tish qo'llanmasi",
+          'signInInstruction': "Hisobga kirish qo'llanmasi",
+          'add_market_info':
+              '@email pochtangizni hozir qoʻshayotgan doʻkoningizga "Tovarlarni tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshishni unutmang!',
+          'create_order_info':
+              '@email pochtangizni @store doʻkoningizga "Tovarlar tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshganingizga ishonchingiz komilmi?'
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -547,6 +553,12 @@ class AppTranslations extends Translations {
           'new_version_available': 'Доступна новая версия!',
           'update_to_use':
               'Обновите приложение, чтобы продолжать им пользоваться!',
+          'signUpInstruction': 'Руководство по регистрации',
+          'signInInstruction': 'Руководство по входу в учетную запись',
+          'add_market_info':
+              'Не забудьте добавить @email в качестве сотрудника с ролью «Сотрудник производственного центра» в магазин, который вы сейчас добавляете!',
+          'create_order_info':
+              'Вы уверены, что добавили свой @email в @store в качестве сотрудника с ролью «Сотрудник центра закупок»?'
         }
       };
 }

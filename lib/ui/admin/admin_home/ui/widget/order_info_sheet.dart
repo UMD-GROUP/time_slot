@@ -214,6 +214,32 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  OnTap(
+                    onTap: () {
+                      copyToClipboard(context,
+                          '${widget.order.email}\n${widget.order.password}');
+                    },
+                    child: RowText(
+                      isVisible: widget.isAdmin,
+                      icon: AppIcons.balance,
+                      iconData: Icons.email_outlined,
+                      text1: '${'email'.tr}:',
+                      text2: widget.order.email,
+                    ),
+                  ),
+                  OnTap(
+                    onTap: () {
+                      copyToClipboard(context,
+                          '${widget.order.email}\n${widget.order.password}');
+                    },
+                    child: RowText(
+                      iconData: Icons.password_rounded,
+                      isVisible: widget.isAdmin,
+                      icon: AppIcons.balance,
+                      text1: '${'password'.tr}:',
+                      text2: widget.order.password,
+                    ),
+                  ),
                   RowText(
                     icon: AppIcons.check,
                     text1: 'order_id'.tr,

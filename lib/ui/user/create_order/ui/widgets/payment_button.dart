@@ -27,32 +27,50 @@ class PaymentButton extends StatelessWidget {
                               .data!
                               .addStaffVideo
                               .isNotEmpty
-                          ? TextButton(
-                              onPressed: () {
+                          ? OnTap(
+                              onTap: () {
                                 launchUrlString(context
                                     .read<DataFromAdminBloc>()
                                     .state
                                     .data!
                                     .addStaffVideo);
                               },
-                              child: Text(
-                                'add_staff'.tr,
-                                textAlign: TextAlign.center,
-                                style: AppTextStyles.labelLarge(context,
-                                    color: Colors.red),
-                              ))
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    AppImages
+                                        .youtube, // Provide your Google logo image asset
+                                    height: 24, // Adjust the height as needed
+                                  ),
+                                  const SizedBox(
+                                      width:
+                                          12), // Spacing between the icon and text
+                                  Text(
+                                    'instruction'.tr,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600, // Text color
+                                      fontSize: 16, // Text font size
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           : null, button: TimerButton(() {
                     Navigator.pop(context);
                     context.read<CreateOrderBloc>().add(AddOrderEvent(
                         orderState.order,
                         context.read<UserAccountBloc>().state.user!));
                   }),
-                      title: 'confirm_order'.trParams({
-                        'number': context
-                            .read<UserAccountBloc>()
+                      title: 'create_order_info'.trParams({
+                        'email':
+                            context.read<UserAccountBloc>().state.user.email,
+                        'store': context
+                            .read<CreateOrderBloc>()
                             .state
-                            .user
-                            .marketNumber
+                            .order
+                            .marketName
                       }));
                 },
                 color: Colors.deepPurple,
