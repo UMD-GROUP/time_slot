@@ -30,6 +30,8 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         ownerFcm: json['ownerFcm'] ?? '',
+        email: json['email'] ?? '',
+        password: json['password'] ?? '',
         ownerToken: json['ownerToken'] ?? 'not_available'.tr,
         reserve: ReserveModel.fromJson(json['reserve'] ?? {}),
         comment: json['comment'] ?? '',

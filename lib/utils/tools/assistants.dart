@@ -1618,3 +1618,24 @@ int discountGenerator(int productsCount) {
 String substringTheEmail(String e) {
   return "${e[0]}${e[1]}***${e.split('@').first[e.split('@').first.length - 2]}${e.split('@').first[e.split('@').first.length - 1]}@gmail.com";
 }
+
+int compareVersions(String version1, String version2) {
+  final v1Parts = version1.split('.').map(int.parse).toList();
+  final v2Parts = version2.split('.').map(int.parse).toList();
+
+  final int maxLength =
+      v1Parts.length > v2Parts.length ? v1Parts.length : v2Parts.length;
+
+  for (int i = 0; i < maxLength; i++) {
+    final int v1 = i < v1Parts.length ? v1Parts[i] : 0;
+    final int v2 = i < v2Parts.length ? v2Parts[i] : 0;
+
+    if (v1 > v2) {
+      return 1;
+    } else if (v1 < v2) {
+      return -1;
+    }
+  }
+
+  return 0;
+}

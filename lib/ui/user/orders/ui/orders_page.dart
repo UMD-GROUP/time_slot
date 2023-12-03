@@ -46,9 +46,8 @@ class _OrdersPageState extends State<OrdersPage> {
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     final String version = packageInfo.version;
     final String key = Platform.isAndroid ? 'android' : 'ios';
-    print(data.data()?['ios']);
-    print(version);
-    if (data.data()?[key] != version) {
+
+    if (compareVersions(data.data()![key], version) == 1) {
       Navigator.pushNamedAndRemoveUntil(
           context, RouteName.update, (route) => false);
     }
