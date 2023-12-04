@@ -280,9 +280,10 @@ class AppTranslations extends Translations {
           'signUpInstruction': "Ro'yxatdan o'tish qo'llanmasi",
           'signInInstruction': "Hisobga kirish qo'llanmasi",
           'add_market_info':
-              '@email pochtangizni hozir qoʻshayotgan doʻkoningizga "Tovarlarni tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshishni unutmang!',
+              '@email raqamingizni hozir qoʻshayotgan doʻkoningizga "Tovarlarni tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshishni unutmang!',
           'create_order_info':
-              '@email pochtangizni @store doʻkoningizga "Tovarlar tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshganingizga ishonchingiz komilmi?'
+              '@email raqamingizni @store doʻkoningizga "Tovarlar tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshganingizga ishonchingiz komilmi?',
+          'phone_number_not_valid': "Telefon raqamni to'liq kiriting!",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -558,7 +559,8 @@ class AppTranslations extends Translations {
           'add_market_info':
               'Не забудьте добавить @email в качестве сотрудника с ролью «Сотрудник производственного центра» в магазин, который вы сейчас добавляете!',
           'create_order_info':
-              'Вы уверены, что добавили свой @email в @store в качестве сотрудника с ролью «Сотрудник центра закупок»?'
+              'Вы уверены, что добавили свой @email в @store в качестве сотрудника с ролью «Сотрудник центра закупок»?',
+          'phone_number_not_valid': 'Введите полный номер телефона!',
         }
       };
 }

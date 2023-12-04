@@ -65,12 +65,12 @@ class _AccountPageState extends State<AccountPage> {
                           subtitle: state.user!.token,
                         ),
                         InfoActionButton(
-                          title: 'Email:'.tr,
+                          title: '${'phone_number'.tr}:',
                           onTap: () {
-                            copyToClipboard(context, state.user!.email);
+                            copyToClipboard(context, state.user!.phoneNumber);
                           },
-                          icon: Icons.email,
-                          subtitle: substringTheEmail(state.user.email),
+                          icon: Icons.phone,
+                          subtitle: state.user.phoneNumber,
                         ),
                         SizedBox(height: height(context) * 0.02),
                         const UserStores(),

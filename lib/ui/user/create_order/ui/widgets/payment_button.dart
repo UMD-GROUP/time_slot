@@ -64,8 +64,11 @@ class PaymentButton extends StatelessWidget {
                         context.read<UserAccountBloc>().state.user!));
                   }),
                       title: 'create_order_info'.trParams({
-                        'email':
-                            context.read<UserAccountBloc>().state.user.email,
+                        'email': context
+                            .read<UserAccountBloc>()
+                            .state
+                            .user
+                            .phoneNumber,
                         'store': context
                             .read<CreateOrderBloc>()
                             .state

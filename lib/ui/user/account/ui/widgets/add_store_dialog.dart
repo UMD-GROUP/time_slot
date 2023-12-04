@@ -16,7 +16,7 @@ class AddStoreDialog extends StatelessWidget {
           content: Column(
             children: <Widget>[
               if (!context.read<DataFromAdminBloc>().state.data.isNull)
-                Text('add_market_info'.trParams({'email': user.email})),
+                Text('add_market_info'.trParams({'email': user.phoneNumber})),
               SizedBox(height: height(context) * 0.01),
               OnTap(
                 onTap: () {

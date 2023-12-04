@@ -14,10 +14,11 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
   }
 
   Future<void> signIn(SignInEvent event, Emitter emit) async {
-    if (EmailValidator.validate(event.user.email) &&
-        event.user.password.length > 7) {
+    emit(state.copyWith(status: ResponseStatus.inProgress));
+    if (event.user.phoneNumber.length == 13 && event.user.password.length > 7) {
       MyResponse myResponse = MyResponse();
-      emit(state.copyWith(status: ResponseStatus.inProgress));
+      event.user.email = makeEmailFromPhoneNumber(event.user.phoneNumber);
+
       myResponse = await getIt<AuthorizationRepository>().signIn(event.user);
       if (myResponse.message.isNull) {
         emit(state.copyWith(status: ResponseStatus.inSuccess));
@@ -28,20 +29,22 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
     } else {
       emit(state.copyWith(
           status: ResponseStatus.inFail,
-          message: !EmailValidator.validate(event.user.email)
-              ? 'email_not_valid'.tr
+          message: event.user.phoneNumber.length != 13
+              ? 'phone_number_not_valid'.tr
               : 'password_invalid'.tr));
     }
     emit(state.copyWith(status: ResponseStatus.pure));
   }
 
   Future<void> createAccount(CreateAccountEvent event, Emitter emit) async {
-    if (EmailValidator.validate(event.user.email) &&
-        event.user.password.length > 7) {
+    emit(state.copyWith(status: ResponseStatus.inProgress));
+
+    if (event.user.phoneNumber.length == 13 && event.user.password.length > 7) {
       MyResponse myResponse = MyResponse();
-      emit(state.copyWith(status: ResponseStatus.inProgress));
       final UserModel user = event.user;
       user.token = generateToken();
+      user.email = makeEmailFromPhoneNumber(event.user.phoneNumber);
+
       myResponse = await getIt<AuthorizationRepository>().createAnAccount(user);
       if (myResponse.message.isNull) {
         emit(state.copyWith(status: ResponseStatus.inSuccess));
@@ -50,10 +53,9 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
             status: ResponseStatus.inFail, message: myResponse.message));
       }
     } else {
-      print(event.user.password);
       emit(state.copyWith(
           status: ResponseStatus.inFail,
-          message: !EmailValidator.validate(event.user.email)
+          message: event.user.phoneNumber.length != 13
               ? 'email_not_valid'.tr
               : 'password_invalid'.tr));
     }

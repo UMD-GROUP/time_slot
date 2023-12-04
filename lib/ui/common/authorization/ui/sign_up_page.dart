@@ -80,7 +80,7 @@ class SignupPage extends StatelessWidget {
                             Column(
                               children: <Widget>[
                                 inputFile(
-                                    label: 'email'.tr,
+                                    label: 'phone_number'.tr,
                                     controller: controllers[0]),
                                 inputFile(
                                     label: 'password'.tr,
@@ -117,7 +117,7 @@ class SignupPage extends StatelessWidget {
                                         fcmToken: fcmToken ?? '',
                                         createdAt: DateTime.now(),
                                         password: controllers[1].text.trim(),
-                                        email: controllers[0].text.trim(),
+                                        phoneNumber: controllers[0].text.trim(),
                                         referallId: controllers[2].text.trim(),
                                       )));
                                 },

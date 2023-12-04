@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
                                 child: Column(
                                   children: <Widget>[
                                     inputFile(
-                                        label: 'email'.tr,
+                                        label: 'phone_number'.tr,
                                         controller: controllers[0]),
                                     inputFile(
                                         label: 'password'.tr,
@@ -136,7 +136,8 @@ class LoginPage extends StatelessWidget {
                                       context.read<AuthorizationBloc>().add(
                                           SignInEvent(UserModel(
                                               fcmToken: fcmToken ?? '',
-                                              email: controllers[0].text.trim(),
+                                              phoneNumber:
+                                                  controllers[0].text.trim(),
                                               password:
                                                   controllers[1].text.trim())));
                                     },

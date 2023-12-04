@@ -1639,3 +1639,23 @@ int compareVersions(String version1, String version2) {
 
   return 0;
 }
+
+String makeEmailFromPhoneNumber(String phoneNumber) {
+  // Replace '+' with 'u'
+  final String modifiedPhoneNumber = phoneNumber.replaceFirst('+', 'u');
+
+  // Construct the email using the modified phone number and the Gmail domain
+  final String email = '$modifiedPhoneNumber@gmail.com';
+
+  return email;
+}
+
+String makePhoneNumberFromEmail(String email) {
+  // Extract the username part of the email (before '@')
+  final String username = email.split('@')[0];
+
+  // Replace 'u' with '+' at the beginning of the username
+  final String phoneNumber = username.replaceFirst('u', '+');
+
+  return phoneNumber;
+}

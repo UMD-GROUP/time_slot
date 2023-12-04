@@ -217,20 +217,19 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
                   OnTap(
                     onTap: () {
                       copyToClipboard(context,
-                          '${widget.order.email}\n${widget.order.password}');
+                          makePhoneNumberFromEmail(widget.order.email));
                     },
                     child: RowText(
                       isVisible: widget.isAdmin,
                       icon: AppIcons.balance,
                       iconData: Icons.email_outlined,
-                      text1: '${'email'.tr}:',
-                      text2: widget.order.email,
+                      text1: '${'phone_number'.tr}:',
+                      text2: makePhoneNumberFromEmail(widget.order.email),
                     ),
                   ),
                   OnTap(
                     onTap: () {
-                      copyToClipboard(context,
-                          '${widget.order.email}\n${widget.order.password}');
+                      copyToClipboard(context, widget.order.password);
                     },
                     child: RowText(
                       iconData: Icons.password_rounded,
@@ -319,8 +318,8 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
             visible: widget.isAdmin,
             child: RowText(
               icon: AppIcons.users,
-              text1: '${'email'.tr}:',
-              text2: widget.order.userEmail,
+              text1: '${'phone_number'.tr}:',
+              text2: makePhoneNumberFromEmail(widget.order.userEmail),
             ),
           ),
           Row(children: [
