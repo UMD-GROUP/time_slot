@@ -188,8 +188,10 @@ Widget inputFile({label, obscureText = false, controller}) => Column(
           height: 5,
         ),
         TextField(
+          keyboardType: obscureText ? TextInputType.text : TextInputType.number,
           controller: controller,
           obscureText: obscureText,
+          inputFormatters: obscureText ? null : [MaxLengthInputFormatter(13)],
           decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               enabledBorder: const OutlineInputBorder(

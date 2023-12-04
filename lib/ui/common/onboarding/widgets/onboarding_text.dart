@@ -17,7 +17,7 @@ class OnBoardingText extends StatelessWidget {
               width: width(context) * 0.78,
               child: Text(
                 title.tr,
-                style: AppTextStyles.labelSBold(context, fontSize: 18),
+                style: AppTextStyles.labelSBold(context, fontSize: 16),
                 maxLines: 5,
               ),
             )

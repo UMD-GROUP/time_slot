@@ -4,6 +4,7 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'uz_UZ': {
+          'restriction': 'Cheklov',
           'password_invalid':
               "Parolning uzunligi eng kamida \n8 ta belgidan iborat bo'lishi shart!",
           'email_not_valid': 'Elektron pochta xato kiritildi!',
@@ -157,7 +158,7 @@ class AppTranslations extends Translations {
           'instruction': "Qo'llanma",
           'terms_of_using': 'Foydalanish shartlari',
           'wrong_password': 'Parol xato kiritildi!',
-          'phone_number': 'Telefon raqam',
+          'phone_number': 'Raqam',
           'don_not_forget_to_add_number':
               "Do'koningizga @number raqamini yuk xatlari bilan ishlaydigan xodim sifatida qo'shishni unutmang hamda do'kon nomini to'g'ri kiriting!",
           'you_will_be_blocked':
@@ -561,6 +562,7 @@ class AppTranslations extends Translations {
           'create_order_info':
               'Вы уверены, что добавили свой @email в @store в качестве сотрудника с ролью «Сотрудник центра закупок»?',
           'phone_number_not_valid': 'Введите полный номер телефона!',
+          'restriction': 'Ограничение',
         }
       };
 }

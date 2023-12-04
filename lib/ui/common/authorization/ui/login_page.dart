@@ -96,7 +96,7 @@ class LoginPage extends StatelessWidget {
                                   OnTap(
                                     onTap: () {
                                       launchUrlString(
-                                          'https://t.me/Timeslot_Admin');
+                                          'https://t.me/SellerPRO_Manager');
                                     },
                                     child: Text(
                                       'reset_your_password'.tr,
@@ -210,8 +210,10 @@ Widget inputFile({label, controller, obscureText = false}) => Column(
           height: 5,
         ),
         TextField(
+          inputFormatters: obscureText ? null : [MaxLengthInputFormatter(13)],
           obscureText: obscureText,
           controller: controller,
+          keyboardType: obscureText ? TextInputType.text : TextInputType.number,
           decoration: InputDecoration(
               focusColor: Colors.deepPurple,
               contentPadding: EdgeInsets.symmetric(horizontal: 10.h),

@@ -100,6 +100,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                         .token)
                                 .toList();
                     curData.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+                    curData.removeWhere((element) => element.createdAt.isBefore(
+                        DateTime.now().subtract(const Duration(days: 10))));
 
                     return _currentIndex == 2
                         ? AllPromoCodesWidget()

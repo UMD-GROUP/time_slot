@@ -121,7 +121,7 @@ class _AccountPageState extends State<AccountPage> {
                           }, icon: Icons.integration_instructions_outlined),
                         ),
                         AccountActionButton('support'.tr, onTap: () async {
-                          await launch('https://t.me/Timeslot_Admin');
+                          await launch('https://t.me/SellerPRO_Manager');
                         }, icon: Icons.telegram),
                         AccountActionButton('share'.tr, onTap: () async {
                           await Share.share('share_token'.trParams({

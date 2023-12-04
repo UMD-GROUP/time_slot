@@ -314,14 +314,14 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               text2: dateTimeToFormat(widget.order.finishedAt),
             ),
           ),
-          Visibility(
-            visible: widget.isAdmin,
-            child: RowText(
-              icon: AppIcons.users,
-              text1: '${'phone_number'.tr}:',
-              text2: makePhoneNumberFromEmail(widget.order.userEmail),
-            ),
-          ),
+          // Visibility(
+          //   visible: widget.isAdmin,
+          //   child: RowText(
+          //     icon: AppIcons.users,
+          //     text1: '${'phone_number'.tr}:',
+          //     text2: makePhoneNumberFromEmail(widget.order.userEmail),
+          //   ),
+          // ),
           Row(children: [
             Icon(
               Icons.info_outline,

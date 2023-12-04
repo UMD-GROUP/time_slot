@@ -60,9 +60,9 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
             children: [
               OrderTextWidget(
                   isLoading: state.reservesStatus == ResponseStatus.inProgress,
-                  icon: Icons.recycling,
+                  icon: Icons.real_estate_agent_outlined,
                   context: context,
-                  type: 'reserve',
+                  type: '${'restriction'.tr}:',
                   value: state.reserve.isNull
                       ? '0 ${'piece'.tr}'
                       : '${state.reserve!.reserve} ${'piece'.tr}'),
@@ -88,6 +88,7 @@ class _SelectDatesSectionState extends State<SelectDatesSection> {
                 ? 'uz'
                 : getIt<StorageService>().getString('language'),
             calendarController: calendarController,
+            weekdayTextStyle: AppTextStyles.labelLarge(context, fontSize: 12),
             layout: Layout.BEAUTY,
             calendarCrossAxisSpacing: 0,
           ),
