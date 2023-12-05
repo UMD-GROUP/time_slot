@@ -45,6 +45,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
         child: Scaffold(
           backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
           appBar: AppBar(
+              centerTitle: true,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {

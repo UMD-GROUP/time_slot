@@ -10,7 +10,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) => MultiBlocProvider(providers: [
         BlocProvider(create: (context) => PageControllerBloc()),
         BlocProvider(create: (context) => CreateOrderBloc()),
-        BlocProvider(create: (context) => DataFromAdminBloc()),
+        BlocProvider(
+            create: (context) => DataFromAdminBloc()..add(GetBannersEvent())),
         BlocProvider(create: (context) => AllUserBloc()),
         BlocProvider(create: (context) => OrderBloc()),
         BlocProvider(create: (context) => UserAccountBloc()),

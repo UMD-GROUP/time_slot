@@ -42,6 +42,7 @@ class StoresRepository {
     final MyResponse myResponse = MyResponse();
 
     try {
+      print('KEldi');
       final QuerySnapshot<Map<String, dynamic>> storeDoc = await instance
           .collection('stores')
           .where('id', isEqualTo: store.id)
@@ -53,18 +54,25 @@ class StoresRepository {
       myResponse.statusCode = 200;
 
       if (!owner.isConfirmed) {
+        print('Owner tasdiqlanmagan');
+
         if (freeLimit != 0) {
+          print('Free Limit kiritilgan: $freeLimit ta');
+
           final QuerySnapshot<Map<String, dynamic>> partnerDoc = await instance
               .collection('users')
               .where('token', isEqualTo: owner.referallId)
               .get();
           final UserModel partner =
               UserModel.fromJson(partnerDoc.docs.first.data());
+          print('Referal odam topildi ${partner.email}');
+
           partner.freeLimits += freeLimit;
           await instance
               .collection('users')
               .doc(partner.uid)
               .update(partner.toJson());
+          print('Referalga freeLimit berildi ${partner.freeLimits}');
 
           await sendPushNotification(
               partner.fcmToken,
@@ -72,6 +80,7 @@ class StoresRepository {
                   language: partner.language),
               makeNotification('congrats_for_free_limit',
                   language: partner.language));
+          print("Partnerga notif jo'natildi!");
 
           owner.isConfirmed = true;
           owner.freeLimits += freeLimit;
@@ -79,6 +88,7 @@ class StoresRepository {
               .collection('users')
               .doc(owner.uid)
               .update(owner.toJson());
+          print('Userga limit berildi!');
 
           await sendPushNotification(
               partner.fcmToken,
@@ -86,6 +96,7 @@ class StoresRepository {
                   language: owner.language),
               makeNotification('congrats_for_free_limit',
                   language: owner.language));
+          print("Userga notif jo'natildi!");
 
           myResponse.statusCode = 200;
         } else {

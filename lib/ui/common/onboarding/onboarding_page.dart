@@ -28,7 +28,8 @@ class OnBoardingPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.h),
                     border: Border.all(color: Colors.deepPurpleAccent)),
                 padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
-                child: Column(
+                child: ListView(
+                  shrinkWrap: true,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -42,16 +43,16 @@ class OnBoardingPage extends StatelessWidget {
                                 AppTextStyles.labelSBold(context, fontSize: 18))
                       ],
                     ),
-                    SizedBox(height: height(context) * 0.04),
+                    SizedBox(height: height(context) * 0.02),
                     OnBoardingText(title: 'onboarding_1'),
                     OnBoardingText(title: 'onboarding_2'),
                     OnBoardingText(title: 'onboarding_3'),
-                    SizedBox(height: height(context) * 0.06),
+                    SizedBox(height: height(context) * 0.02),
                     OnBoardingText(title: 'onboarding_4'),
                   ],
                 ),
               ),
-              SizedBox(height: height(context) * 0.02),
+              SizedBox(height: height(context) * 0.01),
               AppearanceButton('start', isOnBoard: true, onTap: () {
                 getIt<StorageService>().saveBool('isPassed', true);
                 Navigator.pushNamedAndRemoveUntil(

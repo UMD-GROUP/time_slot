@@ -57,7 +57,7 @@ class StoresView extends StatelessWidget {
                     });
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 5.h),
+                    margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10),
                     padding: EdgeInsets.all(4.h),
                     width: width(context),
                     decoration: BoxDecoration(
@@ -101,7 +101,8 @@ class StoresView extends StatelessWidget {
                               icon: AppIcons.dollar,
                               iconData: Icons.person,
                               text1: '${'owner'.tr}:',
-                              text2: store.owner.email,
+                              text2:
+                                  makePhoneNumberFromEmail(store.owner.email),
                             ),
                             RowText(
                               iconData: Icons.access_time,

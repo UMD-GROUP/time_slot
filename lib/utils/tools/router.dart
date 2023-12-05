@@ -5,6 +5,7 @@ import 'package:time_slot/ui/common/onboarding/onboarding_page.dart';
 import 'package:time_slot/ui/user/create_order/ui/create_order_page.dart';
 import 'package:time_slot/ui/user/main/ui/main_page.dart';
 import 'package:time_slot/ui/user/notifications/ui/notifications_page.dart';
+import 'package:time_slot/ui/user/update/ui/update_page.dart';
 
 import 'file_importers.dart';
 
@@ -18,6 +19,7 @@ abstract class RouteName {
   static const notifications = '/notifications';
   static const account = '/account';
   static const controlPage = '/controlPage';
+  static const update = '/update';
 }
 
 // ignore: avoid_classes_with_only_static_members
@@ -29,6 +31,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const SplashPage());
       case RouteName.authorization:
         return MaterialPageRoute(builder: (_) => const AuthorizationPage());
+      case RouteName.update:
+        return MaterialPageRoute(builder: (_) => const UpdatePage());
       case RouteName.onBoarding:
         return MaterialPageRoute(builder: (_) => const OnBoardingPage());
       case RouteName.account:

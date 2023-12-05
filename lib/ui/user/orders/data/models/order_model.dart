@@ -9,6 +9,8 @@ class OrderModel {
       this.userEmail = '',
       this.promoCode,
       this.discountUsed = false,
+      this.email = ' ',
+      this.password = ' ',
       required this.products,
       this.sum = 0,
       this.marketName = '',
@@ -28,6 +30,8 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         ownerFcm: json['ownerFcm'] ?? '',
+        email: json['email'] ?? '',
+        password: json['password'] ?? '',
         ownerToken: json['ownerToken'] ?? 'not_available'.tr,
         reserve: ReserveModel.fromJson(json['reserve'] ?? {}),
         comment: json['comment'] ?? '',
@@ -78,8 +82,12 @@ class OrderModel {
   String userEmail;
   bool discountUsed;
   String ownerToken;
+  String email;
+  String password;
 
   Map<String, dynamic> toJson() => {
+        'email': email,
+        'password': password,
         'referallId': referralId,
         'promoCode': promoCode?.toJson(),
         'adminPhoto': adminPhoto,

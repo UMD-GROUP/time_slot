@@ -80,7 +80,7 @@ class SignupPage extends StatelessWidget {
                             Column(
                               children: <Widget>[
                                 inputFile(
-                                    label: 'email'.tr,
+                                    label: 'phone_number'.tr,
                                     controller: controllers[0]),
                                 inputFile(
                                     label: 'password'.tr,
@@ -117,7 +117,7 @@ class SignupPage extends StatelessWidget {
                                         fcmToken: fcmToken ?? '',
                                         createdAt: DateTime.now(),
                                         password: controllers[1].text.trim(),
-                                        email: controllers[0].text.trim(),
+                                        phoneNumber: controllers[0].text.trim(),
                                         referallId: controllers[2].text.trim(),
                                       )));
                                 },
@@ -188,8 +188,10 @@ Widget inputFile({label, obscureText = false, controller}) => Column(
           height: 5,
         ),
         TextField(
+          keyboardType: obscureText ? TextInputType.text : TextInputType.number,
           controller: controller,
           obscureText: obscureText,
+          inputFormatters: obscureText ? null : [MaxLengthInputFormatter(13)],
           decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               enabledBorder: const OutlineInputBorder(

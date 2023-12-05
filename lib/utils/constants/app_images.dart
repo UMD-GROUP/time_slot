@@ -12,4 +12,5 @@ class AppImages {
   static const google = '$IMAGE_PATH/google.png';
   static const spLogo = '$IMAGE_PATH/sp_logo.png';
   static const waiting = '$IMAGE_PATH/waiting.png';
+  static const youtube = '$IMAGE_PATH/youtube.png';
 }

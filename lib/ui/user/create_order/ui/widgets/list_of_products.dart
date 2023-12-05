@@ -45,16 +45,19 @@ class ListOfProducts extends StatelessWidget {
                           final OrderModel order = state.order;
                           order.products.removeAt(index);
                           order.promoCode = null;
-                          context
-                              .read<CreateOrderBloc>()
-                              .add(UpdateFieldsOrderEvent(
-                                order,
-                                context
-                                    .read<DataFromAdminBloc>()
-                                    .state
-                                    .data!
-                                    .orderMinAmount,
-                              ));
+                          context.read<CreateOrderBloc>().add(
+                              UpdateFieldsOrderEvent(
+                                  order,
+                                  context
+                                      .read<DataFromAdminBloc>()
+                                      .state
+                                      .data!
+                                      .orderMinAmount,
+                                  freeLimit: context
+                                      .read<UserAccountBloc>()
+                                      .state
+                                      .user
+                                      .freeLimits));
                         },
                             title: 'you_can_not_remove_product'.trParams({
                               'count':
@@ -63,16 +66,19 @@ class ListOfProducts extends StatelessWidget {
                       } else {
                         final OrderModel order = state.order;
                         order.products.removeAt(index);
-                        context
-                            .read<CreateOrderBloc>()
-                            .add(UpdateFieldsOrderEvent(
-                              order,
-                              context
-                                  .read<DataFromAdminBloc>()
-                                  .state
-                                  .data!
-                                  .orderMinAmount,
-                            ));
+                        context.read<CreateOrderBloc>().add(
+                            UpdateFieldsOrderEvent(
+                                order,
+                                context
+                                    .read<DataFromAdminBloc>()
+                                    .state
+                                    .data!
+                                    .orderMinAmount,
+                                freeLimit: context
+                                    .read<UserAccountBloc>()
+                                    .state
+                                    .user
+                                    .freeLimits));
                       }
                     } else {
                       final OrderModel order = state.order;
@@ -84,7 +90,12 @@ class ListOfProducts extends StatelessWidget {
                                   .read<DataFromAdminBloc>()
                                   .state
                                   .data!
-                                  .orderMinAmount));
+                                  .orderMinAmount,
+                              freeLimit: context
+                                  .read<UserAccountBloc>()
+                                  .state
+                                  .user
+                                  .freeLimits));
                     }
                     getMyToast('deleted'.tr);
                   },

@@ -12,12 +12,12 @@ class AuthorizationPage extends StatefulWidget {
 class _AuthorizationPageState extends State<AuthorizationPage> {
   PageController controller = PageController();
   List signInControllers = [
-    TextEditingController(),
+    TextEditingController()..text = '+998',
     TextEditingController(),
     TextEditingController(),
   ];
   List logInControllers = [
-    TextEditingController(),
+    TextEditingController()..text = '+998',
     TextEditingController(),
   ];
 

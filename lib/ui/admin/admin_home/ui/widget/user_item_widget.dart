@@ -23,7 +23,7 @@ class UsersItemWidget extends StatelessWidget {
           }
         },
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 5.h),
+          margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
           height: height(context) * 0.11,
           width: width(context),
           decoration: BoxDecoration(
@@ -67,10 +67,8 @@ class UsersItemWidget extends StatelessWidget {
                       children: [
                         RowText(
                           icon: AppIcons.check,
-                          text1: 'Email:',
-                          text2: userModel.email.toString().length > 20
-                              ? userModel.email.substring(0, 20)
-                              : userModel.email,
+                          text1: '${'phone_number'.tr}:',
+                          text2: '${userModel.phoneNumber} ',
                         ),
                         RowText(
                           icon: AppIcons.dollar,

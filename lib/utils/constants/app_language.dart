@@ -4,6 +4,7 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'uz_UZ': {
+          'restriction': 'Cheklov',
           'password_invalid':
               "Parolning uzunligi eng kamida \n8 ta belgidan iborat bo'lishi shart!",
           'email_not_valid': 'Elektron pochta xato kiritildi!',
@@ -39,8 +40,7 @@ class AppTranslations extends Translations {
           'add': "Qo'shish",
           'you_must_select_market': "Do'kon tanlanmadi!",
           'you_must_select_data': 'Sanani tanlash shart!',
-          'you_must_add_product':
-              'Eng kamida 10 ta mahsulot\ntanlanishi kerak!',
+          'you_must_add_product': 'Eng kamida 1 ta mahsulot\ntanlanishi kerak!',
           'you_must_select_photo': 'Rasm yuklanishi shart!',
           'products': 'Mahsulotlar:',
           'order': 'Rasmiylashtirish',
@@ -158,7 +158,7 @@ class AppTranslations extends Translations {
           'instruction': "Qo'llanma",
           'terms_of_using': 'Foydalanish shartlari',
           'wrong_password': 'Parol xato kiritildi!',
-          'phone_number': 'Telefon raqam',
+          'phone_number': 'Raqam',
           'don_not_forget_to_add_number':
               "Do'koningizga @number raqamini yuk xatlari bilan ishlaydigan xodim sifatida qo'shishni unutmang hamda do'kon nomini to'g'ri kiriting!",
           'you_will_be_blocked':
@@ -274,8 +274,17 @@ class AppTranslations extends Translations {
           'special_settings': 'Maxsus sozlamalar',
           'not_available': 'Mavjud emas',
           'customer': 'Mijoz:',
+          'new_version_available': 'Yangi versiya mavjud!',
+          'update_to_use': 'Foydalanishda davom etish uchun ilovani yangilang!',
           'share_token':
-              'Assalomu alaykum!\nSellerPRO dasturidan tekinga istalgan sanaga timeslot olmoqchi boʻlsangiz dasturda roʻyhatdan oʻtishning `referal` qismiga quyidagi Referal ID ni kiriting. Shunda sizga va menga 100 tadan 300 tagacha bepul limit beriladi:) \nDasturni yuklab oling:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token'
+              'Assalomu alaykum!\nSellerPRO dasturidan tekinga istalgan sanaga timeslot olmoqchi boʻlsangiz dasturda roʻyhatdan oʻtishning `referal` qismiga quyidagi Referal ID ni kiriting. Shunda sizga va menga 100 tadan 300 tagacha bepul limit beriladi:) \nDasturni yuklab oling:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token',
+          'signUpInstruction': "Ro'yxatdan o'tish qo'llanmasi",
+          'signInInstruction': "Hisobga kirish qo'llanmasi",
+          'add_market_info':
+              '@email raqamingizni hozir qoʻshayotgan doʻkoningizga "Tovarlarni tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshishni unutmang!',
+          'create_order_info':
+              '@email raqamingizni @store doʻkoningizga "Tovarlar tayyorlash markazi xodimi" roli bilan xodim sifatida qoʻshganingizga ishonchingiz komilmi?',
+          'phone_number_not_valid': "Telefon raqamni to'liq kiriting!",
         },
         'ru_Ru': {
           'password_invalid': 'Пароль должен содержать не менее \n8 символов!',
@@ -301,7 +310,7 @@ class AppTranslations extends Translations {
           'order': 'Формализация',
           'you_must_select_market': 'Магазин не выбран!',
           'you_must_select_data': 'Выбор даты обязателен!',
-          'you_must_add_product': 'Должен быть хотя бы 10 товар!',
+          'you_must_add_product': 'Должен быть хотя бы 1 товар!',
           'you_must_select_photo': 'Изображение должно\nбыть загружено!',
           'products': 'Продукты:',
           'ordered_successfully': 'Заказ выполнен!',
@@ -542,7 +551,18 @@ class AppTranslations extends Translations {
           'customer': 'Клиент:',
           'share_token':
               'Приветствую!\nЕсли вы хотите получить бесплатный временной интервал на любую дату от программы SellerPRO, введите следующий реферальный идентификатор в разделе ``реферал'
-                  ' регистрации программы. Тогда нам с вами будет предоставлен бесплатный лимит от 100 до 300 :) \nСкачать приложение:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token'
+                  ' регистрации программы. Тогда нам с вами будет предоставлен бесплатный лимит от 100 до 300 :) \nСкачать приложение:\n\nAndroid: @android\n\nIOS: @ios\n\nReferal ID: @token',
+          'new_version_available': 'Доступна новая версия!',
+          'update_to_use':
+              'Обновите приложение, чтобы продолжать им пользоваться!',
+          'signUpInstruction': 'Руководство по регистрации',
+          'signInInstruction': 'Руководство по входу в учетную запись',
+          'add_market_info':
+              'Не забудьте добавить @email в качестве сотрудника с ролью «Сотрудник производственного центра» в магазин, который вы сейчас добавляете!',
+          'create_order_info':
+              'Вы уверены, что добавили свой @email в @store в качестве сотрудника с ролью «Сотрудник центра закупок»?',
+          'phone_number_not_valid': 'Введите полный номер телефона!',
+          'restriction': 'Ограничение',
         }
       };
 }

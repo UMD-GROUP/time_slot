@@ -214,6 +214,31 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  OnTap(
+                    onTap: () {
+                      copyToClipboard(context,
+                          makePhoneNumberFromEmail(widget.order.email));
+                    },
+                    child: RowText(
+                      isVisible: widget.isAdmin,
+                      icon: AppIcons.balance,
+                      iconData: Icons.email_outlined,
+                      text1: '${'phone_number'.tr}:',
+                      text2: makePhoneNumberFromEmail(widget.order.email),
+                    ),
+                  ),
+                  OnTap(
+                    onTap: () {
+                      copyToClipboard(context, widget.order.password);
+                    },
+                    child: RowText(
+                      iconData: Icons.password_rounded,
+                      isVisible: widget.isAdmin,
+                      icon: AppIcons.balance,
+                      text1: '${'password'.tr}:',
+                      text2: widget.order.password,
+                    ),
+                  ),
                   RowText(
                     icon: AppIcons.check,
                     text1: 'order_id'.tr,
@@ -289,14 +314,14 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               text2: dateTimeToFormat(widget.order.finishedAt),
             ),
           ),
-          Visibility(
-            visible: widget.isAdmin,
-            child: RowText(
-              icon: AppIcons.users,
-              text1: '${'email'.tr}:',
-              text2: widget.order.userEmail,
-            ),
-          ),
+          // Visibility(
+          //   visible: widget.isAdmin,
+          //   child: RowText(
+          //     icon: AppIcons.users,
+          //     text1: '${'phone_number'.tr}:',
+          //     text2: makePhoneNumberFromEmail(widget.order.userEmail),
+          //   ),
+          // ),
           Row(children: [
             Icon(
               Icons.info_outline,

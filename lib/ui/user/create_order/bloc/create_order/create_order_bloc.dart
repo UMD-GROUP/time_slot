@@ -23,57 +23,49 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
 
   OrderModel calculateSum(OrderModel order, int? freeLimit1, int minAmount) {
     int sum = 0;
+    int totalSum = 0;
     final int price = order.reserve.isNull ? 0 : order.reserve!.price;
     final int freeLimit = freeLimit1 ?? 0;
-    final int productCount =
+    final int allProductsCount =
         order.products.fold(0, (i, e) => int.parse((i + e.count).toString()));
-    sum += (productCount >= freeLimit ? productCount - freeLimit : 0) * price;
-    order.sum = sum;
+    final int paidProductsCount =
+        allProductsCount > freeLimit ? allProductsCount - freeLimit : 0;
+    sum += paidProductsCount * price;
+    totalSum += paidProductsCount * price;
     double discount = 0;
+    order.freeLimit =
+        allProductsCount > freeLimit ? freeLimit : allProductsCount;
 
-    if (freeLimit >= productCount) {
-      order.freeLimit = productCount;
-    } else {
-      order.freeLimit = freeLimit;
-    }
-
-    final int discountProductsCount = productCount - freeLimit;
-
-    if (!order.promoCode.isNull && order.promoCode!.minAmount <= productCount) {
-      sum -= (sum / 100 * order.promoCode!.discount).toInt();
-    } else if (discountProductsCount >= 100 && discountProductsCount <= 199) {
+    if (!order.promoCode.isNull &&
+        order.promoCode!.minAmount <= allProductsCount) {
+      totalSum -= (totalSum / 100 * order.promoCode!.discount).toInt();
+    } else if (paidProductsCount >= 100 && paidProductsCount <= 199) {
       discount = 0.1;
-    } else if (discountProductsCount > 199 && discountProductsCount <= 499) {
+    } else if (paidProductsCount > 199 && paidProductsCount <= 499) {
       discount = 0.15;
-    } else if (discountProductsCount >= 500 && discountProductsCount <= 999) {
+    } else if (paidProductsCount >= 500 && paidProductsCount <= 999) {
       discount = 0.2;
-    } else if (discountProductsCount >= 1000 && discountProductsCount <= 1999) {
+    } else if (paidProductsCount >= 1000 && paidProductsCount <= 1999) {
       discount = 0.25;
-    } else if (discountProductsCount >= 2000) {
+    } else if (paidProductsCount >= 2000) {
       discount = 0.3;
     }
-    if (discount != 0 && sum > 10000) {
-      order.sum = sum;
-      sum = sum - (sum * discount).toInt();
-      order.discountUsed = true;
-      if (sum == 0) {
-        order.totalSum = 10000;
+
+    totalSum = totalSum - (sum * discount).toInt();
+    order.discountUsed = discount != 0.0;
+
+    if (!order.discountUsed && order.promoCode.isNull) {
+      if (sum < minAmount && paidProductsCount > 0) {
+        sum = minAmount;
+        totalSum = minAmount;
       }
-    } else {
-      order.discountUsed = false;
     }
 
-    if (discountProductsCount > 0 &&
-        (order.sum < minAmount || order.totalSum < minAmount)) {
-      sum = minAmount;
-      order
-        ..totalSum = minAmount
-        ..sum = minAmount;
-    }
-
-    order.totalSum = sum - sum % 1000;
+    order
+      ..sum = sum - sum % 1000
+      ..totalSum = totalSum - totalSum % 1000;
     print(
-        'MANA SUM -> ${order.sum} -> ${order.totalSum}  Discount->  $discount, ProductsCount -> $discountProductsCount');
+        'MANA SUM -> ${order.sum} -> ${totalSum}  Discount->  $discount, PaidProductsCount -> $paidProductsCount, ProductsCount-> $allProductsCount, FreeLimits $freeLimit');
 
     return order;
   }

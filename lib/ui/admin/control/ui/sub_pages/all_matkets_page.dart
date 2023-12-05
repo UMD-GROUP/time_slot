@@ -11,6 +11,7 @@ class AllMarketsPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         appBar: AppBar(
+          centerTitle: true,
           actions: [
             IconButton(
                 onPressed: () {
