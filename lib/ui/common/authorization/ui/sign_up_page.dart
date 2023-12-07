@@ -88,6 +88,7 @@ class SignupPage extends StatelessWidget {
                                     controller: controllers[1]),
                                 inputFile(
                                     label: 'Referall'.tr,
+                                    isReferral: true,
                                     controller: controllers[2]),
                               ],
                             ),
@@ -176,7 +177,9 @@ class SignupPage extends StatelessWidget {
 }
 
 // we will be creating a widget for text field
-Widget inputFile({label, obscureText = false, controller}) => Column(
+Widget inputFile(
+        {label, obscureText = false, controller, isReferral = false}) =>
+    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
@@ -191,7 +194,13 @@ Widget inputFile({label, obscureText = false, controller}) => Column(
           keyboardType: obscureText ? TextInputType.text : TextInputType.number,
           controller: controller,
           obscureText: obscureText,
-          inputFormatters: obscureText ? null : [MaxLengthInputFormatter(13)],
+          onChanged: (value) {
+            if (value.length <= 4 && !obscureText) {
+              controller.text = '+998';
+            }
+          },
+          inputFormatters:
+              obscureText || isReferral ? null : [MaxLengthInputFormatter(13)],
           decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               enabledBorder: const OutlineInputBorder(

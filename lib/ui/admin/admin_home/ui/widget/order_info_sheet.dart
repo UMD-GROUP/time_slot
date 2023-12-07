@@ -4,6 +4,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class OrderInfoBottomSheet extends StatefulWidget {
   OrderInfoBottomSheet(
@@ -51,7 +52,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
           CupertinoActionSheetAction(
               onPressed: () async {
                 copyToClipboard(context, makeReport(widget.order));
-                await launch('https://t.me/Timeslot_admin');
+                await launchUrlString('https://t.me/SellerPRO_Manager');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
