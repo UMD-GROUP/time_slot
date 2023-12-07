@@ -191,7 +191,9 @@ Widget inputFile(
           height: 5,
         ),
         TextField(
-          keyboardType: obscureText ? TextInputType.text : TextInputType.number,
+          keyboardType: obscureText || isReferral
+              ? TextInputType.text
+              : TextInputType.number,
           controller: controller,
           obscureText: obscureText,
           onChanged: (value) {
