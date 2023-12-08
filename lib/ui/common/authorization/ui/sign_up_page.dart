@@ -197,7 +197,7 @@ Widget inputFile(
           controller: controller,
           obscureText: obscureText,
           onChanged: (value) {
-            if (value.length <= 4 && !obscureText) {
+            if (value.length <= 4 && !obscureText && !isReferral) {
               controller.text = '+998';
             }
           },
