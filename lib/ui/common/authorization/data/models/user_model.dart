@@ -12,6 +12,7 @@ class UserModel {
       this.isBlocked = false,
       this.language = 'uz',
       this.token = '',
+      this.phoneNumber = '',
       this.isConfirmed = false,
       this.marketNumber = '',
       this.fcmToken = '',
@@ -26,6 +27,7 @@ class UserModel {
         language: json['language'] ?? 'uz',
         referrals: json['referrals'] ?? [],
         sumOfOrders: json['sumOfOrders'] ?? 10,
+        phoneNumber: json['phoneNumber'] ?? '',
         marketNumber: json['marketNumber'] ?? '',
         createdAt:
             DateTime.parse(json['createdAt'] ?? DateTime(2023).toString()),
@@ -38,7 +40,7 @@ class UserModel {
         email: json['email'] ?? '',
         password: json['password'] ?? '',
       );
-  final String email;
+  String email;
   final String password;
   String referallId;
   String uid;
@@ -55,11 +57,13 @@ class UserModel {
   bool isConfirmed;
   String marketNumber;
   bool isAdmin;
+  String phoneNumber;
 
   Map<String, Object> toJson() => {
         'markets': markets,
         'freeLimits': freeLimits,
         'email': email,
+        'phoneNumber': phoneNumber,
         'password': password,
         'fcmToken': fcmToken,
         'sumOfOrders': sumOfOrders,

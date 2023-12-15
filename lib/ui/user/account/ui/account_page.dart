@@ -19,6 +19,7 @@ class _AccountPageState extends State<AccountPage> {
         backgroundColor: AdaptiveTheme.of(context).theme.backgroundColor,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
             onPressed: () {
@@ -64,12 +65,12 @@ class _AccountPageState extends State<AccountPage> {
                           subtitle: state.user!.token,
                         ),
                         InfoActionButton(
-                          title: 'Email:'.tr,
+                          title: '${'phone_number'.tr}:',
                           onTap: () {
-                            copyToClipboard(context, state.user!.email);
+                            copyToClipboard(context, state.user!.phoneNumber);
                           },
-                          icon: Icons.email,
-                          subtitle: substringTheEmail(state.user.email),
+                          icon: Icons.phone,
+                          subtitle: state.user.phoneNumber,
                         ),
                         SizedBox(height: height(context) * 0.02),
                         const UserStores(),
@@ -120,7 +121,7 @@ class _AccountPageState extends State<AccountPage> {
                           }, icon: Icons.integration_instructions_outlined),
                         ),
                         AccountActionButton('support'.tr, onTap: () async {
-                          await launch('https://t.me/Timeslot_Admin');
+                          await launch('https://t.me/SellerPRO_Manager');
                         }, icon: Icons.telegram),
                         AccountActionButton('share'.tr, onTap: () async {
                           await Share.share('share_token'.trParams({

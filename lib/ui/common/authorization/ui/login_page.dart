@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
                                 child: Column(
                                   children: <Widget>[
                                     inputFile(
-                                        label: 'email'.tr,
+                                        label: 'phone_number'.tr,
                                         controller: controllers[0]),
                                     inputFile(
                                         label: 'password'.tr,
@@ -96,7 +96,7 @@ class LoginPage extends StatelessWidget {
                                   OnTap(
                                     onTap: () {
                                       launchUrlString(
-                                          'https://t.me/Timeslot_Admin');
+                                          'https://t.me/SellerPRO_Manager');
                                     },
                                     child: Text(
                                       'reset_your_password'.tr,
@@ -136,7 +136,8 @@ class LoginPage extends StatelessWidget {
                                       context.read<AuthorizationBloc>().add(
                                           SignInEvent(UserModel(
                                               fcmToken: fcmToken ?? '',
-                                              email: controllers[0].text.trim(),
+                                              phoneNumber:
+                                                  controllers[0].text.trim(),
                                               password:
                                                   controllers[1].text.trim())));
                                     },
@@ -209,8 +210,15 @@ Widget inputFile({label, controller, obscureText = false}) => Column(
           height: 5,
         ),
         TextField(
+          inputFormatters: obscureText ? null : [MaxLengthInputFormatter(13)],
           obscureText: obscureText,
           controller: controller,
+          keyboardType: obscureText ? TextInputType.text : TextInputType.number,
+          onChanged: (value) {
+            if (value.length <= 4 && !obscureText) {
+              controller.text = '+998';
+            }
+          },
           decoration: InputDecoration(
               focusColor: Colors.deepPurple,
               contentPadding: EdgeInsets.symmetric(horizontal: 10.h),

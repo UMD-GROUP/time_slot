@@ -1424,7 +1424,7 @@ Future<bool> sendPushNotification(
       'title': title.tr,
       'body': message.tr,
     },
-    'to': isToAll ? '/topics/news' : deviceToken,
+    'token': deviceToken,
     'data': {
       'id': Random().nextInt(1000),
       'title': title.tr,
@@ -1617,4 +1617,45 @@ int discountGenerator(int productsCount) {
 
 String substringTheEmail(String e) {
   return "${e[0]}${e[1]}***${e.split('@').first[e.split('@').first.length - 2]}${e.split('@').first[e.split('@').first.length - 1]}@gmail.com";
+}
+
+int compareVersions(String version1, String version2) {
+  final v1Parts = version1.split('.').map(int.parse).toList();
+  final v2Parts = version2.split('.').map(int.parse).toList();
+
+  final int maxLength =
+      v1Parts.length > v2Parts.length ? v1Parts.length : v2Parts.length;
+
+  for (int i = 0; i < maxLength; i++) {
+    final int v1 = i < v1Parts.length ? v1Parts[i] : 0;
+    final int v2 = i < v2Parts.length ? v2Parts[i] : 0;
+
+    if (v1 > v2) {
+      return 1;
+    } else if (v1 < v2) {
+      return -1;
+    }
+  }
+
+  return 0;
+}
+
+String makeEmailFromPhoneNumber(String phoneNumber) {
+  // Replace '+' with 'u'
+  final String modifiedPhoneNumber = phoneNumber.replaceFirst('+', 'u');
+
+  // Construct the email using the modified phone number and the Gmail domain
+  final String email = '$modifiedPhoneNumber@gmail.com';
+
+  return email;
+}
+
+String makePhoneNumberFromEmail(String email) {
+  // Extract the username part of the email (before '@')
+  final String username = email.split('@')[0];
+
+  // Replace 'u' with '+' at the beginning of the username
+  final String phoneNumber = username.replaceFirst('u', '+');
+
+  return phoneNumber;
 }

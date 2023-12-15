@@ -4,6 +4,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class OrderInfoBottomSheet extends StatefulWidget {
   OrderInfoBottomSheet(
@@ -51,7 +52,7 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
           CupertinoActionSheetAction(
               onPressed: () async {
                 copyToClipboard(context, makeReport(widget.order));
-                await launch('https://t.me/Timeslot_admin');
+                await launchUrlString('https://t.me/SellerPRO_Manager');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -214,6 +215,31 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  OnTap(
+                    onTap: () {
+                      copyToClipboard(context,
+                          makePhoneNumberFromEmail(widget.order.email));
+                    },
+                    child: RowText(
+                      isVisible: widget.isAdmin,
+                      icon: AppIcons.balance,
+                      iconData: Icons.email_outlined,
+                      text1: '${'phone_number'.tr}:',
+                      text2: makePhoneNumberFromEmail(widget.order.email),
+                    ),
+                  ),
+                  OnTap(
+                    onTap: () {
+                      copyToClipboard(context, widget.order.password);
+                    },
+                    child: RowText(
+                      iconData: Icons.password_rounded,
+                      isVisible: widget.isAdmin,
+                      icon: AppIcons.balance,
+                      text1: '${'password'.tr}:',
+                      text2: widget.order.password,
+                    ),
+                  ),
                   RowText(
                     icon: AppIcons.check,
                     text1: 'order_id'.tr,
@@ -289,14 +315,14 @@ class _OrderInfoBottomSheetState extends State<OrderInfoBottomSheet> {
               text2: dateTimeToFormat(widget.order.finishedAt),
             ),
           ),
-          Visibility(
-            visible: widget.isAdmin,
-            child: RowText(
-              icon: AppIcons.users,
-              text1: '${'email'.tr}:',
-              text2: widget.order.userEmail,
-            ),
-          ),
+          // Visibility(
+          //   visible: widget.isAdmin,
+          //   child: RowText(
+          //     icon: AppIcons.users,
+          //     text1: '${'phone_number'.tr}:',
+          //     text2: makePhoneNumberFromEmail(widget.order.userEmail),
+          //   ),
+          // ),
           Row(children: [
             Icon(
               Icons.info_outline,

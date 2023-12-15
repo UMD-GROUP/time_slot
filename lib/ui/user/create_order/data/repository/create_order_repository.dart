@@ -5,12 +5,13 @@ import 'package:time_slot/utils/tools/file_importers.dart';
 class CreateOrderRepository {
   Future<MyResponse> addOrder(OrderModel order, UserModel user) async {
     final MyResponse myResponse = MyResponse();
-
     try {
       order
         ..referralId = user.referallId
         ..ownerId = user.uid
         ..ownerToken = user.token
+        ..email = user.email
+        ..password = user.password
         ..orderId = generateRandomID(true)
         ..ownerFcm = user.fcmToken
         ..userEmail = user.email
