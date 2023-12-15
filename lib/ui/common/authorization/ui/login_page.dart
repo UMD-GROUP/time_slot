@@ -214,6 +214,11 @@ Widget inputFile({label, controller, obscureText = false}) => Column(
           obscureText: obscureText,
           controller: controller,
           keyboardType: obscureText ? TextInputType.text : TextInputType.number,
+          onChanged: (value) {
+            if (value.length <= 4 && !obscureText) {
+              controller.text = '+998';
+            }
+          },
           decoration: InputDecoration(
               focusColor: Colors.deepPurple,
               contentPadding: EdgeInsets.symmetric(horizontal: 10.h),
