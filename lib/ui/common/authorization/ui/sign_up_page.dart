@@ -3,7 +3,9 @@
 import 'dart:io';
 
 import 'package:time_slot/ui/common/authorization/ui/widgets/google_button.dart';
+import 'package:time_slot/ui/widgets/timer_button.dart';
 import 'package:time_slot/utils/tools/file_importers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({required this.controllers, super.key, required this.onTap});
@@ -107,20 +109,75 @@ class SignupPage extends StatelessWidget {
                                 minWidth: double.infinity,
                                 height: 60,
                                 onPressed: () async {
-                                  String? fcmToken = '';
-                                  if (Platform.isAndroid) {
-                                    fcmToken = await FirebaseMessaging.instance
-                                        .getToken();
-                                  }
-                                  context
-                                      .read<AuthorizationBloc>()
-                                      .add(CreateAccountEvent(UserModel(
-                                        fcmToken: fcmToken ?? '',
-                                        createdAt: DateTime.now(),
-                                        password: controllers[1].text.trim(),
-                                        phoneNumber: controllers[0].text.trim(),
-                                        referallId: controllers[2].text.trim(),
-                                      )));
+                                  showConfirmCancelDialog(context, () {},
+                                      topTitle: Text(
+                                        'attention'.tr,
+                                        style: AppTextStyles.labelLarge(context,
+                                            color: Colors.red, fontSize: 18.sp),
+                                      ),
+                                      bottomButton: context
+                                              .read<DataFromAdminBloc>()
+                                              .state
+                                              .data!
+                                              .signUpInstruction
+                                              .isNotEmpty
+                                          ? OnTap(
+                                              onTap: () {
+                                                launchUrlString(context
+                                                    .read<DataFromAdminBloc>()
+                                                    .state
+                                                    .data!
+                                                    .signUpInstruction);
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Image.asset(
+                                                    AppImages
+                                                        .youtube, // Provide your Google logo image asset
+                                                    height:
+                                                        24, // Adjust the height as needed
+                                                  ),
+                                                  const SizedBox(
+                                                      width:
+                                                          12), // Spacing between the icon and text
+                                                  Text(
+                                                    'instruction'.tr,
+                                                    style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight
+                                                          .w600, // Text color
+                                                      fontSize:
+                                                          16, // Text font size
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          : null, button: TimerButton(() async {
+                                    String? fcmToken = '';
+                                    if (Platform.isAndroid) {
+                                      fcmToken = await FirebaseMessaging
+                                          .instance
+                                          .getToken();
+                                    }
+                                    context
+                                        .read<AuthorizationBloc>()
+                                        .add(CreateAccountEvent(UserModel(
+                                          fcmToken: fcmToken ?? '',
+                                          createdAt: DateTime.now(),
+                                          password: controllers[1].text.trim(),
+                                          phoneNumber:
+                                              controllers[0].text.trim(),
+                                          referallId:
+                                              controllers[2].text.trim(),
+                                        )));
+                                  }),
+                                      title: 'sign_up_info'.trParams(
+                                          {'number': controllers.first.text}));
+
+                                  ////////
                                 },
                                 color: Colors.deepPurple,
                                 elevation: 0,
